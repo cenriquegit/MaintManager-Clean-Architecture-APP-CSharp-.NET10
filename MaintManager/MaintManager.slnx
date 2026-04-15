@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="MaintManager.API/MaintManager.API.csproj" />
+  <Project Path="MaintManager.Application/MaintManager.Application.csproj" />
+  <Project Path="MaintManager.Domain/MaintManager.Domain.csproj" />
+  <Project Path="MaintManager.Infrastructure/MaintManager.Infrastructure.csproj" />
+  <Project Path="MaintManager.MAUI/MaintManager.MAUI.csproj" />
+  <Project Path="MaintManager.Shared/MaintManager.Shared.csproj" />
+</Solution>

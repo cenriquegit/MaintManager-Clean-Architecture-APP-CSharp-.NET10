@@ -1,0 +1,11 @@
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\bin\Debug\net10.0\MaintManager.Domain.deps.json
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\bin\Debug\net10.0\MaintManager.Domain.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\bin\Debug\net10.0\MaintManager.Domain.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\MaintManager.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\MaintManager.Domain.AssemblyInfoInputs.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\MaintManager.Domain.AssemblyInfo.cs
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\MaintManager.Domain.csproj.CoreCompileInputs.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\MaintManager.Domain.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\refint\MaintManager.Domain.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\MaintManager.Domain.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Domain\obj\Debug\net10.0\ref\MaintManager.Domain.dll

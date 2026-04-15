@@ -1,0 +1,17 @@
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Application.deps.json
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Application.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Application.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Domain.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Shared.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Domain.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\bin\Debug\net10.0\MaintManager.Shared.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.csproj.AssemblyReference.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.AssemblyInfoInputs.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.AssemblyInfo.cs
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.csproj.CoreCompileInputs.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintMan.FB192CB7.Up2Date
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\refint\MaintManager.Application.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\MaintManager.Application.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Application\obj\Debug\net10.0\ref\MaintManager.Application.dll
