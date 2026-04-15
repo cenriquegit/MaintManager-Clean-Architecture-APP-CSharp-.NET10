@@ -1,3 +1,8 @@
+using MaintManager.Application.DTOs.Vehicle;
+using MaintManager.Domain.Entities.Existing;
+
+namespace MaintManager.Application.Mappings;
+
 public static class VehicleMappings
 {
     public static VehicleListItem ToListItem(this Vehicle v, int currentKm,
@@ -30,5 +35,3 @@ public static class VehicleMappings
             IsActive: v.Status
         );
 }
-
-/// <summary>Mapeos de Maintenance → DTO.</summary>

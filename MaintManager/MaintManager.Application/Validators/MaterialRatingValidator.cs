@@ -1,3 +1,5 @@
+using FluentValidation;
+using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
 public sealed class MaterialRatingValidator : AbstractValidator<MaterialRatingRequest>
 {
     public MaterialRatingValidator()

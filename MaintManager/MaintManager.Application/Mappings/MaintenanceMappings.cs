@@ -1,3 +1,8 @@
+using MaintManager.Application.DTOs.Maintenance;
+using MaintManager.Domain.Entities;
+
+namespace MaintManager.Application.Mappings;
+
 public static class MaintenanceMappings
 {
     public static MaintenanceListItem ToListItem(this Maintenance m,
@@ -65,5 +70,3 @@ public static class MaintenanceMappings
             CreatedAt: d.CreatedAt
         );
 }
-
-/// <summary>Mapeos de inventario → DTO.</summary>

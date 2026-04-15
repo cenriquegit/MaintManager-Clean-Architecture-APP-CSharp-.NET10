@@ -1,4 +1,3 @@
-
 using MaintManager.Domain.Entities.Existing;
 
 namespace MaintManager.Domain.Interfaces.Repositories;
@@ -15,6 +14,3 @@ public interface IVehicleRepository
     /// </summary>
     Task<int> GetCurrentKmAsync(int prcoid, CancellationToken ct = default);
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-

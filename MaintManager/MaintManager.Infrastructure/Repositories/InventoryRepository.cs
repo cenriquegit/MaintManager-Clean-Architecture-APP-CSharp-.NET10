@@ -1,18 +1,11 @@
-// MaintManager.Infrastructure/Repositories/AllRepositories.cs
-// ACTUALIZADO:
-// — VehicleRepository: GetCurrentKmAsync corregido con nueva estructura BD-FINAL
-//   (join rentrequest→prodid para obtener los km del vehículo)
-// — El resto de repositorios no cambia respecto a la versión anterior
 using MaintManager.Domain.Entities;
-using MaintManager.Domain.Entities.Existing;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaintManager.Infrastructure.Repositories;
-{
 
-internal sealed class InventoryRepository : IInventoryRepository
+public sealed class InventoryRepository : IInventoryRepository
 {
     private readonly FleetMaintenanceContext _context;
 
@@ -58,16 +51,13 @@ internal sealed class InventoryRepository : IInventoryRepository
             .ThenBy(ml => ml.EntryDate)
             .ToListAsync(ct);
 
-    public async Task<IReadOnlyList<MaterialLot>> GetExpiringLotsAsync(int daysThreshold, CancellationToken ct = default)
-    {
-        var limitDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(daysThreshold));
-        return await _context.MaterialLots.AsNoTracking()
+    public async Task<IReadOnlyList<MaterialLot>> GetExpiringLotsAsync(DateOnly limitDate, CancellationToken ct = default) =>
+        await _context.MaterialLots.AsNoTracking()
             .Where(ml => ml.LotStatus == "activo" && ml.ExpirationDate.HasValue
                 && ml.ExpirationDate.Value <= limitDate)
             .Include(ml => ml.Material).ThenInclude(m => m!.Category)
             .OrderBy(ml => ml.ExpirationDate)
             .ToListAsync(ct);
-    }
 
     public async Task AddLotAsync(MaterialLot lot, CancellationToken ct = default) =>
         await _context.MaterialLots.AddAsync(lot, ct);
@@ -80,12 +70,13 @@ internal sealed class InventoryRepository : IInventoryRepository
     public async Task AddDiscardAsync(MaterialDiscard discard, CancellationToken ct = default) =>
         await _context.MaterialDiscards.AddAsync(discard, ct);
 
+    public async Task<IReadOnlyList<InstalledComponent>> GetExpiringComponentsAsync(DateOnly limitDate, CancellationToken ct = default) =>
+        await _context.InstalledComponents.AsNoTracking()
+            .Where(ic => ic.Active && ic.ExpirationDate.HasValue && ic.ExpirationDate.Value <= limitDate)
+            .Include(ic => ic.ActionCatalog)
+            .OrderBy(ic => ic.ExpirationDate)
+            .ToListAsync(ct);
+
     public async Task<int> SaveChangesAsync(CancellationToken ct = default) =>
         await _context.SaveChangesAsync(ct);
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// AlertRepository — sin cambios respecto a versión anterior
-// ─────────────────────────────────────────────────────────────────────────────
-
 }

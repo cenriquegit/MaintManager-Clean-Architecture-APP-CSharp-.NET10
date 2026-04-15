@@ -1,4 +1,3 @@
-
 using MaintManager.Domain.Entities;
 
 namespace MaintManager.Domain.Interfaces.Repositories;
@@ -23,7 +22,9 @@ public interface IInventoryRepository
     /// </summary>
     Task<IReadOnlyList<MaterialLot>> GetFifoLotsAsync(int mateid, CancellationToken ct = default);
 
-    Task<IReadOnlyList<MaterialLot>> GetExpiringLotsAsync(int daysThreshold, CancellationToken ct = default);
+    /// <summary>Obtiene lotes que vencen antes de la fecha límite.</summary>
+    Task<IReadOnlyList<MaterialLot>> GetExpiringLotsAsync(DateOnly limitDate, CancellationToken ct = default);
+
     Task AddLotAsync(MaterialLot lot, CancellationToken ct = default);
     void UpdateLot(MaterialLot lot);
 
@@ -31,8 +32,9 @@ public interface IInventoryRepository
     Task AddConsumptionAsync(MaterialConsumption consumption, CancellationToken ct = default);
     Task AddDiscardAsync(MaterialDiscard discard, CancellationToken ct = default);
 
+    // Componentes instalados
+    /// <summary>Obtiene componentes instalados que caducan antes de la fecha límite.</summary>
+    Task<IReadOnlyList<InstalledComponent>> GetExpiringComponentsAsync(DateOnly limitDate, CancellationToken ct = default);
+
     Task<int> SaveChangesAsync(CancellationToken ct = default);
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-

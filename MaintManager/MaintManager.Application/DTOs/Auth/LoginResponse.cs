@@ -1,3 +1,5 @@
+namespace MaintManager.Application.DTOs.Auth;
+
 public sealed record LoginResponse(
     string Token,
     string Username,
@@ -5,13 +7,3 @@ public sealed record LoginResponse(
     string Role,
     DateTime ExpiresAt
 );
-
-// ── Common ────────────────────────────────────────────────────────────
-
-namespace MaintManager.Application.DTOs.Common;
-
-/// <summary>
-/// Wrapper de respuesta estandarizada para todos los endpoints.
-/// Success=true + Data en casos exitosos.
-/// Success=false + Message en casos de error.
-/// </summary>

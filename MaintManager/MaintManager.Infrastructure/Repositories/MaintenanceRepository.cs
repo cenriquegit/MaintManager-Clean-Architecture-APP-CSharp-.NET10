@@ -1,29 +1,17 @@
-// MaintManager.Infrastructure/Repositories/AllRepositories.cs
-// ACTUALIZADO:
-// — VehicleRepository: GetCurrentKmAsync corregido con nueva estructura BD-FINAL
-//   (join rentrequest→prodid para obtener los km del vehículo)
-// — El resto de repositorios no cambia respecto a la versión anterior
 using MaintManager.Domain.Entities;
-using MaintManager.Domain.Entities.Existing;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaintManager.Infrastructure.Repositories;
+
+public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMaintenanceRepository
 {
+    public MaintenanceRepository(FleetMaintenanceContext context) : base(context)
+    {
+    }
 
-internal sealed class MaintenanceRepository : IMaintenanceRepository
-{
-    private readonly FleetMaintenanceContext _context;
-
-    public MaintenanceRepository(FleetMaintenanceContext context) => _context = context;
-
-    public async Task<Maintenance?> GetByIdAsync(int id, CancellationToken ct = default) =>
-        await _context.Maintenances.FindAsync([id], ct);
-
-    public async Task<IReadOnlyList<Maintenance>> GetAllAsync(CancellationToken ct = default) =>
-        await _context.Maintenances.AsNoTracking()
-            .OrderByDescending(m => m.MaintenanceDate).ToListAsync(ct);
+    // Métodos específicos de IMaintenanceRepository (conservando TODA tu lógica original)
 
     public async Task<IReadOnlyList<Maintenance>> GetByVehicleAsync(int prcoid, CancellationToken ct = default) =>
         await _context.Maintenances.AsNoTracking()
@@ -39,8 +27,8 @@ internal sealed class MaintenanceRepository : IMaintenanceRepository
             .Include(m => m.ServiceType)
             .Include(m => m.ActionDetails).ThenInclude(d => d.ActionCatalog)
             .Include(m => m.Diagnosis)
-            .Include(m => m.MaterialConsumptions)
-            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)
+            .Include(m => m.MaterialConsumptions)          // ← conservado
+            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)  // ← conservado
             .FirstOrDefaultAsync(m => m.Mainid == mainid, ct);
 
     public async Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default) =>
@@ -57,23 +45,4 @@ internal sealed class MaintenanceRepository : IMaintenanceRepository
             .OrderByDescending(m => m.MaintenanceDate)
             .Skip((page - 1) * pageSize).Take(pageSize)
             .ToListAsync(ct);
-
-    public async Task AddAsync(Maintenance entity, CancellationToken ct = default) =>
-        await _context.Maintenances.AddAsync(entity, ct);
-
-    public void Update(Maintenance entity) => _context.Maintenances.Update(entity);
-    public void Delete(Maintenance entity) => _context.Maintenances.Remove(entity);
-
-    public async Task<int> SaveChangesAsync(CancellationToken ct = default) =>
-        await _context.SaveChangesAsync(ct);
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// VehicleRepository — ACTUALIZADO para BD-FINAL
-// Cambios:
-// 1. GetCurrentKmAsync: join correcto rentexecute→rentrequest→prodid
-//    (la nueva BD tiene FK explícita rentrequest→prodid para obtener el vehículo)
-// 2. GetActiveVehiclesAsync: incluye Product para obtener el nombre del vehículo
-// ─────────────────────────────────────────────────────────────────────────────
-
 }

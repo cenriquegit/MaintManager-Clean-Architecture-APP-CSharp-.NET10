@@ -1,3 +1,9 @@
+using MaintManager.Application.DTOs.Inventory;
+using MaintManager.Application.DTOs.Reports;
+using MaintManager.Domain.Entities;
+
+namespace MaintManager.Application.Mappings;
+
 public static class InventoryMappings
 {
     public static MaterialListItem ToListItem(this Material m) =>
@@ -51,8 +57,8 @@ public static class InventoryMappings
             AlertType: al.AlertConfig?.AlertType ?? string.Empty,
             Message: al.Message,
             AlertDate: al.AlertDate,
-            LicensePlate: null, // Se rellena en el servicio
-            MaterialName: null, // Se rellena en el servicio
+            LicensePlate: null,
+            MaterialName: null,
             IsRead: al.Read,
             IsResolved: al.Resolved
         );

@@ -51,6 +51,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Controls/StateView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Controls.StateView.xaml
+build_metadata.AdditionalFiles.TargetPath = Controls\StateView.xaml
+build_metadata.AdditionalFiles.RelativePath = Controls\StateView.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.MainPage.xaml
@@ -76,6 +86,36 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/Alerts/AlertListPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.Alerts.AlertListPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Alerts\AlertListPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Alerts\AlertListPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/Inventory/InventoryListPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.Inventory.InventoryListPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Inventory\InventoryListPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Inventory\InventoryListPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/Inventory/LotCreatePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.Inventory.LotCreatePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Inventory\LotCreatePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Inventory\LotCreatePage.xaml
 build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 

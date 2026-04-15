@@ -1,24 +1,30 @@
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
-using MaintManager.Shared.Constants;
 
 namespace MaintManager.Application.Services;
 
 public sealed class SchedulingService : ISchedulingService
 {
-    private readonly FleetMaintenanceContext _context;
     private readonly IVehicleRepository _vehicleRepo;
+    private readonly IGenericRepository<VehicleSchedule> _scheduleRepo;
+    private readonly IGenericRepository<ConfigSystem> _configRepo;
 
-    public SchedulingService(FleetMaintenanceContext context, IVehicleRepository vehicleRepo)
+    public SchedulingService(
+        IVehicleRepository vehicleRepo,
+        IGenericRepository<VehicleSchedule> scheduleRepo,
+        IGenericRepository<ConfigSystem> configRepo)
     {
-        _context = context;
         _vehicleRepo = vehicleRepo;
+        _scheduleRepo = scheduleRepo;
+        _configRepo = configRepo;
     }
 
-    public async Task<VehicleSchedule?> GetScheduleAsync(int prcoid, CancellationToken ct = default) =>
-        await _context.VehicleSchedules
-            .FirstOrDefaultAsync(vs => vs.Prcoid == prcoid && vs.Status, ct);
+    public async Task<VehicleSchedule?> GetScheduleAsync(int prcoid, CancellationToken ct = default)
+    {
+        var schedules = await _scheduleRepo.FindAsync(vs => vs.Prcoid == prcoid && vs.Status, ct);
+        return schedules.FirstOrDefault();
+    }
 
     public async Task<VehicleSchedule> CreateScheduleAsync(
         int prcoid, int currentKm, int createdBy, CancellationToken ct = default)
@@ -28,8 +34,8 @@ public sealed class SchedulingService : ISchedulingService
 
         var intervalKm = await GetIntervalKmFromConfigAsync(ct);
         var schedule = VehicleSchedule.Create(prcoid, currentKm, createdBy, intervalKm);
-        await _context.VehicleSchedules.AddAsync(schedule, ct);
-        await _context.SaveChangesAsync(ct);
+        await _scheduleRepo.AddAsync(schedule, ct);
+        await _scheduleRepo.SaveChangesAsync(ct);
         return schedule;
     }
 
@@ -39,8 +45,8 @@ public sealed class SchedulingService : ISchedulingService
         if (schedule is null) return;
 
         schedule.Reschedule(serviceKm);
-        _context.VehicleSchedules.Update(schedule);
-        await _context.SaveChangesAsync(ct);
+        _scheduleRepo.Update(schedule);
+        await _scheduleRepo.SaveChangesAsync(ct);
     }
 
     public async Task<bool> IsMaintenanceDueSoonAsync(int prcoid, CancellationToken ct = default)
@@ -56,26 +62,15 @@ public sealed class SchedulingService : ISchedulingService
 
     private async Task<int> GetIntervalKmFromConfigAsync(CancellationToken ct)
     {
-        var config = await _context.ConfigSystems
-            .FirstOrDefaultAsync(c => c.Key == "intervalo_km" && c.Status, ct);
-        return config is not null ? config.GetIntValue() : 5000;
+        var configs = await _configRepo.FindAsync(c => c.Key == "intervalo_km" && c.Status, ct);
+        var config = configs.FirstOrDefault();
+        return config?.GetIntValue() ?? 5000;
     }
 
     private async Task<int> GetAlertThresholdFromConfigAsync(CancellationToken ct)
     {
-        var config = await _context.ConfigSystems
-            .FirstOrDefaultAsync(c => c.Key == "alerta_km_umbral" && c.Status, ct);
-        return config is not null ? config.GetIntValue() : 800;
+        var configs = await _configRepo.FindAsync(c => c.Key == "alerta_km_umbral" && c.Status, ct);
+        var config = configs.FirstOrDefault();
+        return config?.GetIntValue() ?? 800;
     }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Application/Services/InventoryService.cs
-using MaintManager.Domain.Entities;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Domain.Interfaces.Services;
-using MaintManager.Shared.Constants;
-
-
-/// <summary>Gestión de inventario de materiales con FIFO por vencimiento.</summary>

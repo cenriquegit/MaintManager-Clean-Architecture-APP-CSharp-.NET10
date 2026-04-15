@@ -1,13 +1,9 @@
-// ─────────────────────────────────────────────────────────────────────────────
+using System.Net;
+using System.Text.Json;
 
-// MaintManager.API/Middleware/GlobalExceptionMiddleware.cs
-namespace MaintManager.API;
+namespace MaintManager.API.Middleware;
 
-/// <summary>
-/// Intercepta todas las excepciones no manejadas y devuelve una respuesta
-/// estandarizada en formato JSON. Nunca expone detalles técnicos al cliente.
-/// </summary>
-public sealed class GlobalExceptionMiddleware
+public class GlobalExceptionMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<GlobalExceptionMiddleware> _logger;

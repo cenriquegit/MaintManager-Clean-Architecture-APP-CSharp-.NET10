@@ -1,3 +1,8 @@
+using FluentValidation;
+using MaintManager.Application.DTOs.Maintenance;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class DiagnosisRequestValidator : AbstractValidator<DiagnosisRequest>
 {
     public DiagnosisRequestValidator()

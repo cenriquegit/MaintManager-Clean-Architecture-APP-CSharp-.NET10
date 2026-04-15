@@ -5,26 +5,26 @@ using MaintManager.Shared.Constants;
 
 namespace MaintManager.Application.Services;
 
+/// <summary>Generación y gestión del sistema de alertas.</summary>
 public sealed class AlertService : IAlertService
 {
-    private readonly FleetMaintenanceContext _context;
     private readonly IAlertRepository _alertRepo;
     private readonly IVehicleRepository _vehicleRepo;
+    private readonly IInventoryRepository _inventoryRepo;
     private readonly ISchedulingService _schedulingService;
 
     public AlertService(
-        FleetMaintenanceContext context,
         IAlertRepository alertRepo,
         IVehicleRepository vehicleRepo,
+        IInventoryRepository inventoryRepo,
         ISchedulingService schedulingService)
     {
-        _context = context;
         _alertRepo = alertRepo;
         _vehicleRepo = vehicleRepo;
+        _inventoryRepo = inventoryRepo;
         _schedulingService = schedulingService;
     }
 
-    /// <summary>Ejecuta todas las verificaciones y genera alertas pendientes.</summary>
     public async Task CheckAndGenerateAlertsAsync(CancellationToken ct = default)
     {
         await CheckMaintenanceDueSoonAsync(ct);
@@ -54,8 +54,7 @@ public sealed class AlertService : IAlertService
 
     private async Task CheckMaintenanceDueSoonAsync(CancellationToken ct)
     {
-        var alertConfig = await _context.AlertConfigs
-            .FirstOrDefaultAsync(ac => ac.AlertType == AlertTypes.MantenimientoProximoKm && ac.Enabled, ct);
+        var alertConfig = await _alertRepo.GetConfigByTypeAsync(AlertTypes.MantenimientoProximoKm, ct);
         if (alertConfig is null) return;
 
         var vehicles = await _vehicleRepo.GetActiveVehiclesAsync(ct);
@@ -63,11 +62,8 @@ public sealed class AlertService : IAlertService
         {
             if (!await _schedulingService.IsMaintenanceDueSoonAsync(vehicle.Prcoid, ct)) continue;
 
-            var alreadyExists = await _context.AlertLogs.AnyAsync(
-                al => al.Alcoid == alertConfig.Alcoid
-                    && al.Prcoid == vehicle.Prcoid
-                    && !al.Resolved, ct);
-
+            var alreadyExists = await _alertRepo.ExistsUnresolvedForReferenceAsync(
+                alertConfig.Alcoid, prcoid: vehicle.Prcoid, ct: ct);
             if (alreadyExists) continue;
 
             var currentKm = await _vehicleRepo.GetCurrentKmAsync(vehicle.Prcoid, ct);
@@ -82,30 +78,22 @@ public sealed class AlertService : IAlertService
 
     private async Task CheckExpiringLotsAsync(CancellationToken ct)
     {
-        var alertConfig = await _context.AlertConfigs
-            .FirstOrDefaultAsync(ac => ac.AlertType == AlertTypes.LotePorVencer && ac.Enabled, ct);
+        var alertConfig = await _alertRepo.GetConfigByTypeAsync(AlertTypes.LotePorVencer, ct);
         if (alertConfig is null) return;
 
         var daysThreshold = int.TryParse(alertConfig.ThresholdValue, out var days) ? days : 30;
         var limitDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(daysThreshold));
 
-        var expiringLots = await _context.MaterialLots
-            .Where(ml => ml.LotStatus == "activo"
-                && ml.ExpirationDate.HasValue
-                && ml.ExpirationDate.Value <= limitDate)
-            .Include(ml => ml.Material)
-            .ToListAsync(ct);
-
+        var expiringLots = await _inventoryRepo.GetExpiringLotsAsync(limitDate, ct);
         foreach (var lot in expiringLots)
         {
-            var alreadyExists = await _context.AlertLogs.AnyAsync(
-                al => al.Alcoid == alertConfig.Alcoid
-                    && al.Maloid == lot.Maloid
-                    && !al.Resolved, ct);
+            var alreadyExists = await _alertRepo.ExistsUnresolvedForReferenceAsync(
+                alertConfig.Alcoid, mateid: lot.Mateid, maloid: lot.Maloid, ct: ct);
             if (alreadyExists) continue;
 
-            var message = $"Lote de {lot.Material?.Name} vence el {lot.ExpirationDate:dd/MM/yyyy}. " +
-                          $"Cantidad restante: {lot.CurrentQuantity} {lot.Material?.UnitOfMeasure}.";
+            var material = await _inventoryRepo.GetMaterialByIdAsync(lot.Mateid, ct);
+            var message = $"Lote de {material?.Name} vence el {lot.ExpirationDate:dd/MM/yyyy}. " +
+                          $"Cantidad restante: {lot.CurrentQuantity} {material?.UnitOfMeasure}.";
             var alert = AlertLog.Create(alertConfig.Alcoid, message,
                 mateid: lot.Mateid, maloid: lot.Maloid);
             await _alertRepo.AddAsync(alert, ct);
@@ -114,20 +102,14 @@ public sealed class AlertService : IAlertService
 
     private async Task CheckLowStockAsync(CancellationToken ct)
     {
-        var alertConfig = await _context.AlertConfigs
-            .FirstOrDefaultAsync(ac => ac.AlertType == AlertTypes.StockBajo && ac.Enabled, ct);
+        var alertConfig = await _alertRepo.GetConfigByTypeAsync(AlertTypes.StockBajo, ct);
         if (alertConfig is null) return;
 
-        var lowStockMaterials = await _context.Materials
-            .Where(m => m.Status && m.StockTotal < m.StockMinimum)
-            .ToListAsync(ct);
-
+        var lowStockMaterials = await _inventoryRepo.GetLowStockMaterialsAsync(ct);
         foreach (var material in lowStockMaterials)
         {
-            var alreadyExists = await _context.AlertLogs.AnyAsync(
-                al => al.Alcoid == alertConfig.Alcoid
-                    && al.Mateid == material.Mateid
-                    && !al.Resolved, ct);
+            var alreadyExists = await _alertRepo.ExistsUnresolvedForReferenceAsync(
+                alertConfig.Alcoid, mateid: material.Mateid, ct: ct);
             if (alreadyExists) continue;
 
             var message = $"Stock bajo de {material.Name}. " +
@@ -140,29 +122,21 @@ public sealed class AlertService : IAlertService
 
     private async Task CheckExpiringComponentsAsync(CancellationToken ct)
     {
-        var alertConfig = await _context.AlertConfigs
-            .FirstOrDefaultAsync(ac => ac.AlertType == AlertTypes.ComponentePorCaducar && ac.Enabled, ct);
+        var alertConfig = await _alertRepo.GetConfigByTypeAsync(AlertTypes.ComponentePorCaducar, ct);
         if (alertConfig is null) return;
 
         var daysThreshold = int.TryParse(alertConfig.ThresholdValue, out var days) ? days : 30;
         var limitDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(daysThreshold));
 
-        var expiringComponents = await _context.InstalledComponents
-            .Where(ic => ic.Active
-                && ic.ExpirationDate.HasValue
-                && ic.ExpirationDate.Value <= limitDate)
-            .Include(ic => ic.ActionCatalog)
-            .ToListAsync(ct);
-
+        var expiringComponents = await _inventoryRepo.GetExpiringComponentsAsync(limitDate, ct);
         foreach (var component in expiringComponents)
         {
-            var alreadyExists = await _context.AlertLogs.AnyAsync(
-                al => al.Alcoid == alertConfig.Alcoid
-                    && al.Incoid == component.Incoid
-                    && !al.Resolved, ct);
+            var alreadyExists = await _alertRepo.ExistsUnresolvedForReferenceAsync(
+                alertConfig.Alcoid, prcoid: component.Prcoid, incoid: component.Incoid, ct: ct);
             if (alreadyExists) continue;
 
-            var message = $"Componente '{component.ActionCatalog?.Name}' en vehículo {component.Prcoid} " +
+            var actionCatalog = component.ActionCatalog;
+            var message = $"Componente '{actionCatalog?.Name}' en vehículo {component.Prcoid} " +
                           $"caduca el {component.ExpirationDate:dd/MM/yyyy}.";
             var alert = AlertLog.Create(alertConfig.Alcoid, message,
                 prcoid: component.Prcoid, incoid: component.Incoid);

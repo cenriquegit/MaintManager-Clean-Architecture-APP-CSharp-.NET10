@@ -1,3 +1,4 @@
+// MaintManager.Application/Services/InventoryService.cs
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
@@ -5,6 +6,7 @@ using MaintManager.Shared.Constants;
 
 namespace MaintManager.Application.Services;
 
+/// <summary>Gestión de inventario de materiales con FIFO por vencimiento.</summary>
 public sealed class InventoryService : IInventoryService
 {
     private readonly IInventoryRepository _inventoryRepo;
@@ -106,15 +108,3 @@ public sealed class InventoryService : IInventoryService
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Application/Services/AlertService.cs
-using MaintManager.Domain.Entities;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Domain.Interfaces.Services;
-using MaintManager.Infrastructure.Data;
-using MaintManager.Shared.Constants;
-using Microsoft.EntityFrameworkCore;
-
-
-/// <summary>Generación y gestión del sistema de alertas.</summary>

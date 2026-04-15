@@ -1,3 +1,4 @@
+// MaintManager.Application/Services/MaintenanceService.cs
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
@@ -5,6 +6,7 @@ using MaintManager.Shared.Constants;
 
 namespace MaintManager.Application.Services;
 
+/// <summary>Gestión de órdenes de mantenimiento y sus operaciones.</summary>
 public sealed class MaintenanceService : IMaintenanceService
 {
     private readonly IMaintenanceRepository _maintenanceRepo;
@@ -131,14 +133,3 @@ public sealed class MaintenanceService : IMaintenanceService
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Application/Services/SchedulingService.cs
-using MaintManager.Domain.Entities;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Domain.Interfaces.Services;
-using MaintManager.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-
-
-/// <summary>Calendarización y recalendarización automática de mantenimientos.</summary>

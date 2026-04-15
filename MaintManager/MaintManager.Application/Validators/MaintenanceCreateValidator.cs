@@ -1,3 +1,8 @@
+using FluentValidation;
+using MaintManager.Application.DTOs.Maintenance;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class MaintenanceCreateValidator : AbstractValidator<MaintenanceCreateRequest>
 {
     public MaintenanceCreateValidator()
@@ -15,12 +20,10 @@ public sealed class MaintenanceCreateValidator : AbstractValidator<MaintenanceCr
         RuleFor(x => x.AssignedTo)
             .GreaterThan(0).WithMessage("Debe asignar un mecánico a la orden.");
 
-        // Calendarizado requiere tipo de servicio A o B
         RuleFor(x => x.Setyid)
             .NotNull().WithMessage("El tipo de servicio (A o B) es obligatorio para mantenimientos calendarizados.")
             .When(x => x.Matyid == 1);
 
-        // Emergencia NO debe tener tipo de servicio
         RuleFor(x => x.Setyid)
             .Null().WithMessage("Los mantenimientos de emergencia no tienen tipo de servicio A/B.")
             .When(x => x.Matyid == 2);
@@ -30,5 +33,3 @@ public sealed class MaintenanceCreateValidator : AbstractValidator<MaintenanceCr
             .WithMessage("El origen del servicio debe ser 'Taller propio' o 'Taller externo'.");
     }
 }
-
-/// <summary>Validador para crear un material.</summary>

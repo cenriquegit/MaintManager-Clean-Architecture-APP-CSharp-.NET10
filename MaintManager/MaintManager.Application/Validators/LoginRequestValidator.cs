@@ -1,3 +1,8 @@
+using FluentValidation;
+using MaintManager.Application.DTOs.Auth;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
 {
     public LoginRequestValidator()
@@ -10,5 +15,3 @@ public sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
             .NotEmpty().WithMessage("La contraseña es obligatoria.");
     }
 }
-
-/// <summary>Validador para crear una orden de mantenimiento.</summary>

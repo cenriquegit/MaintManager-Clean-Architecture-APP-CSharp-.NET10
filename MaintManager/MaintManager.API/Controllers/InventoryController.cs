@@ -137,7 +137,8 @@ public sealed class InventoryController : ControllerBase
     public async Task<IActionResult> GetExpiringLots(
         [FromQuery] int days = 30, CancellationToken ct = default)
     {
-        var lots = await _inventoryRepo.GetExpiringLotsAsync(days, ct);
+        var limitDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(days));
+        var lots = await _inventoryRepo.GetExpiringLotsAsync(limitDate, ct);
         return Ok(ApiResponse<IReadOnlyList<LotResponse>>.Ok(
             lots.Select(l => l.ToResponse()).ToList()));
     }
