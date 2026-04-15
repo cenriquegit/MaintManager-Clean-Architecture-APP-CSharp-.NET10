@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Views/Inventory/InventoryListPage.xaml -->
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
+    x:Class="MaintManager.MAUI.Views.Inventory.InventoryListPage"
+    x:DataType="vm:InventoryListViewModel"
+    Title="Inventario">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Buscador -->
+        <SearchBar Grid.Row="0"
+                   Text="{Binding SearchText}"
+                   Placeholder="Buscar material o categoría..."
+                   Margin="16,8,16,0"/>
+
+        <!-- Filtros -->
+        <HorizontalStackLayout Grid.Row="1" Margin="16,8" Spacing="12">
+            <CheckBox IsChecked="{Binding ShowOnlyLowStock}" Color="{StaticResource ColorError}"/>
+            <Label Text="Solo stock bajo mínimo"
+                   Style="{StaticResource BodyText}"
+                   VerticalOptions="Center"/>
+            <!-- Contador de stock bajo -->
+            <Border IsVisible="{Binding LowStockCount, Converter={StaticResource IsNotNullConverter}}"
+                    BackgroundColor="{StaticResource ColorErrorContainer}"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 99" Padding="8,3">
+                <Label Text="{Binding LowStockCount, StringFormat='{0} bajo mínimo'}"
+                       FontSize="12" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorError}"/>
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Lista principal -->
+        <RefreshView Grid.Row="2"
+                     Command="{Binding LoadCommand}"
+                     IsRefreshing="{Binding IsLoading}">
+            <Grid>
+
+                <!-- LOADING -->
+                <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+                    <ActivityIndicator IsRunning="True"/>
+                    <Label Text="Cargando inventario..." Style="{StaticResource BodyText}"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- ERROR -->
+                <VerticalStackLayout IsVisible="{Binding HasError}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                    <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                           TextColor="{StaticResource ColorError}"/>
+                    <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                           HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                    <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+                <!-- EMPTY -->
+                <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                    <Label Text="📦" FontSize="48" HorizontalOptions="Center"/>
+                    <Label Text="No hay materiales en inventario."
+                           Style="{StaticResource BodyText}"
+                           HorizontalOptions="Center"/>
+                    <Button Text="Ingresar primer lote"
+                            Command="{Binding AddLotCommand}"
+                            Style="{StaticResource PrimaryButton}"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding IsAdmin}"/>
+                </VerticalStackLayout>
+
+                <!-- SUCCESS -->
+                <CollectionView IsVisible="{Binding IsSuccess}"
+                                ItemsSource="{Binding Materials}"
+                                Margin="16,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource Card}">
+                                <Grid RowDefinitions="Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto">
+
+                                    <!-- Nombre del material -->
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding Name}"
+                                           FontSize="15" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}"
+                                           LineBreakMode="TailTruncation"/>
+
+                                    <!-- Badge stock bajo -->
+                                    <Border Grid.Row="0" Grid.Column="1"
+                                            IsVisible="{Binding IsBelowMinimum}"
+                                            Style="{StaticResource BadgeError}">
+                                        <Label Text="Stock bajo"
+                                               FontSize="11" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorError}"/>
+                                    </Border>
+
+                                    <!-- Categoría -->
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                           Text="{Binding Category}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="0,2,0,0"/>
+
+                                    <!-- Stock actual vs mínimo -->
+                                    <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2"
+                                                           Spacing="16" Margin="0,6,0,0">
+
+                                        <VerticalStackLayout Spacing="0">
+                                            <Label Text="Stock actual"
+                                                   Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding StockTotal, StringFormat='{0:N2}'}"
+                                                   FontSize="18" FontAttributes="Bold"
+                                                   TextColor="{Binding IsBelowMinimum,
+                                                       Converter={StaticResource BelowMinimumColorConverter}}"/>
+                                        </VerticalStackLayout>
+
+                                        <BoxView WidthRequest="1"
+                                                 BackgroundColor="{StaticResource ColorBorderLight}"
+                                                 VerticalOptions="Fill"/>
+
+                                        <VerticalStackLayout Spacing="0">
+                                            <Label Text="Mínimo"
+                                                   Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding StockMinimum, StringFormat='{0:N2}'}"
+                                                   FontSize="18"
+                                                   TextColor="{StaticResource ColorTextSecondary}"/>
+                                        </VerticalStackLayout>
+
+                                        <Label Text="{Binding UnitOfMeasure}"
+                                               Style="{StaticResource BodyText}"
+                                               VerticalOptions="End"
+                                               Margin="0,0,0,2"/>
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <BoxView HeightRequest="80" Color="Transparent"/>
+                    </CollectionView.Footer>
+                </CollectionView>
+
+            </Grid>
+        </RefreshView>
+
+        <!-- FAB — Ingresar lote (solo Admin) -->
+        <Button Grid.Row="3"
+                Text="+ Ingresar lote"
+                Command="{Binding AddLotCommand}"
+                Style="{StaticResource PrimaryButton}"
+                IsVisible="{Binding IsAdmin}"
+                Margin="16,8"
+                HorizontalOptions="End"/>
+
+    </Grid>
+</ContentPage>

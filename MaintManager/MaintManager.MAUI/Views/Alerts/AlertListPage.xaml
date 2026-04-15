@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Views/Alerts/AlertListPage.xaml -->
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Alerts"
+    x:Class="MaintManager.MAUI.Views.Alerts.AlertListPage"
+    x:DataType="vm:AlertListViewModel"
+    Title="Alertas">
+
+    <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsLoading}">
+        <Grid>
+
+            <!-- LOADING -->
+            <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+                <ActivityIndicator IsRunning="True"/>
+                <Label Text="Cargando alertas..." Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- ERROR -->
+            <VerticalStackLayout IsVisible="{Binding HasError}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                       TextColor="{StaticResource ColorError}"/>
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                        Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- EMPTY — sin alertas pendientes: estado positivo -->
+            <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                <Label Text="✅" FontSize="56" HorizontalOptions="Center"/>
+                <Label Text="Sin alertas pendientes"
+                       FontSize="18" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorAccentDark}"
+                       HorizontalOptions="Center"/>
+                <Label Text="Todo está en orden. No hay alertas sin resolver."
+                       Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+
+            <!-- SUCCESS -->
+            <CollectionView IsVisible="{Binding IsSuccess}"
+                            ItemsSource="{Binding Alerts}"
+                            Margin="16,8">
+                <CollectionView.Header>
+                    <Label Text="Alertas sin resolver"
+                           Style="{StaticResource TitleMedium}"
+                           Margin="0,8,0,4"/>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}">
+                            <!-- Borde izquierdo coloreado por tipo de alerta -->
+                            <Border.StrokeShape>RoundRectangle 12</Border.StrokeShape>
+
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                                  ColumnDefinitions="4,*">
+
+                                <!-- Barra lateral de color según tipo -->
+                                <BoxView Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
+                                         Color="{Binding AlertType,
+                                             Converter={StaticResource AlertTypeToColorConverter}}"
+                                         CornerRadius="4,0,0,4"/>
+
+                                <!-- Contenido -->
+                                <Grid Grid.Row="0" Grid.Column="1"
+                                      ColumnDefinitions="*,Auto"
+                                      Margin="10,0,0,0">
+
+                                    <!-- Tipo legible -->
+                                    <Border Grid.Column="0" HorizontalOptions="Start"
+                                            StrokeThickness="0" StrokeShape="RoundRectangle 99"
+                                            Padding="8,3"
+                                            BackgroundColor="{Binding AlertType,
+                                                Converter={StaticResource AlertTypeToColorConverter}}">
+                                        <Label Text="{Binding AlertType,
+                                                   Converter={StaticResource AlertTypeToLabelConverter}}"
+                                               FontSize="11" FontAttributes="Bold"
+                                               TextColor="White"/>
+                                    </Border>
+
+                                    <!-- Fecha -->
+                                    <Label Grid.Column="1"
+                                           Text="{Binding AlertDate, StringFormat='{0:dd/MM HH:mm}'}"
+                                           Style="{StaticResource CaptionText}"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+
+                                <!-- Mensaje de la alerta -->
+                                <Label Grid.Row="1" Grid.Column="1"
+                                       Text="{Binding Message}"
+                                       Style="{StaticResource BodyText}"
+                                       Margin="10,6,0,0"
+                                       LineBreakMode="WordWrap"/>
+
+                                <!-- Contexto: vehículo o material afectado -->
+                                <HorizontalStackLayout Grid.Row="2" Grid.Column="1"
+                                                       Margin="10,4,0,0" Spacing="8">
+                                    <Label IsVisible="{Binding LicensePlate,
+                                               Converter={StaticResource IsNotNullConverter}}"
+                                           Text="{Binding LicensePlate, StringFormat='🚗 {0}'}"
+                                           Style="{StaticResource CaptionText}"/>
+                                    <Label IsVisible="{Binding MaterialName,
+                                               Converter={StaticResource IsNotNullConverter}}"
+                                           Text="{Binding MaterialName, StringFormat='📦 {0}'}"
+                                           Style="{StaticResource CaptionText}"/>
+                                </HorizontalStackLayout>
+
+                                <!-- Acciones: Marcar leída / Resolver -->
+                                <HorizontalStackLayout Grid.Row="3" Grid.Column="1"
+                                                       Margin="10,8,0,0" Spacing="8">
+
+                                    <Button Text="Leída"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertListViewModel}}, Path=MarkReadCommand}"
+                                            CommandParameter="{Binding .}"
+                                            IsVisible="{Binding IsRead,
+                                                Converter={StaticResource InvertedBoolConverter}}"
+                                            Style="{StaticResource SecondaryButton}"
+                                            FontSize="12" HeightRequest="34" Padding="10,0"/>
+
+                                    <Button Text="Resolver"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertListViewModel}}, Path=ResolveCommand}"
+                                            CommandParameter="{Binding .}"
+                                            IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertListViewModel}}, Path=IsAdmin}"
+                                            Style="{StaticResource AccentButton}"
+                                            FontSize="12" HeightRequest="34" Padding="10,0"/>
+
+                                </HorizontalStackLayout>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="32" Color="Transparent"/>
+                </CollectionView.Footer>
+            </CollectionView>
+
+        </Grid>
+    </RefreshView>
+</ContentPage>

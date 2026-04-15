@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Views/Inventory/LotCreatePage.xaml -->
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
+    x:Class="MaintManager.MAUI.Views.Inventory.LotCreatePage"
+    x:DataType="vm:LotCreateViewModel"
+    Title="Ingresar Lote">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- LOADING (carga de materiales) -->
+            <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                                 HorizontalOptions="Center" Margin="0,40" Spacing="12">
+                <ActivityIndicator IsRunning="True"/>
+                <Label Text="Cargando materiales..." Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- ERROR -->
+            <VerticalStackLayout IsVisible="{Binding HasError}"
+                                 HorizontalOptions="Center" Spacing="16">
+                <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                       TextColor="{StaticResource ColorError}"/>
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"/>
+                <Button Text="Reintentar" Command="{Binding LoadMaterialsCommand}"
+                        Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- FORMULARIO -->
+            <VerticalStackLayout IsVisible="{Binding IsSuccess}" Spacing="16">
+
+                <!-- Encabezado informativo -->
+                <Border BackgroundColor="{StaticResource ColorInfoContainer}"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="12">
+                    <Label Text="Ingresa los datos del nuevo lote. El stock del material se actualizará automáticamente."
+                           FontSize="13" TextColor="{StaticResource ColorInfo}" LineBreakMode="WordWrap"/>
+                </Border>
+
+                <!-- Mensaje de validación -->
+                <Border IsVisible="{Binding ValidationMessage, Converter={StaticResource IsNotNullConverter}}"
+                        BackgroundColor="{StaticResource ColorErrorContainer}"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="12,8">
+                    <Label Text="{Binding ValidationMessage}"
+                           TextColor="{StaticResource ColorError}" FontSize="13"/>
+                </Border>
+
+                <!-- Material -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Material *" Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="4,0">
+                        <Picker ItemsSource="{Binding Materials}"
+                                SelectedItem="{Binding SelectedMaterial}"
+                                Style="{StaticResource FormPicker}"
+                                ItemDisplayBinding="{Binding Name}"
+                                Title="Seleccionar material"/>
+                    </Border>
+                    <!-- Unidad de medida del material seleccionado -->
+                    <Label IsVisible="{Binding SelectedMaterial, Converter={StaticResource IsNotNullConverter}}"
+                           Text="{Binding SelectedMaterial.UnitOfMeasure, StringFormat='Unidad: {0}'}"
+                           Style="{StaticResource CaptionText}"
+                           TextColor="{StaticResource ColorInfo}"/>
+                </VerticalStackLayout>
+
+                <!-- Cantidad -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Cantidad *" Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding Quantity}"
+                               Style="{StaticResource FormEntry}"
+                               Keyboard="Numeric"
+                               Placeholder="ej: 20"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Costo unitario -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Costo unitario (S/) *" Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding UnitCost}"
+                               Style="{StaticResource FormEntry}"
+                               Keyboard="Numeric"
+                               Placeholder="ej: 28.50"/>
+                    </Border>
+                    <Label Text="Este valor se usa para calcular el costo real por km en el dashboard BI."
+                           Style="{StaticResource CaptionText}"
+                           TextColor="{StaticResource ColorInfo}"/>
+                </VerticalStackLayout>
+
+                <!-- Número de lote del proveedor -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="N° de lote del proveedor (opcional)" Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding SupplierLotNumber}"
+                               Style="{StaticResource FormEntry}"
+                               Placeholder="ej: LOT-2026-001"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Fecha de vencimiento -->
+                <Border Style="{StaticResource Card}" Padding="12">
+                    <VerticalStackLayout Spacing="10">
+                        <HorizontalStackLayout Spacing="12">
+                            <Switch IsToggled="{Binding HasExpiration}"
+                                    OnColor="{StaticResource ColorPrimary}"
+                                    ThumbColor="White"/>
+                            <Label Text="Este material tiene fecha de vencimiento"
+                                   Style="{StaticResource BodyText}"
+                                   VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- DatePicker — solo visible si tiene vencimiento -->
+                        <VerticalStackLayout IsVisible="{Binding HasExpiration}" Spacing="4">
+                            <Label Text="Fecha de vencimiento *" Style="{StaticResource CaptionText}"/>
+                            <DatePicker Date="{Binding ExpirationDate}"
+                                        MinimumDate="{x:Static sys:DateTime.Today}"
+                                        TextColor="{StaticResource ColorTextPrimary}"
+                                        BackgroundColor="{StaticResource ColorSurface}"
+                                        Format="dd/MM/yyyy"/>
+                            <Label Text="Aplicable a aceites, fluidos y materiales con vida útil por tiempo."
+                                   Style="{StaticResource CaptionText}"
+                                   TextColor="{StaticResource ColorInfo}"/>
+                        </VerticalStackLayout>
+
+                        <Label IsVisible="{Binding HasExpiration,
+                                   Converter={StaticResource InvertedBoolConverter}}"
+                               Text="Sin fecha de vencimiento — se consume solo por km (ej: filtros, repuestos)."
+                               Style="{StaticResource CaptionText}"
+                               TextColor="{StaticResource ColorAccentDark}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Botones -->
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,32">
+                    <Button Grid.Column="0" Text="Cancelar"
+                            Style="{StaticResource SecondaryButton}"
+                            Clicked="OnCancelClicked"/>
+                    <Button Grid.Column="1" Text="Ingresar lote"
+                            Command="{Binding SaveCommand}"
+                            Style="{StaticResource PrimaryButton}"
+                            IsEnabled="{Binding IsSaving,
+                                Converter={StaticResource InvertedBoolConverter}}"/>
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsSaving}"
+                                   IsVisible="{Binding IsSaving}"
+                                   HorizontalOptions="Center"/>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

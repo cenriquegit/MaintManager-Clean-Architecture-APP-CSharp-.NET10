@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Controls/StateView.xaml -->
+<!-- Control reutilizable que encapsula los 4 estados obligatorios.
+     Uso: <controls:StateView IsLoading="{Binding IsLoading}"
+                               HasError="{Binding HasError}"
+                               ErrorMessage="{Binding ErrorMessage}"
+                               IsEmpty="{Binding IsEmpty}"
+                               RetryCommand="{Binding LoadCommand}"
+                               EmptyMessage="No hay datos."
+                               EmptyIcon="📋">
+               <!-- Contenido de Success va aquí -->
+          </controls:StateView> -->
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MaintManager.MAUI.Controls.StateView">
+
+    <Grid x:Name="RootGrid">
+
+        <!-- LOADING -->
+        <VerticalStackLayout x:Name="LoadingView"
+                             IsVisible="False"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="12"
+                             Margin="32">
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               IsRunning="True"
+                               Color="{StaticResource ColorPrimary}"
+                               HeightRequest="40" WidthRequest="40"/>
+            <Label x:Name="LoadingLabel"
+                   Text="Cargando..."
+                   Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- ERROR -->
+        <VerticalStackLayout x:Name="ErrorView"
+                             IsVisible="False"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="16"
+                             Margin="32">
+            <Label Text="⚠"
+                   FontSize="48"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource ColorError}"/>
+            <Label x:Name="ErrorLabel"
+                   Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+            <Button x:Name="RetryButton"
+                    Text="Reintentar"
+                    Style="{StaticResource SecondaryButton}"
+                    HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- EMPTY -->
+        <VerticalStackLayout x:Name="EmptyView"
+                             IsVisible="False"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Spacing="16"
+                             Margin="32">
+            <Label x:Name="EmptyIconLabel"
+                   FontSize="52"
+                   HorizontalOptions="Center"/>
+            <Label x:Name="EmptyLabel"
+                   Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+        <!-- SUCCESS — el contenido real de la vista va aquí -->
+        <ContentPresenter x:Name="SuccessContent" IsVisible="False"/>
+
+    </Grid>
+</ContentView>
