@@ -1,56 +1,149 @@
-// --- ZONA A: CONFIGURACIÓN DE SERVICIOS (Antes del Build) ---
+// MaintManager.API/Program.cs
+using FluentValidation;
+using MaintManager.Application.Services;
+using MaintManager.Application.Validators;
+using MaintManager.Domain.Interfaces.Repositories;
+using MaintManager.Domain.Interfaces.Services;
+using MaintManager.Infrastructure.Data;
+using MaintManager.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using System.Reflection;
+using System.Text;
 
-// 2. Configurar Serilog para leer desde appsettings.json
+var builder = WebApplication.CreateBuilder(args);
+
+// ── Serilog ────────────────────────────────────────────────────────
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console(outputTemplate:
+        "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}")
+    .WriteTo.File("logs/maintmanager-.log",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 30)
     .CreateLogger();
 
-builder.Host.UseSerilog(); // 3. Usar Serilog como el proveedor de logs
+builder.Host.UseSerilog();
 
-// 4. Agregar OpenAPI
-builder.Services.AddOpenApi();
+// ── Base de datos ─────────────────────────────────────────────────
+builder.Services.AddDbContext<FleetMaintenanceContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        npgsql => npgsql.MigrationsAssembly("MaintManager.Infrastructure"))
+    .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+    .LogTo(Log.Logger.Information, LogLevel.Warning));
 
-// 5. Configurar la conexión a PostgreSQL (Entity Framework)
-// builder.Services.AddDbContext<MaintDbContext>(options => 
-//     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// ── JWT ────────────────────────────────────────────────────────────
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? throw new InvalidOperationException("JWT Key no configurada.");
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+// ── Repositorios ──────────────────────────────────────────────────
+builder.Services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+
+// ── Servicios de aplicación ──────────────────────────────────────
+builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
+builder.Services.AddScoped<ISchedulingService, SchedulingService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IAlertService, AlertService>();
+
+// ── Validaciones ─────────────────────────────────────────────────
+builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
+
+// ── Controllers ───────────────────────────────────────────────────
+builder.Services.AddControllers();
+
+// ── Swagger ───────────────────────────────────────────────────────
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "MaintManager API",
+        Version = "v1",
+        Description = "Sistema de Gestión de Mantenimiento Vehicular con BI — Neo Plus Business S.A.C.",
+        Contact = new OpenApiContact
+        {
+            Name = "Carlos Tarazona",
+            Email = "1560977@senati.pe"
+        }
+    });
+
+    // Soporte JWT en Swagger UI
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Ingresar 'Bearer {token}'",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        }
+    });
+
+    // XML comments para documentación
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath)) options.IncludeXmlComments(xmlPath);
+});
+
+// ── CORS (para MAUI en Windows) ──────────────────────────────────
+builder.Services.AddCors(options =>
+    options.AddPolicy("MauiPolicy", policy =>
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 var app = builder.Build();
 
-// --- ZONA B: CONFIGURACIÓN DEL PIPELINE (Después del Build) ---
-
-// 6. Middleware de logs (opcional pero recomendado)
+// ── Middleware pipeline ───────────────────────────────────────────
 app.UseSerilogRequestLogging();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaintManager API v1");
+        c.RoutePrefix = string.Empty; // Swagger en la raíz
+    });
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseCors("MauiPolicy");
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

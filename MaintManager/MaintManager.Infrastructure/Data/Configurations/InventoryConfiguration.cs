@@ -1,4 +1,7 @@
 // MaintManager.Infrastructure/Data/Configurations/InventoryConfiguration.cs
+// ACTUALIZADO:
+// — MaterialConfiguration: updated_at se agrega por 02_ajustes_fase1.sql [A2]
+// — TechnicianAssignmentConfiguration: tabla agregada por 02_ajustes_fase1.sql [A4]
 using MaintManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -29,23 +32,21 @@ internal sealed class MaterialConfiguration : IEntityTypeConfiguration<Material>
         builder.Property(m => m.Macaid).HasColumnName("macaid").IsRequired();
         builder.Property(m => m.Name).HasColumnName("name").HasMaxLength(200).IsRequired();
         builder.Property(m => m.UnitOfMeasure).HasColumnName("unit_of_measure").HasMaxLength(30).IsRequired();
-        builder.Property(m => m.StockTotal).HasColumnName("stock_total")
-               .HasPrecision(12, 3).HasDefaultValue(0);
-        builder.Property(m => m.StockMinimum).HasColumnName("stock_minimum")
-               .HasPrecision(12, 3).HasDefaultValue(0);
+        builder.Property(m => m.StockTotal).HasColumnName("stock_total").HasPrecision(12, 3).HasDefaultValue(0);
+        builder.Property(m => m.StockMinimum).HasColumnName("stock_minimum").HasPrecision(12, 3).HasDefaultValue(0);
         builder.Property(m => m.Description).HasColumnName("description");
         builder.Property(m => m.CreatedAt).HasColumnName("created_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+        // updated_at: columna agregada por 02_ajustes_fase1.sql [A2]
+        // EF Core la mapea normalmente — la columna existe en BD tras aplicar ajustes
         builder.Property(m => m.UpdatedAt).HasColumnName("updated_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
         builder.Property(m => m.CreatedBy).HasColumnName("created_by").IsRequired();
         builder.Property(m => m.Status).HasColumnName("status").HasDefaultValue(true);
-
-        builder.HasOne(m => m.Category)
-               .WithMany(c => c.Materials).HasForeignKey(m => m.Macaid);
-        builder.HasMany(m => m.Lots)
-               .WithOne(l => l.Material).HasForeignKey(l => l.Mateid);
-
+        builder.HasOne(m => m.Category).WithMany(c => c.Materials).HasForeignKey(m => m.Macaid);
+        builder.HasMany(m => m.Lots).WithOne(l => l.Material).HasForeignKey(l => l.Mateid);
         builder.HasIndex(m => m.Macaid).HasDatabaseName("idx_material_macaid");
     }
 }
@@ -62,8 +63,7 @@ internal sealed class MaterialLotConfiguration : IEntityTypeConfiguration<Materi
                .HasPrecision(12, 3).IsRequired();
         builder.Property(ml => ml.CurrentQuantity).HasColumnName("current_quantity")
                .HasPrecision(12, 3).IsRequired();
-        builder.Property(ml => ml.UnitCost).HasColumnName("unit_cost")
-               .HasPrecision(12, 4).HasDefaultValue(0);
+        builder.Property(ml => ml.UnitCost).HasColumnName("unit_cost").HasPrecision(12, 4).HasDefaultValue(0);
         builder.Property(ml => ml.EntryDate).HasColumnName("entry_date")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.Property(ml => ml.ExpirationDate).HasColumnName("expiration_date");
@@ -73,10 +73,8 @@ internal sealed class MaterialLotConfiguration : IEntityTypeConfiguration<Materi
         builder.Property(ml => ml.LotStatus).HasColumnName("lot_status").HasMaxLength(20)
                .HasDefaultValue("activo");
         builder.Property(ml => ml.CreatedBy).HasColumnName("created_by").IsRequired();
-
         builder.HasIndex(ml => ml.Mateid).HasDatabaseName("idx_lot_mateid");
-        builder.HasIndex(ml => new { ml.Mateid, ml.LotStatus })
-               .HasDatabaseName("idx_lot_status_mateid");
+        builder.HasIndex(ml => new { ml.Mateid, ml.LotStatus }).HasDatabaseName("idx_lot_status_mateid");
     }
 }
 
@@ -91,13 +89,10 @@ internal sealed class MaterialConsumptionConfiguration : IEntityTypeConfiguratio
         builder.Property(mc => mc.Mateid).HasColumnName("mateid").IsRequired();
         builder.Property(mc => mc.Maloid).HasColumnName("maloid");
         builder.Property(mc => mc.Quantity).HasColumnName("quantity").HasPrecision(12, 3).IsRequired();
-        builder.Property(mc => mc.Origin).HasColumnName("origin").HasMaxLength(50)
-               .HasDefaultValue("Stock propio");
+        builder.Property(mc => mc.Origin).HasColumnName("origin").HasMaxLength(50).HasDefaultValue("Stock propio");
         builder.Property(mc => mc.ConsumedAt).HasColumnName("consumed_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
         builder.HasOne(mc => mc.Lot).WithMany().HasForeignKey(mc => mc.Maloid);
-
         builder.HasIndex(mc => mc.Mainid).HasDatabaseName("idx_consumption_mainid");
         builder.HasIndex(mc => mc.Mateid).HasDatabaseName("idx_consumption_mateid");
         builder.HasIndex(mc => mc.Maloid).HasDatabaseName("idx_consumption_maloid");
@@ -119,7 +114,6 @@ internal sealed class MaterialDiscardConfiguration : IEntityTypeConfiguration<Ma
         builder.Property(md => md.Reason).HasColumnName("reason").HasMaxLength(50).IsRequired();
         builder.Property(md => md.Note).HasColumnName("note");
         builder.Property(md => md.DiscardedBy).HasColumnName("discarded_by").IsRequired();
-
         builder.HasOne(md => md.Lot).WithMany().HasForeignKey(md => md.Maloid);
     }
 }
@@ -138,7 +132,6 @@ internal sealed class MaterialRatingConfiguration : IEntityTypeConfiguration<Mat
         builder.Property(mr => mr.RatedBy).HasColumnName("rated_by").IsRequired();
         builder.Property(mr => mr.RatedAt).HasColumnName("rated_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
         builder.HasIndex(mr => mr.Mateid).HasDatabaseName("idx_rating_mateid");
         builder.HasIndex(mr => mr.Mainid).HasDatabaseName("idx_rating_mainid");
     }
@@ -161,14 +154,11 @@ internal sealed class InstalledComponentConfiguration : IEntityTypeConfiguration
         builder.Property(ic => ic.ExpirationDate).HasColumnName("expiration_date");
         builder.Property(ic => ic.Active).HasColumnName("active").HasDefaultValue(true);
         builder.Property(ic => ic.ReplacedByIncoid).HasColumnName("replaced_by_incoid");
-
         builder.HasOne(ic => ic.ActionCatalog).WithMany().HasForeignKey(ic => ic.Acatid);
         builder.HasOne(ic => ic.Lot).WithMany().HasForeignKey(ic => ic.Maloid);
-        builder.HasOne<InstalledComponent>().WithMany()
-               .HasForeignKey(ic => ic.ReplacedByIncoid);
-
-        builder.HasIndex(ic => ic.Prcoid)
-               .HasFilter("active = true").HasDatabaseName("idx_ic_prcoid_active");
+        builder.HasOne<InstalledComponent>().WithMany().HasForeignKey(ic => ic.ReplacedByIncoid);
+        builder.HasIndex(ic => ic.Prcoid).HasFilter("active = true")
+               .HasDatabaseName("idx_ic_prcoid_active");
         builder.HasIndex(ic => ic.ExpirationDate)
                .HasFilter("active = true AND expiration_date IS NOT NULL")
                .HasDatabaseName("idx_ic_expiration");
@@ -213,11 +203,8 @@ internal sealed class AlertLogConfiguration : IEntityTypeConfiguration<AlertLog>
         builder.Property(al => al.Resolved).HasColumnName("resolved").HasDefaultValue(false);
         builder.Property(al => al.ResolvedAt).HasColumnName("resolved_at");
         builder.Property(al => al.ResolvedBy).HasColumnName("resolved_by");
-
         builder.HasOne(al => al.AlertConfig).WithMany().HasForeignKey(al => al.Alcoid);
-
-        builder.HasIndex(al => al.Read)
-               .HasFilter("read = false").HasDatabaseName("idx_alert_unread");
+        builder.HasIndex(al => al.Read).HasFilter("read = false").HasDatabaseName("idx_alert_unread");
         builder.HasIndex(al => al.Prcoid).HasDatabaseName("idx_alert_prcoid");
         builder.HasIndex(al => al.AlertDate).HasDatabaseName("idx_alert_date");
     }
@@ -243,7 +230,10 @@ internal sealed class ConfigSystemConfiguration : IEntityTypeConfiguration<Confi
     }
 }
 
-/// <summary>[AJUSTE 4] Tabla nueva para escalabilidad de asignaciones de técnicos.</summary>
+/// <summary>
+/// Tabla technician_assignment agregada por 02_ajustes_fase1.sql [A4].
+/// EF Core la mapea normalmente — la tabla existe en BD tras aplicar ajustes.
+/// </summary>
 internal sealed class TechnicianAssignmentConfiguration : IEntityTypeConfiguration<TechnicianAssignment>
 {
     public void Configure(EntityTypeBuilder<TechnicianAssignment> builder)
@@ -258,7 +248,6 @@ internal sealed class TechnicianAssignmentConfiguration : IEntityTypeConfigurati
         builder.Property(ta => ta.AssignedAt).HasColumnName("assigned_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.Property(ta => ta.AssignedBy).HasColumnName("assigned_by").IsRequired();
-
         builder.HasIndex(ta => new { ta.Mainid, ta.Workid }).IsUnique()
                .HasDatabaseName("ta_mainid_workid_unique");
         builder.HasIndex(ta => ta.Mainid).HasDatabaseName("idx_ta_mainid");

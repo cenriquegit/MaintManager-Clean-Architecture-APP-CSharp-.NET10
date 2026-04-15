@@ -1,11 +1,20 @@
-// MaintManager.Infrastructure/Repositories/GenericRepository.cs
+// MaintManager.Infrastructure/Repositories/AllRepositories.cs
+// ACTUALIZADO:
+// — VehicleRepository: GetCurrentKmAsync corregido con nueva estructura BD-FINAL
+//   (join rentrequest→prodid para obtener los km del vehículo)
+// — El resto de repositorios no cambia respecto a la versión anterior
+using MaintManager.Domain.Entities;
+using MaintManager.Domain.Entities.Existing;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaintManager.Infrastructure.Repositories;
 
-/// <summary>Implementación genérica de repositorio usando EF Core.</summary>
+// ─────────────────────────────────────────────────────────────────────────────
+// GenericRepository
+// ─────────────────────────────────────────────────────────────────────────────
+
 internal sealed class GenericRepository<TEntity> : IGenericRepository<TEntity>
     where TEntity : class
 {
@@ -28,7 +37,6 @@ internal sealed class GenericRepository<TEntity> : IGenericRepository<TEntity>
         await _set.AddAsync(entity, ct);
 
     public void Update(TEntity entity) => _set.Update(entity);
-
     public void Delete(TEntity entity) => _set.Remove(entity);
 
     public async Task<int> SaveChangesAsync(CancellationToken ct = default) =>
@@ -36,14 +44,8 @@ internal sealed class GenericRepository<TEntity> : IGenericRepository<TEntity>
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Infrastructure/Repositories/MaintenanceRepository.cs
-using MaintManager.Domain.Entities;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace MaintManager.Infrastructure.Repositories;
+// MaintenanceRepository — sin cambios respecto a versión anterior
+// ─────────────────────────────────────────────────────────────────────────────
 
 internal sealed class MaintenanceRepository : IMaintenanceRepository
 {
@@ -70,12 +72,10 @@ internal sealed class MaintenanceRepository : IMaintenanceRepository
         await _context.Maintenances
             .Include(m => m.MaintenanceType)
             .Include(m => m.ServiceType)
-            .Include(m => m.ActionDetails)
-                .ThenInclude(d => d.ActionCatalog)
+            .Include(m => m.ActionDetails).ThenInclude(d => d.ActionCatalog)
             .Include(m => m.Diagnosis)
             .Include(m => m.MaterialConsumptions)
-            .Include(m => m.InstalledComponents)
-                .ThenInclude(ic => ic.ActionCatalog)
+            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)
             .FirstOrDefaultAsync(m => m.Mainid == mainid, ct);
 
     public async Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default) =>
@@ -90,15 +90,13 @@ internal sealed class MaintenanceRepository : IMaintenanceRepository
             .Include(m => m.MaintenanceType)
             .Include(m => m.ServiceType)
             .OrderByDescending(m => m.MaintenanceDate)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
+            .Skip((page - 1) * pageSize).Take(pageSize)
             .ToListAsync(ct);
 
     public async Task AddAsync(Maintenance entity, CancellationToken ct = default) =>
         await _context.Maintenances.AddAsync(entity, ct);
 
     public void Update(Maintenance entity) => _context.Maintenances.Update(entity);
-
     public void Delete(Maintenance entity) => _context.Maintenances.Remove(entity);
 
     public async Task<int> SaveChangesAsync(CancellationToken ct = default) =>
@@ -106,14 +104,12 @@ internal sealed class MaintenanceRepository : IMaintenanceRepository
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Infrastructure/Repositories/VehicleRepository.cs
-using MaintManager.Domain.Entities.Existing;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace MaintManager.Infrastructure.Repositories;
+// VehicleRepository — ACTUALIZADO para BD-FINAL
+// Cambios:
+// 1. GetCurrentKmAsync: join correcto rentexecute→rentrequest→prodid
+//    (la nueva BD tiene FK explícita rentrequest→prodid para obtener el vehículo)
+// 2. GetActiveVehiclesAsync: incluye Product para obtener el nombre del vehículo
+// ─────────────────────────────────────────────────────────────────────────────
 
 internal sealed class VehicleRepository : IVehicleRepository
 {
@@ -135,35 +131,32 @@ internal sealed class VehicleRepository : IVehicleRepository
 
     public async Task<int> GetCurrentKmAsync(int prcoid, CancellationToken ct = default)
     {
-        // Obtener el prodid del vehículo
+        // Obtener el prodid del vehículo (vehicle hereda de company, prodid está disponible)
         var vehicle = await _context.Vehicles.AsNoTracking()
             .FirstOrDefaultAsync(v => v.Prcoid == prcoid, ct);
 
         if (vehicle is null) return 0;
 
-        // Último kilometer_end de renta activa (no cancelada)
+        // Último kilometer_end de una renta completada (no cancelada) para este vehículo.
+        // BD-FINAL: rentexecute.sereid → rentrequest.sereid → rentrequest.prodid = vehicle.prodid
         var lastKm = await _context.RentExecutes.AsNoTracking()
-            .Where(re => re.RentRequest != null
-                && re.RentRequest.Prodid == vehicle.Prodid
-                && re.KilometerEnd.HasValue
-                && re.Statid != "CA")
+            .Where(re =>
+                re.RentRequest != null &&
+                re.RentRequest.Prodid == vehicle.Prodid &&
+                re.KilometerEnd.HasValue &&
+                re.Statid != "CA")
             .OrderByDescending(re => re.ReturnDate)
             .Select(re => re.KilometerEnd)
             .FirstOrDefaultAsync(ct);
 
+        // Si no hay rentas, usar el mileage registrado del vehículo
         return lastKm ?? vehicle.Mileage ?? 0;
     }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Infrastructure/Repositories/InventoryRepository.cs
-using MaintManager.Domain.Entities;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace MaintManager.Infrastructure.Repositories;
+// InventoryRepository — sin cambios respecto a versión anterior
+// ─────────────────────────────────────────────────────────────────────────────
 
 internal sealed class InventoryRepository : IInventoryRepository
 {
@@ -172,8 +165,7 @@ internal sealed class InventoryRepository : IInventoryRepository
     public InventoryRepository(FleetMaintenanceContext context) => _context = context;
 
     public async Task<Material?> GetMaterialByIdAsync(int mateid, CancellationToken ct = default) =>
-        await _context.Materials
-            .Include(m => m.Category)
+        await _context.Materials.Include(m => m.Category)
             .FirstOrDefaultAsync(m => m.Mateid == mateid, ct);
 
     public async Task<IReadOnlyList<Material>> GetMaterialsAsync(CancellationToken ct = default) =>
@@ -195,8 +187,7 @@ internal sealed class InventoryRepository : IInventoryRepository
     public void UpdateMaterial(Material material) => _context.Materials.Update(material);
 
     public async Task<MaterialLot?> GetLotByIdAsync(int maloid, CancellationToken ct = default) =>
-        await _context.MaterialLots
-            .Include(ml => ml.Material)
+        await _context.MaterialLots.Include(ml => ml.Material)
             .FirstOrDefaultAsync(ml => ml.Maloid == maloid, ct);
 
     public async Task<IReadOnlyList<MaterialLot>> GetActiveLotsByMaterialAsync(int mateid, CancellationToken ct = default) =>
@@ -206,7 +197,6 @@ internal sealed class InventoryRepository : IInventoryRepository
             .ToListAsync(ct);
 
     public async Task<IReadOnlyList<MaterialLot>> GetFifoLotsAsync(int mateid, CancellationToken ct = default) =>
-        // FIFO: primero los que vencen antes; los sin fecha al final
         await _context.MaterialLots
             .Where(ml => ml.Mateid == mateid && ml.LotStatus == "activo" && ml.CurrentQuantity > 0)
             .OrderBy(ml => ml.ExpirationDate == null ? 1 : 0)
@@ -218,8 +208,7 @@ internal sealed class InventoryRepository : IInventoryRepository
     {
         var limitDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(daysThreshold));
         return await _context.MaterialLots.AsNoTracking()
-            .Where(ml => ml.LotStatus == "activo"
-                && ml.ExpirationDate.HasValue
+            .Where(ml => ml.LotStatus == "activo" && ml.ExpirationDate.HasValue
                 && ml.ExpirationDate.Value <= limitDate)
             .Include(ml => ml.Material).ThenInclude(m => m!.Category)
             .OrderBy(ml => ml.ExpirationDate)
@@ -242,14 +231,8 @@ internal sealed class InventoryRepository : IInventoryRepository
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-
-// MaintManager.Infrastructure/Repositories/AlertRepository.cs
-using MaintManager.Domain.Entities;
-using MaintManager.Domain.Interfaces.Repositories;
-using MaintManager.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-
-namespace MaintManager.Infrastructure.Repositories;
+// AlertRepository — sin cambios respecto a versión anterior
+// ─────────────────────────────────────────────────────────────────────────────
 
 internal sealed class AlertRepository : IAlertRepository
 {
@@ -265,8 +248,7 @@ internal sealed class AlertRepository : IAlertRepository
             .ToListAsync(ct);
 
     public async Task<AlertLog?> GetByIdAsync(int alloid, CancellationToken ct = default) =>
-        await _context.AlertLogs
-            .Include(al => al.AlertConfig)
+        await _context.AlertLogs.Include(al => al.AlertConfig)
             .FirstOrDefaultAsync(al => al.Alloid == alloid, ct);
 
     public async Task AddAsync(AlertLog alert, CancellationToken ct = default) =>
