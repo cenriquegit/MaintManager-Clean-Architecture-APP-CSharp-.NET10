@@ -1,16 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace MaintManager.MAUI;
+﻿namespace MaintManager.MAUI;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
-	}
+    public App()
+    {
+        InitializeComponent();
 
-	protected override Window CreateWindow(IActivationState? activationState)
-	{
-		return new Window(new AppShell());
-	}
+        // Página extremadamente simple: solo una etiqueta
+        MainPage = new ContentPage
+        {
+            Content = new Label
+            {
+                Text = "✅ MaintManager MAUI está funcionando",
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                FontSize = 24,
+                TextColor = Colors.Black
+            },
+            BackgroundColor = Colors.White
+        };
+    }
 }

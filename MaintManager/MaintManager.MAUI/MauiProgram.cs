@@ -1,24 +1,53 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using MaintManager.MAUI.Services;
+using MaintManager.MAUI.ViewModels.Alerts;
+using MaintManager.MAUI.ViewModels.Auth;
+using MaintManager.MAUI.ViewModels.Inventory;
+using MaintManager.MAUI.Views.Alerts;
+using MaintManager.MAUI.Views.Auth;
+using MaintManager.MAUI.Views.Inventory;
+using Microsoft.Extensions.Logging;
 
 namespace MaintManager.MAUI;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+    public static IServiceProvider? Services { get; private set; }
+
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
+
+        // Registrar servicios
+        builder.Services.AddSingleton<ApiService>();
+        builder.Services.AddSingleton<AuthService>();
+
+        // Registrar ViewModels
+        builder.Services.AddTransient<LoginViewModel>();
+        builder.Services.AddTransient<AlertListViewModel>();
+        builder.Services.AddTransient<InventoryListViewModel>();
+        builder.Services.AddTransient<LotCreateViewModel>();
+
+        // Registrar páginas
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<AlertListPage>();
+        builder.Services.AddTransient<InventoryListPage>();
+        builder.Services.AddTransient<LotCreatePage>();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
-	}
+        var app = builder.Build();
+        Services = app.Services;
+        return app;
+    }
 }

@@ -84,16 +84,9 @@ public sealed class AuthController : ControllerBase
 
     private async Task<string> DetermineRoleAsync(short jobid, CancellationToken ct)
     {
-        var job = await _context.Set<MaintManager.Domain.Entities.Existing.Worker>()
-            .AsNoTracking()
-            .Select(w => new { w.Jobid })
-            .FirstOrDefaultAsync(ct);
-
-        // Si el cargo tiene "Mecánico" en el nombre → Tecnico; sino → Admin
-        // Consultamos el nombre del job directamente
-        var jobName = await _context.Database
-            .SqlQueryRaw<string>(
-                "SELECT name FROM public.job WHERE jobid = {0}", jobid)
+        var jobName = await _context.Jobs
+            .Where(j => j.Jobid == jobid)
+            .Select(j => j.Name)
             .FirstOrDefaultAsync(ct);
 
         return jobName?.Contains("Mecánico", StringComparison.OrdinalIgnoreCase) == true

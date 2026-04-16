@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Auth"
+             x:Class="MaintManager.MAUI.Views.Auth.LoginPage"
+             Title="Login">
+
+    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+        <Entry Placeholder="Usuario" Text="{Binding Username}" />
+        <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}" />
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding ErrorMessage, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" />
+        <Button Text="Ingresar" Command="{Binding LoginCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" />
+    </VerticalStackLayout>
+</ContentPage>

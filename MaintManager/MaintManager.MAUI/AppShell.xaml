@@ -3,12 +3,20 @@
     x:Class="MaintManager.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MaintManager.MAUI"
-    Title="MaintManager.MAUI">
+    xmlns:alerts="clr-namespace:MaintManager.MAUI.Views.Alerts"
+    xmlns:inventory="clr-namespace:MaintManager.MAUI.Views.Inventory"
+    xmlns:auth="clr-namespace:MaintManager.MAUI.Views.Auth"
+    Title="MaintManager">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Alertas"
+        ContentTemplate="{DataTemplate alerts:AlertListPage}"
+        Route="Alerts" />
 
+    <ShellContent
+        Title="Inventario"
+        ContentTemplate="{DataTemplate inventory:InventoryListPage}"
+        Route="Inventory" />
+
+    <!-- Login no estará en el menú, se accede directamente -->
 </Shell>
