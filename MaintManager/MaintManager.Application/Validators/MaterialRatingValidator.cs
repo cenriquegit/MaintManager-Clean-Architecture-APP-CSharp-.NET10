@@ -1,5 +1,8 @@
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
+using MaintManager.Application.DTOs.Inventory;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class MaterialRatingValidator : AbstractValidator<MaterialRatingRequest>
 {
     public MaterialRatingValidator()
@@ -16,5 +19,3 @@ public sealed class MaterialRatingValidator : AbstractValidator<MaterialRatingRe
             .When(x => x.Rating <= 3);
     }
 }
-
-/// <summary>Validador para diagnóstico final.</summary>

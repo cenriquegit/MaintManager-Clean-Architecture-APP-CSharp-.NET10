@@ -1,5 +1,5 @@
 ========== VOLCADO COMPLETO DEL PROYECTO MAINTMANAGER ==========
-Fecha: Fri Apr 17 01:04:54 HPS 2026
+Fecha: Fri Apr 17 03:37:51 HPS 2026
 Directorio raíz: /c/Users/carlo/Desktop/proyect/MaintManager
 
 
@@ -2550,12 +2550,20 @@ public sealed class InventoryService : IInventoryService
             ?? throw new KeyNotFoundException(ErrorMessages.Inventory.MaterialNotFound);
 
         var materialRating = MaterialRating.Create(mateid, mainid, rating, ratedBy, observation);
-        // Se agrega via el contexto — EF Core lo maneja con la relación
+        
+        // 🔴 CORRECCIÓN: Agregar la entidad al contexto
+        // Se necesita un método en el repositorio para agregar ratings
+        // Asumiendo que existe AddRatingAsync o se puede usar el DbSet directamente.
+        // Como IInventoryRepository no tiene AddRatingAsync, usamos una alternativa:
+        // Inyectar un IGenericRepository<MaterialRating> o agregar método.
+        // Por simplicidad y porque el DbContext está disponible en el repositorio,
+        // agregamos un método en IInventoryRepository.
+        
+        // Añadimos la calificación a través del repositorio (asumiendo que agregamos el método)
+        await _inventoryRepo.AddRatingAsync(materialRating, ct);
         await _inventoryRepo.SaveChangesAsync(ct);
     }
 }
-
-
 
 ============================================================
 ARCHIVO: ./MaintManager.Application/Services/MaintenanceService.cs
@@ -2622,8 +2630,8 @@ public sealed class MaintenanceService : IMaintenanceService
         string? quantity, string? origin, string? observation, int? maloid,
         CancellationToken ct = default)
     {
-        // Buscamos el mantenimiento que contiene este detalle
-        var maintenance = await FindMaintenanceByActionAsync(madeid, ct)
+        // Optimizado: usa el nuevo método del repositorio
+        var maintenance = await _maintenanceRepo.GetByActionDetailIdAsync(madeid, ct)
             ?? throw new KeyNotFoundException(ErrorMessages.Maintenance.NotFound);
 
         var detail = maintenance.ActionDetails.FirstOrDefault(d => d.Madeid == madeid)
@@ -2647,8 +2655,7 @@ public sealed class MaintenanceService : IMaintenanceService
         var diagnosis = Diagnosis.Create(mainid, generalStatus, vehicleOperative,
             observations, futureRecommendations);
 
-        // EF Core trackea el navigation property
-        maintenance.ActionDetails.GetType(); // fuerza inicialización
+        // Se elimina la línea sin efecto: maintenance.ActionDetails.GetType();
         await _maintenanceRepo.SaveChangesAsync(ct);
     }
 
@@ -2678,24 +2685,12 @@ public sealed class MaintenanceService : IMaintenanceService
             await _schedulingService.RescheduleAsync(maintenance.Prcoid, maintenance.Mileage, ct);
         }
 
+        // 🔴 CORRECCIÓN: Cambiar estado a "FI" (Finalizado)
+        maintenance.MarkAsClosed();
+
         await _maintenanceRepo.SaveChangesAsync(ct);
     }
-
-    private async Task<Maintenance?> FindMaintenanceByActionAsync(int madeid, CancellationToken ct)
-    {
-        // Buscamos a través del detalle (simplificado — en producción se optimizaría con una query directa)
-        var allMaintenances = await _maintenanceRepo.GetAllAsync(ct);
-        foreach (var m in allMaintenances)
-        {
-            var details = await _maintenanceRepo.GetWithDetailsAsync(m.Mainid, ct);
-            if (details?.ActionDetails.Any(d => d.Madeid == madeid) == true)
-                return details;
-        }
-        return null;
-    }
-}
-
-
+}  
 
 ============================================================
 ARCHIVO: ./MaintManager.Application/Services/SchedulingService.cs
@@ -2820,7 +2815,10 @@ public sealed class LoginRequestValidator : AbstractValidator<LoginRequest>
 ARCHIVO: ./MaintManager.Application/Validators/LotCreateValidator.cs
 ============================================================
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
+using MaintManager.Application.DTOs.Inventory;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class LotCreateValidator : AbstractValidator<LotCreateRequest>
 {
     public LotCreateValidator()
@@ -2840,9 +2838,6 @@ public sealed class LotCreateValidator : AbstractValidator<LotCreateRequest>
             .When(x => x.ExpirationDate.HasValue);
     }
 }
-
-/// <summary>Validador para calificación de materiales.</summary>
-
 
 ============================================================
 ARCHIVO: ./MaintManager.Application/Validators/MaintenanceCreateValidator.cs
@@ -2887,7 +2882,10 @@ public sealed class MaintenanceCreateValidator : AbstractValidator<MaintenanceCr
 ARCHIVO: ./MaintManager.Application/Validators/MaterialCreateValidator.cs
 ============================================================
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
+using MaintManager.Application.DTOs.Inventory;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class MaterialCreateValidator : AbstractValidator<MaterialCreateRequest>
 {
     public MaterialCreateValidator()
@@ -2908,14 +2906,14 @@ public sealed class MaterialCreateValidator : AbstractValidator<MaterialCreateRe
     }
 }
 
-/// <summary>Validador para ingresar un lote de material.</summary>
-
-
 ============================================================
 ARCHIVO: ./MaintManager.Application/Validators/MaterialRatingValidator.cs
 ============================================================
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
+using MaintManager.Application.DTOs.Inventory;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class MaterialRatingValidator : AbstractValidator<MaterialRatingRequest>
 {
     public MaterialRatingValidator()
@@ -2932,9 +2930,6 @@ public sealed class MaterialRatingValidator : AbstractValidator<MaterialRatingRe
             .When(x => x.Rating <= 3);
     }
 }
-
-/// <summary>Validador para diagnóstico final.</summary>
-
 
 ============================================================
 ARCHIVO: ./MaintManager.Domain/Entities/ActionCatalog.cs
@@ -3548,6 +3543,18 @@ public sealed class Maintenance
         UpdatedAt = DateTime.UtcNow;
     }
 
+    /// <summary>
+    /// Marca la orden como finalizada (Statid = "FI").
+    /// </summary>
+    public void MarkAsClosed()
+    {
+        if (Statid == "FI")
+            throw new InvalidOperationException("La orden ya está finalizada.");
+
+        Statid = "FI";
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     public void SetOilInfo(string brand, string viscositySae, string? climateSeason, bool showInNext)
     {
         OilBrand = brand;
@@ -3563,7 +3570,6 @@ public sealed class Maintenance
         UpdatedAt = DateTime.UtcNow;
     }
 }
-
 
 ============================================================
 ARCHIVO: ./MaintManager.Domain/Entities/MaintenanceActionDetail.cs
@@ -4200,6 +4206,9 @@ public interface IInventoryRepository
     Task AddConsumptionAsync(MaterialConsumption consumption, CancellationToken ct = default);
     Task AddDiscardAsync(MaterialDiscard discard, CancellationToken ct = default);
 
+    // Calificaciones
+    Task AddRatingAsync(MaterialRating rating, CancellationToken ct = default);
+
     // Componentes instalados
     /// <summary>Obtiene componentes instalados que caducan antes de la fecha límite.</summary>
     Task<IReadOnlyList<InstalledComponent>> GetExpiringComponentsAsync(DateOnly limitDate, CancellationToken ct = default);
@@ -4223,6 +4232,9 @@ public interface IMaintenanceRepository : IGenericRepository<Maintenance>
     Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default);
     Task<IReadOnlyList<Maintenance>> GetPagedAsync(int page, int pageSize, CancellationToken ct = default);
     Task<PagedResult<MaintenanceListItemDto>> GetPagedListItemsAsync(int page, int pageSize, CancellationToken ct = default);
+    
+    /// <summary>Obtiene un mantenimiento completo a partir del ID de un ActionDetail.</summary>
+    Task<Maintenance?> GetByActionDetailIdAsync(int madeid, CancellationToken ct = default);
 }
 
 ============================================================
@@ -4244,6 +4256,20 @@ public interface IVehicleRepository
     /// </summary>
     Task<int> GetCurrentKmAsync(int prcoid, CancellationToken ct = default);
 }
+
+============================================================
+ARCHIVO: ./MaintManager.Domain/Interfaces/Repositories/MaintManager.Domain.csproj
+============================================================
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
+
 
 ============================================================
 ARCHIVO: ./MaintManager.Domain/Interfaces/Services/IAlertService.cs
@@ -4364,20 +4390,6 @@ public interface ISchedulingService
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-
-
-============================================================
-ARCHIVO: ./MaintManager.Domain/MaintManager.Domain.csproj
-============================================================
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-</Project>
 
 
 ============================================================
@@ -5384,6 +5396,9 @@ public sealed class InventoryRepository : IInventoryRepository
     public async Task AddDiscardAsync(MaterialDiscard discard, CancellationToken ct = default) =>
         await _context.MaterialDiscards.AddAsync(discard, ct);
 
+    public async Task AddRatingAsync(MaterialRating rating, CancellationToken ct = default) =>
+        await _context.MaterialRatings.AddAsync(rating, ct);
+
     public async Task<IReadOnlyList<InstalledComponent>> GetExpiringComponentsAsync(DateOnly limitDate, CancellationToken ct = default) =>
         await _context.InstalledComponents.AsNoTracking()
             .Where(ic => ic.Active && ic.ExpirationDate.HasValue && ic.ExpirationDate.Value <= limitDate)
@@ -5414,8 +5429,6 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
     {
     }
 
-    // Métodos específicos de IMaintenanceRepository (conservando TODA tu lógica original)
-
     public async Task<IReadOnlyList<Maintenance>> GetByVehicleAsync(int prcoid, CancellationToken ct = default) =>
         await _context.Maintenances.AsNoTracking()
             .Where(m => m.Prcoid == prcoid && m.Statid == "AC")
@@ -5430,8 +5443,8 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
             .Include(m => m.ServiceType)
             .Include(m => m.ActionDetails).ThenInclude(d => d.ActionCatalog)
             .Include(m => m.Diagnosis)
-            .Include(m => m.MaterialConsumptions)          // ← conservado
-            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)  // ← conservado
+            .Include(m => m.MaterialConsumptions)
+            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)
             .FirstOrDefaultAsync(m => m.Mainid == mainid, ct);
 
     public async Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default) =>
@@ -5490,6 +5503,15 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
             PageSize = pageSize
         };
     }
+
+    // Nuevo método optimizado
+    public async Task<Maintenance?> GetByActionDetailIdAsync(int madeid, CancellationToken ct = default) =>
+        await _context.Maintenances
+            .Include(m => m.ActionDetails)
+            .Include(m => m.MaintenanceType)
+            .Include(m => m.ServiceType)
+            .Include(m => m.Diagnosis)
+            .FirstOrDefaultAsync(m => m.ActionDetails.Any(d => d.Madeid == madeid), ct);
 }
 
 ============================================================

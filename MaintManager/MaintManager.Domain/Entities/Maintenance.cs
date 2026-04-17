@@ -125,6 +125,18 @@ public sealed class Maintenance
         UpdatedAt = DateTime.UtcNow;
     }
 
+    /// <summary>
+    /// Marca la orden como finalizada (Statid = "FI").
+    /// </summary>
+    public void MarkAsClosed()
+    {
+        if (Statid == "FI")
+            throw new InvalidOperationException("La orden ya está finalizada.");
+
+        Statid = "FI";
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     public void SetOilInfo(string brand, string viscositySae, string? climateSeason, bool showInNext)
     {
         OilBrand = brand;

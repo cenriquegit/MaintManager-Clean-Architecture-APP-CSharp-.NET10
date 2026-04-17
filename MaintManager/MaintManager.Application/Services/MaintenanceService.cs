@@ -60,8 +60,8 @@ public sealed class MaintenanceService : IMaintenanceService
         string? quantity, string? origin, string? observation, int? maloid,
         CancellationToken ct = default)
     {
-        // Buscamos el mantenimiento que contiene este detalle
-        var maintenance = await FindMaintenanceByActionAsync(madeid, ct)
+        // Optimizado: usa el nuevo método del repositorio
+        var maintenance = await _maintenanceRepo.GetByActionDetailIdAsync(madeid, ct)
             ?? throw new KeyNotFoundException(ErrorMessages.Maintenance.NotFound);
 
         var detail = maintenance.ActionDetails.FirstOrDefault(d => d.Madeid == madeid)
@@ -85,8 +85,7 @@ public sealed class MaintenanceService : IMaintenanceService
         var diagnosis = Diagnosis.Create(mainid, generalStatus, vehicleOperative,
             observations, futureRecommendations);
 
-        // EF Core trackea el navigation property
-        maintenance.ActionDetails.GetType(); // fuerza inicialización
+        // Se elimina la línea sin efecto: maintenance.ActionDetails.GetType();
         await _maintenanceRepo.SaveChangesAsync(ct);
     }
 
@@ -116,20 +115,9 @@ public sealed class MaintenanceService : IMaintenanceService
             await _schedulingService.RescheduleAsync(maintenance.Prcoid, maintenance.Mileage, ct);
         }
 
+        // 🔴 CORRECCIÓN: Cambiar estado a "FI" (Finalizado)
+        maintenance.MarkAsClosed();
+
         await _maintenanceRepo.SaveChangesAsync(ct);
     }
-
-    private async Task<Maintenance?> FindMaintenanceByActionAsync(int madeid, CancellationToken ct)
-    {
-        // Buscamos a través del detalle (simplificado — en producción se optimizaría con una query directa)
-        var allMaintenances = await _maintenanceRepo.GetAllAsync(ct);
-        foreach (var m in allMaintenances)
-        {
-            var details = await _maintenanceRepo.GetWithDetailsAsync(m.Mainid, ct);
-            if (details?.ActionDetails.Any(d => d.Madeid == madeid) == true)
-                return details;
-        }
-        return null;
-    }
-}
-
+}  

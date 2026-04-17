@@ -70,6 +70,9 @@ public sealed class InventoryRepository : IInventoryRepository
     public async Task AddDiscardAsync(MaterialDiscard discard, CancellationToken ct = default) =>
         await _context.MaterialDiscards.AddAsync(discard, ct);
 
+    public async Task AddRatingAsync(MaterialRating rating, CancellationToken ct = default) =>
+        await _context.MaterialRatings.AddAsync(rating, ct);
+
     public async Task<IReadOnlyList<InstalledComponent>> GetExpiringComponentsAsync(DateOnly limitDate, CancellationToken ct = default) =>
         await _context.InstalledComponents.AsNoTracking()
             .Where(ic => ic.Active && ic.ExpirationDate.HasValue && ic.ExpirationDate.Value <= limitDate)

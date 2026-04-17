@@ -1,5 +1,8 @@
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
+using MaintManager.Application.DTOs.Inventory;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class MaterialCreateValidator : AbstractValidator<MaterialCreateRequest>
 {
     public MaterialCreateValidator()
@@ -19,5 +22,3 @@ public sealed class MaterialCreateValidator : AbstractValidator<MaterialCreateRe
             .GreaterThanOrEqualTo(0).WithMessage("El stock mínimo no puede ser negativo.");
     }
 }
-
-/// <summary>Validador para ingresar un lote de material.</summary>

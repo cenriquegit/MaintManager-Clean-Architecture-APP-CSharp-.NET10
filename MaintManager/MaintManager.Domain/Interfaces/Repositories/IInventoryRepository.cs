@@ -32,6 +32,9 @@ public interface IInventoryRepository
     Task AddConsumptionAsync(MaterialConsumption consumption, CancellationToken ct = default);
     Task AddDiscardAsync(MaterialDiscard discard, CancellationToken ct = default);
 
+    // Calificaciones
+    Task AddRatingAsync(MaterialRating rating, CancellationToken ct = default);
+
     // Componentes instalados
     /// <summary>Obtiene componentes instalados que caducan antes de la fecha límite.</summary>
     Task<IReadOnlyList<InstalledComponent>> GetExpiringComponentsAsync(DateOnly limitDate, CancellationToken ct = default);

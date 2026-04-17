@@ -14,8 +14,6 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
     {
     }
 
-    // Métodos específicos de IMaintenanceRepository (conservando TODA tu lógica original)
-
     public async Task<IReadOnlyList<Maintenance>> GetByVehicleAsync(int prcoid, CancellationToken ct = default) =>
         await _context.Maintenances.AsNoTracking()
             .Where(m => m.Prcoid == prcoid && m.Statid == "AC")
@@ -30,8 +28,8 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
             .Include(m => m.ServiceType)
             .Include(m => m.ActionDetails).ThenInclude(d => d.ActionCatalog)
             .Include(m => m.Diagnosis)
-            .Include(m => m.MaterialConsumptions)          // ← conservado
-            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)  // ← conservado
+            .Include(m => m.MaterialConsumptions)
+            .Include(m => m.InstalledComponents).ThenInclude(ic => ic.ActionCatalog)
             .FirstOrDefaultAsync(m => m.Mainid == mainid, ct);
 
     public async Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default) =>
@@ -90,4 +88,13 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
             PageSize = pageSize
         };
     }
+
+    // Nuevo método optimizado
+    public async Task<Maintenance?> GetByActionDetailIdAsync(int madeid, CancellationToken ct = default) =>
+        await _context.Maintenances
+            .Include(m => m.ActionDetails)
+            .Include(m => m.MaintenanceType)
+            .Include(m => m.ServiceType)
+            .Include(m => m.Diagnosis)
+            .FirstOrDefaultAsync(m => m.ActionDetails.Any(d => d.Madeid == madeid), ct);
 }

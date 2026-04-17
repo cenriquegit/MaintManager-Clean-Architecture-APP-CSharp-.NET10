@@ -1,5 +1,8 @@
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory; // o el namespace que corresponda
+using MaintManager.Application.DTOs.Inventory;
+
+namespace MaintManager.Application.Validators;
+
 public sealed class LotCreateValidator : AbstractValidator<LotCreateRequest>
 {
     public LotCreateValidator()
@@ -19,5 +22,3 @@ public sealed class LotCreateValidator : AbstractValidator<LotCreateRequest>
             .When(x => x.ExpirationDate.HasValue);
     }
 }
-
-/// <summary>Validador para calificación de materiales.</summary>

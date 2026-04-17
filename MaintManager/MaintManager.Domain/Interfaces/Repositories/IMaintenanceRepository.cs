@@ -11,4 +11,7 @@ public interface IMaintenanceRepository : IGenericRepository<Maintenance>
     Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default);
     Task<IReadOnlyList<Maintenance>> GetPagedAsync(int page, int pageSize, CancellationToken ct = default);
     Task<PagedResult<MaintenanceListItemDto>> GetPagedListItemsAsync(int page, int pageSize, CancellationToken ct = default);
+    
+    /// <summary>Obtiene un mantenimiento completo a partir del ID de un ActionDetail.</summary>
+    Task<Maintenance?> GetByActionDetailIdAsync(int madeid, CancellationToken ct = default);
 }

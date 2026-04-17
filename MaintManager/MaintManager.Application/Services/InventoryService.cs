@@ -103,8 +103,17 @@ public sealed class InventoryService : IInventoryService
             ?? throw new KeyNotFoundException(ErrorMessages.Inventory.MaterialNotFound);
 
         var materialRating = MaterialRating.Create(mateid, mainid, rating, ratedBy, observation);
-        // Se agrega via el contexto — EF Core lo maneja con la relación
+        
+        // 🔴 CORRECCIÓN: Agregar la entidad al contexto
+        // Se necesita un método en el repositorio para agregar ratings
+        // Asumiendo que existe AddRatingAsync o se puede usar el DbSet directamente.
+        // Como IInventoryRepository no tiene AddRatingAsync, usamos una alternativa:
+        // Inyectar un IGenericRepository<MaterialRating> o agregar método.
+        // Por simplicidad y porque el DbContext está disponible en el repositorio,
+        // agregamos un método en IInventoryRepository.
+        
+        // Añadimos la calificación a través del repositorio (asumiendo que agregamos el método)
+        await _inventoryRepo.AddRatingAsync(materialRating, ct);
         await _inventoryRepo.SaveChangesAsync(ct);
     }
 }
-
