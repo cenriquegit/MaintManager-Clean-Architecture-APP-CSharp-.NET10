@@ -3,11 +3,9 @@ using MaintManager.Application.DTOs.Vehicle;
 using MaintManager.Application.Mappings;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
-using MaintManager.Infrastructure.Data;
 using MaintManager.Shared.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MaintManager.API.Controllers;
 
@@ -20,16 +18,13 @@ public sealed class VehiclesController : ControllerBase
 {
     private readonly IVehicleRepository _vehicleRepo;
     private readonly ISchedulingService _schedulingService;
-    private readonly FleetMaintenanceContext _context;
 
     public VehiclesController(
         IVehicleRepository vehicleRepo,
-        ISchedulingService schedulingService,
-        FleetMaintenanceContext context)
+        ISchedulingService schedulingService)
     {
         _vehicleRepo = vehicleRepo;
         _schedulingService = schedulingService;
-        _context = context;
     }
 
     /// <summary>Obtener lista de todos los vehículos activos de la flota.</summary>
@@ -100,6 +95,3 @@ public sealed class VehiclesController : ControllerBase
         }));
     }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-

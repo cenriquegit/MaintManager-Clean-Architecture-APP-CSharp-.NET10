@@ -121,6 +121,7 @@ public sealed class AuthController : ControllerBase
         return (new JwtSecurityTokenHandler().WriteToken(token), expiresAt);
     }
 
+    // TODO: Migrar a algoritmo seguro (bcrypt/PBKDF2) - Actualmente usa MD5 por compatibilidad con BD existente.
     private static string ComputeMd5(string input)
     {
         var bytes = MD5.HashData(Encoding.UTF8.GetBytes(input));

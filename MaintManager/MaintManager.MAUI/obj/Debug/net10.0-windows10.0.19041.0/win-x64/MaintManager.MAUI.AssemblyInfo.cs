@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MaintManager.MAUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+81444e13522ef22810416222201f7730deb9eaad")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+53e10680c80437ff1ea7fd75f7354c112e5a0024")]
 [assembly: System.Reflection.AssemblyProductAttribute("MaintManager.MAUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MaintManager.MAUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

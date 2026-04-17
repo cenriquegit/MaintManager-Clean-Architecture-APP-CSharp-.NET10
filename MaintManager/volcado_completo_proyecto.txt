@@ -1,5 +1,5 @@
 ========== VOLCADO COMPLETO DEL PROYECTO MAINTMANAGER ==========
-Fecha: Thu, Apr 16, 2026 12:13:11 AM
+Fecha: Fri Apr 17 01:04:54 HPS 2026
 Directorio raíz: /c/Users/carlo/Desktop/proyect/MaintManager
 
 
@@ -230,16 +230,9 @@ public sealed class AuthController : ControllerBase
 
     private async Task<string> DetermineRoleAsync(short jobid, CancellationToken ct)
     {
-        var job = await _context.Set<MaintManager.Domain.Entities.Existing.Worker>()
-            .AsNoTracking()
-            .Select(w => new { w.Jobid })
-            .FirstOrDefaultAsync(ct);
-
-        // Si el cargo tiene "Mecánico" en el nombre → Tecnico; sino → Admin
-        // Consultamos el nombre del job directamente
-        var jobName = await _context.Database
-            .SqlQueryRaw<string>(
-                "SELECT name FROM public.job WHERE jobid = {0}", jobid)
+        var jobName = await _context.Jobs
+            .Where(j => j.Jobid == jobid)
+            .Select(j => j.Name)
             .FirstOrDefaultAsync(ct);
 
         return jobName?.Contains("Mecánico", StringComparison.OrdinalIgnoreCase) == true
@@ -274,6 +267,7 @@ public sealed class AuthController : ControllerBase
         return (new JwtSecurityTokenHandler().WriteToken(token), expiresAt);
     }
 
+    // TODO: Migrar a algoritmo seguro (bcrypt/PBKDF2) - Actualmente usa MD5 por compatibilidad con BD existente.
     private static string ComputeMd5(string input)
     {
         var bytes = MD5.HashData(Encoding.UTF8.GetBytes(input));
@@ -483,35 +477,29 @@ public sealed class MaintenancesController : ControllerBase
         _createValidator = createValidator;
     }
 
-    /// <summary>Obtener lista paginada de mantenimientos.</summary>
+    /// <summary>Obtener lista paginada de mantenimientos (optimizado sin N+1).</summary>
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponse<PagedResponse<MaintenanceListItem>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] PagedRequest paged, CancellationToken ct)
     {
-        var items = await _maintenanceRepo.GetPagedAsync(paged.Page, paged.PageSize, ct);
-        var result = new List<MaintenanceListItem>();
-
-        foreach (var m in items)
-        {
-            var vehicle = await _vehicleRepo.GetByIdAsync(m.Prcoid, ct);
-            var assignedWorker = await _context.Workers
-                .Include(w => w.Person)
-                .FirstOrDefaultAsync(w => w.Workid == m.AssignedTo, ct);
-            var assignedName = assignedWorker?.Person?.Name ?? "Sin asignar";
-
-            result.Add(m.ToListItem(
-                vehicle?.LicensePlateNumber ?? string.Empty,
-                vehicle?.Product?.Name ?? string.Empty,
-                assignedName));
-        }
-
-        var totalCount = await _context.Maintenances.CountAsync(m => m.Statid == "AC", ct);
+        var pagedResult = await _maintenanceRepo.GetPagedListItemsAsync(paged.Page, paged.PageSize, ct);
+    
         var response = new PagedResponse<MaintenanceListItem>
         {
-            Items = result,
-            TotalCount = totalCount,
-            Page = paged.Page,
-            PageSize = paged.PageSize
+            Items = pagedResult.Items.Select(dto => new MaintenanceListItem(
+                dto.Mainid,
+                dto.LicensePlate,
+                dto.VehicleName,
+                dto.MaintenanceType,
+                dto.ServiceType,
+                dto.MaintenanceDate,
+                dto.Mileage,
+                dto.AssignedToName,
+                dto.Status
+            )).ToList(),
+            TotalCount = pagedResult.TotalCount,
+            Page = pagedResult.Page,
+            PageSize = pagedResult.PageSize
         };
 
         return Ok(ApiResponse<PagedResponse<MaintenanceListItem>>.Ok(response));
@@ -659,10 +647,6 @@ public sealed class MaintenancesController : ControllerBase
         return Ok(ApiResponse<IReadOnlyList<MaintenanceListItem>>.Ok(result));
     }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-
 
 ============================================================
 ARCHIVO: ./MaintManager.API/Controllers/ReportsController.cs
@@ -1145,11 +1129,9 @@ using MaintManager.Application.DTOs.Vehicle;
 using MaintManager.Application.Mappings;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
-using MaintManager.Infrastructure.Data;
 using MaintManager.Shared.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MaintManager.API.Controllers;
 
@@ -1162,16 +1144,13 @@ public sealed class VehiclesController : ControllerBase
 {
     private readonly IVehicleRepository _vehicleRepo;
     private readonly ISchedulingService _schedulingService;
-    private readonly FleetMaintenanceContext _context;
 
     public VehiclesController(
         IVehicleRepository vehicleRepo,
-        ISchedulingService schedulingService,
-        FleetMaintenanceContext context)
+        ISchedulingService schedulingService)
     {
         _vehicleRepo = vehicleRepo;
         _schedulingService = schedulingService;
-        _context = context;
     }
 
     /// <summary>Obtener lista de todos los vehículos activos de la flota.</summary>
@@ -1243,8 +1222,54 @@ public sealed class VehiclesController : ControllerBase
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
+============================================================
+ARCHIVO: ./MaintManager.API/Controllers/WorkersController.cs
+============================================================
+using MaintManager.Application.DTOs.Common;
+using MaintManager.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
+namespace MaintManager.API.Controllers;
+
+[ApiController]
+[Route("api/v1/workers")]
+[Authorize]
+[Produces("application/json")]
+public sealed class WorkersController : ControllerBase
+{
+    private readonly FleetMaintenanceContext _context;
+
+    public WorkersController(FleetMaintenanceContext context)
+    {
+        _context = context;
+    }
+
+    /// <summary>Obtener lista de técnicos disponibles (mecánicos activos).</summary>
+    [HttpGet("technicians")]
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<TechnicianDto>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTechnicians(CancellationToken ct)
+    {
+        var technicians = await _context.Workers
+            .Include(w => w.Person)
+            .Where(w => w.Status && !w.Locked)
+            .Where(w => _context.Jobs
+                .Where(j => j.Jobid == w.Jobid)
+                .Select(j => j.Name)
+                .FirstOrDefault()!
+                .Contains("Mecánico"))
+            .Select(w => new TechnicianDto(
+                w.Workid,
+                w.Person != null ? $"{w.Person.Fln} {w.Person.Name}".Trim() : w.Username ?? string.Empty
+            ))
+            .ToListAsync(ct);
+
+        return Ok(ApiResponse<IReadOnlyList<TechnicianDto>>.Ok(technicians));
+    }
+}
+
+public sealed record TechnicianDto(int Workid, string FullName);
 
 
 ============================================================
@@ -1587,6 +1612,20 @@ public sealed class PagedResponse<T>
 
 
 ============================================================
+ARCHIVO: ./MaintManager.Application/DTOs/Common/PagedResult.cs
+============================================================
+namespace MaintManager.Application.DTOs.Common;
+
+public sealed class PagedResult<T>
+{
+    public IReadOnlyList<T> Items { get; set; } = [];
+    public int TotalCount { get; set; }
+    public int Page { get; set; }
+    public int PageSize { get; set; }
+}
+
+
+============================================================
 ARCHIVO: ./MaintManager.Application/DTOs/Inventory/LotCreateRequest.cs
 ============================================================
 namespace MaintManager.Application.DTOs.Inventory;
@@ -1820,6 +1859,25 @@ public sealed record MaintenanceListItem(
 );
 
 /// <summary>Completar una acción del checklist.</summary>
+
+
+============================================================
+ARCHIVO: ./MaintManager.Application/DTOs/Maintenance/MaintenanceListItemDto.cs
+============================================================
+namespace MaintManager.Application.DTOs.Maintenance;
+
+internal sealed class MaintenanceListItemDto
+{
+    public int Mainid { get; set; }
+    public string? LicensePlate { get; set; }
+    public string VehicleName { get; set; } = string.Empty;
+    public string MaintenanceType { get; set; } = string.Empty;
+    public string? ServiceType { get; set; }
+    public DateTime MaintenanceDate { get; set; }
+    public int Mileage { get; set; }
+    public string AssignedToName { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
+}
 
 
 ============================================================
@@ -4152,6 +4210,8 @@ public interface IInventoryRepository
 ============================================================
 ARCHIVO: ./MaintManager.Domain/Interfaces/Repositories/IMaintenanceRepository.cs
 ============================================================
+using MaintManager.Application.DTOs.Common;
+using MaintManager.Application.DTOs.Maintenance;
 using MaintManager.Domain.Entities;
 
 namespace MaintManager.Domain.Interfaces.Repositories;
@@ -4162,6 +4222,7 @@ public interface IMaintenanceRepository : IGenericRepository<Maintenance>
     Task<Maintenance?> GetWithDetailsAsync(int mainid, CancellationToken ct = default);
     Task<Maintenance?> GetLastByVehicleAsync(int prcoid, CancellationToken ct = default);
     Task<IReadOnlyList<Maintenance>> GetPagedAsync(int page, int pageSize, CancellationToken ct = default);
+    Task<PagedResult<MaintenanceListItemDto>> GetPagedListItemsAsync(int page, int pageSize, CancellationToken ct = default);
 }
 
 ============================================================
@@ -5077,6 +5138,7 @@ public sealed class FleetMaintenanceContext : DbContext
 
     // ── Tablas existentes — esquema public ───────────────────────────
     public DbSet<Worker>        Workers        { get; init; }
+        public DbSet<Job> Jobs { get; init; }
     public DbSet<Person>        Persons        { get; init; }
     public DbSet<Company>       Companies      { get; init; }
     public DbSet<Zone>          Zones          { get; init; }
@@ -5336,6 +5398,9 @@ public sealed class InventoryRepository : IInventoryRepository
 ============================================================
 ARCHIVO: ./MaintManager.Infrastructure/Repositories/MaintenanceRepository.cs
 ============================================================
+using System.Linq;
+using MaintManager.Application.DTOs.Common;
+using MaintManager.Application.DTOs.Maintenance;
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Infrastructure.Data;
@@ -5383,6 +5448,48 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
             .OrderByDescending(m => m.MaintenanceDate)
             .Skip((page - 1) * pageSize).Take(pageSize)
             .ToListAsync(ct);
+
+    public async Task<PagedResult<MaintenanceListItemDto>> GetPagedListItemsAsync(
+        int page, int pageSize, CancellationToken ct = default)
+    {
+        var query = from m in _context.Maintenances
+                    join v in _context.Vehicles on m.Prcoid equals v.Prcoid
+                    join p in _context.Products on v.Prodid equals p.Prodid
+                    join mt in _context.MaintenanceTypes on m.Matyid equals mt.Matyid
+                    join st in _context.ServiceTypes on m.Setyid equals st.Setyid into stg
+                    from st in stg.DefaultIfEmpty()
+                    join w in _context.Workers on m.AssignedTo equals w.Workid into wg
+                    from w in wg.DefaultIfEmpty()
+                    join per in _context.Persons on w.Persid equals per.Persid into perg
+                    from per in perg.DefaultIfEmpty()
+                    where m.Statid == "AC"
+                    orderby m.MaintenanceDate descending
+                    select new MaintenanceListItemDto
+                    {
+                        Mainid = m.Mainid,
+                        LicensePlate = v.LicensePlateNumber,
+                        VehicleName = p.Name,
+                        MaintenanceType = mt.Name,
+                        ServiceType = st.Name,
+                        MaintenanceDate = m.MaintenanceDate,
+                        Mileage = m.Mileage,
+                        AssignedToName = per != null ? per.Name : "Sin asignar",
+                        Status = m.Statid
+                    };
+
+        var totalCount = await query.CountAsync(ct);
+        var items = await query.Skip((page - 1) * pageSize)
+                               .Take(pageSize)
+                               .ToListAsync(ct);
+
+        return new PagedResult<MaintenanceListItemDto>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            Page = page,
+            PageSize = pageSize
+        };
+    }
 }
 
 ============================================================

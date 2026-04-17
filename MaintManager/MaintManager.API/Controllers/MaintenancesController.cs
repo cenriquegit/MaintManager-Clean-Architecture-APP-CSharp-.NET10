@@ -40,35 +40,29 @@ public sealed class MaintenancesController : ControllerBase
         _createValidator = createValidator;
     }
 
-    /// <summary>Obtener lista paginada de mantenimientos.</summary>
+    /// <summary>Obtener lista paginada de mantenimientos (optimizado sin N+1).</summary>
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponse<PagedResponse<MaintenanceListItem>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] PagedRequest paged, CancellationToken ct)
     {
-        var items = await _maintenanceRepo.GetPagedAsync(paged.Page, paged.PageSize, ct);
-        var result = new List<MaintenanceListItem>();
-
-        foreach (var m in items)
-        {
-            var vehicle = await _vehicleRepo.GetByIdAsync(m.Prcoid, ct);
-            var assignedWorker = await _context.Workers
-                .Include(w => w.Person)
-                .FirstOrDefaultAsync(w => w.Workid == m.AssignedTo, ct);
-            var assignedName = assignedWorker?.Person?.Name ?? "Sin asignar";
-
-            result.Add(m.ToListItem(
-                vehicle?.LicensePlateNumber ?? string.Empty,
-                vehicle?.Product?.Name ?? string.Empty,
-                assignedName));
-        }
-
-        var totalCount = await _context.Maintenances.CountAsync(m => m.Statid == "AC", ct);
+        var pagedResult = await _maintenanceRepo.GetPagedListItemsAsync(paged.Page, paged.PageSize, ct);
+    
         var response = new PagedResponse<MaintenanceListItem>
         {
-            Items = result,
-            TotalCount = totalCount,
-            Page = paged.Page,
-            PageSize = paged.PageSize
+            Items = pagedResult.Items.Select(dto => new MaintenanceListItem(
+                dto.Mainid,
+                dto.LicensePlate,
+                dto.VehicleName,
+                dto.MaintenanceType,
+                dto.ServiceType,
+                dto.MaintenanceDate,
+                dto.Mileage,
+                dto.AssignedToName,
+                dto.Status
+            )).ToList(),
+            TotalCount = pagedResult.TotalCount,
+            Page = pagedResult.Page,
+            PageSize = pagedResult.PageSize
         };
 
         return Ok(ApiResponse<PagedResponse<MaintenanceListItem>>.Ok(response));
@@ -216,6 +210,3 @@ public sealed class MaintenancesController : ControllerBase
         return Ok(ApiResponse<IReadOnlyList<MaintenanceListItem>>.Ok(result));
     }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-
