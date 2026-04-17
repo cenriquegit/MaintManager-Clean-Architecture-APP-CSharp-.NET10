@@ -7,6 +7,13 @@ public sealed class VehicleSchedule
     public int IntervalKm { get; private set; } = 5000;
     public int NextKm { get; private set; }
     public int? AlertKmThreshold { get; private set; } = 800;
+
+    /// <summary>
+    /// Tipo del próximo servicio: 'A' (básico) o 'B' (completo).
+    /// Se alterna automáticamente al recalendarizar (A→B→A...).
+    /// </summary>
+    public string? NextServiceTypeCode { get; private set; }
+
     public DateTime CreatedAt { get; private set; }
     public int CreatedBy { get; private set; }
     public DateTime UpdatedAt { get; private set; }
@@ -15,7 +22,7 @@ public sealed class VehicleSchedule
     private VehicleSchedule() { }
 
     public static VehicleSchedule Create(int prcoid, int currentKm, int createdBy,
-        int intervalKm = 5000, int alertThreshold = 800)
+        int intervalKm = 5000, int alertThreshold = 800, string? initialServiceType = "A")
     {
         if (intervalKm <= 0)
             throw new ArgumentException("El intervalo de km debe ser mayor a cero.", nameof(intervalKm));
@@ -26,6 +33,7 @@ public sealed class VehicleSchedule
             IntervalKm = intervalKm,
             NextKm = currentKm + intervalKm,
             AlertKmThreshold = alertThreshold,
+            NextServiceTypeCode = initialServiceType,
             CreatedBy = createdBy,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
@@ -34,16 +42,12 @@ public sealed class VehicleSchedule
 
     /// <summary>
     /// Recalendariza el próximo servicio desde el km del mantenimiento completado.
-    /// Solo aplica en calendarizados o emergencias completas.
+    /// Alterna el tipo de servicio (A↔B) automáticamente.
     /// </summary>
     public void Reschedule(int serviceKm)
     {
         NextKm = serviceKm + IntervalKm;
+        NextServiceTypeCode = NextServiceTypeCode == "A" ? "B" : "A";
         UpdatedAt = DateTime.UtcNow;
     }
 }
-
-
-// MaintManager.Domain/Entities/ScheduleAction.cs
-
-/// <summary>Acción programada por km según el manual del vehículo.</summary>

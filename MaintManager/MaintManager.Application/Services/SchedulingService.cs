@@ -44,7 +44,7 @@ public sealed class SchedulingService : ISchedulingService
         var schedule = await GetScheduleAsync(prcoid, ct);
         if (schedule is null) return;
 
-        schedule.Reschedule(serviceKm);
+        schedule.Reschedule(serviceKm); // Ahora también alterna NextServiceTypeCode
         _scheduleRepo.Update(schedule);
         await _scheduleRepo.SaveChangesAsync(ct);
     }
