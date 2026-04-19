@@ -1,6 +1,5 @@
-using MaintManager.Application.DTOs.Common;
-using MaintManager.Application.DTOs.Maintenance;
 using MaintManager.Domain.Entities;
+using MaintManager.Shared.Models;
 
 namespace MaintManager.Domain.Interfaces.Repositories;
 

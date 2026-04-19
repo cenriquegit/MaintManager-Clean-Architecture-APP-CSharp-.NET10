@@ -170,3 +170,4 @@ C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\r
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.pdb
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.genruntimeconfig.cache
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\ref\MaintManager.API.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.sourcelink.json

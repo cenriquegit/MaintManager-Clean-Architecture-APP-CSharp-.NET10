@@ -900,7 +900,11 @@
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Shared\\MaintManager.Shared.csproj": {
+                "projectPath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Shared\\MaintManager.Shared.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -1,6 +1,7 @@
 using FluentValidation;
 using MaintManager.Application.DTOs.Common;
 using MaintManager.Application.DTOs.Maintenance;
+using MaintManager.Shared.Models;
 using MaintManager.Application.Mappings;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-
 namespace MaintManager.API.Controllers;
 
 /// <summary>Gestión de órdenes de mantenimiento vehicular.</summary>

@@ -46,6 +46,9 @@
         }
       },
       "MaintManager.Domain/1.0.0": {
+        "dependencies": {
+          "MaintManager.Shared": "1.0.0"
+        },
         "runtime": {
           "MaintManager.Domain.dll": {
             "assemblyVersion": "1.0.0.0",

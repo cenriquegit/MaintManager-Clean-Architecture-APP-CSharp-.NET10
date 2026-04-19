@@ -1,6 +1,6 @@
-namespace MaintManager.Application.DTOs.Maintenance;
+namespace MaintManager.Shared.Models;
 
-internal sealed class MaintenanceListItemDto
+public sealed class MaintenanceListItemDto
 {
     public int Mainid { get; set; }
     public string? LicensePlate { get; set; }

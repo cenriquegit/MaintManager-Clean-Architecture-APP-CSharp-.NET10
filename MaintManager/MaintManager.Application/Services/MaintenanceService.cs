@@ -3,7 +3,7 @@ using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
 using MaintManager.Shared.Constants;
-
+using MaintManager.Shared.Models;
 namespace MaintManager.Application.Services;
 
 /// <summary>Gestión de órdenes de mantenimiento y sus operaciones.</summary>

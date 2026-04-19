@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "MaintManager.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/MaintManager.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MaintManager.Shared.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "MaintManager.Shared/1.0.0": {
+      "type": "project",
+      "path": "../MaintManager.Shared/MaintManager.Shared.csproj",
+      "msbuildProject": "../MaintManager.Shared/MaintManager.Shared.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "MaintManager.Shared >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\carlo\\.nuget\\packages\\": {}
@@ -34,7 +53,11 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Shared\\MaintManager.Shared.csproj": {
+              "projectPath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Shared\\MaintManager.Shared.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

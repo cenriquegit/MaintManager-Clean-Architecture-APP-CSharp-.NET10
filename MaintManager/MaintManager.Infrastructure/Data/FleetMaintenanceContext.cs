@@ -2,7 +2,7 @@
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
-
+cat 
 namespace MaintManager.Infrastructure.Data;
 
 /// <summary>
@@ -22,7 +22,7 @@ public sealed class FleetMaintenanceContext : DbContext
 
     // ── Tablas existentes — esquema public ───────────────────────────
     public DbSet<Worker>        Workers        { get; init; }
-        public DbSet<Job> Jobs { get; init; }
+    public DbSet<Job>           Jobs           { get; init; }
     public DbSet<Person>        Persons        { get; init; }
     public DbSet<Company>       Companies      { get; init; }
     public DbSet<Zone>          Zones          { get; init; }

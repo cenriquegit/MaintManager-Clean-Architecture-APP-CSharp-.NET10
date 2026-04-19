@@ -1,11 +1,9 @@
 using System.Linq;
-using MaintManager.Application.DTOs.Common;
-using MaintManager.Application.DTOs.Maintenance;
+using MaintManager.Shared.Models;
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-
 namespace MaintManager.Infrastructure.Repositories;
 
 public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMaintenanceRepository

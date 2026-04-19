@@ -65,3 +65,4 @@ C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Infrastructure\obj\Debu
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Infrastructure\obj\Debug\net10.0\MaintManager.Infrastructure.pdb
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Infrastructure\obj\Debug\net10.0\MaintManager.Infrastructure.genruntimeconfig.cache
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Infrastructure\obj\Debug\net10.0\ref\MaintManager.Infrastructure.dll
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.Infrastructure\obj\Debug\net10.0\MaintManager.Infrastructure.sourcelink.json

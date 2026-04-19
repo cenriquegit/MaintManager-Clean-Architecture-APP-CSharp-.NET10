@@ -200,3 +200,16 @@ internal sealed class CompanyWorkerConfiguration : IEntityTypeConfiguration<Comp
         builder.ToTable(t => t.ExcludeFromMigrations());
     }
 }
+
+internal sealed class JobConfiguration : IEntityTypeConfiguration<Job>
+{
+    public void Configure(EntityTypeBuilder<Job> builder)
+    {
+        builder.ToTable("job", "public");
+        builder.HasKey(j => j.Jobid);
+        builder.Property(j => j.Jobid).HasColumnName("jobid");
+        builder.Property(j => j.Name).HasColumnName("name").HasMaxLength(100);
+        builder.Property(j => j.Status).HasColumnName("status");
+        builder.ToTable(t => t.ExcludeFromMigrations());
+    }
+}

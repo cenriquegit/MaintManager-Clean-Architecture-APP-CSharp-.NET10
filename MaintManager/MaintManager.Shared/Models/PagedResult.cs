@@ -1,4 +1,4 @@
-namespace MaintManager.Application.DTOs.Common;
+namespace MaintManager.Shared.Models;
 
 public sealed class PagedResult<T>
 {

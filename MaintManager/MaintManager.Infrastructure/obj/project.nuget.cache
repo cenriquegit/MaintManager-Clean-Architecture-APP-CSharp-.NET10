@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FgbEawaxG7I=",
+  "dgSpecHash": "pvxJnYq7qgI=",
   "success": true,
   "projectFilePath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Infrastructure\\MaintManager.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -57,9 +57,9 @@
   ],
   "logs": [
     {
-      "code": "NU1901",
+      "code": "NU1903",
       "level": "Warning",
-      "message": "El paquete \"System.Security.Cryptography.Xml\" 9.0.0 tiene una vulnerabilidad de gravedad baja conocida, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
+      "message": "El paquete \"System.Security.Cryptography.Xml\" 9.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
       "projectPath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Infrastructure\\MaintManager.Infrastructure.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Infrastructure\\MaintManager.Infrastructure.csproj",
@@ -69,9 +69,9 @@
       ]
     },
     {
-      "code": "NU1901",
+      "code": "NU1903",
       "level": "Warning",
-      "message": "El paquete \"System.Security.Cryptography.Xml\" 9.0.0 tiene una vulnerabilidad de gravedad baja conocida, https://github.com/advisories/GHSA-w3x6-4m5h-cxqf",
+      "message": "El paquete \"System.Security.Cryptography.Xml\" 9.0.0 tiene una vulnerabilidad de gravedad alta conocida, https://github.com/advisories/GHSA-w3x6-4m5h-cxqf",
       "projectPath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Infrastructure\\MaintManager.Infrastructure.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.Infrastructure\\MaintManager.Infrastructure.csproj",
