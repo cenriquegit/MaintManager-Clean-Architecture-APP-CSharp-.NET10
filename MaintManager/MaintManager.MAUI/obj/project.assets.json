@@ -8314,7 +8314,7 @@
         }
       }
     },
-    "net10.0-android36.0/iossimulator-x64": {
+    "net10.0-android36.0/ios-arm64": {
       "CommunityToolkit.Maui/10.0.0": {
         "type": "package",
         "dependencies": {
@@ -18987,7 +18987,7 @@
         }
       }
     },
-    "net10.0-ios26.2/iossimulator-x64": {
+    "net10.0-ios26.2/ios-arm64": {
       "CommunityToolkit.Maui/10.0.0": {
         "type": "package",
         "dependencies": {
@@ -19063,11 +19063,11 @@
           "lib/net6.0-ios13.6/_._": {}
         },
         "native": {
-          "runtimes/iossimulator/native/libHarfBuzzSharp.framework/Headers/libHarfBuzzSharp.h": {},
-          "runtimes/iossimulator/native/libHarfBuzzSharp.framework/Info.plist": {},
-          "runtimes/iossimulator/native/libHarfBuzzSharp.framework/Modules/module.modulemap": {},
-          "runtimes/iossimulator/native/libHarfBuzzSharp.framework/_CodeSignature/CodeResources": {},
-          "runtimes/iossimulator/native/libHarfBuzzSharp.framework/libHarfBuzzSharp": {}
+          "runtimes/ios/native/libHarfBuzzSharp.framework/Headers/libHarfBuzzSharp.h": {},
+          "runtimes/ios/native/libHarfBuzzSharp.framework/Info.plist": {},
+          "runtimes/ios/native/libHarfBuzzSharp.framework/Modules/module.modulemap": {},
+          "runtimes/ios/native/libHarfBuzzSharp.framework/_CodeSignature/CodeResources": {},
+          "runtimes/ios/native/libHarfBuzzSharp.framework/libHarfBuzzSharp": {}
         },
         "build": {
           "buildTransitive/net6.0-ios13.6/HarfBuzzSharp.NativeAssets.iOS.targets": {}
@@ -19707,9 +19707,9 @@
           "lib/net8.0-ios17.0/_._": {}
         },
         "native": {
-          "runtimes/iossimulator/native/libSkiaSharp.framework/Info.plist": {},
-          "runtimes/iossimulator/native/libSkiaSharp.framework/_CodeSignature/CodeResources": {},
-          "runtimes/iossimulator/native/libSkiaSharp.framework/libSkiaSharp": {}
+          "runtimes/ios/native/libSkiaSharp.framework/Info.plist": {},
+          "runtimes/ios/native/libSkiaSharp.framework/_CodeSignature/CodeResources": {},
+          "runtimes/ios/native/libSkiaSharp.framework/libSkiaSharp": {}
         },
         "build": {
           "buildTransitive/net8.0-ios17.0/SkiaSharp.NativeAssets.iOS.targets": {}
@@ -23703,7 +23703,7 @@
         }
       }
     },
-    "net10.0-maccatalyst26.2/iossimulator-x64": {
+    "net10.0-maccatalyst26.2/ios-arm64": {
       "CommunityToolkit.Maui/10.0.0": {
         "type": "package",
         "dependencies": {
@@ -29187,7 +29187,7 @@
         }
       }
     },
-    "net10.0-windows10.0.19041/iossimulator-x64": {
+    "net10.0-windows10.0.19041/ios-arm64": {
       "CommunityToolkit.Maui/10.0.0": {
         "type": "package",
         "dependencies": {
@@ -38491,7 +38491,7 @@
       "android-x64": {
         "#import": []
       },
-      "iossimulator-x64": {
+      "ios-arm64": {
         "#import": []
       },
       "maccatalyst-x64": {

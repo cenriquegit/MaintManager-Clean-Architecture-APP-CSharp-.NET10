@@ -3,13 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Auth"
              x:Class="MaintManager.MAUI.Views.Auth.LoginPage"
-             Title="Login">
+             x:DataType="vm:LoginViewModel"
+             Title="Iniciar Sesión"
+             BackgroundColor="{StaticResource ColorSurface}">
 
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+        <Image Source="appicon.svg" HeightRequest="80" WidthRequest="80" HorizontalOptions="Center" />
+
+        <Label Text="MaintManager" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
+
         <Entry Placeholder="Usuario" Text="{Binding Username}" />
         <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}" />
-        <Label Text="{Binding ErrorMessage}" TextColor="Red" IsVisible="{Binding ErrorMessage, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" />
-        <Button Text="Ingresar" Command="{Binding LoginCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
+
+        <!-- Mensaje de error -->
+        <Label Text="{Binding ErrorMessage}" 
+               TextColor="{StaticResource ColorError}"
+               IsVisible="{Binding ErrorMessage, Converter={StaticResource IsNotNullConverter}}" />
+
+        <Button Text="Ingresar" 
+                Command="{Binding LoginCommand}" 
+                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource PrimaryButton}" />
+
         <ActivityIndicator IsRunning="{Binding IsBusy}" />
     </VerticalStackLayout>
 </ContentPage>

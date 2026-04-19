@@ -53,4 +53,10 @@ public class ApiService
             throw new HttpRequestException($"Error {response.StatusCode}: {error}");
         }
     }
+    public async Task<T?> PutAsync<T>(string endpoint, object? data = null)
+    {
+        var content = data is null ? null : new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync(endpoint, content);
+        return await HandleResponse<T>(response);
+    }
 }

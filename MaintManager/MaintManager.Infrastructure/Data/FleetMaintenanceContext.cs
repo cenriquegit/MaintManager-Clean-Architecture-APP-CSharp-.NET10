@@ -2,7 +2,6 @@
 using MaintManager.Domain.Entities;
 using MaintManager.Domain.Entities.Existing;
 using Microsoft.EntityFrameworkCore;
-cat 
 namespace MaintManager.Infrastructure.Data;
 
 /// <summary>

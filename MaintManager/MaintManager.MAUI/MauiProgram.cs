@@ -26,17 +26,21 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        // Registrar servicios
-        builder.Services.AddSingleton<ApiService>();
+        // 🔥 Registrar HttpClient para ApiService
+        builder.Services.AddHttpClient<ApiService>(client =>
+        {
+            client.BaseAddress = new Uri("http://localhost:5056");
+        });
+
         builder.Services.AddSingleton<AuthService>();
 
-        // Registrar ViewModels
+        // ViewModels
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<AlertListViewModel>();
         builder.Services.AddTransient<InventoryListViewModel>();
         builder.Services.AddTransient<LotCreateViewModel>();
 
-        // Registrar páginas
+        // Páginas
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<AlertListPage>();
         builder.Services.AddTransient<InventoryListPage>();

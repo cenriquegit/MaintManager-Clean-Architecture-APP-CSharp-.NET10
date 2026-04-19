@@ -19,25 +19,54 @@ public partial class AlertListViewModel : BaseViewModel
     [ObservableProperty]
     private ObservableCollection<AlertItem> _alerts = new();
 
+    [ObservableProperty]
+    private bool _isAdmin; // Se debe setear después del login según el rol
+
     [RelayCommand]
     private async Task Load()
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>("api/v1/alerts");
-            if (response?.Success == true && response.Data != null)
+            var response = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetUnresolved);
+            if (response?.Success == true)
             {
-                Alerts = new ObservableCollection<AlertItem>(response.Data);
+                Alerts = new ObservableCollection<AlertItem>(response.Data ?? new List<AlertItem>());
+                IsEmpty = Alerts.Count == 0;
+            }
+            else
+            {
+                throw new Exception(response?.Message ?? "Error al cargar alertas");
             }
         });
     }
 
-    public class AlertItem
+    [RelayCommand]
+    private async Task MarkRead(AlertItem alert)
+    {
+        if (alert.IsRead) return;
+        await _apiService.PutAsync<object>($"{ApiRoutes.Alerts.MarkRead.Replace("{id}", alert.Alloid.ToString())}");
+        alert.IsRead = true;
+    }
+
+    [RelayCommand]
+    private async Task Resolve(AlertItem alert)
+    {
+        if (alert.Resolved) return;
+        await _apiService.PutAsync<object>($"{ApiRoutes.Alerts.Resolve.Replace("{id}", alert.Alloid.ToString())}");
+        Alerts.Remove(alert);
+        IsEmpty = Alerts.Count == 0;
+    }
+
+    public partial class AlertItem
     {
         public int Alloid { get; set; }
+        public string AlertType { get; set; } = string.Empty;
         public string Message { get; set; } = string.Empty;
         public DateTime AlertDate { get; set; }
+        public string? LicensePlate { get; set; }
+        public string? MaterialName { get; set; }
         public bool IsRead { get; set; }
+        public bool Resolved { get; set; }
     }
 
     public class ApiResponse<T>

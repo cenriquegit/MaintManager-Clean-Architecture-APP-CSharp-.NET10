@@ -38,4 +38,23 @@
             Offset="0,2"
             Radius="4"
             Opacity="0.2" />
+    <Style x:Key="TitleMedium" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+    <Style x:Key="AccentButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{StaticResource ColorAccentDark}" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12,8" />
+    </Style>
+
+    <Color x:Key="ColorBorderLight">#E0E0E0</Color>
+
+    <Style x:Key="BadgeError" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource ColorErrorContainer}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 99" />
+        <Setter Property="Padding" Value="8,2" />
+    </Style>
 </ResourceDictionary>

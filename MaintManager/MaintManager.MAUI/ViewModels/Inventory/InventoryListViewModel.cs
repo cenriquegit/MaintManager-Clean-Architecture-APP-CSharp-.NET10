@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaintManager.MAUI.Services;
+using MaintManager.Shared.Constants;
 using System.Collections.ObjectModel;
 
 namespace MaintManager.MAUI.ViewModels.Inventory;
@@ -16,28 +17,65 @@ public partial class InventoryListViewModel : BaseViewModel
     }
 
     [ObservableProperty]
+    private string _searchText = string.Empty;
+
+    [ObservableProperty]
+    private bool _showOnlyLowStock;
+
+    [ObservableProperty]
     private ObservableCollection<MaterialItem> _materials = new();
+
+    [ObservableProperty]
+    private int? _lowStockCount;
+
+    [ObservableProperty]
+    private bool _isAdmin = true; // Ajustar según rol real
 
     [RelayCommand]
     private async Task Load()
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<ApiResponse<List<MaterialItem>>>("api/v1/inventory/materials");
-            if (response?.Success == true && response.Data != null)
+            var endpoint = ShowOnlyLowStock ? ApiRoutes.Inventory.GetLowStock : ApiRoutes.Inventory.GetMaterials;
+            var response = await _apiService.GetAsync<ApiResponse<List<MaterialItem>>>(endpoint);
+            if (response?.Success == true)
             {
-                Materials = new ObservableCollection<MaterialItem>(response.Data);
+                var items = response.Data ?? new List<MaterialItem>();
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    items = items.Where(m =>
+                        m.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                        m.Category.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+                Materials = new ObservableCollection<MaterialItem>(items);
+                LowStockCount = Materials.Count(m => m.IsBelowMinimum);
+                IsEmpty = Materials.Count == 0;
+            }
+            else
+            {
+                throw new Exception(response?.Message ?? "Error al cargar inventario");
             }
         });
     }
 
-    public class MaterialItem
+    partial void OnShowOnlyLowStockChanged(bool value) => LoadCommand.Execute(null);
+    partial void OnSearchTextChanged(string value) => LoadCommand.Execute(null);
+
+    [RelayCommand]
+    private async Task AddLot()
+    {
+        await Shell.Current.GoToAsync("//Inventory/LotCreate");
+    }
+
+    public partial class MaterialItem
     {
         public int Mateid { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Category { get; set; } = string.Empty;
         public decimal StockTotal { get; set; }
+        public decimal StockMinimum { get; set; }
         public string UnitOfMeasure { get; set; } = string.Empty;
+        public bool IsBelowMinimum { get; set; }
     }
 
     public class ApiResponse<T>

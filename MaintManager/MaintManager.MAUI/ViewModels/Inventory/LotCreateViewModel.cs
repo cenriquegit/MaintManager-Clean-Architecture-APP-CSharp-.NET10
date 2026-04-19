@@ -22,7 +22,7 @@ public partial class LotCreateViewModel : BaseViewModel
     private bool _hasError;
 
     [ObservableProperty]
-    private bool _isSuccess = true; // Iniciar con formulario visible
+    private bool _isSuccess = false; // Iniciar con formulario visible
 
     [ObservableProperty]
     private string _errorMessage = string.Empty;
