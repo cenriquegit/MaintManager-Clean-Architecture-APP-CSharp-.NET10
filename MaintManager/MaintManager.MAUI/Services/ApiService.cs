@@ -12,7 +12,7 @@ public class ApiService
     public ApiService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("http://localhost:5056"); // ⚠️ Cambia si usas otra IP o puerto
+        _httpClient.BaseAddress = new Uri("http://10.0.2.2:5056"); // ⚠️ Cambia si usas otra IP o puerto
     }
 
     public void SetAuthToken(string token)
