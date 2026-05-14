@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Maintenances"
+    x:Class="MaintManager.MAUI.Views.Maintenances.MaintenanceDetailPage"
+    x:DataType="vm:MaintenanceDetailViewModel"
+    Title="{Binding Title}">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- LOADING -->
+        <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+            <Label Text="Cargando detalle..." Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- ERROR -->
+        <VerticalStackLayout IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                   TextColor="{StaticResource ColorError}"/>
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                    Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- SUCCESS -->
+        <ScrollView IsVisible="{Binding IsSuccess}">
+            <VerticalStackLayout Padding="16" Spacing="12">
+
+                <!-- Header: order number, vehicle, status -->
+                <Border StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="16"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="{Binding MaintenanceDetail.OrderNumber}"
+                               FontSize="20" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <Border Grid.Row="0" Grid.Column="1"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 99"
+                                Padding="10,4"
+                                BackgroundColor="{StaticResource ColorInfoContainer}">
+                            <Label Text="{Binding MaintenanceDetail.Status}"
+                                   FontSize="12" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorInfo}"/>
+                        </Border>
+
+                        <Label Grid.Row="1" Grid.ColumnSpan="2"
+                               Text="{Binding MaintenanceDetail.VehicleName, StringFormat='{0}'}"
+                               FontSize="16"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               Margin="0,6,0,0"/>
+
+                        <Label Grid.Row="2" Grid.ColumnSpan="2"
+                               Text="{Binding MaintenanceDetail.LicensePlate, StringFormat='Placa: {0}'}"
+                               Style="{StaticResource CaptionText}"/>
+                    </Grid>
+                </Border>
+
+                <!-- Info section -->
+                <Border StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="16"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Información General"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                              ColumnDefinitions="Auto,*"
+                              RowSpacing="8" ColumnSpacing="12">
+                            <Label Grid.Row="0" Grid.Column="0" Text="Tipo:" Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="0" Grid.Column="1"
+                                   Text="{Binding MaintenanceDetail.MaintenanceType}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <Label Grid.Row="1" Grid.Column="0" Text="Servicio:" Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="1" Grid.Column="1"
+                                   Text="{Binding MaintenanceDetail.ServiceType}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Text="Fecha:" Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="2" Grid.Column="1"
+                                   Text="{Binding MaintenanceDetail.MaintenanceDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <Label Grid.Row="3" Grid.Column="0" Text="Kilometraje:" Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="3" Grid.Column="1"
+                                   Text="{Binding MaintenanceDetail.Mileage, StringFormat='{0:N0} km'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <Label Grid.Row="4" Grid.Column="0" Text="Técnico:" Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="4" Grid.Column="1"
+                                   Text="{Binding MaintenanceDetail.AssignedToName}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Registrado por:" Style="{StaticResource CaptionText}" VerticalOptions="Center"/>
+                            <Label Text="{Binding MaintenanceDetail.RegisteredByName}"
+                                   Style="{StaticResource BodyText}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Oil info section (collapsible) -->
+                <Border StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="16"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ToggleOilInfoCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="Información de Aceite"
+                                   FontSize="16" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Grid.Column="1" Text="▲" FontSize="14"
+                                   TextColor="{StaticResource ColorInfo}"
+                                   IsVisible="{Binding IsOilInfoExpanded}"/>
+                            <Label Grid.Column="1" Text="▼" FontSize="14"
+                                   TextColor="{StaticResource ColorInfo}"
+                                   IsVisible="{Binding IsOilInfoExpanded, Converter={StaticResource InvertedBoolConverter}}"/>
+                        </Grid>
+
+                        <VerticalStackLayout IsVisible="{Binding IsOilInfoExpanded}" Spacing="8">
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilBrand, StringFormat='Marca: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilViscosity, StringFormat='Viscosidad: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilQuantity, StringFormat='Cantidad: {0} L'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilFilterChanged, StringFormat='Cambio de filtro: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Actions checklist -->
+                <Border StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="16"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Acciones Realizadas"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <CollectionView ItemsSource="{Binding ActionDetails}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="vm:MaintenanceDetailViewModel+ActionDetailItem">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,6">
+                                        <CheckBox IsChecked="{Binding IsCompleted}"
+                                                  IsEnabled="False"
+                                                  Color="{StaticResource ColorPrimary}"/>
+                                        <VerticalStackLayout Grid.Column="1" Spacing="2" Margin="8,0,0,0">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="14"
+                                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                                            <Label Text="{Binding Description}"
+                                                   Style="{StaticResource CaptionText}"
+                                                   LineBreakMode="WordWrap"/>
+                                        </VerticalStackLayout>
+                                        <Button Grid.Column="2"
+                                                Text="Completar"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=CompleteActionCommand}"
+                                                CommandParameter="{Binding .}"
+                                                IsVisible="{Binding IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
+                                                Style="{StaticResource AccentButton}"
+                                                FontSize="11" HeightRequest="30" Padding="8,0"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Diagnosis section -->
+                <Border IsVisible="{Binding Diagnosis, Converter={StaticResource IsNotNullConverter}}"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="16"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Diagnóstico"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                        <Label Text="Código:" Style="{StaticResource CaptionText}"/>
+                        <Label Text="{Binding Diagnosis.Code}"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <Label Text="Descripción:" Style="{StaticResource CaptionText}"/>
+                        <Label Text="{Binding Diagnosis.Description}"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               LineBreakMode="WordWrap"/>
+
+                        <Label Text="Acción recomendada:" Style="{StaticResource CaptionText}"/>
+                        <Label Text="{Binding Diagnosis.RecommendedAction}"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               LineBreakMode="WordWrap"/>
+
+                        <Label Text="Severidad:" Style="{StaticResource CaptionText}"/>
+                        <Label Text="{Binding Diagnosis.Severity}"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Spacer for bottom button -->
+                <BoxView HeightRequest="16" Color="Transparent"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom: Close order -->
+        <Button Grid.Row="1"
+                Text="Cerrar Orden"
+                Command="{Binding CloseOrderCommand}"
+                IsVisible="{Binding CanClose}"
+                Style="{StaticResource PrimaryButton}"
+                Margin="16,8,16,16"
+                HorizontalOptions="Fill"/>
+
+    </Grid>
+</ContentPage>

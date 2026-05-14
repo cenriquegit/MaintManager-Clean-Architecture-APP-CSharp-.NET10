@@ -12,11 +12,10 @@ public class AuthService
     public async Task<bool> LoginAsync(string username, string password)
     {
         var request = new { username, password };
-        var response = await _apiService.PostAsync<LoginResponse>("api/v1/auth/login", request);
+        var response = await _apiService.PostAndUnwrapAsync<LoginResponse>("api/v1/auth/login", request);
         if (response is not null && !string.IsNullOrEmpty(response.Token))
         {
             _apiService.SetAuthToken(response.Token);
-            // Guardar token en SecureStorage (opcional)
             await SecureStorage.SetAsync("auth_token", response.Token);
             return true;
         }

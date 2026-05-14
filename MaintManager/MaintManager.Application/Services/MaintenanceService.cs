@@ -85,7 +85,7 @@ public sealed class MaintenanceService : IMaintenanceService
         var diagnosis = Diagnosis.Create(mainid, generalStatus, vehicleOperative,
             observations, futureRecommendations);
 
-        // Se elimina la línea sin efecto: maintenance.ActionDetails.GetType();
+        maintenance.SetDiagnosis(diagnosis);
         await _maintenanceRepo.SaveChangesAsync(ct);
     }
 

@@ -1,0 +1,7 @@
+<api type="release" assembly-name="LiveChartsCore.Behaviours" mvid="6b44cc46bf81465f95a1e428d9854e10">
+  <module assembly-name="LiveChartsCore.Behaviours" mvid="6b44cc46bf81465f95a1e428d9854e10" mvid-bytes="RsxEa4G/X0aVoeQo2YVOEA==">
+    <types-scratch>
+      <entry key="crc64ab1f34af14790cf9/ChartBehaviour_CustomScaleListener" java-name="crc64ab1f34af14790cf9/ChartBehaviour_CustomScaleListener" managed-type-name="LiveChartsCore.Behaviours.ChartBehaviour/CustomScaleListener" token="33554446" />
+    </types-scratch>
+  </module>
+</api>

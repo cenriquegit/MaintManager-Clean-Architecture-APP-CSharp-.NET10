@@ -1,11 +1,22 @@
-﻿using CommunityToolkit.Maui;
-using MaintManager.MAUI.Services;
+﻿using MaintManager.MAUI.Services;
 using MaintManager.MAUI.ViewModels.Alerts;
 using MaintManager.MAUI.ViewModels.Auth;
+using MaintManager.MAUI.ViewModels.BiDashboard;
+using MaintManager.MAUI.ViewModels.Calendar;
+using MaintManager.MAUI.ViewModels.Dashboard;
 using MaintManager.MAUI.ViewModels.Inventory;
+using MaintManager.MAUI.ViewModels.Maintenances;
+using MaintManager.MAUI.ViewModels.Reports;
+using MaintManager.MAUI.ViewModels.Settings;
 using MaintManager.MAUI.Views.Alerts;
 using MaintManager.MAUI.Views.Auth;
+using MaintManager.MAUI.Views.BiDashboard;
+using MaintManager.MAUI.Views.Calendar;
+using MaintManager.MAUI.Views.Dashboard;
 using MaintManager.MAUI.Views.Inventory;
+using MaintManager.MAUI.Views.Maintenances;
+using MaintManager.MAUI.Views.Reports;
+using MaintManager.MAUI.Views.Settings;
 using Microsoft.Extensions.Logging;
 
 namespace MaintManager.MAUI;
@@ -19,32 +30,43 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        // 🔥 Registrar HttpClient para ApiService
-        builder.Services.AddHttpClient<ApiService>(client =>
-        {
-            client.BaseAddress = new Uri("http://localhost:5056");
-        });
+        var httpClient = new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5056") };
+        builder.Services.AddSingleton(httpClient);
+        builder.Services.AddSingleton<ApiService>();
 
         builder.Services.AddSingleton<AuthService>();
 
-        // ViewModels
         builder.Services.AddTransient<LoginViewModel>();
         builder.Services.AddTransient<AlertListViewModel>();
         builder.Services.AddTransient<InventoryListViewModel>();
         builder.Services.AddTransient<LotCreateViewModel>();
+        builder.Services.AddTransient<MaintenanceListViewModel>();
+        builder.Services.AddTransient<MaintenanceDetailViewModel>();
+        builder.Services.AddTransient<MaintenanceWizardViewModel>();
+        builder.Services.AddTransient<HomeViewModel>();
+        builder.Services.AddTransient<CalendarViewModel>();
+        builder.Services.AddTransient<BiDashboardViewModel>();
+        builder.Services.AddTransient<ReportsViewModel>();
+        builder.Services.AddTransient<SettingsViewModel>();
 
-        // Páginas
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<AlertListPage>();
         builder.Services.AddTransient<InventoryListPage>();
         builder.Services.AddTransient<LotCreatePage>();
+        builder.Services.AddTransient<MaintenanceListPage>();
+        builder.Services.AddTransient<MaintenanceDetailPage>();
+        builder.Services.AddTransient<MaintenanceWizardPage>();
+        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<CalendarPage>();
+        builder.Services.AddTransient<BiDashboardPage>();
+        builder.Services.AddTransient<ReportsPage>();
+        builder.Services.AddTransient<SettingsPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

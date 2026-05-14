@@ -151,4 +151,12 @@ public sealed class Maintenance
         Note = note;
         UpdatedAt = DateTime.UtcNow;
     }
+
+    public void SetDiagnosis(Diagnosis diagnosis)
+    {
+        if (Diagnosis is not null)
+            throw new InvalidOperationException("Esta orden ya tiene un diagnóstico registrado.");
+        Diagnosis = diagnosis;
+        UpdatedAt = DateTime.UtcNow;
+    }
 }

@@ -2,8 +2,9 @@ using FluentValidation;
 using MaintManager.API.Middleware;
 using MaintManager.Application.Services;
 using MaintManager.Application.Validators;
-using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
+using MaintManager.Infrastructure.Services;
+using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Infrastructure.Data;
 using MaintManager.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -72,6 +73,7 @@ builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
 builder.Services.AddScoped<ISchedulingService, SchedulingService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IAlertService, AlertService>();
+builder.Services.AddScoped<IBiReportService, BiReportService>();
 Console.WriteLine(">>> Servicios registrados");
 
 // ── Validaciones ─────────────────────────────────────────────────

@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MaintManager.MAUI.Models;
 using MaintManager.MAUI.Services;
 using MaintManager.Shared.Constants;
 using System.Collections.ObjectModel;
@@ -55,18 +56,6 @@ public partial class AlertListViewModel : BaseViewModel
         await _apiService.PutAsync<object>($"{ApiRoutes.Alerts.Resolve.Replace("{id}", alert.Alloid.ToString())}");
         Alerts.Remove(alert);
         IsEmpty = Alerts.Count == 0;
-    }
-
-    public partial class AlertItem
-    {
-        public int Alloid { get; set; }
-        public string AlertType { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
-        public DateTime AlertDate { get; set; }
-        public string? LicensePlate { get; set; }
-        public string? MaterialName { get; set; }
-        public bool IsRead { get; set; }
-        public bool Resolved { get; set; }
     }
 
     public class ApiResponse<T>

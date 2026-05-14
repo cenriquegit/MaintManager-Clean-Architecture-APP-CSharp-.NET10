@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Views/BiDashboard/BiDashboardPage.xaml -->
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.BiDashboard"
+    x:Class="MaintManager.MAUI.Views.BiDashboard.BiDashboardPage"
+    x:DataType="vm:BiDashboardViewModel"
+    Title="Dashboard">
+
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsLoading}">
+        <Grid>
+
+            <!-- LOADING -->
+            <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+                <ActivityIndicator IsRunning="True"/>
+                <Label Text="Cargando dashboard..." Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- ERROR -->
+            <VerticalStackLayout IsVisible="{Binding HasError}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                       TextColor="{StaticResource ColorError}"/>
+                <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                        Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- EMPTY -->
+            <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                <Label Text="📊" FontSize="56" HorizontalOptions="Center"/>
+                <Label Text="No hay datos disponibles"
+                       FontSize="18" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorAccentDark}"
+                       HorizontalOptions="Center"/>
+                <Label Text="No se encontraron métricas para mostrar."
+                       Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+            </VerticalStackLayout>
+
+            <!-- SUCCESS -->
+            <ScrollView IsVisible="{Binding IsSuccess}">
+                <VerticalStackLayout Spacing="16" Padding="16,8">
+
+                    <!-- Fila 1: KPI Cards 2x2 -->
+                    <Grid RowDefinitions="Auto,Auto"
+                          ColumnDefinitions="*,*"
+                          RowSpacing="12" ColumnSpacing="12">
+
+                        <!-- Total vehículos -->
+                        <Border Grid.Row="0" Grid.Column="0"
+                                Style="{StaticResource Card}">
+                            <VerticalStackLayout Spacing="4" Padding="12">
+                                <Label Text="Vehículos totales"
+                                       Style="{StaticResource CaptionText}"/>
+                                <Label Text="{Binding DashboardSummary.TotalVehicles}"
+                                       FontSize="28" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorPrimary}"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Servicios del mes -->
+                        <Border Grid.Row="0" Grid.Column="1"
+                                Style="{StaticResource Card}">
+                            <VerticalStackLayout Spacing="4" Padding="12">
+                                <Label Text="Servicios del mes"
+                                       Style="{StaticResource CaptionText}"/>
+                                <Label Text="{Binding DashboardSummary.ServicesThisMonth}"
+                                       FontSize="28" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorPrimary}"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Tasa de emergencia -->
+                        <Border Grid.Row="1" Grid.Column="0"
+                                Style="{StaticResource Card}">
+                            <VerticalStackLayout Spacing="4" Padding="12">
+                                <Label Text="Tasa emergencia"
+                                       Style="{StaticResource CaptionText}"/>
+                                <Label Text="{Binding DashboardSummary.EmergencyRate, StringFormat='{0:P1}'}"
+                                       FontSize="28" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorWarning}"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Costo/km flota -->
+                        <Border Grid.Row="1" Grid.Column="1"
+                                Style="{StaticResource Card}">
+                            <VerticalStackLayout Spacing="4" Padding="12">
+                                <Label Text="Costo/km flota"
+                                       Style="{StaticResource CaptionText}"/>
+                                <Label Text="{Binding DashboardSummary.FleetAvgCostPerKm, StringFormat='{0:N2} $/km'}"
+                                       FontSize="28" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorPrimary}"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <!-- Fila 2: Costo por Kilómetro -->
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12" Padding="16">
+                            <Label Text="Costo por Kilómetro"
+                                   FontSize="18" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <!-- Placeholder gráfico -->
+                            <Border BackgroundColor="{StaticResource ColorSurfaceVariant}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    HeightRequest="180"
+                                    HorizontalOptions="Fill">
+                                <VerticalStackLayout HorizontalOptions="Center"
+                                                     VerticalOptions="Center" Spacing="8">
+                                    <Label Text="📊" FontSize="40" HorizontalOptions="Center"/>
+                                    <Label Text="Gráfico de barras - Costo por Km"
+                                           Style="{StaticResource BodyText}"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="{Binding CostPerKmData.Count, StringFormat='{0} períodos cargados'}"
+                                           Style="{StaticResource CaptionText}"
+                                           HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Resumen de datos -->
+                            <CollectionView ItemsSource="{Binding CostPerKmData}"
+                                            HeightRequest="120">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:BiDashboardViewModel+CostPerKmItem">
+                                        <Grid ColumnDefinitions="*,Auto" Padding="0,4">
+                                            <Label Text="{Binding Label}"
+                                                   Style="{StaticResource BodyText}"/>
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Value, StringFormat='{0:N2} $/km'}"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{StaticResource ColorPrimary}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Fila 3: Tasa de Emergencias -->
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12" Padding="16">
+                            <Label Text="Tasa de Emergencias"
+                                   FontSize="18" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <Grid ColumnDefinitions="*,Auto,Auto,Auto"
+                                  Padding="0,4">
+                                <Label Text="Período" FontAttributes="Bold"
+                                       Style="{StaticResource CaptionText}"/>
+                                <Label Grid.Column="1" Text="Tasa" FontAttributes="Bold"
+                                       Style="{StaticResource CaptionText}" Margin="12,0"/>
+                                <Label Grid.Column="2" Text="Emergencias" FontAttributes="Bold"
+                                       Style="{StaticResource CaptionText}" Margin="12,0"/>
+                                <Label Grid.Column="3" Text="Total" FontAttributes="Bold"
+                                       Style="{StaticResource CaptionText}" Margin="12,0"/>
+                            </Grid>
+
+                            <BoxView HeightRequest="1"
+                                     BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                            <CollectionView ItemsSource="{Binding EmergencyRateData}"
+                                            HeightRequest="160">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:BiDashboardViewModel+EmergencyRateItem">
+                                        <Grid ColumnDefinitions="*,Auto,Auto,Auto"
+                                              Padding="0,6">
+                                            <Label Text="{Binding Period}"
+                                                   Style="{StaticResource BodyText}"/>
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Rate, StringFormat='{0:P1}'}"
+                                                   Style="{StaticResource BodyText}"
+                                                   Margin="12,0"/>
+                                            <Label Grid.Column="2"
+                                                   Text="{Binding EmergencyCount}"
+                                                   Style="{StaticResource BodyText}"
+                                                   Margin="12,0"
+                                                   TextColor="{StaticResource ColorError}"/>
+                                            <Label Grid.Column="3"
+                                                   Text="{Binding TotalServices}"
+                                                   Style="{StaticResource BodyText}"
+                                                   Margin="12,0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Fila 4: Alertas y Predicciones -->
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12" Padding="16">
+                            <Label Text="Alertas y Predicciones"
+                                   FontSize="18" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <Grid RowDefinitions="Auto,Auto,Auto"
+                                  ColumnDefinitions="*,*"
+                                  RowSpacing="12" ColumnSpacing="12">
+
+                                <Border Grid.Row="0" Grid.Column="0"
+                                        BackgroundColor="{StaticResource ColorErrorContainer}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="12">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="Alertas sin resolver"
+                                               Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding DashboardSummary.UnresolvedAlerts}"
+                                               FontSize="24" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorError}"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <Border Grid.Row="0" Grid.Column="1"
+                                        BackgroundColor="{StaticResource ColorWarningContainer}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="12">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="Stock bajo mínimo"
+                                               Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding DashboardSummary.LowStockMaterials}"
+                                               FontSize="24" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorWarning}"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <Border Grid.Row="1" Grid.Column="0"
+                                        BackgroundColor="{StaticResource ColorSurfaceVariant}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="12">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="Lotes por vencer"
+                                               Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding DashboardSummary.ExpiringLots}"
+                                               FontSize="24" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+                                    </VerticalStackLayout>
+                                </Border>
+
+                                <Border Grid.Row="1" Grid.Column="1"
+                                        BackgroundColor="{StaticResource ColorSurfaceVariant}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="12">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="Servicios del mes"
+                                               Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding DashboardSummary.ServicesThisMonth}"
+                                               FontSize="24" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </Grid>
+
+                            <BoxView HeightRequest="16" Color="Transparent"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Costos mensuales -->
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="12" Padding="16">
+                            <Label Text="Costos Mensuales"
+                                   FontSize="18" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <CollectionView ItemsSource="{Binding MonthlyCostData}"
+                                            HeightRequest="200">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:BiDashboardViewModel+MonthlyCostItem">
+                                        <Grid ColumnDefinitions="*,Auto" Padding="0,6">
+                                            <Label Text="{Binding Month}"
+                                                   Style="{StaticResource BodyText}"/>
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Cost, StringFormat='{0:N2} $'}"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{StaticResource ColorPrimary}"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <BoxView HeightRequest="24" Color="Transparent"/>
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
+    </RefreshView>
+</ContentPage>

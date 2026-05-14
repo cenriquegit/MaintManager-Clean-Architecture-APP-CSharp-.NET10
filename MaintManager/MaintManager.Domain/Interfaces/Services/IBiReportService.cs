@@ -10,8 +10,6 @@ public interface IBiReportService
     Task<IReadOnlyList<object>> GetMonthlyCostAsync(int months, CancellationToken ct = default);
     Task<IReadOnlyList<object>> GetExpiringLotsAsync(int daysThreshold, CancellationToken ct = default);
     Task<IReadOnlyList<object>> GetCalendarComplianceAsync(CancellationToken ct = default);
-    Task<byte[]> ExportMaintenanceToPdfAsync(int mainid, CancellationToken ct = default);
-    Task<byte[]> ExportCostReportToExcelAsync(CancellationToken ct = default);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

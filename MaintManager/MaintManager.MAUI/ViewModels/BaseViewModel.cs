@@ -8,6 +8,9 @@ public abstract partial class BaseViewModel : ObservableObject
     private bool _isBusy;
 
     [ObservableProperty]
+    private bool _isLoading;
+
+    [ObservableProperty]
     private bool _hasError;
 
     [ObservableProperty]
@@ -29,6 +32,7 @@ public abstract partial class BaseViewModel : ObservableObject
         try
         {
             IsBusy = true;
+            IsLoading = true;
             HasError = false;
             ErrorMessage = string.Empty;
             await operation();
@@ -41,7 +45,7 @@ public abstract partial class BaseViewModel : ObservableObject
         finally
         {
             IsBusy = false;
-            // Re-evaluar IsSuccess (notifica cambios)
+            IsLoading = false;
             OnPropertyChanged(nameof(IsSuccess));
         }
     }

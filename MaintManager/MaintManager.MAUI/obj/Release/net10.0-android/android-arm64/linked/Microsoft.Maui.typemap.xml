@@ -1,0 +1,84 @@
+<api type="release" assembly-name="Microsoft.Maui" mvid="09319127307f45e0943e7bf3c54e9dc3">
+  <module assembly-name="Microsoft.Maui" mvid="09319127307f45e0943e7bf3c54e9dc3" mvid-bytes="J5ExCX8w4EWUPnvzxU6dww==">
+    <duplicates>
+      <entry java-name="com/microsoft/maui/HybridJavaScriptInterface" managed-type-name="Microsoft.Maui.HybridJavaScriptInterfaceInvoker" token="33554713" />
+      <entry java-name="com/microsoft/maui/ImageLoaderCallback" managed-type-name="Microsoft.Maui.IImageLoaderCallbackInvoker" token="33554715" />
+      <entry java-name="com/microsoft/maui/PlatformContentViewGroup" managed-type-name="Microsoft.Maui.PlatformContentViewGroupInvoker" token="33554719" />
+      <entry java-name="com/microsoft/maui/PlatformWrapperView" managed-type-name="Microsoft.Maui.PlatformWrapperViewInvoker" token="33554725" />
+    </duplicates>
+    <types-scratch>
+      <entry key="crc6488302ad6e9e4df1a/ImageLoaderResultCallback" java-name="crc6488302ad6e9e4df1a/ImageLoaderResultCallback" managed-type-name="Microsoft.Maui.ImageLoaderResultCallback" token="33554586" />
+      <entry key="crc6488302ad6e9e4df1a/ImageLoaderCallback" java-name="crc6488302ad6e9e4df1a/ImageLoaderCallback" managed-type-name="Microsoft.Maui.ImageLoaderCallback" token="33554587" />
+      <entry key="crc6488302ad6e9e4df1a/ImageLoaderCallbackBase_1" java-name="crc6488302ad6e9e4df1a/ImageLoaderCallbackBase_1" managed-type-name="Microsoft.Maui.ImageLoaderCallbackBase`1" token="33554588" skip-in-java-to-managed="True" />
+      <entry key="crc6488302ad6e9e4df1a/MauiAppCompatActivity" java-name="crc6488302ad6e9e4df1a/MauiAppCompatActivity" managed-type-name="Microsoft.Maui.MauiAppCompatActivity" token="33554614" />
+      <entry key="crc6488302ad6e9e4df1a/MauiApplication" java-name="crc6488302ad6e9e4df1a/MauiApplication" managed-type-name="Microsoft.Maui.MauiApplication" token="33554615" />
+      <entry key="crc6488302ad6e9e4df1a/MauiApplication_ActivityLifecycleCallbacks" java-name="crc6488302ad6e9e4df1a/MauiApplication_ActivityLifecycleCallbacks" managed-type-name="Microsoft.Maui.MauiApplication/ActivityLifecycleCallbacks" token="33555089" />
+      <entry key="com/microsoft/maui/BuildConfig" java-name="com/microsoft/maui/BuildConfig" managed-type-name="Microsoft.Maui.BuildConfig" token="33554711" />
+      <entry key="com/microsoft/maui/HybridJavaScriptInterface" java-name="com/microsoft/maui/HybridJavaScriptInterface" managed-type-name="Microsoft.Maui.HybridJavaScriptInterface" token="33554712" />
+      <entry key="com/microsoft/maui/ImageLoaderCallback" java-name="com/microsoft/maui/ImageLoaderCallback" managed-type-name="Microsoft.Maui.IImageLoaderCallback" token="33554714" skip-in-java-to-managed="True" />
+      <entry key="com/microsoft/maui/MauiViewGroup" java-name="com/microsoft/maui/MauiViewGroup" managed-type-name="Microsoft.Maui.MauiViewGroup" token="33554716" />
+      <entry key="com/microsoft/maui/PlatformAppCompatTextView" java-name="com/microsoft/maui/PlatformAppCompatTextView" managed-type-name="Microsoft.Maui.PlatformAppCompatTextView" token="33554717" />
+      <entry key="com/microsoft/maui/PlatformContentViewGroup" java-name="com/microsoft/maui/PlatformContentViewGroup" managed-type-name="Microsoft.Maui.PlatformContentViewGroup" token="33554718" />
+      <entry key="com/microsoft/maui/PlatformFontSpan" java-name="com/microsoft/maui/PlatformFontSpan" managed-type-name="Microsoft.Maui.PlatformFontSpan" token="33554720" />
+      <entry key="com/microsoft/maui/PlatformInterop" java-name="com/microsoft/maui/PlatformInterop" managed-type-name="Microsoft.Maui.PlatformInterop" token="33554721" />
+      <entry key="com/microsoft/maui/PlatformLineHeightSpan" java-name="com/microsoft/maui/PlatformLineHeightSpan" managed-type-name="Microsoft.Maui.PlatformLineHeightSpan" token="33554722" />
+      <entry key="com/microsoft/maui/PlatformMauiAppCompatActivity" java-name="com/microsoft/maui/PlatformMauiAppCompatActivity" managed-type-name="Microsoft.Maui.PlatformMauiAppCompatActivity" token="33554723" />
+      <entry key="com/microsoft/maui/PlatformWrapperView" java-name="com/microsoft/maui/PlatformWrapperView" managed-type-name="Microsoft.Maui.PlatformWrapperView" token="33554724" />
+      <entry key="crc6452ffdc5b34af3a0f/AccessibilityDelegateCompatWrapper" java-name="crc6452ffdc5b34af3a0f/AccessibilityDelegateCompatWrapper" managed-type-name="Microsoft.Maui.Platform.AccessibilityDelegateCompatWrapper" token="33554730" />
+      <entry key="crc6452ffdc5b34af3a0f/BorderDrawable" java-name="crc6452ffdc5b34af3a0f/BorderDrawable" managed-type-name="Microsoft.Maui.Platform.BorderDrawable" token="33554737" />
+      <entry key="crc6452ffdc5b34af3a0f/ContainerView" java-name="crc6452ffdc5b34af3a0f/ContainerView" managed-type-name="Microsoft.Maui.Platform.ContainerView" token="33554742" />
+      <entry key="crc6452ffdc5b34af3a0f/ContentViewGroup" java-name="crc6452ffdc5b34af3a0f/ContentViewGroup" managed-type-name="Microsoft.Maui.Platform.ContentViewGroup" token="33554743" />
+      <entry key="crc6452ffdc5b34af3a0f/FragmentManagerExtensions_CallBacks" java-name="crc6452ffdc5b34af3a0f/FragmentManagerExtensions_CallBacks" managed-type-name="Microsoft.Maui.Platform.FragmentManagerExtensions/CallBacks" token="33555133" />
+      <entry key="crc6452ffdc5b34af3a0f/LayoutViewGroup" java-name="crc6452ffdc5b34af3a0f/LayoutViewGroup" managed-type-name="Microsoft.Maui.Platform.LayoutViewGroup" token="33554760" />
+      <entry key="crc6452ffdc5b34af3a0f/LocalizedDigitsKeyListener" java-name="crc6452ffdc5b34af3a0f/LocalizedDigitsKeyListener" managed-type-name="Microsoft.Maui.Platform.LocalizedDigitsKeyListener" token="33554762" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiAccessibilityDelegateCompat" java-name="crc6452ffdc5b34af3a0f/MauiAccessibilityDelegateCompat" managed-type-name="Microsoft.Maui.Platform.MauiAccessibilityDelegateCompat" token="33554763" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiAppCompatEditText" java-name="crc6452ffdc5b34af3a0f/MauiAppCompatEditText" managed-type-name="Microsoft.Maui.Platform.MauiAppCompatEditText" token="33554764" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiBoxView" java-name="crc6452ffdc5b34af3a0f/MauiBoxView" managed-type-name="Microsoft.Maui.Platform.MauiBoxView" token="33554765" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiDatePicker" java-name="crc6452ffdc5b34af3a0f/MauiDatePicker" managed-type-name="Microsoft.Maui.Platform.MauiDatePicker" token="33554767" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiHybridWebView" java-name="crc6452ffdc5b34af3a0f/MauiHybridWebView" managed-type-name="Microsoft.Maui.Platform.MauiHybridWebView" token="33554768" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiHybridWebViewClient" java-name="crc6452ffdc5b34af3a0f/MauiHybridWebViewClient" managed-type-name="Microsoft.Maui.Platform.MauiHybridWebViewClient" token="33554769" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiLayerDrawable" java-name="crc6452ffdc5b34af3a0f/MauiLayerDrawable" managed-type-name="Microsoft.Maui.Platform.MauiLayerDrawable" token="33554770" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiMaterialButton" java-name="crc6452ffdc5b34af3a0f/MauiMaterialButton" managed-type-name="Microsoft.Maui.Platform.MauiMaterialButton" token="33554771" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiMaterialButton_MauiResizableDrawable" java-name="crc6452ffdc5b34af3a0f/MauiMaterialButton_MauiResizableDrawable" managed-type-name="Microsoft.Maui.Platform.MauiMaterialButton/MauiResizableDrawable" token="33555139" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiPageControl" java-name="crc6452ffdc5b34af3a0f/MauiPageControl" managed-type-name="Microsoft.Maui.Platform.MauiPageControl" token="33554772" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiPageControl_TEditClickListener" java-name="crc6452ffdc5b34af3a0f/MauiPageControl_TEditClickListener" managed-type-name="Microsoft.Maui.Platform.MauiPageControl/TEditClickListener" token="33555140" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiPicker" java-name="crc6452ffdc5b34af3a0f/MauiPicker" managed-type-name="Microsoft.Maui.Platform.MauiPicker" token="33554773" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiPickerBase" java-name="crc6452ffdc5b34af3a0f/MauiPickerBase" managed-type-name="Microsoft.Maui.Platform.MauiPickerBase" token="33554774" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiScrollView" java-name="crc6452ffdc5b34af3a0f/MauiScrollView" managed-type-name="Microsoft.Maui.Platform.MauiScrollView" token="33554776" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiHorizontalScrollView" java-name="crc6452ffdc5b34af3a0f/MauiHorizontalScrollView" managed-type-name="Microsoft.Maui.Platform.MauiHorizontalScrollView" token="33554777" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiSearchView" java-name="crc6452ffdc5b34af3a0f/MauiSearchView" managed-type-name="Microsoft.Maui.Platform.MauiSearchView" token="33554779" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiShapeView" java-name="crc6452ffdc5b34af3a0f/MauiShapeView" managed-type-name="Microsoft.Maui.Platform.MauiShapeView" token="33554780" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiStepper" java-name="crc6452ffdc5b34af3a0f/MauiStepper" managed-type-name="Microsoft.Maui.Platform.MauiStepper" token="33554781" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiSwipeRefreshLayout" java-name="crc6452ffdc5b34af3a0f/MauiSwipeRefreshLayout" managed-type-name="Microsoft.Maui.Platform.MauiSwipeRefreshLayout" token="33554782" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiSwipeView" java-name="crc6452ffdc5b34af3a0f/MauiSwipeView" managed-type-name="Microsoft.Maui.Platform.MauiSwipeView" token="33554783" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiTextView" java-name="crc6452ffdc5b34af3a0f/MauiTextView" managed-type-name="Microsoft.Maui.Platform.MauiTextView" token="33554784" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiTimePicker" java-name="crc6452ffdc5b34af3a0f/MauiTimePicker" managed-type-name="Microsoft.Maui.Platform.MauiTimePicker" token="33554786" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiWebChromeClient" java-name="crc6452ffdc5b34af3a0f/MauiWebChromeClient" managed-type-name="Microsoft.Maui.Platform.MauiWebChromeClient" token="33554787" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiWebView" java-name="crc6452ffdc5b34af3a0f/MauiWebView" managed-type-name="Microsoft.Maui.Platform.MauiWebView" token="33554788" />
+      <entry key="crc6452ffdc5b34af3a0f/MauiWebViewClient" java-name="crc6452ffdc5b34af3a0f/MauiWebViewClient" managed-type-name="Microsoft.Maui.Platform.MauiWebViewClient" token="33554789" />
+      <entry key="microsoft/maui/platform/MauiNavHostFragment" java-name="microsoft/maui/platform/MauiNavHostFragment" managed-type-name="Microsoft.Maui.Platform.MauiNavHostFragment" token="33554792" />
+      <entry key="crc6452ffdc5b34af3a0f/NavigationRootManager_ElementBasedFragment" java-name="crc6452ffdc5b34af3a0f/NavigationRootManager_ElementBasedFragment" managed-type-name="Microsoft.Maui.Platform.NavigationRootManager/ElementBasedFragment" token="33555146" />
+      <entry key="crc6452ffdc5b34af3a0f/NavigationViewFragment" java-name="crc6452ffdc5b34af3a0f/NavigationViewFragment" managed-type-name="Microsoft.Maui.Platform.NavigationViewFragment" token="33554794" />
+      <entry key="crc6452ffdc5b34af3a0f/ScopedFragment" java-name="crc6452ffdc5b34af3a0f/ScopedFragment" managed-type-name="Microsoft.Maui.Platform.ScopedFragment" token="33554795" />
+      <entry key="crc6452ffdc5b34af3a0f/StackNavigationManager_Callbacks" java-name="crc6452ffdc5b34af3a0f/StackNavigationManager_Callbacks" managed-type-name="Microsoft.Maui.Platform.StackNavigationManager/Callbacks" token="33555148" />
+      <entry key="crc6452ffdc5b34af3a0f/ViewFragment" java-name="crc6452ffdc5b34af3a0f/ViewFragment" managed-type-name="Microsoft.Maui.Platform.ViewFragment" token="33554797" />
+      <entry key="crc6452ffdc5b34af3a0f/PlatformTouchGraphicsView" java-name="crc6452ffdc5b34af3a0f/PlatformTouchGraphicsView" managed-type-name="Microsoft.Maui.Platform.PlatformTouchGraphicsView" token="33554800" />
+      <entry key="crc6452ffdc5b34af3a0f/StepperHandlerHolder" java-name="crc6452ffdc5b34af3a0f/StepperHandlerHolder" managed-type-name="Microsoft.Maui.Platform.StepperHandlerHolder" token="33554812" />
+      <entry key="crc6452ffdc5b34af3a0f/StepperHandlerManager_StepperListener" java-name="crc6452ffdc5b34af3a0f/StepperHandlerManager_StepperListener" managed-type-name="Microsoft.Maui.Platform.StepperHandlerManager/StepperListener" token="33555153" />
+      <entry key="crc6452ffdc5b34af3a0f/SwipeViewPager" java-name="crc6452ffdc5b34af3a0f/SwipeViewPager" managed-type-name="Microsoft.Maui.Platform.SwipeViewPager" token="33554815" />
+      <entry key="crc6452ffdc5b34af3a0f/WebViewExtensions_JavascriptResult" java-name="crc6452ffdc5b34af3a0f/WebViewExtensions_JavascriptResult" managed-type-name="Microsoft.Maui.Platform.WebViewExtensions/JavascriptResult" token="33555164" />
+      <entry key="crc6452ffdc5b34af3a0f/WrapperView" java-name="crc6452ffdc5b34af3a0f/WrapperView" managed-type-name="Microsoft.Maui.Platform.WrapperView" token="33554827" />
+      <entry key="crc64fcf28c0e24b4cc31/ButtonHandler_ButtonClickListener" java-name="crc64fcf28c0e24b4cc31/ButtonHandler_ButtonClickListener" managed-type-name="Microsoft.Maui.Handlers.ButtonHandler/ButtonClickListener" token="33555235" />
+      <entry key="crc64fcf28c0e24b4cc31/ButtonHandler_ButtonTouchListener" java-name="crc64fcf28c0e24b4cc31/ButtonHandler_ButtonTouchListener" managed-type-name="Microsoft.Maui.Handlers.ButtonHandler/ButtonTouchListener" token="33555236" />
+      <entry key="crc64fcf28c0e24b4cc31/HybridWebViewHandler_HybridWebViewJavaScriptInterface" java-name="crc64fcf28c0e24b4cc31/HybridWebViewHandler_HybridWebViewJavaScriptInterface" managed-type-name="Microsoft.Maui.Handlers.HybridWebViewHandler/HybridWebViewJavaScriptInterface" token="33555239" />
+      <entry key="crc64fcf28c0e24b4cc31/SearchBarHandler_FocusChangeListener" java-name="crc64fcf28c0e24b4cc31/SearchBarHandler_FocusChangeListener" managed-type-name="Microsoft.Maui.Handlers.SearchBarHandler/FocusChangeListener" token="33555255" />
+      <entry key="crc64fcf28c0e24b4cc31/SliderHandler_SeekBarChangeListener" java-name="crc64fcf28c0e24b4cc31/SliderHandler_SeekBarChangeListener" managed-type-name="Microsoft.Maui.Handlers.SliderHandler/SeekBarChangeListener" token="33555256" />
+      <entry key="crc64fcf28c0e24b4cc31/SwitchHandler_CheckedChangeListener" java-name="crc64fcf28c0e24b4cc31/SwitchHandler_CheckedChangeListener" managed-type-name="Microsoft.Maui.Handlers.SwitchHandler/CheckedChangeListener" token="33555258" />
+      <entry key="crc64fcf28c0e24b4cc31/ToolbarHandler_ProcessBackClick" java-name="crc64fcf28c0e24b4cc31/ToolbarHandler_ProcessBackClick" managed-type-name="Microsoft.Maui.Handlers.ToolbarHandler/ProcessBackClick" token="33555259" />
+      <entry key="crc64b5e713d400f589b7/LinearGradientShaderFactory" java-name="crc64b5e713d400f589b7/LinearGradientShaderFactory" managed-type-name="Microsoft.Maui.Graphics.LinearGradientShaderFactory" token="33555010" />
+      <entry key="crc64b5e713d400f589b7/RadialGradientShaderFactory" java-name="crc64b5e713d400f589b7/RadialGradientShaderFactory" managed-type-name="Microsoft.Maui.Graphics.RadialGradientShaderFactory" token="33555011" />
+      <entry key="crc64b5e713d400f589b7/MauiDrawable" java-name="crc64b5e713d400f589b7/MauiDrawable" managed-type-name="Microsoft.Maui.Graphics.MauiDrawable" token="33555017" />
+      <entry key="crc64a096dc44ad241142/PlatformTicker_DurationScaleListener" java-name="crc64a096dc44ad241142/PlatformTicker_DurationScaleListener" managed-type-name="Microsoft.Maui.Animations.PlatformTicker/DurationScaleListener" token="33555277" />
+    </types-scratch>
+  </module>
+</api>

@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MaintManager.MAUI.Models;
 using MaintManager.MAUI.Services;
 using System.Collections.ObjectModel;
 
@@ -16,19 +17,13 @@ public partial class LotCreateViewModel : BaseViewModel
     }
 
     [ObservableProperty]
-    private bool _isLoading;
-
-    [ObservableProperty]
-    private bool _hasError;
-
-    [ObservableProperty]
-    private bool _isSuccess = false; // Iniciar con formulario visible
-
-    [ObservableProperty]
-    private string _errorMessage = string.Empty;
+    private bool _formReady;
 
     [ObservableProperty]
     private string _validationMessage = string.Empty;
+
+    [ObservableProperty]
+    private bool _hasValidationError;
 
     [ObservableProperty]
     private ObservableCollection<MaterialOption> _materials = new();
@@ -62,19 +57,19 @@ public partial class LotCreateViewModel : BaseViewModel
     {
         IsLoading = true;
         HasError = false;
+        FormReady = false;
         try
         {
             // Simulación: cargar materiales desde API
             Materials.Clear();
             Materials.Add(new MaterialOption { Mateid = 1, Name = "Aceite 15W40", UnitOfMeasure = "Litro" });
             Materials.Add(new MaterialOption { Mateid = 2, Name = "Filtro de aceite", UnitOfMeasure = "Unidad" });
-            IsSuccess = true;
+            FormReady = true;
         }
         catch (Exception ex)
         {
             HasError = true;
             ErrorMessage = ex.Message;
-            IsSuccess = false;
         }
         finally
         {
@@ -88,6 +83,7 @@ public partial class LotCreateViewModel : BaseViewModel
         if (SelectedMaterial == null)
         {
             ValidationMessage = "Seleccione un material.";
+            HasValidationError = true;
             return;
         }
 
@@ -108,18 +104,12 @@ public partial class LotCreateViewModel : BaseViewModel
         catch (Exception ex)
         {
             ValidationMessage = $"Error: {ex.Message}";
+            HasValidationError = true;
         }
         finally
         {
             IsSaving = false;
         }
-    }
-
-    public class MaterialOption
-    {
-        public int Mateid { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string UnitOfMeasure { get; set; } = string.Empty;
     }
 
     // Inicializar al crear la página

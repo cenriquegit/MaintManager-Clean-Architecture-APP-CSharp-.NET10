@@ -20,9 +20,6 @@ public partial class LoginViewModel : BaseViewModel
     [ObservableProperty]
     private string _password = string.Empty;
 
-    [ObservableProperty]
-    private string _errorMessage = string.Empty;
-
     [RelayCommand]
     private async Task Login()
     {
@@ -39,7 +36,7 @@ public partial class LoginViewModel : BaseViewModel
             if (success)
             {
                 // Navegar a la página principal (ajusta según tu Shell)
-                await Shell.Current.GoToAsync("//Alerts");
+                await Shell.Current.GoToAsync("//Dashboard");
             }
             else
             {

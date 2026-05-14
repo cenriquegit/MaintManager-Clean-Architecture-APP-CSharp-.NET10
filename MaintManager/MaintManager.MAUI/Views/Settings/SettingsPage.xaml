@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Views/Settings/SettingsPage.xaml -->
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Settings"
+    x:Class="MaintManager.MAUI.Views.Settings.SettingsPage"
+    x:DataType="vm:SettingsViewModel"
+    Title="Configuración">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <!-- Sección: Información del usuario -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12" Padding="16">
+
+                    <Label Text="Información del usuario"
+                           FontSize="18" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                    <Grid RowDefinitions="Auto,Auto,Auto"
+                          ColumnDefinitions="Auto,*"
+                          RowSpacing="8" ColumnSpacing="12">
+
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="Nombre:" Style="{StaticResource CaptionText}"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Row="0" Grid.Column="1"
+                               Text="{Binding UserFullName}"
+                               Style="{StaticResource BodyText}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Rol:" Style="{StaticResource CaptionText}"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="{Binding UserRole}"
+                               Style="{StaticResource BodyText}"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Row="2" Grid.Column="0"
+                               Text="Admin:" Style="{StaticResource CaptionText}"
+                               VerticalOptions="Center"/>
+                        <Label Grid.Row="2" Grid.Column="1"
+                               Text="{Binding IsAdmin, StringFormat='{0}'}"
+                               Style="{StaticResource BodyText}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Sección: Configuración de API -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12" Padding="16">
+
+                    <Label Text="Configuración de API"
+                           FontSize="18" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                    <Label Text="URL del servidor"
+                           Style="{StaticResource CaptionText}"/>
+                    <Entry Text="{Binding ApiUrl}"
+                           Placeholder="http://10.0.2.2:5056"
+                           Keyboard="Url"/>
+
+                    <Button Text="Guardar cambios"
+                            Command="{Binding SaveSettingsCommand}"
+                            Style="{StaticResource PrimaryButton}"
+                            HorizontalOptions="Fill"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Sección: Tema (Placeholder) -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12" Padding="16">
+
+                    <Label Text="Apariencia"
+                           FontSize="18" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                    <Label Text="Selector de tema (próximamente)"
+                           Style="{StaticResource BodyText}"
+                           TextColor="{StaticResource ColorTextSecondary}"/>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <RadioButton Content="Claro" IsChecked="True"/>
+                        <RadioButton Content="Oscuro"/>
+                        <RadioButton Content="Sistema"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Sección: Versión de la app -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8" Padding="16">
+
+                    <Label Text="Acerca de"
+                           FontSize="18" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="Versión de la aplicación"
+                               Style="{StaticResource BodyText}"/>
+                        <Label Grid.Column="1"
+                               Text="1.0.0"
+                               Style="{StaticResource BodyText}"
+                               TextColor="{StaticResource ColorTextSecondary}"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Botón de Cerrar sesión -->
+            <Button Text="Cerrar sesión"
+                    Command="{Binding LogoutCommand}"
+                    BackgroundColor="{StaticResource ColorError}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Fill"/>
+
+            <BoxView HeightRequest="24" Color="Transparent"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

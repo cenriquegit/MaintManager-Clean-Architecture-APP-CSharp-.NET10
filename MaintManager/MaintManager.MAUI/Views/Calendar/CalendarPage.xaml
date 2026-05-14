@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Calendar"
+    xmlns:models="clr-namespace:MaintManager.MAUI.Models"
+    x:Class="MaintManager.MAUI.Views.Calendar.CalendarPage"
+    x:DataType="vm:CalendarViewModel"
+    Title="Calendario"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Filters -->
+        <HorizontalStackLayout Grid.Row="0"
+                               Spacing="8" Padding="16,8"
+                               BackgroundColor="{StaticResource ColorSurface}">
+            <Picker Title="Vehículo"
+                    ItemsSource="{Binding VehicleOptions}"
+                    ItemDisplayBinding="{Binding LicensePlate}"
+                    SelectedItem="{Binding FilterByVehicle}"
+                    Style="{StaticResource FormPicker}"
+                    HorizontalOptions="StartAndExpand"/>
+            <Picker Title="Tipo"
+                    SelectedIndex="{Binding FilterByType}"
+                    Style="{StaticResource FormPicker}"
+                    HorizontalOptions="StartAndExpand">
+                <Picker.Items>
+                    <x:String>Todos</x:String>
+                    <x:String>Preventivo</x:String>
+                    <x:String>Correctivo</x:String>
+                    <x:String>Emergencia</x:String>
+                    <x:String>Programado</x:String>
+                </Picker.Items>
+            </Picker>
+            <Picker Title="Estado"
+                    SelectedItem="{Binding FilterByStatus}"
+                    Style="{StaticResource FormPicker}"
+                    HorizontalOptions="StartAndExpand">
+                <Picker.Items>
+                    <x:String>Programado</x:String>
+                    <x:String>En Progreso</x:String>
+                    <x:String>Completado</x:String>
+                    <x:String>Pendiente</x:String>
+                </Picker.Items>
+            </Picker>
+            <Button Text="Filtrar"
+                    Command="{Binding FilterCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    FontSize="12" Padding="8,4"/>
+        </HorizontalStackLayout>
+
+        <!-- Content -->
+        <Grid Grid.Row="1">
+
+            <!-- LOADING -->
+            <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+                <ActivityIndicator IsRunning="True"
+                                   Color="{StaticResource ColorPrimary}"/>
+                <Label Text="Cargando calendario..."
+                       Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- ERROR -->
+            <VerticalStackLayout IsVisible="{Binding HasError}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                       TextColor="{StaticResource ColorError}"/>
+                <Label Text="{Binding ErrorMessage}"
+                       Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Button Text="Reintentar"
+                        Command="{Binding LoadCommand}"
+                        Style="{StaticResource SecondaryButton}"
+                        HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- EMPTY -->
+            <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                <Label Text="📅" FontSize="48" HorizontalOptions="Center"/>
+                <Label Text="No hay mantenimientos registrados."
+                       Style="{StaticResource BodyText}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- SUCCESS — Timeline -->
+            <CollectionView IsVisible="{Binding IsSuccess}"
+                            ItemsSource="{Binding Maintenances}"
+                            Margin="16,8">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:MaintenanceCalendarItem">
+                        <Grid ColumnDefinitions="32,*"
+                              RowDefinitions="Auto"
+                              Padding="0,0,0,4">
+
+                            <!-- Timeline indicator -->
+                            <VerticalStackLayout Grid.Column="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Start"
+                                                 Spacing="0">
+                                <Label Text="●"
+                                       FontSize="20"
+                                       HorizontalOptions="Center"
+                                       TextColor="{Binding TypeColor}"
+                                       VerticalTextAlignment="Center"/>
+                                <BoxView WidthRequest="2"
+                                         HeightRequest="40"
+                                         BackgroundColor="{StaticResource ColorBorderLight}"
+                                         HorizontalOptions="Center"
+                                         IsVisible="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=HasItems}"/>
+                            </VerticalStackLayout>
+
+                            <!-- Card -->
+                            <Border Grid.Column="1"
+                                    Padding="12"
+                                    Margin="8,0,0,8"
+                                    BackgroundColor="{StaticResource ColorSurface}"
+                                    StrokeShape="RoundRectangle 10"
+                                    Stroke="{StaticResource ColorBorderLight}"
+                                    StrokeThickness="1">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}, Path=ViewDetailCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto"
+                                      RowSpacing="4">
+
+                                    <!-- Vehicle name -->
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding VehicleName}"
+                                           FontSize="15" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}"
+                                           LineBreakMode="TailTruncation"/>
+
+                                    <!-- Type badge -->
+                                    <Border Grid.Row="0" Grid.Column="1"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 99"
+                                            Padding="8,2"
+                                            BackgroundColor="{Binding TypeColor}">
+                                        <Label Text="{Binding Type}"
+                                               FontSize="11" FontAttributes="Bold"
+                                               TextColor="White"/>
+                                    </Border>
+
+                                    <!-- License plate -->
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                           Text="{Binding LicensePlate}"
+                                           Style="{StaticResource CaptionText}"/>
+
+                                    <!-- Date -->
+                                    <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2"
+                                                           Spacing="12">
+                                        <Label Text="{Binding FormattedDate}"
+                                               FontSize="13"
+                                               TextColor="{StaticResource ColorTextSecondary}"/>
+                                        <Label Text="{Binding Status}"
+                                               FontSize="13" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorPrimary}"/>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Assigned technician -->
+                                    <Label Grid.Row="3" Grid.ColumnSpan="2"
+                                           Text="{Binding AssignedTo, StringFormat='🔧 {0}'}"
+                                           Style="{StaticResource CaptionText}"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="24" Color="Transparent"/>
+                </CollectionView.Footer>
+            </CollectionView>
+
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,1215 @@
+========== VOLCADO COMPLETO DEL PROYECTO MAINTMANAGER ==========
+Fecha: Tue, Apr 28, 2026 11:50:02 PM
+Directorio raíz: /c/Users/carlo/Desktop/proyect/MaintManager/MaintManager.Domain/Entities
+
+
+============================================================
+ARCHIVO: ./ActionCatalog.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class ActionCatalog
+{
+    public int Acatid { get; init; }
+    public short Altoid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string? Category { get; init; }
+    public string? RecommendedProduct { get; init; }
+    public string? RecommendedQuantity { get; init; }
+    public string? UnitOfMeasure { get; init; }
+    public int? UsefulLifeKm { get; init; }
+
+    /// <summary>
+    /// true = el componente caduca por tiempo (ej: aceite de motor, líquido de frenos).
+    /// false = solo se cambia por km (ej: filtro de aire, pastillas de freno).
+    /// </summary>
+    public bool ExpiresByTime { get; init; }
+
+    /// <summary>Días de vida útil. Solo cuando ExpiresByTime = true.</summary>
+    public int? UsefulLifeDays { get; init; }
+
+    public string? Description { get; init; }
+    public bool Status { get; init; } = true;
+
+    // Navegación
+    public ActionListType? ActionListType { get; init; }
+}
+
+
+// MaintManager.Domain/Entities/VehicleSchedule.cs
+
+/// <summary>
+/// Cronograma de mantenimiento por vehículo.
+/// next_km se recalcula automáticamente al completar un servicio.
+/// </summary>
+
+
+============================================================
+ARCHIVO: ./ActionListType.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class ActionListType
+{
+    public short Altoid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string? Description { get; init; }
+    public bool Status { get; init; } = true;
+
+    public ICollection<ActionCatalog> Actions { get; init; } = [];
+}
+
+
+// MaintManager.Domain/Entities/ActionCatalog.cs
+
+/// <summary>
+/// Catálogo maestro de acciones de mantenimiento.
+/// Define qué se hace, con qué producto y si el componente caduca por tiempo.
+/// </summary>
+
+
+============================================================
+ARCHIVO: ./AlertConfig.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+/// <summary>Configuración de tipos de alerta del sistema.</summary>
+public sealed class AlertConfig
+{
+    public int Alcoid { get; init; }
+    public string AlertType { get; init; } = string.Empty;
+    public string? Description { get; init; }
+    public bool Enabled { get; init; } = true;
+    public string? ThresholdValue { get; init; }
+    public string? ThresholdUnit { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./AlertLog.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+/// <summary>
+/// Historial de alertas generadas por el sistema.
+/// Alimenta el dashboard BI (alertas sin resolver).
+/// </summary>
+public sealed class AlertLog
+{
+    public int Alloid { get; private set; }
+    public int Alcoid { get; private set; }
+    public int? Prcoid { get; private set; }
+    public int? Mateid { get; private set; }
+    public int? Maloid { get; private set; }
+    public int? Incoid { get; private set; }
+    public string Message { get; private set; } = string.Empty;
+    public DateTime AlertDate { get; private set; }
+    public bool Read { get; private set; }
+    public DateTime? ReadAt { get; private set; }
+    public int? ReadBy { get; private set; }
+    public bool Resolved { get; private set; }
+    public DateTime? ResolvedAt { get; private set; }
+    public int? ResolvedBy { get; private set; }
+
+    public AlertConfig? AlertConfig { get; private set; }
+
+    private AlertLog() { }
+
+    public static AlertLog Create(int alcoid, string message, int? prcoid = null,
+        int? mateid = null, int? maloid = null, int? incoid = null)
+    {
+        if (string.IsNullOrWhiteSpace(message))
+            throw new ArgumentException("El mensaje de la alerta es obligatorio.", nameof(message));
+
+        return new AlertLog
+        {
+            Alcoid = alcoid,
+            Message = message,
+            Prcoid = prcoid,
+            Mateid = mateid,
+            Maloid = maloid,
+            Incoid = incoid,
+            AlertDate = DateTime.UtcNow,
+            Read = false,
+            Resolved = false
+        };
+    }
+
+    public void MarkAsRead(int readByWorkid)
+    {
+        Read = true;
+        ReadAt = DateTime.UtcNow;
+        ReadBy = readByWorkid;
+    }
+
+    public void Resolve(int resolvedByWorkid)
+    {
+        Resolved = true;
+        ResolvedAt = DateTime.UtcNow;
+        ResolvedBy = resolvedByWorkid;
+        if (!Read) MarkAsRead(resolvedByWorkid);
+    }
+}
+
+
+============================================================
+ARCHIVO: ./ConfigSystem.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+/// <summary>
+/// Parámetros configurables del sistema por clave-valor.
+/// </summary>
+public sealed class ConfigSystem
+{
+    public int Cosyid { get; init; }
+    public string Key { get; init; } = string.Empty;
+    public string Value { get; init; } = string.Empty;
+    public string? Description { get; init; }
+    public string DataType { get; init; } = "string";
+    public DateTime UpdatedAt { get; init; }
+    public int? UpdatedBy { get; init; }
+    public bool Status { get; init; } = true;
+
+    public int GetIntValue()
+    {
+        if (!int.TryParse(Value, out var result))
+            throw new InvalidCastException($"El parámetro '{Key}' no puede convertirse a entero. Valor actual: '{Value}'.");
+        return result;
+    }
+
+    public bool GetBoolValue()
+    {
+        if (!bool.TryParse(Value, out var result))
+            throw new InvalidCastException($"El parámetro '{Key}' no puede convertirse a booleano. Valor actual: '{Value}'.");
+        return result;
+    }
+}
+
+
+============================================================
+ARCHIVO: ./Diagnosis.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class Diagnosis
+{
+    public int Diagid { get; private set; }
+    public int Mainid { get; private set; }
+    public string GeneralStatus { get; private set; } = string.Empty;
+    public string? Observations { get; private set; }
+    public bool VehicleOperative { get; private set; } = true;
+    public string? FutureRecommendations { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+
+    private Diagnosis() { }
+
+    public static Diagnosis Create(int mainid, string generalStatus,
+        bool vehicleOperative, string? observations = null, string? futureRecommendations = null)
+    {
+        if (string.IsNullOrWhiteSpace(generalStatus))
+            throw new ArgumentException("El estado general del diagnóstico es obligatorio.", nameof(generalStatus));
+
+        return new Diagnosis
+        {
+            Mainid = mainid,
+            GeneralStatus = generalStatus,
+            VehicleOperative = vehicleOperative,
+            Observations = observations,
+            FutureRecommendations = futureRecommendations,
+            CreatedAt = DateTime.UtcNow
+        };
+    }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Agency.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Agency.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class Agency
+{
+    public short Agenid { get; init; }
+    public short Zoneid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public bool Status { get; init; }
+    public Zone? Zone { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Company.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Company.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class Company
+{
+    public int Compid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string Ruc { get; init; } = string.Empty;
+    public string? TradeName { get; init; }
+    public bool Status { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/CompanyWorker.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/CompanyWorker.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class CompanyWorker
+{
+    public int Cowoid { get; init; }
+    public int Compid { get; init; }
+    public int Persid { get; init; }
+    public bool Status { get; init; }
+    public Company? Company { get; init; }
+    public Person? Person { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Job.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Job.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+/// Puesto de trabajo. Mapea la tabla existente public.job.
+/// Solo lectura, usado para determinar rol (Admin/Tecnico).
+/// </summary>
+public sealed class Job
+{
+    public short Jobid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public bool Status { get; init; }
+}
+
+============================================================
+ARCHIVO: ./Existing/Person.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Person.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>Persona natural. Mapea: public.person.</summary>
+public sealed class Person
+{
+    public int Persid { get; init; }
+    public string Fln { get; init; } = string.Empty;
+    public string? Mln { get; init; }
+    public string Name { get; init; } = string.Empty;
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Product.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Product.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>Producto base. Mapea: public.product.</summary>
+public sealed class Product
+{
+    public int Prodid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public bool Status { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/RentExecute.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/RentExecute.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class RentExecute
+{
+    public int Seexid { get; init; }
+    public int? KilometerStart { get; init; }
+    public int? KilometerEnd { get; init; }
+    public DateTime? ReturnDate { get; init; }
+    public string? Statid { get; init; }
+    public int? Sereid { get; init; }
+    public RentRequest? RentRequest { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/RentRequest.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/RentRequest.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>Solicitud de renta. Mapea: service.rentrequest.</summary>
+public sealed class RentRequest
+{
+    public int Sereid { get; init; }
+    public int Prodid { get; init; }
+    public string? Statid { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Residence.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Residence.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class Residence
+{
+    public int Resiid { get; init; }
+    public int? Persid { get; init; }
+    public int? Compid { get; init; }
+    public int Distid { get; init; }
+    public string? Address { get; init; }
+    public bool Status { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Vehicle.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Vehicle.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>Vehículo de la flota. Mapea: product.vehicle (hereda de product.company).</summary>
+public sealed class Vehicle
+{
+    public int Prcoid { get; init; }
+    public int Prodid { get; init; }
+    public string? LicensePlateNumber { get; init; }
+    public string? VinNumber { get; init; }
+    public string? Vetyid { get; init; }
+    public short? YearOfManufacture { get; init; }
+    public string? EngineNumber { get; init; }
+    public string? Futyid { get; init; }
+    public string? Color { get; init; }
+    public int? Mileage { get; init; }
+    public string? Category { get; init; }
+    public bool Status { get; init; }
+    public Product? Product { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Worker.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Worker.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class Worker
+{
+    public int Workid { get; init; }
+    public int Persid { get; init; }
+    public short Jobid { get; init; }
+    public string? Username { get; init; }
+    public string? Password { get; init; }
+    public string? Email { get; init; }
+    public bool Status { get; init; }
+    public bool Locked { get; init; }
+    public Person? Person { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./Existing/Zone.cs
+============================================================
+// MaintManager.Domain/Entities/Existing/Zone.cs
+namespace MaintManager.Domain.Entities.Existing;
+
+/// <summary>
+public sealed class Zone
+{
+    public short Zoneid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public bool Status { get; init; }
+}
+
+
+============================================================
+ARCHIVO: ./InstalledComponent.cs
+============================================================
+
+/// <summary>
+/// Componente actualmente instalado en un vehículo.
+/// Permite rastrear caducidad por tiempo (ej: aceite motor = 12 meses).
+/// </summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class InstalledComponent
+{
+    public int Incoid { get; private set; }
+    public int Prcoid { get; private set; }
+    public int Acatid { get; private set; }
+    public int Mainid { get; private set; }
+    public int? Maloid { get; private set; }
+    public DateTime InstallationDate { get; private set; }
+    public int InstallationKm { get; private set; }
+
+    /// <summary>Calculado: InstallationDate + UsefulLifeDays del catálogo. Null si no caduca.</summary>
+    public DateOnly? ExpirationDate { get; private set; }
+
+    public bool Active { get; private set; } = true;
+
+    /// <summary>ID del componente que lo reemplazó (historial de sustituciones).</summary>
+    public int? ReplacedByIncoid { get; private set; }
+
+    // Navegación
+    public ActionCatalog? ActionCatalog { get; private set; }
+    public MaterialLot? Lot { get; private set; }
+
+    private InstalledComponent() { }
+
+    public static InstalledComponent Create(int prcoid, int acatid, int mainid,
+        int installationKm, int? maloid = null, int? usefulLifeDays = null)
+    {
+        if (installationKm < 0)
+            throw new ArgumentException("El km de instalación no puede ser negativo.", nameof(installationKm));
+
+        DateOnly? expirationDate = null;
+        if (usefulLifeDays.HasValue && usefulLifeDays > 0)
+            expirationDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(usefulLifeDays.Value));
+
+        return new InstalledComponent
+        {
+            Prcoid = prcoid,
+            Acatid = acatid,
+            Mainid = mainid,
+            Maloid = maloid,
+            InstallationDate = DateTime.UtcNow,
+            InstallationKm = installationKm,
+            ExpirationDate = expirationDate,
+            Active = true
+        };
+    }
+
+    /// <summary>Desactiva el componente al ser reemplazado por uno nuevo.</summary>
+    public void Replace(int newComponentId)
+    {
+        Active = false;
+        ReplacedByIncoid = newComponentId;
+    }
+}
+
+
+============================================================
+ARCHIVO: ./Maintenance.cs
+============================================================
+// MaintManager.Domain/Entities/Maintenance.cs
+// TABLA CENTRAL del sistema — maintenance.maintenance
+using MaintManager.Domain.Entities.Existing;
+
+namespace MaintManager.Domain.Entities;
+
+/// <summary>
+/// Orden de mantenimiento. Tabla central del sistema.
+/// Registra cada servicio realizado a un vehículo de la flota.
+/// </summary>
+public sealed class Maintenance
+{
+    public int Mainid { get; private set; }
+
+    /// <summary>ID del vehículo (FK a product.company.prcoid).</summary>
+    public int Prcoid { get; private set; }
+
+    /// <summary>Tipo: 1=Calendarizado, 2=Emergencia.</summary>
+    public short Matyid { get; private set; }
+
+    /// <summary>Tipo de servicio: 1=A (básico), 2=B (completo). Null en emergencias.</summary>
+    public short? Setyid { get; private set; }
+
+    public string? OrderNumber { get; private set; }
+    public DateTime MaintenanceDate { get; private set; }
+
+    /// <summary>Kilometraje del vehículo al momento del servicio.</summary>
+    public int Mileage { get; private set; }
+
+    /// <summary>Km recorridos desde el último mantenimiento. Calculado al registrar.</summary>
+    public int? KmSinceLast { get; private set; }
+
+    public string? AdditionalWork { get; private set; }
+    public string? OilBrand { get; private set; }
+    public string? OilViscositySae { get; private set; }
+    public string? ClimateSeason { get; private set; }
+
+    /// <summary>
+    /// Si true, los datos del aceite de ESTE mantenimiento aparecen como
+    /// nota informativa en el formulario del SIGUIENTE mantenimiento.
+    /// </summary>
+    public bool ShowOilInNextMaintenance { get; private set; }
+
+    public string OriginService { get; private set; } = "Taller propio";
+    public string? SignatureSeal { get; private set; }
+
+    /// <summary>
+    /// Solo para emergencias: true=completó todo (recalendariza),
+    /// false=solo lo urgente (NO recalendariza). Null para calendarizados.
+    /// </summary>
+    public bool? IsEmergencyComplete { get; private set; }
+
+    /// <summary>Mecánico asignado que ejecuta el trabajo.</summary>
+    public int AssignedTo { get; private set; }
+
+    /// <summary>Worker que registra la orden en el sistema.</summary>
+    public int Workid { get; private set; }
+
+    public string? Note { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
+    public string Statid { get; private set; } = "AC";
+
+    // Navegación
+    public MaintenanceType? MaintenanceType { get; private set; }
+    public ServiceType? ServiceType { get; private set; }
+    public ICollection<MaintenanceActionDetail> ActionDetails { get; private set; } = [];
+    public Diagnosis? Diagnosis { get; private set; }
+    public ICollection<MaterialConsumption> MaterialConsumptions { get; private set; } = [];
+    public ICollection<InstalledComponent> InstalledComponents { get; private set; } = [];
+    public ICollection<MaterialRating> MaterialRatings { get; private set; } = [];
+
+    // Constructor privado para EF Core
+    private Maintenance() { }
+
+    /// <summary>
+    /// Crea una nueva orden de mantenimiento con validaciones de dominio.
+    /// </summary>
+    public static Maintenance Create(
+        int prcoid,
+        short matyid,
+        int mileage,
+        int assignedTo,
+        int registeredByWorkid,
+        string originService = "Taller propio",
+        short? setyid = null,
+        int? kmSinceLast = null,
+        string? orderNumber = null,
+        string? note = null)
+    {
+        if (mileage < 0)
+            throw new ArgumentException("El kilometraje no puede ser negativo.", nameof(mileage));
+
+        if (matyid == 2 && setyid.HasValue)
+            throw new InvalidOperationException("Los mantenimientos de emergencia no tienen tipo de servicio A/B.");
+
+        return new Maintenance
+        {
+            Prcoid = prcoid,
+            Matyid = matyid,
+            Setyid = setyid,
+            Mileage = mileage,
+            KmSinceLast = kmSinceLast,
+            AssignedTo = assignedTo,
+            Workid = registeredByWorkid,
+            OriginService = originService,
+            OrderNumber = orderNumber,
+            Note = note,
+            MaintenanceDate = DateTime.UtcNow,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            Statid = "AC"
+        };
+    }
+
+    /// <summary>
+    /// Cierra la emergencia indicando si fue completa o parcial.
+    /// </summary>
+    public void CloseEmergency(bool isComplete)
+    {
+        if (Matyid != 2)
+            throw new InvalidOperationException("Solo se puede cerrar emergencia en mantenimientos de tipo Emergencia.");
+
+        IsEmergencyComplete = isComplete;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// Marca la orden como finalizada (Statid = "FI").
+    /// </summary>
+    public void MarkAsClosed()
+    {
+        if (Statid == "FI")
+            throw new InvalidOperationException("La orden ya está finalizada.");
+
+        Statid = "FI";
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void SetOilInfo(string brand, string viscositySae, string? climateSeason, bool showInNext)
+    {
+        OilBrand = brand;
+        OilViscositySae = viscositySae;
+        ClimateSeason = climateSeason;
+        ShowOilInNextMaintenance = showInNext;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void UpdateNote(string? note)
+    {
+        Note = note;
+        UpdatedAt = DateTime.UtcNow;
+    }
+}
+
+============================================================
+ARCHIVO: ./MaintenanceActionDetail.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaintenanceActionDetail
+{
+    public int Madeid { get; private set; }
+    public int Mainid { get; private set; }
+    public int Acatid { get; private set; }
+    public bool Completed { get; private set; }
+    public char? ActionPerformed { get; private set; }
+    public string? ProductUsed { get; private set; }
+    public string? QuantityUsed { get; private set; }
+    public string? OriginProduct { get; private set; }
+    public string? Observation { get; private set; }
+    public int? Maloid { get; private set; }
+
+    // Navegación
+    public ActionCatalog? ActionCatalog { get; private set; }
+    public MaterialLot? MaterialLot { get; private set; }
+
+    private MaintenanceActionDetail() { }
+
+    public static MaintenanceActionDetail Create(int mainid, int acatid) =>
+        new() { Mainid = mainid, Acatid = acatid, Completed = false };
+
+    public void Complete(char actionCode, string? productUsed,
+        string? quantityUsed, string? originProduct, string? observation, int? maloid = null)
+    {
+        Completed = true;
+        ActionPerformed = actionCode;
+        ProductUsed = productUsed;
+        QuantityUsed = quantityUsed;
+        OriginProduct = originProduct;
+        Observation = observation;
+        Maloid = maloid;
+    }
+}
+
+
+// MaintManager.Domain/Entities/Diagnosis.cs
+
+/// <summary>Diagnóstico final del mecánico al cerrar un mantenimiento.</summary>
+
+
+============================================================
+ARCHIVO: ./MaintenanceType.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaintenanceType
+{
+    public short Matyid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string? Description { get; init; }
+    public bool Status { get; init; } = true;
+}
+
+
+// MaintManager.Domain/Entities/ServiceType.cs
+
+/// <summary>
+/// Tipo de servicio calendarizado.
+/// A = Servicio Básico. B = Servicio Completo.
+/// </summary>
+
+
+============================================================
+ARCHIVO: ./Material.cs
+============================================================
+
+/// <summary>
+/// Material del inventario. stock_total = suma de todos los lotes activos.
+/// Se actualiza con cada ingreso de lote y cada consumo.
+/// </summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class Material
+{
+    public int Mateid { get; private set; }
+    public short Macaid { get; private set; }
+    public string Name { get; private set; } = string.Empty;
+    public string UnitOfMeasure { get; private set; } = string.Empty;
+    public decimal StockTotal { get; private set; }
+    public decimal StockMinimum { get; private set; }
+    public string? Description { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
+    public int CreatedBy { get; private set; }
+    public bool Status { get; private set; } = true;
+
+    // Navegación
+    public MaterialCategory? Category { get; private set; }
+    public ICollection<MaterialLot> Lots { get; private set; } = [];
+    public ICollection<MaterialRating> Ratings { get; private set; } = [];
+
+    private Material() { }
+
+    public static Material Create(short macaid, string name, string unitOfMeasure,
+        decimal stockMinimum, int createdBy, string? description = null)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("El nombre del material es obligatorio.", nameof(name));
+        if (string.IsNullOrWhiteSpace(unitOfMeasure))
+            throw new ArgumentException("La unidad de medida es obligatoria.", nameof(unitOfMeasure));
+        if (stockMinimum < 0)
+            throw new ArgumentException("El stock mínimo no puede ser negativo.", nameof(stockMinimum));
+
+        return new Material
+        {
+            Macaid = macaid,
+            Name = name,
+            UnitOfMeasure = unitOfMeasure,
+            StockMinimum = stockMinimum,
+            Description = description,
+            CreatedBy = createdBy,
+            StockTotal = 0,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+    }
+
+    /// <summary>Incrementa el stock al ingresar un lote.</summary>
+    public void AddStock(decimal quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("La cantidad a agregar debe ser positiva.", nameof(quantity));
+
+        StockTotal += quantity;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>Decrementa el stock al consumir o descartar material.</summary>
+    public void DeductStock(decimal quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("La cantidad a descontar debe ser positiva.", nameof(quantity));
+        if (quantity > StockTotal)
+            throw new InvalidOperationException(
+                $"Stock insuficiente. Disponible: {StockTotal} {UnitOfMeasure}. Requerido: {quantity}.");
+
+        StockTotal -= quantity;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>Indica si el stock está por debajo del mínimo configurado.</summary>
+    public bool IsBelowMinimum() => StockTotal < StockMinimum;
+}
+
+
+
+
+============================================================
+ARCHIVO: ./MaterialCategory.cs
+============================================================
+
+/// <summary>Categoría de material: Lubricantes, Filtros, Fluidos, Repuestos, Otros.</summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaterialCategory
+{
+    public short Macaid { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string? Description { get; init; }
+    public bool Status { get; init; } = true;
+
+    public ICollection<Material> Materials { get; init; } = [];
+}
+
+
+
+
+============================================================
+ARCHIVO: ./MaterialConsumption.cs
+============================================================
+
+/// <summary>
+/// Registro de consumo de material en un mantenimiento.
+/// Si origin=StockPropio y abarca 2 lotes → 2 registros separados.
+/// </summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaterialConsumption
+{
+    public int Macoid { get; private set; }
+    public int Mainid { get; private set; }
+    public int Mateid { get; private set; }
+    public int? Maloid { get; private set; }
+    public decimal Quantity { get; private set; }
+    public string Origin { get; private set; } = "Stock propio";
+    public DateTime ConsumedAt { get; private set; }
+
+    // Navegación
+    public MaterialLot? Lot { get; private set; }
+
+    private MaterialConsumption() { }
+
+    public static MaterialConsumption Create(int mainid, int mateid, decimal quantity,
+        string origin, int? maloid = null)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("La cantidad consumida debe ser positiva.", nameof(quantity));
+
+        return new MaterialConsumption
+        {
+            Mainid = mainid,
+            Mateid = mateid,
+            Quantity = quantity,
+            Origin = origin,
+            Maloid = maloid,
+            ConsumedAt = DateTime.UtcNow
+        };
+    }
+}
+
+
+
+
+============================================================
+ARCHIVO: ./MaterialDiscard.cs
+============================================================
+
+/// <summary>Registro de merma o descarte de material. Alimenta el BI de costos perdidos.</summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaterialDiscard
+{
+    public int Madiid { get; private set; }
+    public int Maloid { get; private set; }
+    public decimal DiscardedQuantity { get; private set; }
+    public DateTime DiscardDate { get; private set; }
+    public string Reason { get; private set; } = string.Empty;
+    public string? Note { get; private set; }
+    public int DiscardedBy { get; private set; }
+
+    // Navegación
+    public MaterialLot? Lot { get; private set; }
+
+    private MaterialDiscard() { }
+
+    public static MaterialDiscard Create(int maloid, decimal quantity, string reason,
+        int discardedBy, string? note = null)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("La cantidad a descartar debe ser positiva.", nameof(quantity));
+        if (string.IsNullOrWhiteSpace(reason))
+            throw new ArgumentException("El motivo del descarte es obligatorio.", nameof(reason));
+
+        return new MaterialDiscard
+        {
+            Maloid = maloid,
+            DiscardedQuantity = quantity,
+            Reason = reason,
+            Note = note,
+            DiscardedBy = discardedBy,
+            DiscardDate = DateTime.UtcNow
+        };
+    }
+}
+
+
+
+
+============================================================
+ARCHIVO: ./MaterialLot.cs
+============================================================
+
+/// <summary>
+/// Lote de material. Unidad de ingreso al inventario.
+/// FIFO por vencimiento: se consume primero el lote más próximo a vencer.
+/// </summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaterialLot
+{
+    public int Maloid { get; private set; }
+    public int Mateid { get; private set; }
+    public decimal InitialQuantity { get; private set; }
+    public decimal CurrentQuantity { get; private set; }
+
+    /// <summary>Precio de compra por unidad. Usado en cálculos de costo real.</summary>
+    public decimal UnitCost { get; private set; }
+
+    public DateTime EntryDate { get; private set; }
+    public DateOnly? ExpirationDate { get; private set; }
+    public int? Provid { get; private set; }
+    public string? SupplierLotNumber { get; private set; }
+    public string? Note { get; private set; }
+    public string LotStatus { get; private set; } = "activo";
+    public int CreatedBy { get; private set; }
+
+    // Navegación
+    public Material? Material { get; private set; }
+
+    private MaterialLot() { }
+
+    public static MaterialLot Create(int mateid, decimal initialQuantity, decimal unitCost,
+        int createdBy, DateOnly? expirationDate = null, int? provid = null,
+        string? supplierLotNumber = null, string? note = null)
+    {
+        if (initialQuantity <= 0)
+            throw new ArgumentException("La cantidad inicial debe ser mayor a cero.", nameof(initialQuantity));
+        if (unitCost < 0)
+            throw new ArgumentException("El costo unitario no puede ser negativo.", nameof(unitCost));
+
+        return new MaterialLot
+        {
+            Mateid = mateid,
+            InitialQuantity = initialQuantity,
+            CurrentQuantity = initialQuantity,
+            UnitCost = unitCost,
+            ExpirationDate = expirationDate,
+            Provid = provid,
+            SupplierLotNumber = supplierLotNumber,
+            Note = note,
+            CreatedBy = createdBy,
+            EntryDate = DateTime.UtcNow,
+            LotStatus = "activo"
+        };
+    }
+
+    /// <summary>Consume cantidad del lote. Actualiza estado si queda en cero.</summary>
+    public void Consume(decimal quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("La cantidad a consumir debe ser positiva.", nameof(quantity));
+        if (quantity > CurrentQuantity)
+            throw new InvalidOperationException(
+                $"Cantidad insuficiente en el lote. Disponible: {CurrentQuantity}. Requerido: {quantity}.");
+
+        CurrentQuantity -= quantity;
+        if (CurrentQuantity == 0) LotStatus = "agotado";
+    }
+
+    /// <summary>Descarta el lote completo o parte de él.</summary>
+    public void Discard(decimal quantity)
+    {
+        if (quantity <= 0 || quantity > CurrentQuantity)
+            throw new ArgumentException("Cantidad de descarte inválida.", nameof(quantity));
+
+        CurrentQuantity -= quantity;
+        LotStatus = CurrentQuantity == 0 ? "descartado" : LotStatus;
+    }
+
+    public void MarkAsExpired() => LotStatus = "vencido";
+
+    /// <summary>Costo total del stock restante en este lote.</summary>
+    public decimal GetRemainingCost() => CurrentQuantity * UnitCost;
+}
+
+
+
+
+============================================================
+ARCHIVO: ./MaterialRating.cs
+============================================================
+
+/// <summary>
+/// Calificación (1-5 estrellas) de un material durante un mantenimiento.
+/// Si rating ≤ 3, la observación es obligatoria.
+/// </summary>
+namespace MaintManager.Domain.Entities;
+
+public sealed class MaterialRating
+{
+    public int Matraid { get; private set; }
+    public int Mateid { get; private set; }
+    public int Mainid { get; private set; }
+    public short Rating { get; private set; }
+    public string? Observation { get; private set; }
+    public int RatedBy { get; private set; }
+    public DateTime RatedAt { get; private set; }
+
+    private MaterialRating() { }
+
+    public static MaterialRating Create(int mateid, int mainid, short rating, int ratedBy, string? observation = null)
+    {
+        if (rating < 1 || rating > 5)
+            throw new ArgumentException("La calificación debe estar entre 1 y 5.", nameof(rating));
+        if (rating <= 3 && string.IsNullOrWhiteSpace(observation))
+            throw new InvalidOperationException("La observación es obligatoria cuando la calificación es 3 o menor.");
+
+        return new MaterialRating
+        {
+            Mateid = mateid,
+            Mainid = mainid,
+            Rating = rating,
+            Observation = observation,
+            RatedBy = ratedBy,
+            RatedAt = DateTime.UtcNow
+        };
+    }
+}
+
+
+
+
+============================================================
+ARCHIVO: ./ScheduleAction.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class ScheduleAction
+{
+    public int Shacid { get; init; }
+    public int Veshid { get; init; }
+    public int Acatid { get; init; }
+    public int ScheduledKm { get; init; }
+    public char ActionCode { get; init; }
+    public bool Status { get; init; } = true;
+
+    // Navegación
+    public VehicleSchedule? VehicleSchedule { get; init; }
+    public ActionCatalog? ActionCatalog { get; init; }
+}
+
+
+// MaintManager.Domain/Entities/MaintenanceActionDetail.cs
+
+/// <summary>
+/// Detalle de una acción realizada en un mantenimiento.
+/// Representa una fila del checklist de la orden de servicio.
+/// </summary>
+
+
+============================================================
+ARCHIVO: ./ServiceType.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class ServiceType
+{
+    public short Setyid { get; init; }
+    public char Code { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string? Description { get; init; }
+    public bool Status { get; init; } = true;
+}
+
+
+// MaintManager.Domain/Entities/ActionListType.cs
+
+/// <summary>
+/// Lista de acciones del manual del vehículo.
+/// Lista 1: Elementos de Reemplazo y Aplicación (A/C/I).
+/// Lista 2: Operaciones de mano de obra (I/R).
+/// </summary>
+
+
+============================================================
+ARCHIVO: ./TechnicianAssignment.cs
+============================================================
+// MaintManager.Domain/Entities/TechnicianAssignment.cs
+namespace MaintManager.Domain.Entities;
+
+/// <summary>
+/// Asignación de técnicos a órdenes de mantenimiento.
+/// Hoy: 1 registro por orden. Escalable para múltiples técnicos por orden.
+/// </summary>
+public sealed class TechnicianAssignment
+{
+    public int Teasid { get; private set; }
+    public int Mainid { get; private set; }
+    public int Workid { get; private set; }
+    public string RoleInJob { get; private set; } = "Principal";
+    public DateTime AssignedAt { get; private set; }
+    public int AssignedBy { get; private set; }
+
+    private TechnicianAssignment() { }
+
+    public static TechnicianAssignment Create(int mainid, int workid, int assignedBy,
+        string roleInJob = "Principal")
+    {
+        if (string.IsNullOrWhiteSpace(roleInJob))
+            throw new ArgumentException("El rol en el trabajo es obligatorio.", nameof(roleInJob));
+
+        return new TechnicianAssignment
+        {
+            Mainid = mainid,
+            Workid = workid,
+            RoleInJob = roleInJob,
+            AssignedBy = assignedBy,
+            AssignedAt = DateTime.UtcNow
+        };
+    }
+}
+
+
+============================================================
+ARCHIVO: ./VehicleSchedule.cs
+============================================================
+namespace MaintManager.Domain.Entities;
+
+public sealed class VehicleSchedule
+{
+    public int Veshid { get; private set; }
+    public int Prcoid { get; private set; }
+    public int IntervalKm { get; private set; } = 5000;
+    public int NextKm { get; private set; }
+    public int? AlertKmThreshold { get; private set; } = 800;
+
+    /// <summary>
+    /// Tipo del próximo servicio: 'A' (básico) o 'B' (completo).
+    /// Se alterna automáticamente al recalendarizar (A→B→A...).
+    /// </summary>
+    public string? NextServiceTypeCode { get; private set; }
+
+    public DateTime CreatedAt { get; private set; }
+    public int CreatedBy { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
+    public bool Status { get; private set; } = true;
+
+    private VehicleSchedule() { }
+
+    public static VehicleSchedule Create(int prcoid, int currentKm, int createdBy,
+        int intervalKm = 5000, int alertThreshold = 800, string? initialServiceType = "A")
+    {
+        if (intervalKm <= 0)
+            throw new ArgumentException("El intervalo de km debe ser mayor a cero.", nameof(intervalKm));
+
+        return new VehicleSchedule
+        {
+            Prcoid = prcoid,
+            IntervalKm = intervalKm,
+            NextKm = currentKm + intervalKm,
+            AlertKmThreshold = alertThreshold,
+            NextServiceTypeCode = initialServiceType,
+            CreatedBy = createdBy,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+    }
+
+    /// <summary>
+    /// Recalendariza el próximo servicio desde el km del mantenimiento completado.
+    /// Alterna el tipo de servicio (A↔B) automáticamente.
+    /// </summary>
+    public void Reschedule(int serviceKm)
+    {
+        NextKm = serviceKm + IntervalKm;
+        NextServiceTypeCode = NextServiceTypeCode == "A" ? "B" : "A";
+        UpdatedAt = DateTime.UtcNow;
+    }
+}
+
+============================================================
+ARCHIVO: ./volcado_completo_proyecto.txt
+============================================================
+*** No se pudo leer el archivo ***
+
+
+========== FIN DEL VOLCADO ==========

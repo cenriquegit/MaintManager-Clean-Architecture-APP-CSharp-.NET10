@@ -31,7 +31,7 @@ public static class ErrorMessages
         public const string MaterialNotFound = "El material no fue encontrado.";
         public const string LotNotFound = "El lote no fue encontrado.";
         public const string InsufficientStock = "Stock insuficiente para realizar la operación.";
-        public const string LotExpired = "El lote seleccionado está vencido.";
+        public const string LotExpired = "El lote seleccionado está vencido o descartado.";
     }
 
     public static class General

@@ -3,11 +3,46 @@
     x:Class="MaintManager.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MaintManager.MAUI"
-    Title="MaintManager">
+    xmlns:auth="clr-namespace:MaintManager.MAUI.Views.Auth"
+    xmlns:alerts="clr-namespace:MaintManager.MAUI.Views.Alerts"
+    xmlns:inventory="clr-namespace:MaintManager.MAUI.Views.Inventory"
+    xmlns:maintenances="clr-namespace:MaintManager.MAUI.Views.Maintenances"
+    xmlns:dashboard="clr-namespace:MaintManager.MAUI.Views.Dashboard"
+    xmlns:calendar="clr-namespace:MaintManager.MAUI.Views.Calendar"
+    xmlns:bidashboard="clr-namespace:MaintManager.MAUI.Views.BiDashboard"
+    xmlns:reports="clr-namespace:MaintManager.MAUI.Views.Reports"
+    xmlns:settings="clr-namespace:MaintManager.MAUI.Views.Settings"
+    Title="MaintManager"
+    FlyoutBehavior="Flyout">
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate auth:LoginPage}"
+        Route="Login"
+        FlyoutItemIsVisible="False" />
+
+    <FlyoutItem Title="Panel">
+        <ShellContent ContentTemplate="{DataTemplate dashboard:HomePage}" Route="Dashboard" />
+    </FlyoutItem>
+    <FlyoutItem Title="Alertas">
+        <ShellContent ContentTemplate="{DataTemplate alerts:AlertListPage}" Route="Alerts" />
+    </FlyoutItem>
+    <FlyoutItem Title="Calendario">
+        <ShellContent ContentTemplate="{DataTemplate calendar:CalendarPage}" Route="Calendar" />
+    </FlyoutItem>
+    <FlyoutItem Title="Mantenimientos">
+        <ShellContent ContentTemplate="{DataTemplate maintenances:MaintenanceListPage}" Route="Maintenances" />
+    </FlyoutItem>
+    <FlyoutItem Title="Inventario">
+        <ShellContent ContentTemplate="{DataTemplate inventory:InventoryListPage}" Route="Inventory" />
+    </FlyoutItem>
+    <FlyoutItem Title="BI Dashboard">
+        <ShellContent ContentTemplate="{DataTemplate bidashboard:BiDashboardPage}" Route="BiDashboard" />
+    </FlyoutItem>
+    <FlyoutItem Title="Reportes">
+        <ShellContent ContentTemplate="{DataTemplate reports:ReportsPage}" Route="Reports" />
+    </FlyoutItem>
+    <FlyoutItem Title="Configuración">
+        <ShellContent ContentTemplate="{DataTemplate settings:SettingsPage}" Route="Settings" />
+    </FlyoutItem>
 
 </Shell>

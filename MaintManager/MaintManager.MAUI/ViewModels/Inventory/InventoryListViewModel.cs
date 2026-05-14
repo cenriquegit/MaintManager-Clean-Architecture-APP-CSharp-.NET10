@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MaintManager.MAUI.Models;
 using MaintManager.MAUI.Services;
 using MaintManager.Shared.Constants;
 using System.Collections.ObjectModel;
@@ -65,17 +66,6 @@ public partial class InventoryListViewModel : BaseViewModel
     private async Task AddLot()
     {
         await Shell.Current.GoToAsync("//Inventory/LotCreate");
-    }
-
-    public partial class MaterialItem
-    {
-        public int Mateid { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
-        public decimal StockTotal { get; set; }
-        public decimal StockMinimum { get; set; }
-        public string UnitOfMeasure { get; set; } = string.Empty;
-        public bool IsBelowMinimum { get; set; }
     }
 
     public class ApiResponse<T>

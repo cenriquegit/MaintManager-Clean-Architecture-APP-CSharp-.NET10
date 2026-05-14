@@ -1,0 +1,3 @@
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.MAUI\bin\Release\net10.0-android\publish\com.companyname.maintmanager.maui-Signed.apk
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.MAUI\bin\Release\net10.0-android\publish\com.companyname.maintmanager.maui.apk
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.MAUI\bin\Release\net10.0-android\publish\_Microsoft.Android.Resource.Designer.dll

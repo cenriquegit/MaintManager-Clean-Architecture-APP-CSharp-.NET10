@@ -40,6 +40,13 @@ public class ApiService
         return await HandleResponse<T>(response);
     }
 
+    public async Task<T?> PostAndUnwrapAsync<T>(string endpoint, object? data = null)
+    {
+        var content = data is null ? null : new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync(endpoint, content);
+        return await HandleWrappedResponse<T>(response);
+    }
+
     private static async Task<T?> HandleResponse<T>(HttpResponseMessage response)
     {
         if (response.IsSuccessStatusCode)
@@ -53,10 +60,35 @@ public class ApiService
             throw new HttpRequestException($"Error {response.StatusCode}: {error}");
         }
     }
+
+    private static async Task<T?> HandleWrappedResponse<T>(HttpResponseMessage response)
+    {
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            var wrapper = JsonSerializer.Deserialize<ApiResponseWrapper<T>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            if (wrapper?.Success == true)
+                return wrapper.Data;
+            throw new HttpRequestException(wrapper?.Message ?? "Error desconocido");
+        }
+        else
+        {
+            var error = await response.Content.ReadAsStringAsync();
+            throw new HttpRequestException($"Error {response.StatusCode}: {error}");
+        }
+    }
+
     public async Task<T?> PutAsync<T>(string endpoint, object? data = null)
     {
         var content = data is null ? null : new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync(endpoint, content);
         return await HandleResponse<T>(response);
+    }
+
+    private sealed class ApiResponseWrapper<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+        public string? Message { get; set; }
     }
 }

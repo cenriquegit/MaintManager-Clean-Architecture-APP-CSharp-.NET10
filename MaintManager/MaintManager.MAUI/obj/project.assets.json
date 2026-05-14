@@ -2,40 +2,6 @@
   "version": 3,
   "targets": {
     "net10.0-android36.0": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -2793,40 +2759,6 @@
       }
     },
     "net10.0-android36.0/android-arm64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -5554,40 +5486,6 @@
       }
     },
     "net10.0-android36.0/win-x64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -8309,40 +8207,6 @@
       }
     },
     "net10.0-ios26.2": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -9157,40 +9021,6 @@
       }
     },
     "net10.0-ios26.2/android-arm64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -9937,40 +9767,6 @@
       }
     },
     "net10.0-ios26.2/win-x64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -10717,40 +10513,6 @@
       }
     },
     "net10.0-maccatalyst26.2": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -11509,40 +11271,6 @@
       }
     },
     "net10.0-maccatalyst26.2/android-arm64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -12289,40 +12017,6 @@
       }
     },
     "net10.0-maccatalyst26.2/win-x64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -13069,41 +12763,6 @@
       }
     },
     "net10.0-windows10.0.19041": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)",
-          "System.Speech": "9.0.0"
-        },
-        "compile": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -14177,28 +13836,6 @@
           }
         }
       },
-      "System.Speech/9.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net9.0/System.Speech.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0/System.Speech.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net9.0/System.Speech.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "MaintManager.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -14211,41 +13848,6 @@
       }
     },
     "net10.0-windows10.0.19041/android-arm64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)",
-          "System.Speech": "9.0.0"
-        },
-        "compile": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -15181,22 +14783,6 @@
           }
         }
       },
-      "System.Speech/9.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net9.0/System.Speech.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0/System.Speech.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
       "MaintManager.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -15209,41 +14795,6 @@
       }
     },
     "net10.0-windows10.0.19041/win-x64": {
-      "CommunityToolkit.Maui/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "CommunityToolkit.Maui.Core": "10.0.0",
-          "Microsoft.Maui.Controls": "[9.0.21, 10.0.0)"
-        },
-        "compile": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "CommunityToolkit.Maui.Core/10.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Maui.Core": "[9.0.21, 10.0.0)",
-          "Microsoft.Maui.Essentials": "[9.0.21, 10.0.0)",
-          "System.Speech": "9.0.0"
-        },
-        "compile": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "CommunityToolkit.Mvvm/8.4.0": {
         "type": "package",
         "compile": {
@@ -16200,22 +15751,6 @@
           }
         }
       },
-      "System.Speech/9.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net9.0/System.Speech.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "runtimes/win/lib/net9.0/System.Speech.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net8.0/_._": {}
-        }
-      },
       "MaintManager.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
@@ -16229,59 +15764,6 @@
     }
   },
   "libraries": {
-    "CommunityToolkit.Maui/10.0.0": {
-      "sha512": "Yh4CAqewB1Voq+RwCeWP7jxD10MAkjeM3WRkhsr5KMYzuJleM/H0wM2aLIuODVnO787NM/wleI7JFOf9EU1Dbw==",
-      "type": "package",
-      "path": "communitytoolkit.maui/10.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ReadMe.txt",
-        "analyzers/dotnet/cs/CommunityToolkit.Maui.Analyzers.CodeFixes.dll",
-        "analyzers/dotnet/cs/CommunityToolkit.Maui.Analyzers.dll",
-        "analyzers/dotnet/cs/CommunityToolkit.Maui.SourceGenerators.dll",
-        "communitytoolkit.maui.10.0.0.nupkg.sha512",
-        "communitytoolkit.maui.nuspec",
-        "icon.png",
-        "lib/net9.0-android35.0/CommunityToolkit.Maui.dll",
-        "lib/net9.0-android35.0/CommunityToolkit.Maui.xml",
-        "lib/net9.0-ios18.0/CommunityToolkit.Maui.dll",
-        "lib/net9.0-ios18.0/CommunityToolkit.Maui.xml",
-        "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.dll",
-        "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.xml",
-        "lib/net9.0-tizen8.0/CommunityToolkit.Maui.dll",
-        "lib/net9.0-tizen8.0/CommunityToolkit.Maui.xml",
-        "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.dll",
-        "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.xml",
-        "lib/net9.0/CommunityToolkit.Maui.dll",
-        "lib/net9.0/CommunityToolkit.Maui.xml"
-      ]
-    },
-    "CommunityToolkit.Maui.Core/10.0.0": {
-      "sha512": "kbozkLBRArk4GWpfYYa6WAnu3jYFEyPKlkR+9cgyYqM6wrtNlRMS/uXXRo8IhN8qCrrvlxBerQnK4gQmMW0cJg==",
-      "type": "package",
-      "path": "communitytoolkit.maui.core/10.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ReadMe.txt",
-        "communitytoolkit.maui.core.10.0.0.nupkg.sha512",
-        "communitytoolkit.maui.core.nuspec",
-        "icon.png",
-        "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.dll",
-        "lib/net9.0-android35.0/CommunityToolkit.Maui.Core.xml",
-        "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.dll",
-        "lib/net9.0-ios18.0/CommunityToolkit.Maui.Core.xml",
-        "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.dll",
-        "lib/net9.0-maccatalyst18.0/CommunityToolkit.Maui.Core.xml",
-        "lib/net9.0-tizen8.0/CommunityToolkit.Maui.Core.dll",
-        "lib/net9.0-tizen8.0/CommunityToolkit.Maui.Core.xml",
-        "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll",
-        "lib/net9.0-windows10.0.19041/CommunityToolkit.Maui.Core.xml",
-        "lib/net9.0/CommunityToolkit.Maui.Core.dll",
-        "lib/net9.0/CommunityToolkit.Maui.Core.xml"
-      ]
-    },
     "CommunityToolkit.Mvvm/8.4.0": {
       "sha512": "tqVU8yc/ADO9oiTRyTnwhFN68hCwvkliMierptWOudIAvWY1mWCh5VFh+guwHJmpMwfg0J0rY+yyd5Oy7ty9Uw==",
       "type": "package",
@@ -17333,39 +16815,141 @@
         "lib/net9.0-android35.0/Microsoft.Maui.Controls.pdb",
         "lib/net9.0-android35.0/Microsoft.Maui.Controls.xml",
         "lib/net9.0-android35.0/ar/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ar/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ar/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ar/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/ca/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ca/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ca/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ca/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/cs/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/cs/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/cs/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/cs/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/da/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/da/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/da/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/da/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/de/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/de/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/de/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/de/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/el/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/el/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/el/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/el/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/es/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/es/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/es/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/es/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/fi/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/fi/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/fi/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/fi/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/fr/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/fr/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/fr/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/fr/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/he/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/he/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/he/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/he/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/hi/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/hi/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/hi/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/hi/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/hr/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/hr/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/hr/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/hr/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/hu/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/hu/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/hu/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/hu/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/id/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/id/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/id/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/id/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/it/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/it/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/it/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/it/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/ja/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ja/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ja/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ja/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/ko/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ko/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ko/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ko/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/ms/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ms/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ms/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ms/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/nb/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/nb/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/nb/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/nb/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/nl/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/nl/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/nl/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/nl/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/pl/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/pl/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/pl/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/pl/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/pt-BR/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/pt-BR/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/pt-BR/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/pt-BR/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/pt/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/pt/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/pt/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/pt/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/ro/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ro/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ro/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ro/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/ru/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/ru/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/ru/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/ru/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/sk/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/sk/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/sk/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/sk/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/sv/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/sv/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/sv/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/sv/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/th/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/th/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/th/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/th/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/tr/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/tr/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/tr/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/tr/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/uk/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/uk/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/uk/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/uk/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/vi/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/vi/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/vi/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/vi/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/zh-HK/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/zh-HK/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/zh-HK/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/zh-HK/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/zh-Hans/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/zh-Hans/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/zh-Hans/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/zh-Hans/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-android35.0/zh-Hant/Microsoft.Maui.Controls.resources.dll",
+        "lib/net9.0-android35.0/zh-Hant/Microsoft.Maui.Controls.resources.jlo.xml",
+        "lib/net9.0-android35.0/zh-Hant/Microsoft.Maui.Controls.resources.typemap.xml",
+        "lib/net9.0-android35.0/zh-Hant/shrunk/Microsoft.Maui.Controls.resources.dll",
         "lib/net9.0-ios18.0/Design/Microsoft.Maui.Controls.DesignTools.dll",
         "lib/net9.0-ios18.0/Design/Microsoft.Maui.Controls.DesignTools.pdb",
         "lib/net9.0-ios18.0/Microsoft.Maui.Controls.dll",
@@ -19057,35 +18641,6 @@
         "lib/net8.0-windows10.0.19041/SkiaSharp.Views.Windows.pdb",
         "skiasharp.views.winui.3.0.0-preview.5.4.nupkg.sha512",
         "skiasharp.views.winui.nuspec"
-      ]
-    },
-    "System.Speech/9.0.0": {
-      "sha512": "z8mvEVBfWSi0692vPOra8MougSEJCDzlaLj4g0aA87XDZpJoJD3BJTcJ0MuFbbN1fOT9Cr2ZFqXhZc+zzX0Gwg==",
-      "type": "package",
-      "path": "system.speech/9.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net8.0/_._",
-        "buildTransitive/netcoreapp2.0/System.Speech.targets",
-        "lib/net462/_._",
-        "lib/net8.0/System.Speech.dll",
-        "lib/net8.0/System.Speech.xml",
-        "lib/net9.0/System.Speech.dll",
-        "lib/net9.0/System.Speech.xml",
-        "lib/netstandard2.0/System.Speech.dll",
-        "lib/netstandard2.0/System.Speech.xml",
-        "runtimes/win/lib/net8.0/System.Speech.dll",
-        "runtimes/win/lib/net8.0/System.Speech.xml",
-        "runtimes/win/lib/net9.0/System.Speech.dll",
-        "runtimes/win/lib/net9.0/System.Speech.xml",
-        "system.speech.9.0.0.nupkg.sha512",
-        "system.speech.nuspec",
-        "useSharedDesignerContext.txt"
       ]
     },
     "Xamarin.Android.Glide/4.16.0.6": {
@@ -20990,7 +20545,6 @@
   },
   "projectFileDependencyGroups": {
     "net10.0-android36.0": [
-      "CommunityToolkit.Maui >= 10.0.0",
       "CommunityToolkit.Mvvm >= 8.4.0",
       "LiveChartsCore.SkiaSharpView.Maui >= 2.0.0-rc4",
       "MaintManager.Shared >= 1.0.0",
@@ -21003,7 +20557,6 @@
       "Microsoft.NET.ILLink.Tasks >= 10.0.3"
     ],
     "net10.0-ios26.2": [
-      "CommunityToolkit.Maui >= 10.0.0",
       "CommunityToolkit.Mvvm >= 8.4.0",
       "LiveChartsCore.SkiaSharpView.Maui >= 2.0.0-rc4",
       "MaintManager.Shared >= 1.0.0",
@@ -21016,7 +20569,6 @@
       "Microsoft.NET.ILLink.Tasks >= 10.0.3"
     ],
     "net10.0-maccatalyst26.2": [
-      "CommunityToolkit.Maui >= 10.0.0",
       "CommunityToolkit.Mvvm >= 8.4.0",
       "LiveChartsCore.SkiaSharpView.Maui >= 2.0.0-rc4",
       "MaintManager.Shared >= 1.0.0",
@@ -21029,7 +20581,6 @@
       "Microsoft.NET.ILLink.Tasks >= 10.0.3"
     ],
     "net10.0-windows10.0.19041": [
-      "CommunityToolkit.Maui >= 10.0.0",
       "CommunityToolkit.Mvvm >= 8.4.0",
       "LiveChartsCore.SkiaSharpView.Maui >= 2.0.0-rc4",
       "MaintManager.Shared >= 1.0.0",
@@ -21119,10 +20670,6 @@
       "net10.0-android36.0": {
         "targetAlias": "net10.0-android",
         "dependencies": {
-          "CommunityToolkit.Maui": {
-            "target": "Package",
-            "version": "[10.0.0, )"
-          },
           "CommunityToolkit.Mvvm": {
             "target": "Package",
             "version": "[8.4.0, )"
@@ -21469,10 +21016,6 @@
       "net10.0-ios26.2": {
         "targetAlias": "net10.0-ios",
         "dependencies": {
-          "CommunityToolkit.Maui": {
-            "target": "Package",
-            "version": "[10.0.0, )"
-          },
           "CommunityToolkit.Mvvm": {
             "target": "Package",
             "version": "[8.4.0, )"
@@ -21819,10 +21362,6 @@
       "net10.0-maccatalyst26.2": {
         "targetAlias": "net10.0-maccatalyst",
         "dependencies": {
-          "CommunityToolkit.Maui": {
-            "target": "Package",
-            "version": "[10.0.0, )"
-          },
           "CommunityToolkit.Mvvm": {
             "target": "Package",
             "version": "[8.4.0, )"
@@ -22170,10 +21709,6 @@
       "net10.0-windows10.0.19041": {
         "targetAlias": "net10.0-windows10.0.19041.0",
         "dependencies": {
-          "CommunityToolkit.Maui": {
-            "target": "Package",
-            "version": "[10.0.0, )"
-          },
           "CommunityToolkit.Mvvm": {
             "target": "Package",
             "version": "[8.4.0, )"

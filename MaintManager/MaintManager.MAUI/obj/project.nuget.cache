@@ -1,11 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "bC1ngk90MVo=",
+  "dgSpecHash": "HCfwvFECUBA=",
   "success": true,
   "projectFilePath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.MAUI\\MaintManager.MAUI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\carlo\\.nuget\\packages\\communitytoolkit.maui\\10.0.0\\communitytoolkit.maui.10.0.0.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\communitytoolkit.maui.core\\10.0.0\\communitytoolkit.maui.core.10.0.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\googlegson\\2.11.0.3\\googlegson.2.11.0.3.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\harfbuzzsharp\\7.3.0.2\\harfbuzzsharp.7.3.0.2.nupkg.sha512",
@@ -59,7 +57,6 @@
     "C:\\Users\\carlo\\.nuget\\packages\\skiasharp.views.maui.controls\\3.0.0-preview.5.4\\skiasharp.views.maui.controls.3.0.0-preview.5.4.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\skiasharp.views.maui.core\\3.0.0-preview.5.4\\skiasharp.views.maui.core.3.0.0-preview.5.4.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\skiasharp.views.winui\\3.0.0-preview.5.4\\skiasharp.views.winui.3.0.0-preview.5.4.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\system.speech\\9.0.0\\system.speech.9.0.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\xamarin.android.glide\\4.16.0.6\\xamarin.android.glide.4.16.0.6.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\xamarin.android.glide.annotations\\4.16.0.6\\xamarin.android.glide.annotations.4.16.0.6.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\xamarin.android.glide.disklrucache\\4.16.0.6\\xamarin.android.glide.disklrucache.4.16.0.6.nupkg.sha512",

@@ -142,6 +142,26 @@ public sealed class InventoryController : ControllerBase
         return Ok(ApiResponse<IReadOnlyList<LotResponse>>.Ok(
             lots.Select(l => l.ToResponse()).ToList()));
     }
+
+    /// <summary>Calificar un material usado en un mantenimiento.</summary>
+    [HttpPost("materials/{mateid:int}/ratings")]
+    [Authorize(Roles = RoleNames.Admin)]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> RateMaterial(
+        int mateid, [FromBody] MaterialRatingRequest request, CancellationToken ct)
+    {
+        var ratedBy = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        try
+        {
+            await _inventoryService.RateMaterialAsync(
+                request.Mateid, request.Mainid, request.Rating, ratedBy, request.Observation, ct);
+            return Ok(ApiResponse<object>.Ok(new { message = "Calificación registrada correctamente." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

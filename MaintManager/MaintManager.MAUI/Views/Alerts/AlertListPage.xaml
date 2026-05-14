@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Alerts"
+    xmlns:models="clr-namespace:MaintManager.MAUI.Models"
     x:Class="MaintManager.MAUI.Views.Alerts.AlertListPage"
     x:DataType="vm:AlertListViewModel"
     Title="Alertas">
@@ -55,7 +56,7 @@
                 </CollectionView.Header>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:AlertItem">
                         <Border Style="{StaticResource Card}">
                             <!-- Borde izquierdo coloreado por tipo de alerta -->
                             <Border.StrokeShape>RoundRectangle 12</Border.StrokeShape>

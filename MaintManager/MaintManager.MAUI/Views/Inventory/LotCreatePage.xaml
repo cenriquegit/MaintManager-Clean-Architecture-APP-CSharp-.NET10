@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
+    xmlns:models="clr-namespace:MaintManager.MAUI.Models"
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Class="MaintManager.MAUI.Views.Inventory.LotCreatePage"
     x:DataType="vm:LotCreateViewModel"
@@ -26,13 +27,14 @@
                 <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
                        TextColor="{StaticResource ColorError}"/>
                 <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
-                       HorizontalOptions="Center"/>
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
                 <Button Text="Reintentar" Command="{Binding LoadMaterialsCommand}"
                         Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
             <!-- FORMULARIO -->
-            <VerticalStackLayout IsVisible="{Binding IsSuccess}" Spacing="16">
+            <VerticalStackLayout IsVisible="{Binding FormReady}" Spacing="16">
 
                 <!-- Encabezado informativo -->
                 <Border BackgroundColor="{StaticResource ColorInfoContainer}"

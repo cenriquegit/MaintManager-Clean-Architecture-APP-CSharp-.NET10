@@ -1,0 +1,15 @@
+<api>
+  <jcw-types>
+    <type name="ChartBehaviour_CustomScaleListener" package="crc64ab1f34af14790cf9" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="android.view.ScaleGestureDetector.SimpleOnScaleGestureListener" partial_assembly_qualified_name="LiveChartsCore.Behaviours.ChartBehaviour+CustomScaleListener, LiveChartsCore.Behaviours">
+      <constructors>
+        <constructor name="ChartBehaviour_CustomScaleListener" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="onScale" method="n_onScale:(Landroid/view/ScaleGestureDetector;)Z:GetOnScale_Landroid_view_ScaleGestureDetector_Handler" jni_signature="(Landroid/view/ScaleGestureDetector;)Z" params="android.view.ScaleGestureDetector p0" retval="boolean" super_call="p0" activate_call="p0" />
+      </methods>
+    </type>
+  </jcw-types>
+  <acw-types partial-assembly-name="LiveChartsCore.Behaviours" module-name="LiveChartsCore.Behaviours.dll">
+    <type assembly-qualified-name="LiveChartsCore.Behaviours.ChartBehaviour+CustomScaleListener, LiveChartsCore.Behaviours, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="livechartscore.behaviours.ChartBehaviour_CustomScaleListener" java-key="crc64ab1f34af14790cf9.ChartBehaviour_CustomScaleListener" managed-key="LiveChartsCore.Behaviours.ChartBehaviour.CustomScaleListener" partial-assembly-qualified-name="LiveChartsCore.Behaviours.ChartBehaviour+CustomScaleListener, LiveChartsCore.Behaviours" />
+  </acw-types>
+</api>

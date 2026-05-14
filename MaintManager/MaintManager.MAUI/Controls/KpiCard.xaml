@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MaintManager.MAUI.Controls.KpiCard"
+    x:Name="KpiRoot">
+
+    <Border Padding="16"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="White">
+        <Border.Shadow>
+            <Shadow Brush="#33000000" Offset="0,2" Radius="4" Opacity="0.15"/>
+        </Border.Shadow>
+        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="8">
+            <Label Grid.Row="0" Grid.Column="0"
+                   Text="{Binding Source={x:Reference KpiRoot}, Path=Title}"
+                   FontSize="13"
+                   TextColor="#546E8A"/>
+
+            <Label Grid.Row="0" Grid.Column="1"
+                   Text="{Binding Source={x:Reference KpiRoot}, Path=Icon}"
+                   FontSize="22"
+                   HorizontalOptions="End"
+                   VerticalOptions="Start"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="{Binding Source={x:Reference KpiRoot}, Path=Value}"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="{Binding Source={x:Reference KpiRoot}, Path=AccentColor}"/>
+
+            <HorizontalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="4">
+                <Label x:Name="TrendIcon"
+                       FontSize="14"
+                       VerticalOptions="Center"/>
+                <Label x:Name="TrendLabel"
+                       FontSize="13"
+                       VerticalOptions="Center"
+                       TextColor="#546E8A"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </Border>
+
+</ContentView>

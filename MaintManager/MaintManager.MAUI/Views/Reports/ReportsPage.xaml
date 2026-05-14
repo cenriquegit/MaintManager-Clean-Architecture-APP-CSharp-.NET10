@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MaintManager.MAUI/Views/Reports/ReportsPage.xaml -->
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Reports"
+    x:Class="MaintManager.MAUI.Views.Reports.ReportsPage"
+    x:DataType="vm:ReportsViewModel"
+    Title="Reportes">
+
+    <Grid>
+
+        <!-- LOADING -->
+        <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+            <ActivityIndicator IsRunning="True"/>
+            <Label Text="Generando reporte..." Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- ERROR -->
+        <VerticalStackLayout IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                   TextColor="{StaticResource ColorError}"/>
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+        <!-- SUCCESS -->
+        <ScrollView IsVisible="{Binding IsSuccess}">
+            <VerticalStackLayout Spacing="16" Padding="16,8">
+
+                <Label Text="Reportes disponibles"
+                       FontSize="22" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       Margin="0,8,0,16"/>
+
+                <CollectionView ItemsSource="{Binding AvailableReports}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ReportsViewModel+ReportItem">
+                            <Border Style="{StaticResource Card}" Margin="0,0,0,8">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ReportsViewModel}}, Path=GenerateReportCommand}"
+                                        CommandParameter="{Binding Route}"/>
+                                </Border.GestureRecognizers>
+
+                                <Grid ColumnDefinitions="Auto,*,Auto" Padding="12">
+
+                                    <!-- Icono -->
+                                    <Border BackgroundColor="{StaticResource ColorSurfaceVariant}"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 12"
+                                            WidthRequest="56" HeightRequest="56"
+                                            VerticalOptions="Center">
+                                        <Label Text="{Binding Icon}" FontSize="28"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                    </Border>
+
+                                    <!-- Texto -->
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         VerticalOptions="Center"
+                                                         Margin="12,0,0,0"
+                                                         Spacing="4">
+                                        <Label Text="{Binding Title}"
+                                               FontSize="16" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+                                        <Label Text="{Binding Description}"
+                                               Style="{StaticResource BodyText}"
+                                               LineBreakMode="WordWrap"/>
+                                    </VerticalStackLayout>
+
+                                    <!-- Flecha -->
+                                    <Label Grid.Column="2" Text="›"
+                                           FontSize="24"
+                                           TextColor="{StaticResource ColorTextSecondary}"
+                                           VerticalOptions="Center"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <BoxView HeightRequest="24" Color="Transparent"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MaintManager.MAUI.Controls.EmptyStateView"
+    x:Name="EmptyStateRoot">
+
+    <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Spacing="16"
+                         Padding="32">
+        <Label x:Name="IconLabel"
+               FontSize="56"
+               HorizontalOptions="Center"
+               TextColor="#BDBDBD"/>
+
+        <Label x:Name="TitleLabel"
+               FontSize="18"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               TextColor="#212121"/>
+
+        <Label x:Name="MessageLabel"
+               FontSize="14"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               TextColor="#757575"
+               MaximumWidthRequest="280"/>
+
+        <Button x:Name="ActionButton"
+                Text=""
+                Style="{StaticResource PrimaryButton}"
+                HorizontalOptions="Center"
+                Margin="0,8,0,0"
+                Clicked="OnActionClicked"/>
+    </VerticalStackLayout>
+
+</ContentView>

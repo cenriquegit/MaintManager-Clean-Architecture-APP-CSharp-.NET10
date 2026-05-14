@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Maintenances"
+    xmlns:conv="clr-namespace:MaintManager.MAUI.Converters"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    x:Class="MaintManager.MAUI.Views.Maintenances.MaintenanceWizardPage"
+    x:DataType="vm:MaintenanceWizardViewModel"
+    Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Step indicator -->
+        <ScrollView Grid.Row="0" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout Spacing="4" Padding="16,12">
+                <Label Text="1" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="1">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
+                         BackgroundColor="{StaticResource Gray200}"/>
+                <Label Text="2" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="2">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
+                         BackgroundColor="{StaticResource Gray200}"/>
+                <Label Text="3" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="3">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
+                         BackgroundColor="{StaticResource Gray200}"/>
+                <Label Text="4" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="4">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
+                         BackgroundColor="{StaticResource Gray200}"/>
+                <Label Text="5" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="5">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
+                         BackgroundColor="{StaticResource Gray200}"/>
+                <Label Text="6" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="6">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
+                         BackgroundColor="{StaticResource Gray200}"/>
+                <Label Text="7" WidthRequest="32" HeightRequest="32"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                       FontSize="14" FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="7">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Content area -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="16" Spacing="16">
+
+                <!-- Step 1: Vehicle selection + mileage -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}"
+                                     Spacing="16">
+                    <Label Text="Seleccionar Vehículo" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="4,0">
+                        <Picker ItemsSource="{Binding Vehicles}"
+                                SelectedItem="{Binding SelectedVehicle}"
+                                ItemDisplayBinding="{Binding .}"
+                                Title="Seleccionar vehículo..."/>
+                    </Border>
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Kilometraje actual (km)" Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,0">
+                            <Entry Text="{Binding MileageText}"
+                                   Keyboard="Numeric"
+                                   Placeholder="ej: 45000"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Step 2: Service type selection -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=2}"
+                                     Spacing="16">
+                    <Label Text="Tipo de Servicio" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Selecciona el tipo de servicio a realizar:"
+                           Style="{StaticResource BodyText}"/>
+
+                    <RadioButton Content="Servicio A (Mantenimiento preventivo estándar)"
+                                 GroupName="serviceType"
+                                 IsChecked="{Binding SelectedServiceType, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Servicio A}"/>
+                    <RadioButton Content="Servicio B (Mantenimiento preventivo completo)"
+                                 GroupName="serviceType"
+                                 IsChecked="{Binding SelectedServiceType, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Servicio B}"/>
+                    <RadioButton Content="Emergencia (Reparación correctiva)"
+                                 GroupName="serviceType"
+                                 IsChecked="{Binding SelectedServiceType, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Emergencia}"/>
+                </VerticalStackLayout>
+
+                <!-- Step 3: Components and materials -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=3}"
+                                     Spacing="16">
+                    <Label Text="Componentes y Materiales" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Registra los materiales utilizados:"
+                           Style="{StaticResource BodyText}"/>
+
+                    <CollectionView ItemsSource="{Binding Materials}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:MaintenanceWizardViewModel+MaterialLine">
+                                <Grid ColumnDefinitions="*,Auto,Auto" Padding="0,4" ColumnSpacing="8">
+                                    <Label Text="{Binding Name}"
+                                           VerticalOptions="Center"
+                                           TextColor="{StaticResource ColorTextPrimary}"/>
+                                    <Entry Grid.Column="1"
+                                           Text="{Binding Quantity}"
+                                           Keyboard="Numeric"
+                                           WidthRequest="80"
+                                           Placeholder="0"/>
+                                    <Label Grid.Column="2"
+                                           Text="{Binding UnitOfMeasure}"
+                                           VerticalOptions="Center"
+                                           Style="{StaticResource CaptionText}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- Step 4: Operations checklist -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=4}"
+                                     Spacing="16">
+                    <Label Text="Lista de Operaciones" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Verifica las operaciones realizadas:"
+                           Style="{StaticResource BodyText}"/>
+
+                    <CollectionView ItemsSource="{Binding Operations}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:MaintenanceWizardViewModel+OperationItem">
+                                <Grid ColumnDefinitions="Auto,*" Padding="0,6" ColumnSpacing="12">
+                                    <CheckBox IsChecked="{Binding IsCompleted}"
+                                              Color="{StaticResource ColorPrimary}"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Name}"
+                                           VerticalOptions="Center"
+                                           TextColor="{StaticResource ColorTextPrimary}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <!-- Step 5: Diagnosis -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=5}"
+                                     Spacing="16">
+                    <Label Text="Diagnóstico" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Describe el diagnóstico realizado:"
+                           Style="{StaticResource BodyText}"/>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Código de diagnóstico" Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,0">
+                            <Entry Text="{Binding DiagnosisCode}"
+                                   Placeholder="ej: DGN-001"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Descripción" Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,4">
+                            <Editor Text="{Binding DiagnosisDescription}"
+                                    Placeholder="Describe el diagnóstico encontrado..."
+                                    HeightRequest="120"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Step 6: Next service planning -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=6}"
+                                     Spacing="16">
+                    <Label Text="Próximo Servicio" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Planifica el próximo mantenimiento:"
+                           Style="{StaticResource BodyText}"/>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Próximo mantenimiento (km)" Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,0">
+                            <Entry Text="{Binding NextServiceKm}"
+                                   Keyboard="Numeric"
+                                   Placeholder="ej: 50000"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Fecha estimada" Style="{StaticResource CaptionText}"/>
+                        <DatePicker Date="{Binding NextServiceDate}"
+                                    MinimumDate="{x:Static sys:DateTime.Today}"
+                                    Format="dd/MM/yyyy"
+                                    xmlns:sys="clr-namespace:System;assembly=netstandard"/>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Notas adicionales" Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,4">
+                            <Editor Text="{Binding NextServiceNotes}"
+                                    Placeholder="Observaciones para el próximo servicio..."
+                                    HeightRequest="80"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Step 7: Confirmation -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=7}"
+                                     Spacing="16">
+                    <Label Text="Confirmar y Guardar" FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Revisa los datos antes de guardar:"
+                           Style="{StaticResource BodyText}"/>
+
+                    <Border StrokeShape="RoundRectangle 12"
+                            Stroke="{StaticResource ColorBorderLight}"
+                            StrokeThickness="1" Padding="16"
+                            BackgroundColor="{StaticResource ColorSurface}">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Resumen de la Orden" FontSize="16" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                            <Label Text="{Binding SelectedVehicle, StringFormat='Vehículo: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Text="{Binding MileageText, StringFormat='Kilometraje: {0} km'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Text="{Binding SelectedServiceType, StringFormat='Servicio: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Text="{Binding DiagnosisCode, StringFormat='Diagnóstico: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                            <Label Text="{Binding NextServiceKm, StringFormat='Próximo servicio: {0} km'}"
+                                   Style="{StaticResource CaptionText}"/>
+                            <Label Text="{Binding NextServiceDate, StringFormat='Fecha estimada: {0:dd/MM/yyyy}'}"
+                                   Style="{StaticResource CaptionText}"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border IsVisible="{Binding HasError}"
+                            BackgroundColor="{StaticResource ColorErrorContainer}"
+                            StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="12,8">
+                        <Label Text="{Binding ErrorMessage}"
+                               TextColor="{StaticResource ColorError}" FontSize="13"/>
+                    </Border>
+
+                    <ActivityIndicator IsRunning="{Binding IsSaving}"
+                                       IsVisible="{Binding IsSaving}"
+                                       HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Navigation buttons -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="12" Padding="16,8,16,16">
+            <Button Grid.Column="0"
+                    Text="Anterior"
+                    Command="{Binding PreviousStepCommand}"
+                    IsVisible="{Binding IsFirstStep, Converter={StaticResource InvertedBoolConverter}}"
+                    Style="{StaticResource SecondaryButton}"/>
+
+            <Button Grid.Column="1"
+                    Text="Siguiente"
+                    Command="{Binding NextStepCommand}"
+                    Style="{StaticResource PrimaryButton}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsLastStep}" Value="True">
+                        <Setter Property="Text" Value="Guardar"/>
+                        <Setter Property="Command" Value="{Binding SaveCommand}"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+
+    </Grid>
+</ContentPage>

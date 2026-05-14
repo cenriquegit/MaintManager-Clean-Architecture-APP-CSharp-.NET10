@@ -1,0 +1,7 @@
+<api type="release" assembly-name="Xamarin.AndroidX.CardView" mvid="0cc05bf99fc946c0b79cf1a9c72c33ff">
+  <module assembly-name="Xamarin.AndroidX.CardView" mvid="0cc05bf99fc946c0b79cf1a9c72c33ff" mvid-bytes="+VvADMmfwEa3nPGpxywz/w==">
+    <types-scratch>
+      <entry key="androidx/cardview/widget/CardView" java-name="androidx/cardview/widget/CardView" managed-type-name="AndroidX.CardView.Widget.CardView" token="33554443" />
+    </types-scratch>
+  </module>
+</api>
