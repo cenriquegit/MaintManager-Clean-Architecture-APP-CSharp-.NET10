@@ -86,7 +86,11 @@ public partial class MaintenanceListViewModel : BaseViewModel
     [RelayCommand]
     private async Task CreateNew()
     {
-        await Shell.Current.GoToAsync("Maintenances/Create");
+        Shell.Current.FlyoutIsPresented = false;
+        await Task.Delay(200);
+
+        try { await Shell.Current.GoToAsync("Maintenances/Create"); }
+        catch { try { await Shell.Current.GoToAsync("Create"); } catch { } }
     }
 
     public record MaintenanceItem

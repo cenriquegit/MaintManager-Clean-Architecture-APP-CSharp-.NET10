@@ -35,7 +35,20 @@ public abstract partial class BaseViewModel : ObservableObject
             HasError = false;
             IsEmpty = false;
             ErrorMessage = string.Empty;
-            await operation();
+
+            var timeoutTask = Task.Delay(30000);
+            var opTask = operation();
+            var completed = await Task.WhenAny(opTask, timeoutTask);
+
+            if (completed == timeoutTask)
+            {
+                HasError = true;
+                ErrorMessage = "La operación tardó demasiado. Intenta nuevamente.";
+            }
+            else
+            {
+                await opTask;
+            }
         }
         catch (HttpRequestException)
         {

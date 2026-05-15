@@ -65,7 +65,11 @@ public partial class InventoryListViewModel : BaseViewModel
     [RelayCommand]
     private async Task AddLot()
     {
-        await Shell.Current.GoToAsync("//Inventory/LotCreate");
+        Shell.Current.FlyoutIsPresented = false;
+        await Task.Delay(200);
+
+        try { await Shell.Current.GoToAsync("Inventory/CreateLot"); }
+        catch { try { await Shell.Current.GoToAsync("CreateLot"); } catch { } }
     }
 
     public class ApiResponse<T>

@@ -77,7 +77,7 @@
                 <!-- SUCCESS -->
                 <CollectionView IsVisible="{Binding IsSuccess}"
                                 ItemsSource="{Binding Maintenances}"
-                                Margin="16,0">
+                                Margin="16,0,16,12">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="8"/>
                     </CollectionView.ItemsLayout>

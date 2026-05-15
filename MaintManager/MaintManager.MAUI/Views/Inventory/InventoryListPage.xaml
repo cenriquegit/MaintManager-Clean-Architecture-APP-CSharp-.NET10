@@ -93,7 +93,7 @@
                 <!-- SUCCESS -->
                 <CollectionView IsVisible="{Binding IsSuccess}"
                                 ItemsSource="{Binding Materials}"
-                                Margin="16,0">
+                                Margin="16,0,16,12">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:MaterialItem">
                             <Border Style="{StaticResource Card}">

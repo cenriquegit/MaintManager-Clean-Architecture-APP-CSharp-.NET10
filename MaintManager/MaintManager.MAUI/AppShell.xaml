@@ -3,7 +3,6 @@
     x:Class="MaintManager.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MaintManager.MAUI"
     xmlns:auth="clr-namespace:MaintManager.MAUI.Views.Auth"
     xmlns:dashboard="clr-namespace:MaintManager.MAUI.Views.Dashboard"
     xmlns:alerts="clr-namespace:MaintManager.MAUI.Views.Alerts"
@@ -68,110 +67,93 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Lista de menú -->
-                <ScrollView Grid.Row="1" Padding="0,4,0,24">
+                <!-- Lista de menú (sin separadores BoxView, sin doble borde) -->
+                <ScrollView Grid.Row="1" Padding="0,0,0,24">
                     <VerticalStackLayout Spacing="0">
 
-                        <!-- Panel -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Dashboard">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Dashboard"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="🚗" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Panel" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Alertas -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//Alerts">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Alerts"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="⚠" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Alertas" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Calendario -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Calendar">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Calendar"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="📅" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Calendario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Mantenimientos -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//Maintenances">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Maintenances"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="🔧" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Mantenimientos" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Inventario -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Inventory">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Inventory"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="📦" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Inventario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- BI Dashboard -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//BiDashboard">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//BiDashboard"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="📊" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="BI Dashboard" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Reportes -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Reports">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Reports"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="📄" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Reportes" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Mi Perfil -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//Profile">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Profile"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="👤" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Mi Perfil" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
-                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
 
-                        <!-- Configuración -->
-                        <Border Padding="20,14" BackgroundColor="Transparent">
+                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Settings">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Settings"/>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="⚙" FontSize="18" VerticalOptions="Center"/>

@@ -10,135 +10,14 @@
 
     <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Step indicator -->
-        <ScrollView Grid.Row="0" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-            <HorizontalStackLayout Spacing="4" Padding="16,12">
-                <Label Text="1" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="1">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
-                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
-                         BackgroundColor="{StaticResource Gray200}"/>
-                <Label Text="2" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="2">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
-                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
-                         BackgroundColor="{StaticResource Gray200}"/>
-                <Label Text="3" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="3">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
-                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
-                         BackgroundColor="{StaticResource Gray200}"/>
-                <Label Text="4" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="4">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
-                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
-                         BackgroundColor="{StaticResource Gray200}"/>
-                <Label Text="5" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="5">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
-                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
-                         BackgroundColor="{StaticResource Gray200}"/>
-                <Label Text="6" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="6">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
-                <BoxView WidthRequest="16" HeightRequest="2" VerticalOptions="Center"
-                         BackgroundColor="{StaticResource Gray200}"/>
-                <Label Text="7" WidthRequest="32" HeightRequest="32"
-                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-                       FontSize="14" FontAttributes="Bold">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding CurrentStep}" Value="7">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
-                            <Setter Property="TextColor" Value="White"/>
-                        </DataTrigger>
-                    </Label.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
-                            <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                        </Style>
-                    </Label.Style>
-                </Label>
+        <!-- Step indicator (simplificado) -->
+        <Border Grid.Row="0" BackgroundColor="{StaticResource ColorSurface}" StrokeThickness="0" Padding="16,10">
+            <HorizontalStackLayout Spacing="6">
+                <Label Text="Paso" FontSize="13" TextColor="{StaticResource ColorTextSecondary}" VerticalOptions="Center"/>
+                <Label Text="{Binding CurrentStep, StringFormat='{0}/7'}" FontSize="16" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorPrimary}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
-        </ScrollView>
+        </Border>
 
         <!-- Content area -->
         <ScrollView Grid.Row="1">
@@ -305,7 +184,6 @@
                     <VerticalStackLayout Spacing="4">
                         <Label Text="Fecha estimada" Style="{StaticResource CaptionText}"/>
                         <DatePicker Date="{Binding NextServiceDate}"
-                                    MinimumDate="{Binding NextServiceMinDate}"
                                     Format="dd/MM/yyyy"/>
                     </VerticalStackLayout>
 
