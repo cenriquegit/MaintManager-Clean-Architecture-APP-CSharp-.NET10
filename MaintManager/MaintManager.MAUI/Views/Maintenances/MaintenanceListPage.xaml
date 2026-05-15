@@ -36,30 +36,36 @@
                     WidthRequest="160"/>
         </HorizontalStackLayout>
 
+        <!-- Overlay: LOADING (fuera del RefreshView) -->
+        <VerticalStackLayout Grid.Row="2"
+                             IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12"
+                             BackgroundColor="{StaticResource ColorBackground}"
+                             ZIndex="10">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+            <Label Text="Cargando órdenes..." Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Overlay: ERROR (fuera del RefreshView) -->
+        <VerticalStackLayout Grid.Row="2"
+                             IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16"
+                             BackgroundColor="{StaticResource ColorBackground}"
+                             ZIndex="10">
+            <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                   TextColor="{StaticResource ColorError}"/>
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                    Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
         <!-- Main content -->
         <RefreshView Grid.Row="2"
                      Command="{Binding LoadCommand}"
                      IsRefreshing="{Binding IsLoading}">
             <Grid>
-
-                <!-- LOADING -->
-                <VerticalStackLayout IsVisible="{Binding IsLoading}"
-                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
-                    <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
-                    <Label Text="Cargando órdenes..." Style="{StaticResource BodyText}"
-                           HorizontalOptions="Center"/>
-                </VerticalStackLayout>
-
-                <!-- ERROR -->
-                <VerticalStackLayout IsVisible="{Binding HasError}"
-                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
-                    <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
-                           TextColor="{StaticResource ColorError}"/>
-                    <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
-                           HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                    <Button Text="Reintentar" Command="{Binding LoadCommand}"
-                            Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
-                </VerticalStackLayout>
 
                 <!-- EMPTY -->
                 <VerticalStackLayout IsVisible="{Binding IsEmpty}"
