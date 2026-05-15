@@ -12,7 +12,7 @@ public class NavController_OnDestinationChangedListenerImplementor
 	{
 		super ();
 		if (getClass () == NavController_OnDestinationChangedListenerImplementor.class) {
-			mono.android.TypeManager.Activate ("AndroidX.Navigation.NavController+IOnDestinationChangedListenerImplementor, Xamarin.AndroidX.Navigation.Runtime", "", this, new java.lang.Object[] {  });
+			mono.android.TypeManager.Activate ("AndroidX.Navigation.NavController+IOnDestinationChangedListenerImplementor, Xamarin.AndroidX.Navigation.Runtime.Android", "", this, new java.lang.Object[] {  });
 		}
 	}
 

@@ -1,4 +1,6 @@
-﻿namespace MaintManager.MAUI;
+﻿using MaintManager.MAUI.Services;
+
+namespace MaintManager.MAUI;
 
 public partial class App : Application
 {
@@ -9,6 +11,21 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new AppShell());
+        var window = new Window(new AppShell());
+
+        window.Created += async (s, e) =>
+        {
+            var apiService = MauiProgram.Services?.GetService<ApiService>();
+            if (apiService is not null)
+            {
+                var restored = await apiService.TryRestoreSessionAsync();
+                if (restored && Shell.Current is not null)
+                {
+                    await Shell.Current.GoToAsync("//Dashboard");
+                }
+            }
+        };
+
+        return window;
     }
 }

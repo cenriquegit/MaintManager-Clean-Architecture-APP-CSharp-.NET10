@@ -1,3 +1,4 @@
+using System.Net.Http;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MaintManager.MAUI.ViewModels;
@@ -17,15 +18,13 @@ public abstract partial class BaseViewModel : ObservableObject
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
-    private bool _isEmpty;
+    private bool _isEmpty = true;
 
     [ObservableProperty]
     private string _title = string.Empty;
 
-    // Propiedad calculada: éxito cuando no está ocupado, no tiene error y no está vacío
     public bool IsSuccess => !IsBusy && !HasError && !IsEmpty;
 
-    // Método helper para ejecutar operaciones asíncronas con manejo de estado
     protected async Task ExecuteAsync(Func<Task> operation)
     {
         if (IsBusy) return;
@@ -34,13 +33,27 @@ public abstract partial class BaseViewModel : ObservableObject
             IsBusy = true;
             IsLoading = true;
             HasError = false;
+            IsEmpty = false;
             ErrorMessage = string.Empty;
             await operation();
         }
-        catch (Exception ex)
+        catch (HttpRequestException)
         {
             HasError = true;
-            ErrorMessage = ex.Message;
+            IsEmpty = false;
+            ErrorMessage = "Error de conexión con el servidor. Verifica que la API esté en ejecución y que la URL sea correcta en Configuración.";
+        }
+        catch (TaskCanceledException)
+        {
+            HasError = true;
+            IsEmpty = false;
+            ErrorMessage = "La conexión tardó demasiado. Verifica tu conexión de red e intenta nuevamente.";
+        }
+        catch (Exception)
+        {
+            HasError = true;
+            IsEmpty = false;
+            ErrorMessage = "Ocurrió un error inesperado. Intenta nuevamente.";
         }
         finally
         {

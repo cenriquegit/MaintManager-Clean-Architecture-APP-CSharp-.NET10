@@ -14,6 +14,6 @@
     </type>
   </jcw-types>
   <acw-types partial-assembly-name="Microsoft.Maui.Graphics" module-name="Microsoft.Maui.Graphics.dll">
-    <type assembly-qualified-name="Microsoft.Maui.Graphics.Platform.PlatformGraphicsView, Microsoft.Maui.Graphics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="microsoft.maui.graphics.platform.PlatformGraphicsView" java-key="crc643f2b18b2570eaa5a.PlatformGraphicsView" managed-key="Microsoft.Maui.Graphics.Platform.PlatformGraphicsView" partial-assembly-qualified-name="Microsoft.Maui.Graphics.Platform.PlatformGraphicsView, Microsoft.Maui.Graphics" />
+    <type assembly-qualified-name="Microsoft.Maui.Graphics.Platform.PlatformGraphicsView, Microsoft.Maui.Graphics, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="microsoft.maui.graphics.platform.PlatformGraphicsView" java-key="crc643f2b18b2570eaa5a.PlatformGraphicsView" managed-key="Microsoft.Maui.Graphics.Platform.PlatformGraphicsView" partial-assembly-qualified-name="Microsoft.Maui.Graphics.Platform.PlatformGraphicsView, Microsoft.Maui.Graphics" />
   </acw-types>
 </api>

@@ -3,46 +3,187 @@
     x:Class="MaintManager.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MaintManager.MAUI"
     xmlns:auth="clr-namespace:MaintManager.MAUI.Views.Auth"
-    xmlns:alerts="clr-namespace:MaintManager.MAUI.Views.Alerts"
-    xmlns:inventory="clr-namespace:MaintManager.MAUI.Views.Inventory"
-    xmlns:maintenances="clr-namespace:MaintManager.MAUI.Views.Maintenances"
     xmlns:dashboard="clr-namespace:MaintManager.MAUI.Views.Dashboard"
+    xmlns:alerts="clr-namespace:MaintManager.MAUI.Views.Alerts"
     xmlns:calendar="clr-namespace:MaintManager.MAUI.Views.Calendar"
+    xmlns:maintenances="clr-namespace:MaintManager.MAUI.Views.Maintenances"
+    xmlns:inventory="clr-namespace:MaintManager.MAUI.Views.Inventory"
     xmlns:bidashboard="clr-namespace:MaintManager.MAUI.Views.BiDashboard"
     xmlns:reports="clr-namespace:MaintManager.MAUI.Views.Reports"
+    xmlns:profile="clr-namespace:MaintManager.MAUI.Views.Profile"
     xmlns:settings="clr-namespace:MaintManager.MAUI.Views.Settings"
     Title="MaintManager"
-    FlyoutBehavior="Flyout">
+    FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="#F8F9FA"
+    FlyoutWidth="280"
+    FlyoutHeaderBehavior="Default">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate auth:LoginPage}"
-        Route="Login"
-        FlyoutItemIsVisible="False" />
-
-    <FlyoutItem Title="Panel">
+    <!-- Rutas (ocultas del flyout porque usamos FlyoutContentTemplate) -->
+    <ShellContent ContentTemplate="{DataTemplate auth:LoginPage}" Route="Login" FlyoutItemIsVisible="False" />
+    <FlyoutItem Title="Panel" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate dashboard:HomePage}" Route="Dashboard" />
     </FlyoutItem>
-    <FlyoutItem Title="Alertas">
+    <FlyoutItem Title="Alertas" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate alerts:AlertListPage}" Route="Alerts" />
     </FlyoutItem>
-    <FlyoutItem Title="Calendario">
+    <FlyoutItem Title="Calendario" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate calendar:CalendarPage}" Route="Calendar" />
     </FlyoutItem>
-    <FlyoutItem Title="Mantenimientos">
+    <FlyoutItem Title="Mantenimientos" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate maintenances:MaintenanceListPage}" Route="Maintenances" />
     </FlyoutItem>
-    <FlyoutItem Title="Inventario">
+    <FlyoutItem Title="Inventario" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate inventory:InventoryListPage}" Route="Inventory" />
     </FlyoutItem>
-    <FlyoutItem Title="BI Dashboard">
+    <FlyoutItem Title="BI Dashboard" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate bidashboard:BiDashboardPage}" Route="BiDashboard" />
     </FlyoutItem>
-    <FlyoutItem Title="Reportes">
+    <FlyoutItem Title="Reportes" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate reports:ReportsPage}" Route="Reports" />
     </FlyoutItem>
-    <FlyoutItem Title="Configuración">
+    <FlyoutItem Title="Mi Perfil" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate profile:UserProfilePage}" Route="Profile" />
+    </FlyoutItem>
+    <FlyoutItem Title="Configuración" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate settings:SettingsPage}" Route="Settings" />
     </FlyoutItem>
+
+    <Shell.FlyoutContentTemplate>
+        <DataTemplate>
+            <Grid RowDefinitions="Auto,*" BackgroundColor="#F8F9FA">
+
+                <!-- Cabecera azul -->
+                <Border Grid.Row="0"
+                        BackgroundColor="#1565C0"
+                        StrokeThickness="0"
+                        Padding="20,24,20,20">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="🚛 MaintManager"
+                               FontSize="20" FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="Gestión de Mantenimiento"
+                               FontSize="12" TextColor="#B0D4F1"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Lista de menú -->
+                <ScrollView Grid.Row="1" Padding="0,4,0,24">
+                    <VerticalStackLayout Spacing="0">
+
+                        <!-- Panel -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Dashboard"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="🚗" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Panel" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Alertas -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Alerts"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="⚠" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Alertas" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Calendario -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Calendar"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="📅" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Calendario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Mantenimientos -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Maintenances"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="🔧" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Mantenimientos" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Inventario -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Inventory"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="📦" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Inventario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- BI Dashboard -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//BiDashboard"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="📊" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="BI Dashboard" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Reportes -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Reports"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="📄" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Reportes" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Mi Perfil -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Profile"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="👤" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Mi Perfil" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="0.5" Color="#E0E0E0" Margin="20,0"/>
+
+                        <!-- Configuración -->
+                        <Border Padding="20,14" BackgroundColor="Transparent">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{x:Static local:AppShell.NavigateCommand}" CommandParameter="//Settings"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="⚙" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Configuración" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutContentTemplate>
 
 </Shell>

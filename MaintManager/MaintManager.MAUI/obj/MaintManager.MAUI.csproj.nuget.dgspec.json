@@ -85,7 +85,7 @@
             },
             "LiveChartsCore.SkiaSharpView.Maui": {
               "target": "Package",
-              "version": "[2.0.0-rc4, )"
+              "version": "[2.0.2, )"
             },
             "Microsoft.Extensions.Http": {
               "target": "Package",
@@ -97,19 +97,19 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -431,7 +431,7 @@
             },
             "LiveChartsCore.SkiaSharpView.Maui": {
               "target": "Package",
-              "version": "[2.0.0-rc4, )"
+              "version": "[2.0.2, )"
             },
             "Microsoft.Extensions.Http": {
               "target": "Package",
@@ -443,19 +443,19 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -777,7 +777,7 @@
             },
             "LiveChartsCore.SkiaSharpView.Maui": {
               "target": "Package",
-              "version": "[2.0.0-rc4, )"
+              "version": "[2.0.2, )"
             },
             "Microsoft.Extensions.Http": {
               "target": "Package",
@@ -789,19 +789,19 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -1124,7 +1124,7 @@
             },
             "LiveChartsCore.SkiaSharpView.Maui": {
               "target": "Package",
-              "version": "[2.0.0-rc4, )"
+              "version": "[2.0.2, )"
             },
             "Microsoft.Extensions.Http": {
               "target": "Package",
@@ -1136,19 +1136,19 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Core": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.Maui.Essentials": {
               "target": "Package",
-              "version": "[9.0.21, )"
+              "version": "[10.0.0, )"
             }
           },
           "imports": [

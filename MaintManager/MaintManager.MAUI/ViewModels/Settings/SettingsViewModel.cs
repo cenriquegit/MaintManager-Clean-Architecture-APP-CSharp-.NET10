@@ -7,29 +7,52 @@ namespace MaintManager.MAUI.ViewModels.Settings;
 public partial class SettingsViewModel : BaseViewModel
 {
     private readonly AuthService _authService;
+    private readonly ApiService _apiService;
 
-    public SettingsViewModel(AuthService authService)
+    public SettingsViewModel(AuthService authService, ApiService apiService)
     {
         _authService = authService;
+        _apiService = apiService;
         Title = "Configuración";
 
-        ApiUrl = Preferences.Get("api_url", "http://10.0.2.2:5056");
-        UserFullName = Preferences.Get("user_fullname", "Usuario");
-        UserRole = Preferences.Get("user_role", "Técnico");
-        IsAdmin = UserRole.Equals("Administrador", StringComparison.OrdinalIgnoreCase);
+        ApiUrl = Preferences.Get("api_url", ApiService.DefaultBaseUrl);
     }
 
     [ObservableProperty]
     private string _apiUrl = string.Empty;
 
     [ObservableProperty]
-    private string _userFullName = string.Empty;
+    private string _pinInput = string.Empty;
 
     [ObservableProperty]
-    private string _userRole = string.Empty;
+    private string _pinError = string.Empty;
 
     [ObservableProperty]
-    private bool _isAdmin;
+    private bool _isLocked = true;
+
+    private const string SettingsPin = "1234";
+
+    [RelayCommand]
+    private void CheckPin()
+    {
+        if (PinInput == SettingsPin)
+        {
+            IsLocked = false;
+            PinError = string.Empty;
+            PinInput = string.Empty;
+        }
+        else
+        {
+            PinError = "PIN incorrecto. Intenta nuevamente.";
+            PinInput = string.Empty;
+        }
+    }
+
+    [RelayCommand]
+    private async Task GoHome()
+    {
+        await Shell.Current.GoToAsync("//Login");
+    }
 
     [RelayCommand]
     private async Task SaveSettings()
@@ -39,6 +62,7 @@ public partial class SettingsViewModel : BaseViewModel
             if (!string.IsNullOrWhiteSpace(ApiUrl))
             {
                 Preferences.Set("api_url", ApiUrl);
+                _apiService.ApplySavedBaseUrl();
             }
             await Shell.Current.DisplayAlert("Configuración", "Cambios guardados correctamente.", "Aceptar");
         });

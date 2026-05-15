@@ -20,6 +20,21 @@ public partial class LoginViewModel : BaseViewModel
     [ObservableProperty]
     private string _password = string.Empty;
 
+    [ObservableProperty]
+    private bool _showPassword;
+
+    [RelayCommand]
+    private void TogglePasswordVisibility()
+    {
+        ShowPassword = !ShowPassword;
+    }
+
+    [RelayCommand]
+    private async Task GoToSettings()
+    {
+        await Shell.Current.GoToAsync("//Settings");
+    }
+
     [RelayCommand]
     private async Task Login()
     {
@@ -35,7 +50,6 @@ public partial class LoginViewModel : BaseViewModel
             var success = await _authService.LoginAsync(Username, Password);
             if (success)
             {
-                // Navegar a la página principal (ajusta según tu Shell)
                 await Shell.Current.GoToAsync("//Dashboard");
             }
             else

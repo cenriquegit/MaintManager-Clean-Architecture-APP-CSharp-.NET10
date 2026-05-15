@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
     xmlns:models="clr-namespace:MaintManager.MAUI.Models"
-    xmlns:sys="clr-namespace:System;assembly=netstandard"
     x:Class="MaintManager.MAUI.Views.Inventory.LotCreatePage"
     x:DataType="vm:LotCreateViewModel"
-    Title="Ingresar Lote">
+    Title="Ingresar Lote"
+    BackgroundColor="{StaticResource ColorBackground}">
 
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">
@@ -79,7 +79,9 @@
                         <Entry Text="{Binding Quantity}"
                                Style="{StaticResource FormEntry}"
                                Keyboard="Numeric"
-                               Placeholder="ej: 20"/>
+                               Placeholder="ej: 20"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               PlaceholderColor="{StaticResource Gray500}"/>
                     </Border>
                 </VerticalStackLayout>
 
@@ -92,7 +94,9 @@
                         <Entry Text="{Binding UnitCost}"
                                Style="{StaticResource FormEntry}"
                                Keyboard="Numeric"
-                               Placeholder="ej: 28.50"/>
+                               Placeholder="ej: 28.50"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               PlaceholderColor="{StaticResource Gray500}"/>
                     </Border>
                     <Label Text="Este valor se usa para calcular el costo real por km en el dashboard BI."
                            Style="{StaticResource CaptionText}"
@@ -107,7 +111,9 @@
                             StrokeThickness="1" Padding="12,0">
                         <Entry Text="{Binding SupplierLotNumber}"
                                Style="{StaticResource FormEntry}"
-                               Placeholder="ej: LOT-2026-001"/>
+                               Placeholder="ej: LOT-2026-001"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               PlaceholderColor="{StaticResource Gray500}"/>
                     </Border>
                 </VerticalStackLayout>
 
@@ -127,7 +133,7 @@
                         <VerticalStackLayout IsVisible="{Binding HasExpiration}" Spacing="4">
                             <Label Text="Fecha de vencimiento *" Style="{StaticResource CaptionText}"/>
                             <DatePicker Date="{Binding ExpirationDate}"
-                                        MinimumDate="{x:Static sys:DateTime.Today}"
+                                        MinimumDate="{Binding ExpirationMinDate}"
                                         TextColor="{StaticResource ColorTextPrimary}"
                                         BackgroundColor="{StaticResource ColorSurface}"
                                         Format="dd/MM/yyyy"/>

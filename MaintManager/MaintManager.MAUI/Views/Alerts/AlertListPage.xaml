@@ -7,7 +7,8 @@
     xmlns:models="clr-namespace:MaintManager.MAUI.Models"
     x:Class="MaintManager.MAUI.Views.Alerts.AlertListPage"
     x:DataType="vm:AlertListViewModel"
-    Title="Alertas">
+    Title="Alertas"
+    BackgroundColor="{StaticResource ColorBackground}">
 
     <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsLoading}">
         <Grid>
@@ -84,7 +85,7 @@
                                         <Label Text="{Binding AlertType,
                                                    Converter={StaticResource AlertTypeToLabelConverter}}"
                                                FontSize="11" FontAttributes="Bold"
-                                               TextColor="White"/>
+                                                TextColor="{StaticResource ColorTextPrimary}"/>
                                     </Border>
 
                                     <!-- Fecha -->
@@ -141,7 +142,6 @@
                 </CollectionView.ItemTemplate>
 
                 <CollectionView.Footer>
-                    <BoxView HeightRequest="32" Color="Transparent"/>
                 </CollectionView.Footer>
             </CollectionView>
 

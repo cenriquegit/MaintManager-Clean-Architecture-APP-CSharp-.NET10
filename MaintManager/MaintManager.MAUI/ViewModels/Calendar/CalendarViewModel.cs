@@ -10,11 +10,31 @@ namespace MaintManager.MAUI.ViewModels.Calendar;
 public partial class CalendarViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private List<MaintenanceCalendarItem> _allMaintenances = [];
 
     public CalendarViewModel(ApiService apiService)
     {
         _apiService = apiService;
         Title = "Calendario";
+    }
+
+    private sealed class MaintenanceListRaw
+    {
+        public int Mainid { get; init; }
+        public string LicensePlate { get; init; } = string.Empty;
+        public string VehicleName { get; init; } = string.Empty;
+        public string MaintenanceType { get; init; } = string.Empty;
+        public string Status { get; init; } = string.Empty;
+        public DateTime MaintenanceDate { get; init; }
+        public string AssignedToName { get; init; } = string.Empty;
+    }
+
+    private sealed class PagedResponse<T>
+    {
+        public List<T> Items { get; init; } = [];
+        public int TotalCount { get; init; }
+        public int Page { get; init; }
+        public int PageSize { get; init; }
     }
 
     [ObservableProperty]
@@ -40,26 +60,33 @@ public partial class CalendarViewModel : BaseViewModel
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<ApiResponse<List<MaintenanceCalendarItem>>>(ApiRoutes.Maintenances.GetAll);
-            if (response?.Success == true)
+            var response = await _apiService.GetAsync<ApiResponse<PagedResponse<MaintenanceListRaw>>>(ApiRoutes.Maintenances.GetAll);
+            if (response?.Success == true && response.Data is not null)
             {
-                Maintenances = new ObservableCollection<MaintenanceCalendarItem>(response.Data ?? []);
+                _allMaintenances = response.Data.Items.Select(raw => new MaintenanceCalendarItem
+                {
+                    Id = raw.Mainid,
+                    LicensePlate = raw.LicensePlate,
+                    VehicleName = raw.VehicleName,
+                    Type = raw.MaintenanceType,
+                    Status = raw.Status,
+                    ScheduledDate = raw.MaintenanceDate,
+                    AssignedTo = raw.AssignedToName,
+                }).ToList();
+                Maintenances = new ObservableCollection<MaintenanceCalendarItem>(_allMaintenances);
             }
             else
             {
-                Maintenances =
-                [
-                    new MaintenanceCalendarItem { Id = 1, LicensePlate = "ABC-123", VehicleName = "Toyota Hilux", Type = "Preventivo", Status = "Programado", ScheduledDate = DateTime.Today.AddDays(3), AssignedTo = "Carlos" },
-                    new MaintenanceCalendarItem { Id = 2, LicensePlate = "DEF-456", VehicleName = "Ford Ranger", Type = "Correctivo", Status = "En Progreso", ScheduledDate = DateTime.Today, AssignedTo = "Miguel" },
-                    new MaintenanceCalendarItem { Id = 3, LicensePlate = "GHI-789", VehicleName = "Nissan Navara", Type = "Emergencia", Status = "Pendiente", ScheduledDate = DateTime.Today.AddDays(-1), AssignedTo = "Carlos" },
-                    new MaintenanceCalendarItem { Id = 4, LicensePlate = "ABC-123", VehicleName = "Toyota Hilux", Type = "Preventivo", Status = "Completado", ScheduledDate = DateTime.Today.AddDays(-5), AssignedTo = "Luis" },
-                ];
+                HasError = true;
+                IsEmpty = false;
+                ErrorMessage = "No se pudieron cargar los datos del calendario.";
+                return;
             }
 
             IsEmpty = Maintenances.Count == 0;
 
             VehicleOptions = new ObservableCollection<VehicleOption>(
-                Maintenances
+                _allMaintenances
                     .Select(m => m.LicensePlate)
                     .Distinct()
                     .Select(p => new VehicleOption { LicensePlate = p })
@@ -71,17 +98,15 @@ public partial class CalendarViewModel : BaseViewModel
     [RelayCommand]
     private async Task Filter()
     {
+        if (_allMaintenances.Count == 0)
+        {
+            await Load();
+            return;
+        }
+
         await ExecuteAsync(async () =>
         {
-            var all = new List<MaintenanceCalendarItem>();
-
-            var response = await _apiService.GetAsync<ApiResponse<List<MaintenanceCalendarItem>>>(ApiRoutes.Maintenances.GetAll);
-            if (response?.Success == true)
-            {
-                all = response.Data ?? [];
-            }
-
-            var filtered = all.AsEnumerable();
+            var filtered = _allMaintenances.AsEnumerable();
 
             if (!string.IsNullOrWhiteSpace(FilterByVehicle) && FilterByVehicle != "Todos")
                 filtered = filtered.Where(m => m.LicensePlate == FilterByVehicle);

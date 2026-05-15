@@ -22,6 +22,20 @@ public class MauiWebChromeClient
 
 	private native boolean n_onShowFileChooser (android.webkit.WebView p0, android.webkit.ValueCallback p1, android.webkit.WebChromeClient.FileChooserParams p2);
 
+	public void onShowCustomView (android.view.View p0, android.webkit.WebChromeClient.CustomViewCallback p1)
+	{
+		n_onShowCustomView (p0, p1);
+	}
+
+	private native void n_onShowCustomView (android.view.View p0, android.webkit.WebChromeClient.CustomViewCallback p1);
+
+	public void onHideCustomView ()
+	{
+		n_onHideCustomView ();
+	}
+
+	private native void n_onHideCustomView ();
+
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)
 	{

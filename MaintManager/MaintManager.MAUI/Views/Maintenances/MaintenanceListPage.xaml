@@ -4,16 +4,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Maintenances"
     x:Class="MaintManager.MAUI.Views.Maintenances.MaintenanceListPage"
-    x:DataType="vm:MaintenanceListViewModel"
-    Title="{Binding Title}">
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource ColorBackground}">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
 
         <!-- SearchBar -->
-        <SearchBar Grid.Row="0"
-                   Text="{Binding SearchText}"
-                   Placeholder="Buscar vehículo o placa..."
-                   Margin="16,8,16,0"/>
+        <Border Grid.Row="0"
+                Margin="16,8,16,0"
+                StrokeShape="RoundRectangle 8"
+                Stroke="{StaticResource ColorBorderLight}"
+                StrokeThickness="1"
+                BackgroundColor="{StaticResource ColorSurface}"
+                Padding="4,0">
+            <SearchBar Text="{Binding SearchText}"
+                       Placeholder="Buscar vehículo o placa..."
+                       BackgroundColor="Transparent"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"
+                       CancelButtonColor="{StaticResource ColorPrimary}"
+                       SearchIconColor="{StaticResource ColorTextSecondary}"/>
+        </Border>
 
         <!-- Filter Picker -->
         <HorizontalStackLayout Grid.Row="1" Margin="16,8" Spacing="12">
@@ -21,6 +32,7 @@
             <Picker ItemsSource="{Binding FilterOptions}"
                     SelectedItem="{Binding SelectedFilter}"
                     Title="Todas"
+                    Style="{StaticResource FormPicker}"
                     WidthRequest="160"/>
         </HorizontalStackLayout>
 
@@ -71,7 +83,7 @@
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:MaintenanceListViewModel+MaintenanceItem">
+                        <DataTemplate>
                             <Border StrokeShape="RoundRectangle 12"
                                     Stroke="{StaticResource ColorBorderLight}"
                                     StrokeThickness="1"
@@ -117,7 +129,7 @@
                                                 Padding="8,3"
                                                 BackgroundColor="{StaticResource ColorPrimary}">
                                             <Label Text="{Binding MaintenanceType}"
-                                                   FontSize="11" FontAttributes="Bold" TextColor="White"/>
+                                                   FontSize="11" FontAttributes="Bold" TextColor="{StaticResource ColorTextPrimary}"/>
                                         </Border>
                                         <Label Text="{Binding ServiceType, StringFormat='Servicio: {0}'}"
                                                Style="{StaticResource CaptionText}"
@@ -150,23 +162,25 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
 
-                    <CollectionView.Footer>
-                        <BoxView HeightRequest="80" Color="Transparent"/>
-                    </CollectionView.Footer>
                 </CollectionView>
 
             </Grid>
         </RefreshView>
 
-        <!-- FAB - Nueva orden -->
-        <Button Grid.Row="3"
-                Text="+ Nueva orden"
-                Command="{Binding CreateNewCommand}"
-                Style="{StaticResource PrimaryButton}"
-                Margin="0,8,16,16"
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                ZIndex="10"/>
+        <!-- Bottom sticky bar -->
+        <Border Grid.Row="3"
+                BackgroundColor="#1A1A2E"
+                StrokeThickness="0"
+                Padding="16,10">
+            <Button Text="+ Nueva orden"
+                    Command="{Binding CreateNewCommand}"
+                    BackgroundColor="#1565C0"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    CornerRadius="10"
+                    HorizontalOptions="Fill"/>
+        </Border>
 
     </Grid>
 </ContentPage>

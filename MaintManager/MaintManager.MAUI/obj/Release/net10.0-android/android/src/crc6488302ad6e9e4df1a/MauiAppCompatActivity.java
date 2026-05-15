@@ -30,6 +30,13 @@ public class MauiAppCompatActivity
 
 	private native void n_onCreate (android.os.Bundle p0);
 
+	public void onDestroy ()
+	{
+		n_onDestroy ();
+	}
+
+	private native void n_onDestroy ();
+
 	public boolean dispatchTouchEvent (android.view.MotionEvent p0)
 	{
 		return n_dispatchTouchEvent (p0);
@@ -99,6 +106,41 @@ public class MauiAppCompatActivity
 	}
 
 	private native void n_onRestoreInstanceState (android.os.Bundle p0);
+
+	public boolean onKeyDown (int p0, android.view.KeyEvent p1)
+	{
+		return n_onKeyDown (p0, p1);
+	}
+
+	private native boolean n_onKeyDown (int p0, android.view.KeyEvent p1);
+
+	public boolean onKeyLongPress (int p0, android.view.KeyEvent p1)
+	{
+		return n_onKeyLongPress (p0, p1);
+	}
+
+	private native boolean n_onKeyLongPress (int p0, android.view.KeyEvent p1);
+
+	public boolean onKeyMultiple (int p0, int p1, android.view.KeyEvent p2)
+	{
+		return n_onKeyMultiple (p0, p1, p2);
+	}
+
+	private native boolean n_onKeyMultiple (int p0, int p1, android.view.KeyEvent p2);
+
+	public boolean onKeyShortcut (int p0, android.view.KeyEvent p1)
+	{
+		return n_onKeyShortcut (p0, p1);
+	}
+
+	private native boolean n_onKeyShortcut (int p0, android.view.KeyEvent p1);
+
+	public boolean onKeyUp (int p0, android.view.KeyEvent p1)
+	{
+		return n_onKeyUp (p0, p1);
+	}
+
+	private native boolean n_onKeyUp (int p0, android.view.KeyEvent p1);
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

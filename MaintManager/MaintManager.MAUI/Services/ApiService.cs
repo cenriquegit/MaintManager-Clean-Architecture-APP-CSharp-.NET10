@@ -12,7 +12,29 @@ public class ApiService
     public ApiService(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("http://10.0.2.2:5056"); // ⚠️ Cambia si usas otra IP o puerto
+        ApplySavedBaseUrl();
+    }
+
+    public async Task<bool> TryRestoreSessionAsync()
+    {
+        var token = await SecureStorage.GetAsync("auth_token").ConfigureAwait(false);
+        if (!string.IsNullOrEmpty(token))
+        {
+            SetAuthToken(token);
+            return true;
+        }
+        return false;
+    }
+
+    public static string DefaultBaseUrl =>
+        DeviceInfo.Platform == DevicePlatform.Android
+            ? "http://10.0.2.2:5056"
+            : "http://localhost:5056";
+
+    public void ApplySavedBaseUrl()
+    {
+        var savedUrl = Preferences.Get("api_url", DefaultBaseUrl);
+        _httpClient.BaseAddress = new Uri(savedUrl.TrimEnd('/') + "/");
     }
 
     public void SetAuthToken(string token)
@@ -31,6 +53,16 @@ public class ApiService
     {
         var response = await _httpClient.GetAsync(endpoint);
         return await HandleResponse<T>(response);
+    }
+
+    public async Task<byte[]?> GetByteArrayAsync(string endpoint)
+    {
+        var response = await _httpClient.GetAsync(endpoint);
+        if (response.IsSuccessStatusCode)
+            return await response.Content.ReadAsByteArrayAsync();
+
+        var error = await response.Content.ReadAsStringAsync();
+        throw new HttpRequestException($"Error {response.StatusCode}: {error}");
     }
 
     public async Task<T?> PostAsync<T>(string endpoint, object? data = null)

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Dashboard"
     x:Class="MaintManager.MAUI.Views.Dashboard.HomePage"
-    x:DataType="vm:HomeViewModel"
     Title="Panel Principal"
     BackgroundColor="{StaticResource ColorBackground}">
 
@@ -44,7 +43,7 @@
 
         <!-- SUCCESS -->
         <ScrollView IsVisible="{Binding IsSuccess}">
-            <VerticalStackLayout Spacing="16" Padding="16,8">
+            <VerticalStackLayout Spacing="16" Padding="16,8,16,24">
 
                 <!-- Page Title -->
                 <Label Text="Panel Principal"
@@ -119,7 +118,7 @@
                 <CollectionView ItemsSource="{Binding Vehicles}"
                                 SelectionMode="None">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:HomeViewModel+VehicleCard">
+                        <DataTemplate>
                             <Border Padding="14" Margin="0,0,0,8"
                                     BackgroundColor="{StaticResource ColorSurface}"
                                     StrokeShape="RoundRectangle 10"
@@ -174,27 +173,57 @@
                        Margin="0,4,0,0"/>
 
                 <Grid ColumnDefinitions="*,*,*,*"
-                      ColumnSpacing="10">
-                    <Button Grid.Column="0"
-                            Text="🚗&#x0a;Nuevo&#x0a;Mantenimiento"
-                            Command="{Binding NavigateToMaintenanceCommand}"
-                            Style="{StaticResource SecondaryButton}"
-                            FontSize="11" HeightRequest="80" Padding="4"/>
-                    <Button Grid.Column="1"
-                            Text="📅&#x0a;Calendario"
-                            Command="{Binding NavigateToCalendarCommand}"
-                            Style="{StaticResource SecondaryButton}"
-                            FontSize="11" HeightRequest="80" Padding="4"/>
-                    <Button Grid.Column="2"
-                            Text="📦&#x0a;Inventario"
-                            Command="{Binding NavigateToInventoryCommand}"
-                            Style="{StaticResource SecondaryButton}"
-                            FontSize="11" HeightRequest="80" Padding="4"/>
-                    <Button Grid.Column="3"
-                            Text="📊&#x0a;BI&#x0a;Dashboard"
-                            Command="{Binding NavigateToBiDashboardCommand}"
-                            Style="{StaticResource SecondaryButton}"
-                            FontSize="11" HeightRequest="80" Padding="4"/>
+                      ColumnSpacing="6">
+                    <Border Grid.Column="0"
+                            BackgroundColor="{StaticResource ColorPrimary}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToMaintenanceCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="1" Padding="4,10">
+                            <Label Text="🚗" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Nuevo" FontSize="11" TextColor="White" HorizontalOptions="Center"/>
+                            <Label Text="Mantenimiento" FontSize="11" TextColor="White" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1"
+                            BackgroundColor="{StaticResource ColorInfo}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToCalendarCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="1" Padding="4,16">
+                            <Label Text="📅" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Calendario" FontSize="11" TextColor="White" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="2"
+                            BackgroundColor="{StaticResource ColorWarning}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToInventoryCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="1" Padding="4,16">
+                            <Label Text="📦" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="Inventario" FontSize="11" TextColor="White" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="3"
+                            BackgroundColor="{StaticResource ColorAccentDark}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToBiDashboardCommand}"/>
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="1" Padding="4,10">
+                            <Label Text="📊" FontSize="28" HorizontalOptions="Center"/>
+                            <Label Text="BI" FontSize="11" TextColor="White" HorizontalOptions="Center"/>
+                            <Label Text="Dashboard" FontSize="11" TextColor="White" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
                 </Grid>
 
                 <!-- Maintenance Status Summary -->
@@ -247,8 +276,6 @@
                 </Border>
 
                 <!-- Bottom spacing -->
-                <BoxView HeightRequest="24" Color="Transparent"/>
-
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

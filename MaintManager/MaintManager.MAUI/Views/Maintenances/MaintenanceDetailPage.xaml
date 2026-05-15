@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Maintenances"
     x:Class="MaintManager.MAUI.Views.Maintenances.MaintenanceDetailPage"
-    x:DataType="vm:MaintenanceDetailViewModel"
-    Title="{Binding Title}">
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource ColorBackground}">
 
     <Grid RowDefinitions="*,Auto">
 
@@ -162,7 +162,7 @@
 
                         <CollectionView ItemsSource="{Binding ActionDetails}">
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="vm:MaintenanceDetailViewModel+ActionDetailItem">
+                                <DataTemplate>
                                     <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,6">
                                         <CheckBox IsChecked="{Binding IsCompleted}"
                                                   IsEnabled="False"
@@ -222,20 +222,29 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Spacer for bottom button -->
-                <BoxView HeightRequest="16" Color="Transparent"/>
-
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Bottom: Close order -->
-        <Button Grid.Row="1"
-                Text="Cerrar Orden"
-                Command="{Binding CloseOrderCommand}"
-                IsVisible="{Binding CanClose}"
-                Style="{StaticResource PrimaryButton}"
-                Margin="16,8,16,16"
-                HorizontalOptions="Fill"/>
+        <!-- Bottom actions -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="8" Margin="16,8,16,16">
 
+            <Button Grid.Column="0"
+                    Text="📄 Exportar PDF"
+                    Command="{Binding ExportPdfCommand}"
+                    BackgroundColor="#1565C0"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    HorizontalOptions="Fill"/>
+
+            <Button Grid.Column="1"
+                    Text="Cerrar Orden"
+                    Command="{Binding CloseOrderCommand}"
+                    IsVisible="{Binding CanClose}"
+                    Style="{StaticResource PrimaryButton}"
+                    HorizontalOptions="Fill"/>
+
+        </Grid>
     </Grid>
 </ContentPage>

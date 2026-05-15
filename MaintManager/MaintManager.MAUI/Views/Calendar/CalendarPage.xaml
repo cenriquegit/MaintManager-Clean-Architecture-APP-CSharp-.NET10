@@ -146,7 +146,7 @@
                                             BackgroundColor="{Binding TypeColor}">
                                         <Label Text="{Binding Type}"
                                                FontSize="11" FontAttributes="Bold"
-                                               TextColor="White"/>
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
                                     </Border>
 
                                     <!-- License plate -->
@@ -174,9 +174,6 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                <CollectionView.Footer>
-                    <BoxView HeightRequest="24" Color="Transparent"/>
-                </CollectionView.Footer>
             </CollectionView>
 
         </Grid>

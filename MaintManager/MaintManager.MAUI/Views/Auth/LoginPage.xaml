@@ -3,17 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Auth"
              x:Class="MaintManager.MAUI.Views.Auth.LoginPage"
-             x:DataType="vm:LoginViewModel"
              Title="Iniciar Sesión"
              BackgroundColor="{StaticResource ColorSurface}">
 
     <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
-        <Image Source="appicon.svg" HeightRequest="80" WidthRequest="80" HorizontalOptions="Center" />
+        <Image Source="icon" HeightRequest="80" WidthRequest="80" HorizontalOptions="Center" />
 
         <Label Text="MaintManager" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
 
-        <Entry Placeholder="Usuario" Text="{Binding Username}" />
-        <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}" />
+        <!-- Botón para volver a Configuración y cambiar URL -->
+        <Button Text="← Cambiar URL de conexión"
+                Command="{Binding GoToSettingsCommand}"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource ColorPrimary}"
+                FontSize="13"
+                HorizontalOptions="Center"
+                Padding="0"/>
+
+        <Entry Placeholder="Usuario" Text="{Binding Username}"
+               TextColor="{StaticResource ColorTextPrimary}"
+               PlaceholderColor="{StaticResource Gray500}"/>
+        <Grid ColumnDefinitions="*,48">
+            <Entry Placeholder="Contraseña"
+                   IsPassword="{Binding ShowPassword, Converter={StaticResource InvertedBoolConverter}}"
+                   Text="{Binding Password}"
+                   TextColor="{StaticResource ColorTextPrimary}"
+                   PlaceholderColor="{StaticResource Gray500}"/>
+            <Button Grid.Column="1"
+                    Text="👁"
+                    Command="{Binding TogglePasswordVisibilityCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource ColorTextSecondary}"
+                    FontSize="22"
+                    WidthRequest="48"
+                    HeightRequest="48"
+                    Padding="0"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+        </Grid>
 
         <!-- Mensaje de error -->
         <Label Text="{Binding ErrorMessage}" 
@@ -22,7 +49,6 @@
 
         <Button Text="Ingresar" 
                 Command="{Binding LoginCommand}" 
-                IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"
                 Style="{StaticResource PrimaryButton}" />
 
         <ActivityIndicator IsRunning="{Binding IsBusy}" />

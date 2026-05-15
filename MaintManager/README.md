@@ -157,9 +157,11 @@ dotnet run --urls "http://0.0.0.0:5056"
 # Swagger → http://localhost:5056/swagger
 ```
 
-> Usar `http://0.0.0.0:5056` para que el emulador Android alcance la API desde `http://10.0.2.2:5056`.
+> `0.0.0.0` expone la API en todas las interfaces de red. El emulador Android la alcanza desde `http://10.0.2.2:5056`. Para un celular físico, ver sección 6.
 
 ### 3. App MAUI (Android) — Compilar e instalar
+
+
 
 ```bash
 cd MaintManager.MAUI
@@ -191,6 +193,95 @@ adb install -r MaintManager.MAUI/bin/Release/net10.0-android/publish/com.company
 # 4. Iniciar API
 dotnet run --project MaintManager.API/MaintManager.API.csproj --urls "http://0.0.0.0:5056"
 ```
+
+### 6. Ejecutar desde un celular físico Android
+
+Para usar la app desde un **teléfono Android real** (no emulador), ambos dispositivos deben estar en la **misma red WiFi**.
+
+#### 6.1 Obtener la IP local de tu PC
+
+En la PC donde corre la API, abre una terminal y ejecuta:
+
+```bash
+ipconfig
+```
+
+Busca la dirección IPv4 de tu adaptador WiFi activo. Se ve similar a:
+
+```
+Dirección IPv4. . . . . . . . . . . : 192.168.3.134
+```
+
+Anota esa IP. La necesitarás en los pasos siguientes.
+
+> 💡 Si cambias de red WiFi, la IP cambia. Repite este paso cada vez.
+
+#### 6.2 Permitir la conexión en el Firewall de Windows
+
+La primera vez que inicies la API con `--urls "http://0.0.0.0:5056"`, Windows Firewall mostrará una ventana preguntando si quieres permitir el acceso. Haz clic en **"Permitir acceso"**.
+
+Si no apareció la ventana o la bloqueaste, hazlo manualmente:
+
+```powershell
+# Ejecutar como Administrador en PowerShell:
+New-NetFirewallRule -DisplayName "MaintManager API 5056" `
+    -Direction Inbound -Protocol TCP -LocalPort 5056 -Action Allow
+```
+
+#### 6.3 Compilar e instalar el APK
+
+Con el teléfono conectado por USB (o el APK transferido):
+
+```bash
+cd MaintManager.MAUI
+dotnet publish -f net10.0-android -c Release -p:AndroidPackageFormats=apk
+adb install -r bin/Release/net10.0-android/publish/*-Signed.apk
+```
+
+> Si no usas ADB, transfiere el archivo `*-Signed.apk` al teléfono e instálalo manualmente.
+
+#### 6.4 Iniciar la API
+
+```bash
+cd MaintManager.API
+dotnet run --urls "http://0.0.0.0:5056"
+```
+
+> El flag `0.0.0.0` es **obligatorio** para que la API acepte conexiones desde otros dispositivos en la red.
+
+#### 6.5 Configurar la URL en la app
+
+1. Abre la app en el teléfono.
+2. Ve a la pantalla de **Configuración** (menú lateral).
+3. En el campo **URL de la API**, ingresa: `http://<IP-DE-TU-PC>:5056`
+   - Ejemplo: `http://192.168.1.100:5056`
+4. Presiona **Guardar**.
+5. Regresa al Login e ingresa tus credenciales.
+
+#### 6.6 Verificar conectividad
+
+Si sigue sin conectar, prueba estos pasos:
+
+```bash
+# 1. Confirma que la API responde localmente (en la PC):
+curl http://localhost:5056/api/v1/auth/login -X POST ^
+  -H "Content-Type: application/json" ^
+  -d "{\"username\":\"herror.ortiz\",\"password\":\"Admin2026!\"}"
+
+# 2. Confirma que responde desde otro dispositivo:
+#    (En otro celular/tablet, abre el navegador y visita:)
+#    http://<IP-DE-TU-PC>:5056/swagger
+
+# 3. Verifica que no hay otro proceso en el puerto 5056:
+netstat -ano | findstr :5056
+
+# 4. Si el firewall bloquea, verifica la regla:
+Get-NetFirewallRule -DisplayName "MaintManager API 5056" | fl
+```
+
+> ⚠️ **Importante:** En redes públicas (hoteles, centros comerciales) los dispositivos suelen estar aislados y no pueden comunicarse entre sí. Usa una red personal (ej. hotspot del celular) en esos casos.
+
+---
 
 ### Configuración fija de compilación MAUI (NO MODIFICAR)
 

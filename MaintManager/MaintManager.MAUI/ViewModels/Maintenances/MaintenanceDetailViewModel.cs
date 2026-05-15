@@ -74,50 +74,51 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [RelayCommand]
     private async Task CompleteAction(ActionDetailItem action)
     {
-        try
+        await ExecuteAsync(async () =>
         {
             var endpoint = ApiRoutes.Maintenances.CompleteAction
                 .Replace("{id}", _mainid.ToString())
                 .Replace("{actionId}", action.ActionId.ToString());
             await _apiService.PutAsync<object>(endpoint);
             action.IsCompleted = true;
-        }
-        catch (Exception ex)
-        {
-            ErrorMessage = $"Error al completar acción: {ex.Message}";
-            HasError = true;
-        }
+        });
     }
 
     [RelayCommand]
     private async Task CloseOrder()
     {
-        try
+        await ExecuteAsync(async () =>
         {
             var endpoint = ApiRoutes.Maintenances.Close.Replace("{id}", _mainid.ToString());
             await _apiService.PutAsync<object>(endpoint);
             await Shell.Current.GoToAsync("..");
-        }
-        catch (Exception ex)
-        {
-            ErrorMessage = $"Error al cerrar orden: {ex.Message}";
-            HasError = true;
-        }
+        });
     }
 
     [RelayCommand]
     private async Task ExportPdf()
     {
-        try
+        await ExecuteAsync(async () =>
         {
             var endpoint = ApiRoutes.Reports.ExportMaintenancePdf.Replace("{id}", _mainid.ToString());
-            var pdfBytes = await _apiService.GetAsync<byte[]>(endpoint);
-        }
-        catch (Exception ex)
-        {
-            ErrorMessage = $"Error al exportar PDF: {ex.Message}";
-            HasError = true;
-        }
+            var pdfBytes = await _apiService.GetByteArrayAsync(endpoint);
+            if (pdfBytes is null || pdfBytes.Length == 0)
+            {
+                ErrorMessage = "El PDF se generó vacío.";
+                HasError = true;
+                return;
+            }
+
+            var fileName = $"mantenimiento_{_mainid}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+            var filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+            await File.WriteAllBytesAsync(filePath, pdfBytes);
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "Exportar Orden de Mantenimiento",
+                File = new ShareFile(filePath),
+            });
+        });
     }
 
     public class MaintenanceDetailResponse

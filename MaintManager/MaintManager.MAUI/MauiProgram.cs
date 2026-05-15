@@ -1,4 +1,5 @@
-﻿using MaintManager.MAUI.Services;
+﻿using LiveChartsCore.SkiaSharpView.Maui;
+using MaintManager.MAUI.Services;
 using MaintManager.MAUI.ViewModels.Alerts;
 using MaintManager.MAUI.ViewModels.Auth;
 using MaintManager.MAUI.ViewModels.BiDashboard;
@@ -6,6 +7,7 @@ using MaintManager.MAUI.ViewModels.Calendar;
 using MaintManager.MAUI.ViewModels.Dashboard;
 using MaintManager.MAUI.ViewModels.Inventory;
 using MaintManager.MAUI.ViewModels.Maintenances;
+using MaintManager.MAUI.ViewModels.Profile;
 using MaintManager.MAUI.ViewModels.Reports;
 using MaintManager.MAUI.ViewModels.Settings;
 using MaintManager.MAUI.Views.Alerts;
@@ -15,6 +17,7 @@ using MaintManager.MAUI.Views.Calendar;
 using MaintManager.MAUI.Views.Dashboard;
 using MaintManager.MAUI.Views.Inventory;
 using MaintManager.MAUI.Views.Maintenances;
+using MaintManager.MAUI.Views.Profile;
 using MaintManager.MAUI.Views.Reports;
 using MaintManager.MAUI.Views.Settings;
 using Microsoft.Extensions.Logging;
@@ -30,14 +33,14 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseLiveCharts()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        var httpClient = new HttpClient { BaseAddress = new Uri("http://10.0.2.2:5056") };
-        builder.Services.AddSingleton(httpClient);
+        builder.Services.AddSingleton(new HttpClient());
         builder.Services.AddSingleton<ApiService>();
 
         builder.Services.AddSingleton<AuthService>();
@@ -54,6 +57,7 @@ public static class MauiProgram
         builder.Services.AddTransient<BiDashboardViewModel>();
         builder.Services.AddTransient<ReportsViewModel>();
         builder.Services.AddTransient<SettingsViewModel>();
+        builder.Services.AddTransient<UserProfileViewModel>();
 
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<AlertListPage>();
@@ -67,6 +71,7 @@ public static class MauiProgram
         builder.Services.AddTransient<BiDashboardPage>();
         builder.Services.AddTransient<ReportsPage>();
         builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddTransient<UserProfilePage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

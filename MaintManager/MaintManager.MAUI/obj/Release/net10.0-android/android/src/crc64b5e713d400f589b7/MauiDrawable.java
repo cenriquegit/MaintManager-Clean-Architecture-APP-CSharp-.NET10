@@ -4,7 +4,8 @@ package crc64b5e713d400f589b7;
 public class MauiDrawable
 	extends android.graphics.drawable.PaintDrawable
 	implements
-		mono.android.IGCUserPeer
+		mono.android.IGCUserPeer,
+		com.microsoft.maui.PlatformShadowDrawable
 {
 
 	public MauiDrawable ()
@@ -36,6 +37,20 @@ public class MauiDrawable
 	}
 
 	private native void n_onDraw (android.graphics.drawable.shapes.Shape p0, android.graphics.Canvas p1, android.graphics.Paint p2);
+
+	public boolean canDrawShadow ()
+	{
+		return n_canDrawShadow ();
+	}
+
+	private native boolean n_canDrawShadow ();
+
+	public void drawShadow (android.graphics.Canvas p0, android.graphics.Paint p1, android.graphics.Path p2)
+	{
+		n_drawShadow (p0, p1, p2);
+	}
+
+	private native void n_drawShadow (android.graphics.Canvas p0, android.graphics.Paint p1, android.graphics.Path p2);
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

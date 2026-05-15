@@ -15,10 +15,13 @@ public sealed class BiReportService : IBiReportService
     {
         var summary = await _context.Database
             .SqlQueryRaw<DashboardSummaryRaw>(@"
-                SELECT total_vehicles, services_this_month,
-                       COALESCE(global_emergency_rate_percent, 0) AS global_emergency_rate_percent,
-                       low_stock_materials, unresolved_alerts, expiring_lots,
-                       COALESCE(fleet_avg_cost_per_km, 0) AS fleet_avg_cost_per_km
+                SELECT total_vehicles AS ""TotalVehicles"",
+                       services_this_month AS ""ServicesThisMonth"",
+                       COALESCE(global_emergency_rate_percent, 0) AS ""GlobalEmergencyRatePercent"",
+                       low_stock_materials AS ""LowStockMaterials"",
+                       unresolved_alerts AS ""UnresolvedAlerts"",
+                       expiring_lots AS ""ExpiringLots"",
+                       COALESCE(fleet_avg_cost_per_km, 0) AS ""FleetAvgCostPerKm""
                 FROM maintenance.vw_bi_dashboard_summary")
             .FirstOrDefaultAsync(ct);
 
@@ -36,9 +39,13 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<CostPerKmRaw>(@"
-                SELECT prcoid, license_plate_number AS license_plate, vehicle_name,
-                       total_services, COALESCE(total_material_cost, 0) AS total_material_cost,
-                       COALESCE(current_km, 0) AS current_km, COALESCE(cost_per_km, 0) AS cost_per_km
+                SELECT prcoid AS ""Prcoid"",
+                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
+                       COALESCE(vehicle_name, '') AS ""VehicleName"",
+                       total_services AS ""TotalServices"",
+                       COALESCE(total_material_cost, 0) AS ""TotalMaterialCost"",
+                       COALESCE(current_km, 0) AS ""CurrentKm"",
+                       COALESCE(cost_per_km, 0) AS ""CostPerKm""
                 FROM maintenance.vw_cost_per_km ORDER BY cost_per_km DESC")
             .ToListAsync(ct);
 
@@ -52,9 +59,13 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<EmergencyRateRaw>(@"
-                SELECT prcoid, license_plate_number AS license_plate, vehicle_name,
-                       scheduled_count, emergency_count, total_count,
-                       COALESCE(emergency_rate_percent, 0) AS emergency_rate_percent
+                SELECT prcoid AS ""Prcoid"",
+                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
+                       COALESCE(vehicle_name, '') AS ""VehicleName"",
+                       scheduled_count AS ""ScheduledCount"",
+                       emergency_count AS ""EmergencyCount"",
+                       total_count AS ""TotalCount"",
+                       COALESCE(emergency_rate_percent, 0) AS ""EmergencyRatePercent""
                 FROM maintenance.vw_emergency_rate ORDER BY emergency_rate_percent DESC")
             .ToListAsync(ct);
 
@@ -68,8 +79,11 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<MonthlyCostRaw>(@"
-                SELECT month, prcoid, license_plate_number AS license_plate,
-                       services_count, COALESCE(monthly_cost, 0) AS monthly_cost
+                SELECT month AS ""Month"",
+                       prcoid AS ""Prcoid"",
+                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
+                       services_count AS ""ServicesCount"",
+                       COALESCE(monthly_cost, 0) AS ""MonthlyCost""
                 FROM maintenance.vw_monthly_cost
                 WHERE month >= date_trunc('month', CURRENT_DATE - ({0} || ' months')::interval)
                 ORDER BY month DESC, monthly_cost DESC", months)
@@ -84,10 +98,15 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<CalendarComplianceRaw>(@"
-                SELECT prcoid, license_plate_number AS license_plate, vehicle_name,
-                       mainid, maintenance_date, service_km,
-                       COALESCE(scheduled_km, 0) AS scheduled_km,
-                       COALESCE(km_deviation, 0) AS km_deviation, compliance_status
+                SELECT prcoid AS ""Prcoid"",
+                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
+                       COALESCE(vehicle_name, '') AS ""VehicleName"",
+                       mainid AS ""Mainid"",
+                       maintenance_date AS ""MaintenanceDate"",
+                       service_km AS ""ServiceKm"",
+                       COALESCE(scheduled_km, 0) AS ""ScheduledKm"",
+                       COALESCE(km_deviation, 0) AS ""KmDeviation"",
+                       COALESCE(compliance_status, '') AS ""ComplianceStatus""
                 FROM maintenance.vw_calendar_compliance
                 ORDER BY maintenance_date DESC LIMIT 50")
             .ToListAsync(ct);

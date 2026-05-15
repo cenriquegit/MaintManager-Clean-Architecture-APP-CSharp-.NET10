@@ -1,5 +1,7 @@
 using FluentValidation;
 using MaintManager.API.Middleware;
+using QuestPDF;
+using QuestPDF.Infrastructure;
 using MaintManager.Application.Services;
 using MaintManager.Application.Validators;
 using MaintManager.Domain.Interfaces.Services;
@@ -114,6 +116,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("MauiPolicy", policy =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 Console.WriteLine(">>> CORS registrado");
+
+QuestPDF.Settings.License = LicenseType.Community;
+Console.WriteLine(">>> QuestPDF license configurada");
 
 Console.WriteLine(">>> Construyendo la aplicación (builder.Build())...");
 var app = builder.Build();

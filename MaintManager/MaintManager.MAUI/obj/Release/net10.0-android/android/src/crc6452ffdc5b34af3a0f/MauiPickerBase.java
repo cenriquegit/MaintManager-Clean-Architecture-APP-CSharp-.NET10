@@ -6,13 +6,6 @@ public class MauiPickerBase
 	implements
 		mono.android.IGCUserPeer
 {
-/** @hide */
-	public static final String __md_methods;
-	static {
-		__md_methods = 
-			"";
-		mono.android.Runtime.register ("Microsoft.Maui.Platform.MauiPickerBase, Microsoft.Maui", MauiPickerBase.class, __md_methods);
-	}
 
 	public MauiPickerBase (android.content.Context p0)
 	{
@@ -37,6 +30,13 @@ public class MauiPickerBase
 			mono.android.TypeManager.Activate ("Microsoft.Maui.Platform.MauiPickerBase, Microsoft.Maui", "Android.Content.Context, Mono.Android:Android.Util.IAttributeSet, Mono.Android:System.Int32, System.Private.CoreLib", this, new java.lang.Object[] { p0, p1, p2 });
 		}
 	}
+
+	public android.text.method.MovementMethod getDefaultMovementMethod ()
+	{
+		return n_getDefaultMovementMethod ();
+	}
+
+	private native android.text.method.MovementMethod n_getDefaultMovementMethod ();
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

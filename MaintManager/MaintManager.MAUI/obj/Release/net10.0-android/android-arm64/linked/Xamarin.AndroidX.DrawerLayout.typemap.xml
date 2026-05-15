@@ -1,5 +1,5 @@
-<api type="release" assembly-name="Xamarin.AndroidX.DrawerLayout" mvid="e9794a6bd82a47c9a61db0e6bae18dca">
-  <module assembly-name="Xamarin.AndroidX.DrawerLayout" mvid="e9794a6bd82a47c9a61db0e6bae18dca" mvid-bytes="a0p56SrYyUemHbDmuuGNyg==">
+<api type="release" assembly-name="Xamarin.AndroidX.DrawerLayout" mvid="ca2dbae94dbd4c04a36d2b89feed4461">
+  <module assembly-name="Xamarin.AndroidX.DrawerLayout" mvid="ca2dbae94dbd4c04a36d2b89feed4461" mvid-bytes="6botyr1NBEyjbSuJ/u1EYQ==">
     <duplicates>
       <entry java-name="androidx/drawerlayout/widget/DrawerLayout$DrawerListener" managed-type-name="AndroidX.DrawerLayout.Widget.DrawerLayout/IDrawerListenerInvoker" token="33554456" />
     </duplicates>

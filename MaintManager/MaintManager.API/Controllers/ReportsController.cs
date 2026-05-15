@@ -91,9 +91,7 @@ public sealed class ReportsController : ControllerBase
         if (maintenance is null)
             return NotFound(ApiResponse<object>.Fail("Orden de mantenimiento no encontrada."));
 
-        QuestPDF.Settings.License = LicenseType.Community;
-
-        var pdf = Document.Create(container =>
+            var pdf = Document.Create(container =>
         {
             container.Page(page =>
             {

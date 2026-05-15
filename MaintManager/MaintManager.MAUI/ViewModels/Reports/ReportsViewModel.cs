@@ -38,10 +38,18 @@ public partial class ReportsViewModel : BaseViewModel
                 Route = "alerts"
             }
         };
+        IsEmpty = AvailableReports.Count == 0;
     }
 
     [ObservableProperty]
     private ObservableCollection<ReportItem> _availableReports = new();
+
+    [RelayCommand]
+    private void ClearError()
+    {
+        HasError = false;
+        ErrorMessage = string.Empty;
+    }
 
     [RelayCommand]
     private async Task GenerateReport(string reportType)
@@ -53,17 +61,23 @@ public partial class ReportsViewModel : BaseViewModel
             switch (reportType)
             {
                 case "cost-per-km":
-                    await _apiService.GetAsync<object>("api/v1/reports/cost-excel");
+                    var excelBytes = await _apiService.GetByteArrayAsync("api/v1/reports/cost-excel");
+                    if (excelBytes is not null && excelBytes.Length > 0)
+                    {
+                        var filePath = Path.Combine(FileSystem.CacheDirectory, $"costo_por_km_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx");
+                        await File.WriteAllBytesAsync(filePath, excelBytes);
+                        await Share.Default.RequestAsync(new ShareFileRequest
+                        {
+                            Title = "Exportar Costo por Km",
+                            File = new ShareFile(filePath),
+                        });
+                    }
                     break;
-                case "maintenance-orders":
-                    await _apiService.GetAsync<object>("api/v1/reports/maintenances/pdf");
-                    break;
-                case "alerts":
-                    await _apiService.GetAsync<object>("api/v1/reports/alerts-summary");
-                    break;
+                default:
+                    HasError = true;
+                    ErrorMessage = "Este reporte aún no está disponible.";
+                    return;
             }
-
-            await Shell.Current.DisplayAlert("Exportación", "Reporte generado correctamente.", "Aceptar");
         });
     }
 

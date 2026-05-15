@@ -12,7 +12,7 @@
             BackgroundColor="{Binding Source={x:Reference BadgeRoot}, Path=Color}">
         <Label x:Name="BadgeLabel"
                Text="{Binding Source={x:Reference BadgeRoot}, Path=Text}"
-               TextColor="White"
+               TextColor="{StaticResource ColorTextPrimary}"
                HorizontalOptions="Center"
                VerticalOptions="Center"/>
     </Border>

@@ -68,6 +68,8 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     [ObservableProperty]
     private DateTime _nextServiceDate = DateTime.Today.AddMonths(3);
 
+    public DateTime NextServiceMinDate => DateTime.Today;
+
     [ObservableProperty]
     private string _nextServiceNotes = string.Empty;
 
@@ -89,22 +91,42 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
             CurrentStep--;
     }
 
+    private sealed class VehicleListRaw
+    {
+        public int Prcoid { get; init; }
+        public string LicensePlate { get; init; } = string.Empty;
+        public string VehicleName { get; init; } = string.Empty;
+    }
+
     [RelayCommand]
     private async Task LoadVehicles()
     {
-        try
+        await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<List<VehicleOption>>(ApiRoutes.Vehicles.GetAll);
-            if (response is not null)
+            var response = await _apiService.GetAsync<ApiResponse<List<VehicleListRaw>>>(ApiRoutes.Vehicles.GetAll);
+            if (response?.Success == true && response.Data is not null)
             {
-                Vehicles = new ObservableCollection<VehicleOption>(response);
+                Vehicles = new ObservableCollection<VehicleOption>(
+                    response.Data.Select(v => new VehicleOption
+                    {
+                        VehicleId = v.Prcoid,
+                        LicensePlate = v.LicensePlate,
+                        Name = v.VehicleName,
+                    }));
             }
-        }
-        catch (Exception ex)
-        {
-            ErrorMessage = $"Error al cargar vehículos: {ex.Message}";
-            HasError = true;
-        }
+            else
+            {
+                HasError = true;
+                ErrorMessage = "Error al cargar vehículos. Verifica la conexión e intenta nuevamente.";
+            }
+        });
+    }
+
+    public class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+        public string? Message { get; set; }
     }
 
     [RelayCommand]
@@ -136,9 +158,9 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
             await _apiService.PostAsync<object>(ApiRoutes.Maintenances.Create, request);
             await Shell.Current.GoToAsync("..");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ErrorMessage = $"Error al guardar: {ex.Message}";
+            ErrorMessage = "Error al guardar el mantenimiento. Verifica los datos e intenta nuevamente.";
             HasError = true;
         }
         finally

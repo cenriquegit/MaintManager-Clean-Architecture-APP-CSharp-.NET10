@@ -1,5 +1,5 @@
-<api type="release" assembly-name="Xamarin.AndroidX.Security.SecurityCrypto" mvid="cce9f4fa24594ba299108ad6a74178ed">
-  <module assembly-name="Xamarin.AndroidX.Security.SecurityCrypto" mvid="cce9f4fa24594ba299108ad6a74178ed" mvid-bytes="+vTpzFkkokuZEIrWp0F47Q==">
+<api type="release" assembly-name="Xamarin.AndroidX.Security.SecurityCrypto" mvid="bcc3cca012b04e93b8ce1169e58a025c">
+  <module assembly-name="Xamarin.AndroidX.Security.SecurityCrypto" mvid="bcc3cca012b04e93b8ce1169e58a025c" mvid-bytes="oMzDvLASk064zhFp5YoCXA==">
     <types-scratch>
       <entry key="androidx/security/crypto/EncryptedSharedPreferences" java-name="androidx/security/crypto/EncryptedSharedPreferences" managed-type-name="AndroidX.Security.Crypto.EncryptedSharedPreferences" token="33554434" />
       <entry key="androidx/security/crypto/EncryptedSharedPreferences$PrefKeyEncryptionScheme" java-name="androidx/security/crypto/EncryptedSharedPreferences$PrefKeyEncryptionScheme" managed-type-name="AndroidX.Security.Crypto.EncryptedSharedPreferences/PrefKeyEncryptionScheme" token="33554435" />

@@ -1,5 +1,5 @@
-<api type="release" assembly-name="Xamarin.AndroidX.RecyclerView" mvid="494a1160c2e547708de554dda3af972a">
-  <module assembly-name="Xamarin.AndroidX.RecyclerView" mvid="494a1160c2e547708de554dda3af972a" mvid-bytes="YBFKSeXCcEeN5VTdo6+XKg==">
+<api type="release" assembly-name="Xamarin.AndroidX.RecyclerView" mvid="22d820a5deaf4b7382370433740d767e">
+  <module assembly-name="Xamarin.AndroidX.RecyclerView" mvid="22d820a5deaf4b7382370433740d767e" mvid-bytes="pSDYIq/ec0uCNwQzdA12fg==">
     <duplicates>
       <entry java-name="androidx/recyclerview/widget/GridLayoutManager$SpanSizeLookup" managed-type-name="AndroidX.RecyclerView.Widget.GridLayoutManager/SpanSizeLookupInvoker" token="33554509" />
       <entry java-name="androidx/recyclerview/widget/ItemTouchUIUtil" managed-type-name="AndroidX.RecyclerView.Widget.IItemTouchUIUtilInvoker" token="33554511" />

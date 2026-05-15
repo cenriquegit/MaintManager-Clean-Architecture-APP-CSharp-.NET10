@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Reports"
     x:Class="MaintManager.MAUI.Views.Reports.ReportsPage"
-    x:DataType="vm:ReportsViewModel"
-    Title="Reportes">
+    Title="Reportes"
+    BackgroundColor="{StaticResource ColorBackground}">
 
     <Grid>
 
@@ -25,11 +25,15 @@
                    TextColor="{StaticResource ColorError}"/>
             <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
                    HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="Volver"
+                    Command="{Binding ClearErrorCommand}"
+                    Style="{StaticResource SecondaryButton}"
+                    HorizontalOptions="Center"/>
         </VerticalStackLayout>
 
         <!-- SUCCESS -->
         <ScrollView IsVisible="{Binding IsSuccess}">
-            <VerticalStackLayout Spacing="16" Padding="16,8">
+            <VerticalStackLayout Spacing="16" Padding="16,8,16,24">
 
                 <Label Text="Reportes disponibles"
                        FontSize="22" FontAttributes="Bold"
@@ -38,7 +42,7 @@
 
                 <CollectionView ItemsSource="{Binding AvailableReports}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="vm:ReportsViewModel+ReportItem">
+                        <DataTemplate>
                             <Border Style="{StaticResource Card}" Margin="0,0,0,8">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer
@@ -83,7 +87,6 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <BoxView HeightRequest="24" Color="Transparent"/>
             </VerticalStackLayout>
         </ScrollView>
 

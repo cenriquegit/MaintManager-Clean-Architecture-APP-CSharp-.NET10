@@ -7,15 +7,27 @@
     xmlns:models="clr-namespace:MaintManager.MAUI.Models"
     x:Class="MaintManager.MAUI.Views.Inventory.InventoryListPage"
     x:DataType="vm:InventoryListViewModel"
-    Title="Inventario">
+    Title="Inventario"
+    BackgroundColor="{StaticResource ColorBackground}">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto">
 
         <!-- Buscador -->
-        <SearchBar Grid.Row="0"
-                   Text="{Binding SearchText}"
-                   Placeholder="Buscar material o categoría..."
-                   Margin="16,8,16,0"/>
+        <Border Grid.Row="0"
+                Margin="16,8,16,0"
+                StrokeShape="RoundRectangle 8"
+                Stroke="{StaticResource ColorBorderLight}"
+                StrokeThickness="1"
+                BackgroundColor="{StaticResource ColorSurface}"
+                Padding="4,0">
+            <SearchBar Text="{Binding SearchText}"
+                       Placeholder="Buscar material o categoría..."
+                       BackgroundColor="Transparent"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"
+                       CancelButtonColor="{StaticResource ColorPrimary}"
+                       SearchIconColor="{StaticResource ColorTextSecondary}"/>
+        </Border>
 
         <!-- Filtros -->
         <HorizontalStackLayout Grid.Row="1" Margin="16,8" Spacing="12">
@@ -24,12 +36,17 @@
                    Style="{StaticResource BodyText}"
                    VerticalOptions="Center"/>
             <!-- Contador de stock bajo -->
-            <Border IsVisible="{Binding LowStockCount, Converter={StaticResource IsNotNullConverter}}"
-                    BackgroundColor="{StaticResource ColorErrorContainer}"
-                    StrokeThickness="0" StrokeShape="RoundRectangle 99" Padding="8,3">
+            <Border BackgroundColor="{StaticResource ColorErrorContainer}"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 99" Padding="10,4">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding LowStockCount}" Value="0">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </DataTrigger>
+                </Border.Triggers>
                 <Label Text="{Binding LowStockCount, StringFormat='{0} bajo mínimo'}"
                        FontSize="12" FontAttributes="Bold"
-                       TextColor="{StaticResource ColorError}"/>
+                       TextColor="{StaticResource ColorError}"
+                       VerticalOptions="Center"/>
             </Border>
         </HorizontalStackLayout>
 
@@ -140,22 +157,26 @@
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.Footer>
-                        <BoxView HeightRequest="80" Color="Transparent"/>
-                    </CollectionView.Footer>
                 </CollectionView>
 
             </Grid>
         </RefreshView>
 
-        <!-- FAB — Ingresar lote (solo Admin) -->
-        <Button Grid.Row="3"
-                Text="+ Ingresar lote"
-                Command="{Binding AddLotCommand}"
-                Style="{StaticResource PrimaryButton}"
-                IsVisible="{Binding IsAdmin}"
-                Margin="16,8"
-                HorizontalOptions="End"/>
+        <!-- Bottom sticky bar -->
+        <Border Grid.Row="3"
+                BackgroundColor="#1A1A2E"
+                StrokeThickness="0"
+                Padding="16,10"
+                IsVisible="{Binding IsAdmin}">
+            <Button Text="+ Ingresar lote"
+                    Command="{Binding AddLotCommand}"
+                    BackgroundColor="#1565C0"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    CornerRadius="10"
+                    HorizontalOptions="Fill"/>
+        </Border>
 
     </Grid>
 </ContentPage>

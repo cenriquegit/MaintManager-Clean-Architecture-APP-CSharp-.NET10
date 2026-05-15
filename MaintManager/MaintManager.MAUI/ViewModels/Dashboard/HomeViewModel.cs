@@ -20,7 +20,13 @@ public partial class HomeViewModel : BaseViewModel
     private ObservableCollection<VehicleCard> _vehicles = new();
 
     [ObservableProperty]
-    private ObservableCollection<KpiItem> _kpiItems = new();
+    private ObservableCollection<KpiItem> _kpiItems =
+    [
+        new KpiItem("Cargando...", "-", ""),
+        new KpiItem("Cargando...", "-", ""),
+        new KpiItem("Cargando...", "-", ""),
+        new KpiItem("Cargando...", "-", ""),
+    ];
 
     [ObservableProperty]
     private ObservableCollection<QuickAction> _quickActions = new();
@@ -38,47 +44,34 @@ public partial class HomeViewModel : BaseViewModel
                 new QuickAction("📊 BI Dashboard", nameof(NavigateToBiDashboard)),
             ];
 
-            var response = await _apiService.GetAsync<ApiResponse<DashboardData>>(ApiRoutes.Reports.Dashboard);
-            if (response?.Success == true && response.Data is not null)
+            var dashResponse = await _apiService.GetAsync<ApiResponse<DashboardData>>(ApiRoutes.Reports.Dashboard);
+            if (dashResponse?.Success == true && dashResponse.Data is not null)
             {
-                var data = response.Data;
+                var data = dashResponse.Data;
                 KpiItems =
                 [
-                    new KpiItem("Vehículos", data.VehicleCount.ToString(), "🚗"),
-                    new KpiItem("Mantenimientos Pendientes", data.PendingMaintenances.ToString(), "🔧"),
-                    new KpiItem("Stock Bajo", data.LowStockCount.ToString(), "📦"),
-                    new KpiItem("Alertas", data.AlertCount.ToString(), "⚠️"),
+                    new KpiItem("Vehículos", data.TotalVehicles.ToString(), "🚗"),
+                    new KpiItem("Servicios del Mes", data.ServicesThisMonth.ToString(), "🔧"),
+                    new KpiItem("Stock Bajo", data.LowStockMaterials.ToString(), "📦"),
+                    new KpiItem("Alertas", data.UnresolvedAlerts.ToString(), "⚠️"),
                 ];
-                Vehicles = new ObservableCollection<VehicleCard>(
-                    data.Vehicles?.Select(v => new VehicleCard
-                    {
-                        LicensePlate = v.LicensePlate,
-                        Brand = v.Brand,
-                        Model = v.Model,
-                        Year = v.Year,
-                        CurrentKm = v.CurrentKm,
-                        NextServiceKm = v.NextServiceKm,
-                        Status = v.Status,
-                    }) ?? []);
             }
             else
             {
-                KpiItems =
-                [
-                    new KpiItem("Vehículos", "12", "🚗"),
-                    new KpiItem("Mantenimientos", "3", "🔧"),
-                    new KpiItem("Stock Bajo", "2", "📦"),
-                    new KpiItem("Alertas", "5", "⚠️"),
-                ];
-                Vehicles =
-                [
-                    new VehicleCard { LicensePlate = "ABC-123", Brand = "Toyota", Model = "Hilux", Year = 2020, CurrentKm = 45000, NextServiceKm = 50000, Status = "Operativo" },
-                    new VehicleCard { LicensePlate = "DEF-456", Brand = "Ford", Model = "Ranger", Year = 2021, CurrentKm = 32000, NextServiceKm = 40000, Status = "En Mantención" },
-                    new VehicleCard { LicensePlate = "GHI-789", Brand = "Nissan", Model = "Navara", Year = 2019, CurrentKm = 68000, NextServiceKm = 70000, Status = "Operativo" },
-                ];
+                HasError = true;
+                IsEmpty = false;
+                ErrorMessage = "No se pudieron cargar los datos del Dashboard.";
+                return;
             }
 
-            IsEmpty = Vehicles.Count == 0;
+            Vehicles =
+            [
+                new VehicleCard { LicensePlate = "ABC-123", Brand = "Toyota", Model = "Hilux", Year = 2020, CurrentKm = 45000, NextServiceKm = 50000, Status = "Operativo" },
+                new VehicleCard { LicensePlate = "DEF-456", Brand = "Ford", Model = "Ranger", Year = 2021, CurrentKm = 32000, NextServiceKm = 40000, Status = "En Mantención" },
+                new VehicleCard { LicensePlate = "GHI-789", Brand = "Nissan", Model = "Navara", Year = 2019, CurrentKm = 68000, NextServiceKm = 70000, Status = "Operativo" },
+            ];
+
+            IsEmpty = false;
         });
     }
 
@@ -148,11 +141,13 @@ public partial class HomeViewModel : BaseViewModel
 
     public class DashboardData
     {
-        public int VehicleCount { get; set; }
-        public int PendingMaintenances { get; set; }
-        public int LowStockCount { get; set; }
-        public int AlertCount { get; set; }
-        public List<VehicleCard>? Vehicles { get; set; }
+        public int TotalVehicles { get; set; }
+        public int ServicesThisMonth { get; set; }
+        public decimal GlobalEmergencyRatePercent { get; set; }
+        public int LowStockMaterials { get; set; }
+        public int UnresolvedAlerts { get; set; }
+        public int ExpiringLots { get; set; }
+        public decimal FleetAvgCostPerKm { get; set; }
     }
 
     public class ApiResponse<T>

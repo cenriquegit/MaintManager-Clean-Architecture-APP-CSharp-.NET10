@@ -17,6 +17,13 @@ public partial class MaintenanceListViewModel : BaseViewModel
         Title = "Órdenes de Mantenimiento";
     }
 
+    private sealed class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+        public string? Message { get; set; }
+    }
+
     [ObservableProperty]
     private ObservableCollection<MaintenanceItem> _maintenances = new();
 
@@ -33,8 +40,8 @@ public partial class MaintenanceListViewModel : BaseViewModel
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<PagedResult<MaintenanceListItemDto>>("api/v1/maintenances?page=1&pageSize=50");
-            var items = response?.Items?.ToList() ?? new List<MaintenanceListItemDto>();
+            var response = await _apiService.GetAsync<ApiResponse<PagedResult<MaintenanceListItemDto>>>(ApiRoutes.Maintenances.GetAll + "?page=1&pageSize=50");
+            var items = response?.Data?.Items?.ToList() ?? new List<MaintenanceListItemDto>();
 
             if (!string.IsNullOrWhiteSpace(SearchText))
             {

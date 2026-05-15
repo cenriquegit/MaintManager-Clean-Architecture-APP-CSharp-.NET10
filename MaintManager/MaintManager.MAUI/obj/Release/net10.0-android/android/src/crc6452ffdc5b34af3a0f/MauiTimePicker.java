@@ -32,6 +32,13 @@ public class MauiTimePicker
 		}
 	}
 
+	public android.text.method.MovementMethod getDefaultMovementMethod ()
+	{
+		return n_getDefaultMovementMethod ();
+	}
+
+	private native android.text.method.MovementMethod n_getDefaultMovementMethod ();
+
 	public void onClick (android.view.View p0)
 	{
 		n_onClick (p0);

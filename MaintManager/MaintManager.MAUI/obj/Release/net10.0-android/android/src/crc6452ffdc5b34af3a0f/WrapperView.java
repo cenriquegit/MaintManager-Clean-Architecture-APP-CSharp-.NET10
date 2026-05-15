@@ -15,26 +15,12 @@ public class WrapperView
 		}
 	}
 
-	public void onDetachedFromWindow ()
-	{
-		n_onDetachedFromWindow ();
-	}
-
-	private native void n_onDetachedFromWindow ();
-
 	public void onLayout (boolean p0, int p1, int p2, int p3, int p4)
 	{
 		n_onLayout (p0, p1, p2, p3, p4);
 	}
 
 	private native void n_onLayout (boolean p0, int p1, int p2, int p3, int p4);
-
-	public void requestLayout ()
-	{
-		n_requestLayout ();
-	}
-
-	private native void n_requestLayout ();
 
 	public boolean dispatchTouchEvent (android.view.MotionEvent p0)
 	{
@@ -49,13 +35,6 @@ public class WrapperView
 	}
 
 	private native android.graphics.Path n_getClipPath (int p0, int p1);
-
-	public void drawShadow (android.graphics.Canvas p0, int p1, int p2)
-	{
-		n_drawShadow (p0, p1, p2);
-	}
-
-	private native void n_drawShadow (android.graphics.Canvas p0, int p1, int p2);
 
 	public int getVisibility ()
 	{

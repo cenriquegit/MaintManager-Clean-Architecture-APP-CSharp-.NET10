@@ -1,5 +1,5 @@
-<api type="release" assembly-name="Xamarin.Kotlin.StdLib" mvid="95526d4dfb4c44c6a8ecd1c01d462b3c">
-  <module assembly-name="Xamarin.Kotlin.StdLib" mvid="95526d4dfb4c44c6a8ecd1c01d462b3c" mvid-bytes="TW1SlUz7xkSo7NHAHUYrPA==">
+<api type="release" assembly-name="Xamarin.Kotlin.StdLib" mvid="e6e302ddff21444d97fd3a2281550ff1">
+  <module assembly-name="Xamarin.Kotlin.StdLib" mvid="e6e302ddff21444d97fd3a2281550ff1" mvid-bytes="3QLj5iH/TUSX/ToigVUP8Q==">
     <duplicates>
       <entry java-name="kotlin/Function" managed-type-name="Kotlin.IFunctionInvoker" token="33554449" />
       <entry java-name="kotlin/sequences/Sequence" managed-type-name="Kotlin.Sequences.ISequenceInvoker" token="33554451" />
@@ -12,14 +12,14 @@
       <entry java-name="kotlin/reflect/KParameter" managed-type-name="Kotlin.Reflect.IKParameterInvoker" token="33554466" />
       <entry java-name="kotlin/reflect/KType" managed-type-name="Kotlin.Reflect.IKTypeInvoker" token="33554468" />
       <entry java-name="kotlin/reflect/KTypeParameter" managed-type-name="Kotlin.Reflect.IKTypeParameterInvoker" token="33554470" />
-      <entry java-name="kotlin/jvm/internal/markers/KMappedMarker" managed-type-name="Kotlin.Jvm.Internal.Markers.IKMappedMarkerInvoker" token="33554477" />
-      <entry java-name="kotlin/jvm/functions/Function0" managed-type-name="Kotlin.Jvm.Functions.IFunction0Invoker" token="33554479" />
-      <entry java-name="kotlin/jvm/functions/Function1" managed-type-name="Kotlin.Jvm.Functions.IFunction1Invoker" token="33554481" />
-      <entry java-name="kotlin/jvm/functions/Function2" managed-type-name="Kotlin.Jvm.Functions.IFunction2Invoker" token="33554483" />
-      <entry java-name="kotlin/enums/EnumEntries" managed-type-name="Kotlin.Enums.IEnumEntriesInvoker" token="33554485" />
-      <entry java-name="kotlin/coroutines/Continuation" managed-type-name="Kotlin.Coroutines.IContinuationInvoker" token="33554487" />
-      <entry java-name="kotlin/coroutines/CoroutineContext$Key" managed-type-name="Kotlin.Coroutines.ICoroutineContextKeyInvoker" token="33554489" />
-      <entry java-name="kotlin/coroutines/CoroutineContext" managed-type-name="Kotlin.Coroutines.ICoroutineContextInvoker" token="33554491" />
+      <entry java-name="kotlin/jvm/internal/markers/KMappedMarker" managed-type-name="Kotlin.Jvm.Internal.Markers.IKMappedMarkerInvoker" token="33554476" />
+      <entry java-name="kotlin/jvm/functions/Function0" managed-type-name="Kotlin.Jvm.Functions.IFunction0Invoker" token="33554478" />
+      <entry java-name="kotlin/jvm/functions/Function1" managed-type-name="Kotlin.Jvm.Functions.IFunction1Invoker" token="33554480" />
+      <entry java-name="kotlin/jvm/functions/Function2" managed-type-name="Kotlin.Jvm.Functions.IFunction2Invoker" token="33554482" />
+      <entry java-name="kotlin/enums/EnumEntries" managed-type-name="Kotlin.Enums.IEnumEntriesInvoker" token="33554484" />
+      <entry java-name="kotlin/coroutines/Continuation" managed-type-name="Kotlin.Coroutines.IContinuationInvoker" token="33554486" />
+      <entry java-name="kotlin/coroutines/CoroutineContext$Key" managed-type-name="Kotlin.Coroutines.ICoroutineContextKeyInvoker" token="33554488" />
+      <entry java-name="kotlin/coroutines/CoroutineContext" managed-type-name="Kotlin.Coroutines.ICoroutineContextInvoker" token="33554490" />
     </duplicates>
     <types-scratch>
       <entry key="kotlin/Function" java-name="kotlin/Function" managed-type-name="Kotlin.IFunction" token="33554448" skip-in-java-to-managed="True" />
@@ -38,15 +38,14 @@
       <entry key="kotlin/reflect/KTypeProjection$Companion" java-name="kotlin/reflect/KTypeProjection$Companion" managed-type-name="Kotlin.Reflect.KTypeProjection/CompanionStatic" token="33554472" />
       <entry key="kotlin/reflect/KVariance" java-name="kotlin/reflect/KVariance" managed-type-name="Kotlin.Reflect.KVariance" token="33554473" />
       <entry key="kotlin/reflect/KVisibility" java-name="kotlin/reflect/KVisibility" managed-type-name="Kotlin.Reflect.KVisibility" token="33554474" />
-      <entry key="kotlin/jvm/internal/DefaultConstructorMarker" java-name="kotlin/jvm/internal/DefaultConstructorMarker" managed-type-name="Kotlin.Jvm.Internal.DefaultConstructorMarker" token="33554475" />
-      <entry key="kotlin/jvm/internal/markers/KMappedMarker" java-name="kotlin/jvm/internal/markers/KMappedMarker" managed-type-name="Kotlin.Jvm.Internal.Markers.IKMappedMarker" token="33554476" skip-in-java-to-managed="True" />
-      <entry key="kotlin/jvm/functions/Function0" java-name="kotlin/jvm/functions/Function0" managed-type-name="Kotlin.Jvm.Functions.IFunction0" token="33554478" skip-in-java-to-managed="True" />
-      <entry key="kotlin/jvm/functions/Function1" java-name="kotlin/jvm/functions/Function1" managed-type-name="Kotlin.Jvm.Functions.IFunction1" token="33554480" skip-in-java-to-managed="True" />
-      <entry key="kotlin/jvm/functions/Function2" java-name="kotlin/jvm/functions/Function2" managed-type-name="Kotlin.Jvm.Functions.IFunction2" token="33554482" skip-in-java-to-managed="True" />
-      <entry key="kotlin/enums/EnumEntries" java-name="kotlin/enums/EnumEntries" managed-type-name="Kotlin.Enums.IEnumEntries" token="33554484" skip-in-java-to-managed="True" />
-      <entry key="kotlin/coroutines/Continuation" java-name="kotlin/coroutines/Continuation" managed-type-name="Kotlin.Coroutines.IContinuation" token="33554486" skip-in-java-to-managed="True" />
-      <entry key="kotlin/coroutines/CoroutineContext$Key" java-name="kotlin/coroutines/CoroutineContext$Key" managed-type-name="Kotlin.Coroutines.ICoroutineContextKey" token="33554488" skip-in-java-to-managed="True" />
-      <entry key="kotlin/coroutines/CoroutineContext" java-name="kotlin/coroutines/CoroutineContext" managed-type-name="Kotlin.Coroutines.ICoroutineContext" token="33554490" skip-in-java-to-managed="True" />
+      <entry key="kotlin/jvm/internal/markers/KMappedMarker" java-name="kotlin/jvm/internal/markers/KMappedMarker" managed-type-name="Kotlin.Jvm.Internal.Markers.IKMappedMarker" token="33554475" skip-in-java-to-managed="True" />
+      <entry key="kotlin/jvm/functions/Function0" java-name="kotlin/jvm/functions/Function0" managed-type-name="Kotlin.Jvm.Functions.IFunction0" token="33554477" skip-in-java-to-managed="True" />
+      <entry key="kotlin/jvm/functions/Function1" java-name="kotlin/jvm/functions/Function1" managed-type-name="Kotlin.Jvm.Functions.IFunction1" token="33554479" skip-in-java-to-managed="True" />
+      <entry key="kotlin/jvm/functions/Function2" java-name="kotlin/jvm/functions/Function2" managed-type-name="Kotlin.Jvm.Functions.IFunction2" token="33554481" skip-in-java-to-managed="True" />
+      <entry key="kotlin/enums/EnumEntries" java-name="kotlin/enums/EnumEntries" managed-type-name="Kotlin.Enums.IEnumEntries" token="33554483" skip-in-java-to-managed="True" />
+      <entry key="kotlin/coroutines/Continuation" java-name="kotlin/coroutines/Continuation" managed-type-name="Kotlin.Coroutines.IContinuation" token="33554485" skip-in-java-to-managed="True" />
+      <entry key="kotlin/coroutines/CoroutineContext$Key" java-name="kotlin/coroutines/CoroutineContext$Key" managed-type-name="Kotlin.Coroutines.ICoroutineContextKey" token="33554487" skip-in-java-to-managed="True" />
+      <entry key="kotlin/coroutines/CoroutineContext" java-name="kotlin/coroutines/CoroutineContext" managed-type-name="Kotlin.Coroutines.ICoroutineContext" token="33554489" skip-in-java-to-managed="True" />
     </types-scratch>
   </module>
 </api>

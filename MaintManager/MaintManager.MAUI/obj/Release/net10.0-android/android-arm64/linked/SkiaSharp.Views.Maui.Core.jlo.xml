@@ -9,6 +9,6 @@
     </type>
   </jcw-types>
   <acw-types partial-assembly-name="SkiaSharp.Views.Maui.Core" module-name="SkiaSharp.Views.Maui.Core.dll">
-    <type assembly-qualified-name="SkiaSharp.Views.Maui.Handlers.SKGLViewHandler+MauiSKGLTextureView, SkiaSharp.Views.Maui.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="skiasharp.views.maui.handlers.SKGLViewHandler_MauiSKGLTextureView" java-key="crc64eaf685e082aef0e5.SKGLViewHandler_MauiSKGLTextureView" managed-key="SkiaSharp.Views.Maui.Handlers.SKGLViewHandler.MauiSKGLTextureView" partial-assembly-qualified-name="SkiaSharp.Views.Maui.Handlers.SKGLViewHandler+MauiSKGLTextureView, SkiaSharp.Views.Maui.Core" />
+    <type assembly-qualified-name="SkiaSharp.Views.Maui.Handlers.SKGLViewHandler+MauiSKGLTextureView, SkiaSharp.Views.Maui.Core, Version=3.119.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="skiasharp.views.maui.handlers.SKGLViewHandler_MauiSKGLTextureView" java-key="crc64eaf685e082aef0e5.SKGLViewHandler_MauiSKGLTextureView" managed-key="SkiaSharp.Views.Maui.Handlers.SKGLViewHandler.MauiSKGLTextureView" partial-assembly-qualified-name="SkiaSharp.Views.Maui.Handlers.SKGLViewHandler+MauiSKGLTextureView, SkiaSharp.Views.Maui.Core" />
   </acw-types>
 </api>

@@ -2,18 +2,34 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaintManager.MAUI.Models;
 using MaintManager.MAUI.Services;
+using MaintManager.Shared.Constants;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace MaintManager.MAUI.ViewModels.Inventory;
 
 public partial class LotCreateViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     public LotCreateViewModel(ApiService apiService)
     {
         _apiService = apiService;
         Title = "Ingresar Lote";
+    }
+
+    private sealed class MaterialListRaw
+    {
+        public int Mateid { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string? UnitOfMeasure { get; init; }
+    }
+
+    private sealed class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
     }
 
     [ObservableProperty]
@@ -49,32 +65,30 @@ public partial class LotCreateViewModel : BaseViewModel
     [ObservableProperty]
     private DateTime _expirationDate = DateTime.Today.AddDays(1);
 
+    public DateTime ExpirationMinDate => DateTime.Today;
+
     [ObservableProperty]
     private bool _isSaving;
 
     [RelayCommand]
     private async Task LoadMaterials()
     {
-        IsLoading = true;
-        HasError = false;
-        FormReady = false;
-        try
+        await ExecuteAsync(async () =>
         {
-            // Simulación: cargar materiales desde API
-            Materials.Clear();
-            Materials.Add(new MaterialOption { Mateid = 1, Name = "Aceite 15W40", UnitOfMeasure = "Litro" });
-            Materials.Add(new MaterialOption { Mateid = 2, Name = "Filtro de aceite", UnitOfMeasure = "Unidad" });
-            FormReady = true;
-        }
-        catch (Exception ex)
-        {
-            HasError = true;
-            ErrorMessage = ex.Message;
-        }
-        finally
-        {
-            IsLoading = false;
-        }
+            var response = await _apiService.GetAsync<ApiResponse<List<MaterialListRaw>>>(ApiRoutes.Inventory.GetMaterials);
+            if (response?.Success == true && response.Data is not null)
+            {
+                Materials.Clear();
+                foreach (var m in response.Data)
+                    Materials.Add(new MaterialOption { Mateid = m.Mateid, Name = m.Name, UnitOfMeasure = m.UnitOfMeasure ?? "" });
+                FormReady = true;
+            }
+            else
+            {
+                HasError = true;
+                ErrorMessage = "Error al cargar materiales. Intenta nuevamente.";
+            }
+        });
     }
 
     [RelayCommand]
@@ -101,9 +115,9 @@ public partial class LotCreateViewModel : BaseViewModel
             await _apiService.PostAsync<object>($"api/v1/inventory/materials/{SelectedMaterial.Mateid}/lots", request);
             await Shell.Current.GoToAsync("..");
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            ValidationMessage = $"Error: {ex.Message}";
+            ValidationMessage = "Error al registrar el lote. Verifica los datos e intenta nuevamente.";
             HasValidationError = true;
         }
         finally
