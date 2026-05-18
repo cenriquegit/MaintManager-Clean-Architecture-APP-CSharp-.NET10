@@ -67,11 +67,11 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Lista de menú (sin separadores BoxView, sin doble borde) -->
+                <!-- Lista de menú (cada item con borde inferior únicamente) -->
                 <ScrollView Grid.Row="1" Padding="0,0,0,24">
                     <VerticalStackLayout Spacing="0">
 
-                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Dashboard">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Dashboard">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -80,8 +80,9 @@
                                 <Label Text="Panel" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//Alerts">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Alerts">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -90,8 +91,9 @@
                                 <Label Text="Alertas" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Calendar">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Calendar">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -100,8 +102,9 @@
                                 <Label Text="Calendario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//Maintenances">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Maintenances">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -110,8 +113,9 @@
                                 <Label Text="Mantenimientos" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Inventory">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Inventory">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -120,8 +124,9 @@
                                 <Label Text="Inventario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//BiDashboard">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//BiDashboard">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -130,8 +135,9 @@
                                 <Label Text="BI Dashboard" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Reports">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Reports">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -140,8 +146,9 @@
                                 <Label Text="Reportes" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="#00000008" ClassId="//Profile">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Profile">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
@@ -150,8 +157,9 @@
                                 <Label Text="Mi Perfil" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
+                        <BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="Transparent" ClassId="//Settings">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Settings">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>

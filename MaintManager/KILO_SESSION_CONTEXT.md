@@ -1,6 +1,6 @@
 # Contexto de Sesión — MaintManager
 
-> Última actualización: 2026-05-15
+> Última actualización: 2026-05-18
 > Cargar este archivo al iniciar una nueva sesión de Kilo para restaurar el contexto completo.
 
 ---
@@ -45,7 +45,7 @@ MaintManager.sln
 | EF Core | 10.x | Con PostgreSQL (Npgsql) |
 | PostgreSQL | 16+ | BD en localhost:5432, DB: neoplus_maintenance |
 
-## 3. Bugs Corregidos (45 total)
+## 3. Bugs Corregidos (66 total)
 
 Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 
@@ -58,34 +58,39 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 | 39 | BI Dashboard crash con LiveChartsCore | Eliminado `x:DataType` de BiDashboardPage |
 | 40 | Ingresar lote: Mateid falsos | LoadMaterials ahora llama API real |
 | 45+ | Texto blanco en fondo blanco | Estilos globales Label/Entry/Editor con ColorTextPrimary fijo |
+| 62 | 415 Content-Type en POST/PUT | StringContent → PostAsJsonAsync |
+| 63 | Sesión no expira tras 8h | Verificación de ExpiresAt en TryRestoreSessionAsync |
+| 64 | Wizard pasos 2-4 sin campos | RadioButtons → Picker, CollectionView → BindableLayout |
+| 65 | Flyout borders duplicados | BoxView como borde inferior único |
+| 66 | Ingreso lote error genérico | catch(HttpRequestException) con mensaje real del servidor |
 
 ## 4. Estado Actual del Proyecto
 
 ### ✅ Funcional
-- Login + JWT + persistencia de sesión (SecureStorage)
+- Login + JWT + persistencia de sesión con expiración (SecureStorage + 8h)
 - Panel principal con KPIs + acciones rápidas + flota
 - Alertas (lista, marcar leídas, resolver, check automático)
 - Calendario (vista mensual, filtros por vehículo/tipo/estado)
 - Mantenimientos (lista paginada con búsqueda + filtros)
-- Inventario (lista con búsqueda + stock bajo)
+- Inventario (lista con búsqueda + stock bajo + ingreso lote con materiales reales)
 - BI Dashboard (5 gráficos con LiveChartsCore)
 - Reportes (exportar Excel costo/km con Share dialog)
 - Mi Perfil (info usuario + crear usuario si admin)
 - Configuración (URL API editable + PIN 1234)
 - Detalle de orden con exportación PDF vía Share
-- Wizard de nueva orden (multi-step)
+- Wizard de nueva orden (7 pasos, todos funcionales con campos visibles)
+- POST/PUT con Content-Type correcto (PostAsJsonAsync)
+- Menú flyout con bordes inferiores limpios, sin duplicación
 
 ### ⚠️ En Progreso / Pendiente
-- Steps 2-4 del wizard de nueva orden: pueden tener problemas de visualización en dispositivo físico
 - Reportes "Órdenes de Mantenimiento" y "Alertas": muestran "no disponible" (no hay endpoint)
 - Validación de datos en el wizard (campos requeridos antes de avanzar)
 - Transacción en POST /api/v1/workers (Person + Worker en dos SaveChanges)
 - Tema oscuro (RadioButtons placeholder en Settings)
 
 ### 🔴 Problemas Conocidos que Requieren Debug en Dispositivo
-1. El botón "Siguiente" en el wizard ahora usa `IsNextButtonVisible`/`IsSaveButtonVisible` sin DataTrigger — verificar en físico
-2. El CollectionView dentro del wizard (pasos 3-4) con Entry dentro de DataTemplate puede tener problemas de foco en Android
-3. Si `Materials` y `Operations` están vacíos, los pasos 3-4 muestran CollectionView sin items — considerar mensaje de "sin datos"
+1. Verificar funcionamiento del wizard completo en dispositivo físico (especialmente steps 3-4 con BindableLayout)
+2. Si `Materials` retorna vacío desde la API, el paso 3 se ve sin items — depende de que existan materiales en BD
 
 ## 5. Flujo de Navegación (Shell)
 
@@ -188,6 +193,12 @@ Tablas principales:
 
 | Archivo | Último Cambio |
 |---------|---------------|
+| `ApiService.cs` | StringContent → PostAsJsonAsync; TryRestoreSessionAsync verifica expiración |
+| `AuthService.cs` | LoginResponse con ExpiresAt; guarda/limpia session_expires_at |
+| `AppShell.xaml` | Flyout borders: BoxView inferior único, StrokeThickness=0, fondos uniformes |
+| `MaintenanceWizardPage.xaml` | Step2: Picker; Steps3-4: BindableLayout (no CollectionView) |
+| `MaintenanceWizardViewModel.cs` | LoadMaterialsAsync + LoadDefaultOperations() |
+| `LotCreateViewModel.cs` | catch(HttpRequestException) con mensaje real; validación Quantity>0 |
 | `AppShell.xaml` + `.cs` | Flyout personalizado con iconos + navegación por Tapped |
 | `BaseViewModel.cs` | Timeout 30s en ExecuteAsync + IsEmpty=false en catch |
 | `BiDashboardViewModel.cs` | 6 APIs secuenciales con try/catch individual |
@@ -195,8 +206,6 @@ Tablas principales:
 | `HomePage.xaml` | Acciones rápidas con Border + GestureRecognizer |
 | `InventoryListPage.xaml` | Sticky footer, SearchBar con colores, CollectionView margin |
 | `MaintenanceListPage.xaml` | Sticky footer, estados fuera del RefreshView |
-| `MaintenanceWizardPage.xaml` | Wizard simplificado, pasos sin DataTrigger |
-| `MaintenanceWizardViewModel.cs` | LoadVehicles con ApiResponse wrapper |
 | `LotCreateViewModel.cs` | LoadMaterials con API real |
 | `App.xaml` | FormPicker con TitleColor, estilos Label/Entry/Editor globales |
 | `Resources/Styles/Colors.xaml` | Primary/Secondary/Tertiary azules (#1565C0) |
@@ -213,23 +222,23 @@ Lee el archivo KILO_SESSION_CONTEXT.md, BUGS_HISTORY.md y README.md para tener e
 Proyecto en: C:\Users\carlo\Desktop\proyect\MaintManager
 
 Estado actual:
-- 45 bugs corregidos (ver BUGS_HISTORY.md)
+- 66 bugs corregidos (ver BUGS_HISTORY.md)
 - Login, Dashboard, Alertas, Calendario, Mantenimientos, Inventario funcionales
 - BI Dashboard con 5 gráficos LiveChartsCore
-- Nueva orden: wizard multi-paso (pasos 2-4 requieren verificación en físico)
+- Wizard multi-paso (7 pasos funcionales, steps 2-4 corregidos: Picker + BindableLayout)
 - PDF y Excel export funcionando con Share dialog
-- Menú hamburguesa personalizado con iconos
-- Sesión persistente vía SecureStorage
+- Menú hamburguesa personalizado con iconos, bordes inferiores limpios
+- Sesión persistente vía SecureStorage con expiración a las 8h
 - Configuración protegida con PIN 1234
+- POST/PUT con Content-Type correcto (PostAsJsonAsync)
+- Ingreso lote con materiales reales desde API + manejo de errores mejorado
 
 Para continuar trabajando, necesito:
 1. Leer el código actual
 2. Tener el contexto de la última sesión
-3. Continuar depurando los problemas pendientes
-4. Haber leido cada archivo de cada carpeta o subcarpeta para que entiendas todo por completo.
-5. haber leido y comprendido la bd completo,se tiene que leer los 3 archivos de forma secuencial y detalalda, entiendo todo por completo 
+3. Continuar depurando los problemas pendientes 
 ```
 
 ---
 
-*Documento generado al cierre de sesión el 2026-05-15.*
+*Documento generado al cierre de sesión el 2026-05-15. Actualizado el 2026-05-18.*

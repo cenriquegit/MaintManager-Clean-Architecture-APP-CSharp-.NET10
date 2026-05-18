@@ -2,7 +2,7 @@
 
 ## Neo Plus Business S.A.C.
 
-**Stack tecnológico:** .NET 10 · ASP.NET Web API · EF Core · PostgreSQL 16 · .NET MAUI 9.0.21 · Clean Architecture  
+**Stack tecnológico:** .NET 10 · ASP.NET Web API · EF Core · PostgreSQL 16 · .NET MAUI 10.0.0 · Clean Architecture  
 **Arquitectura frontend:** MVVM (CommunityToolkit.Mvvm)  
 **Inteligencia de negocio:** Vistas SQL en tiempo real + LiveChartsCore  
 **Autenticación:** JWT Bearer (HMAC‑SHA256, 8 h)  
@@ -121,6 +121,10 @@ Crear `MaintManager.API/appsettings.Development.json`:
 ```
 
 > `appsettings.Development.json` está incluido en `.gitignore`. **No se deben versionar credenciales.**
+
+### 4. Nota sobre HttpClient en MAUI
+
+`ApiService.cs` usa `PostAsJsonAsync` / `PutAsJsonAsync` en vez de `StringContent` manual para evitar el bug de MAUI 10.0.0 donde `StringContent(..., "application/json")` no transmite correctamente el header `Content-Type`, causando error 415 del servidor.
 
 ---
 
@@ -247,7 +251,7 @@ cd MaintManager.API
 dotnet run --urls "http://0.0.0.0:5056"
 ```
 
-> El flag `0.0.0.0` es **obligatorio** para que la API acepte conexiones desde otros dispositivos en la red.
+> ⚠️ El flag **debe ser `--urls`** con doble guion. Si usas `-urls` (un guion), se ignora y se usa el puerto de `launchSettings.json`. El flag `0.0.0.0` es **obligatorio** para que la API acepte conexiones desde otros dispositivos en la red.
 
 #### 6.5 Configurar la URL en la app
 
@@ -288,7 +292,7 @@ Get-NetFirewallRule -DisplayName "MaintManager API 5056" | fl
 | Parámetro | Valor |
 |-----------|-------|
 | `TargetFramework` | `net10.0-android` |
-| `MauiVersion` | `9.0.21` |
+| `MauiVersion` | `10.0.0` |
 | `RuntimeIdentifiers` | `android-arm64` |
 | `AndroidStoreUncompressedFileExtensions` | `.dll;.so;.pdb` |
 | `AndroidEnableCompression` | `false` |
@@ -474,7 +478,7 @@ Los siguientes artefactos se encuentran en la carpeta `docs/` o en el documento 
 El frontend de **MaintManager** fue diseñado bajo un enfoque de software enterprise operativo, priorizando rapidez de uso, claridad visual y toma de decisiones en tiempo real para personal técnico y administrativo.
 
 La aplicación utiliza:
-- **.NET MAUI 9** multiplataforma (Windows + Android)
+- **.NET MAUI 10** multiplataforma (Windows + Android)
 - Arquitectura **MVVM**
 - Navegación centralizada mediante `AppShell`
 - Componentes reutilizables

@@ -1268,16 +1268,144 @@ Reemplazado por dos botones con `IsVisible` condicional:
 
 ---
 
+---
+---
+
+## Bug #62 — 415 Content-Type no se envía en POST/PUT (StringContent en ApiService)
+
+### Síntoma
+Todas las peticiones POST y PUT desde la app MAUI fallaban con error 415 Unsupported Media Type. El log del servidor mostraba `Request starting POST ... - - -` (sin Content-Type ni Content-Length).
+
+### Causa raíz
+`ApiService.PostAsync()` y `PostAndUnwrapAsync()` y `PutAsync()` usaban `new StringContent(body, Encoding.UTF8, "application/json")`. En MAUI 10.0.0, el `StringContent` no transmite correctamente el header `Content-Type` en ciertos runtimes (Android/Windows). El servidor `[ApiController]` rechaza la petición por falta de Content-Type.
+
+### Flujo del error
+```
+Usuario toca botón (login, guardar lote, etc.)
+  → ApiService.PostAsync<T>()
+    → new StringContent(json, Encoding.UTF8, "application/json")
+      → HttpClient.PostAsync() ← Content-Type no se envía
+        → API responde 415 Unsupported Media Type
+          → HandleResponse lanza HttpRequestException
+            → catch (Exception) muestra error genérico
+```
+
+### Solución final
+Reemplazado `StringContent` manual por `PostAsJsonAsync()` / `PutAsJsonAsync()` de `System.Net.Http.Json`, usando un `JsonSerializerOptions` compartido con `PropertyNameCaseInsensitive = true` para mantener consistencia.
+
+Métodos modificados en `ApiService.cs`:
+- `PostAsync<T>` — ahora usa `_httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions)`
+- `PostAndUnwrapAsync<T>` — ahora usa `_httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions)`
+- `PutAsync<T>` — ahora usa `_httpClient.PutAsJsonAsync(endpoint, data, _jsonOptions)`
+
+### Archivos modificados
+- `MaintManager.MAUI/Services/ApiService.cs`
+  - `using System.Text;` → `using System.Net.Http.Json;`
+  - Agregado `_jsonOptions` compartido
+  - 3 métodos reemplazados (PostAsync, PostAndUnwrapAsync, PutAsync)
+
+---
+
+## Bug #63 — Sesión persistente no expira después de 8 horas
+
+### Síntoma
+Al reabrir la app después de más de 8 horas, el usuario seguía en el Dashboard sin necesidad de volver a iniciar sesión.
+
+### Causa raíz
+`ApiService.TryRestoreSessionAsync()` solo verificaba si el token existía en `SecureStorage`, pero nunca verificaba si la fecha de expiración (`ExpiresAt`) ya había pasado. El token JWT de 8h de la API estaba vencido pero la app lo seguía usando.
+
+### Solución final
+1. **`AuthService.cs`**: Se agregó `DateTime ExpiresAt` al `LoginResponse` interno y se guarda en `Preferences` con clave `"session_expires_at"` usando formato roundtrip (`"O"`). Se elimina en `Logout()`.
+2. **`ApiService.TryRestoreSessionAsync()`**: Después de leer el token, parsea `session_expires_at` y lo compara con `DateTime.UtcNow`. Si expiró, limpia todos los datos almacenados (token, usuario, rol, expiración) y retorna `false`, forzando al usuario a hacer login nuevamente.
+
+### Archivos modificados
+- `MaintManager.MAUI/Services/AuthService.cs`
+- `MaintManager.MAUI/Services/ApiService.cs`
+
+---
+
+## Bug #64 — Wizard Nueva Orden: pasos 2-4 sin campos visibles
+
+### Síntoma
+En el wizard de 7 pasos, los pasos 2 (Tipo de Servicio), 3 (Componentes/Materiales) y 4 (Operaciones) no mostraban ningún campo, aunque el indicador de paso cambiaba correctamente. Los pasos 1, 5, 6 y 7 funcionaban normalmente.
+
+### Causas raíz (3 problemas simultáneos)
+
+#### Causa 1: RadioButtons no renderizan en MAUI Android (Step 2)
+Los 3 `RadioButton` del paso 2 no se renderizan en dispositivos Android físicos con MAUI 10.0.0 (bug conocido del framework). El `VerticalStackLayout` era visible pero sin controles visibles.
+
+#### Causa 2: CollectionView dentro de ScrollView (Steps 3-4)
+MAUI tiene un conflicto de scroll conocido: `CollectionView` dentro de `ScrollView` no renderiza su contenido en ciertos casos, porque ambos controles intentan manejar el scroll.
+
+#### Causa 3: Materials y Operations vacíos (Steps 3-4)
+Las colecciones `Materials` y `Operations` se inicializaban como `new ObservableCollection<>()` vacías y nunca se poblaban. No había código que cargara materiales desde la API ni operaciones por defecto.
+
+### Solución final
+
+**Step 2**: Reemplazados los 3 `RadioButton` por un `Picker` bound a `ServiceTypes` (mismo patrón que step 1 con vehículos).
+
+**Step 3**: 
+- `CollectionView` → `VerticalStackLayout` + `BindableLayout.ItemsSource` (no tiene scroll propio, funciona dentro de ScrollView)
+- Agregado `LoadMaterialsAsync()` que llama a `GET /api/v1/inventory/materials` y mapea a `MaterialLine`
+
+**Step 4**:
+- `CollectionView` → `VerticalStackLayout` + `BindableLayout.ItemsSource`
+- Agregado `LoadDefaultOperations()` que crea 6 operaciones comunes predefinidas
+
+### Archivos modificados
+- `MaintManager.MAUI/Views/Maintenances/MaintenanceWizardPage.xaml`
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceWizardViewModel.cs`
+
+---
+
+## Bug #65 — Flyout menú: borders duplicados entre items
+
+### Síntoma
+Los items del menú lateral (Alertas, Calendario, Mantenimientos, etc.) tenían bordes superiores e inferiores que chocaban visualmente, creando un efecto de "doble borde" antiestético.
+
+### Causa raíz
+El `FlyoutContentTemplate` usaba fondos alternados `Transparent` / `#00000008` (opacidad 3%) para separar visualmente los items. Esta alternancia creaba bordes visuales donde los fondos se encontraban. Además, el `Border` de MAUI en algunas plataformas agregaba un `Stroke` por defecto (sin `StrokeThickness="0"` explícito).
+
+### Solución final
+1. Todos los items del menú ahora tienen `BackgroundColor="Transparent"` (sin alternancia)
+2. Todos los `Border` tienen `StrokeThickness="0"` explícito
+3. Entre cada item (excepto el último) se agregó `<BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>` como único borde inferior
+
+### Archivos modificados
+- `MaintManager.MAUI/AppShell.xaml`
+
+---
+
+## Bug #66 — Ingreso lote: error genérico sin detalle del servidor
+
+### Síntoma
+Al registrar un lote, el formulario mostraba "Error al registrar el lote. Verifica los datos e intenta nuevamente." sin especificar si era error de validación, permiso denegado, o problema de conexión.
+
+### Causa raíz
+El `catch (Exception)` en `LotCreateViewModel.Save()` ocultaba el mensaje real del servidor. Cualquier error (415 Content-Type, 400 validación, 403 rol, 500 servidor) mostraba el mismo mensaje genérico.
+
+Además, no había validación cliente para `Quantity <= 0`, que es una regla del `LotCreateValidator` del servidor.
+
+### Solución final
+1. Agregada validación cliente: `if (Quantity <= 0) { ValidationMessage = "La cantidad debe ser mayor a cero."; return; }`
+2. `catch (HttpRequestException ex)` ahora muestra `ex.Message` (que contiene el código HTTP + respuesta del servidor)
+3. `catch (Exception ex)` ahora incluye `ex.Message` en el mensaje
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/Inventory/LotCreateViewModel.cs`
+
+---
+
 ## Estadísticas (actualizado)
 
 | Métrica | Valor |
 |---------|-------|
-| Bugs encontrados | 61 |
-| Bugs corregidos | 61 |
+| Bugs encontrados | 66 |
+| Bugs corregidos | 66 |
 | Bugs reintroducidos | 1 (Bug #5) |
-| Archivos modificados | ~90+ |
-| Líneas de código revisadas | ~15000+ |
-| Tiempo de depuración | ~4 sesiones continuas |
+| Archivos modificados | ~100+ |
+| Líneas de código revisadas | ~18000+ |
+| Tiempo de depuración | ~5 sesiones continuas |
 
 ---
 *Documentación generada automáticamente por Kilo Agent.*

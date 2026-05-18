@@ -1,5 +1,5 @@
 using System.Net.Http.Headers;
-using System.Text;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace MaintManager.MAUI.Services;
@@ -7,6 +7,7 @@ namespace MaintManager.MAUI.Services;
 public class ApiService
 {
     private readonly HttpClient _httpClient;
+    private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
     private string? _authToken;
 
     public ApiService(HttpClient httpClient)
@@ -80,15 +81,17 @@ public class ApiService
 
     public async Task<T?> PostAsync<T>(string endpoint, object? data = null)
     {
-        var content = data is null ? null : new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(endpoint, content);
+        var response = data is null
+            ? await _httpClient.PostAsync(endpoint, null)
+            : await _httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions);
         return await HandleResponse<T>(response);
     }
 
     public async Task<T?> PostAndUnwrapAsync<T>(string endpoint, object? data = null)
     {
-        var content = data is null ? null : new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(endpoint, content);
+        var response = data is null
+            ? await _httpClient.PostAsync(endpoint, null)
+            : await _httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions);
         return await HandleWrappedResponse<T>(response);
     }
 
@@ -125,8 +128,9 @@ public class ApiService
 
     public async Task<T?> PutAsync<T>(string endpoint, object? data = null)
     {
-        var content = data is null ? null : new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-        var response = await _httpClient.PutAsync(endpoint, content);
+        var response = data is null
+            ? await _httpClient.PutAsync(endpoint, null)
+            : await _httpClient.PutAsJsonAsync(endpoint, data, _jsonOptions);
         return await HandleResponse<T>(response);
     }
 

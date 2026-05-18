@@ -125,6 +125,50 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
                 ErrorMessage = "Error al cargar vehículos. Verifica la conexión e intenta nuevamente.";
             }
         });
+
+        await LoadMaterialsAsync();
+        LoadDefaultOperations();
+    }
+
+    private async Task LoadMaterialsAsync()
+    {
+        try
+        {
+            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialRaw>>>(ApiRoutes.Inventory.GetMaterials);
+            if (raw?.Success == true && raw.Data is not null)
+            {
+                Materials = new ObservableCollection<MaterialLine>(
+                    raw.Data.Select(m => new MaterialLine
+                    {
+                        MaterialId = m.Mateid,
+                        Name = m.Name,
+                        UnitOfMeasure = m.UnitOfMeasure,
+                    }));
+            }
+        }
+        catch
+        {
+        }
+    }
+
+    private void LoadDefaultOperations()
+    {
+        Operations = new ObservableCollection<OperationItem>
+        {
+            new() { OperationId = 1, Name = "Cambio de aceite y filtro" },
+            new() { OperationId = 2, Name = "Revisión de frenos" },
+            new() { OperationId = 3, Name = "Revisión de neumáticos" },
+            new() { OperationId = 4, Name = "Revisión de sistema eléctrico" },
+            new() { OperationId = 5, Name = "Lubricación general" },
+            new() { OperationId = 6, Name = "Revisión de suspensión y dirección" },
+        };
+    }
+
+    private sealed class MaterialRaw
+    {
+        public int Mateid { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string UnitOfMeasure { get; init; } = string.Empty;
     }
 
     public class ApiResponse<T>

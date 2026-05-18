@@ -59,15 +59,14 @@
                     <Label Text="Selecciona el tipo de servicio a realizar:"
                            Style="{StaticResource BodyText}"/>
 
-                    <RadioButton Content="Servicio A (Mantenimiento preventivo estándar)"
-                                 GroupName="serviceType"
-                                 IsChecked="{Binding SelectedServiceType, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Servicio A}"/>
-                    <RadioButton Content="Servicio B (Mantenimiento preventivo completo)"
-                                 GroupName="serviceType"
-                                 IsChecked="{Binding SelectedServiceType, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Servicio B}"/>
-                    <RadioButton Content="Emergencia (Reparación correctiva)"
-                                 GroupName="serviceType"
-                                 IsChecked="{Binding SelectedServiceType, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Emergencia}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="4,0">
+                        <Picker ItemsSource="{Binding ServiceTypes}"
+                                SelectedItem="{Binding SelectedServiceType}"
+                                Title="Seleccionar tipo de servicio..."
+                                Style="{StaticResource FormPicker}"/>
+                    </Border>
                 </VerticalStackLayout>
 
                 <!-- Step 3: Components and materials -->
@@ -78,28 +77,39 @@
                     <Label Text="Registra los materiales utilizados:"
                            Style="{StaticResource BodyText}"/>
 
-                    <CollectionView ItemsSource="{Binding Materials}">
-                        <CollectionView.ItemTemplate>
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Materials}" Spacing="8">
+                        <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Grid ColumnDefinitions="*,Auto,Auto" Padding="0,4" ColumnSpacing="8">
-                                    <Label Text="{Binding Name}"
-                                           VerticalOptions="Center"
-                                           TextColor="{StaticResource ColorTextPrimary}"/>
-                                    <Entry Grid.Column="1"
-                                           Text="{Binding Quantity}"
-                                           Keyboard="Numeric"
-                                           WidthRequest="80"
-                                           Placeholder="0"
-                                           TextColor="{StaticResource ColorTextPrimary}"
-                                           PlaceholderColor="{StaticResource Gray500}"/>
-                                    <Label Grid.Column="2"
-                                           Text="{Binding UnitOfMeasure}"
-                                           VerticalOptions="Center"
-                                           Style="{StaticResource CaptionText}"/>
-                                </Grid>
+                                <Border StrokeShape="RoundRectangle 8"
+                                        Stroke="{StaticResource ColorBorderLight}"
+                                        StrokeThickness="1" Padding="12,8"
+                                        BackgroundColor="{StaticResource ColorSurface}">
+                                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                                        <VerticalStackLayout VerticalOptions="Center">
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="14"
+                                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                                            <Label Text="{Binding UnitOfMeasure}"
+                                                   FontSize="11"
+                                                   TextColor="{StaticResource ColorTextSecondary}"/>
+                                        </VerticalStackLayout>
+                                        <Border Grid.Column="1"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="{StaticResource ColorBorder}"
+                                                StrokeThickness="1" Padding="8,0"
+                                                BackgroundColor="{StaticResource ColorSurface}">
+                                            <Entry Text="{Binding Quantity}"
+                                                   Keyboard="Numeric"
+                                                   WidthRequest="80"
+                                                   Placeholder="0"
+                                                   TextColor="{StaticResource ColorTextPrimary}"
+                                                   PlaceholderColor="{StaticResource Gray500}"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
 
                 <!-- Step 4: Operations checklist -->
@@ -110,20 +120,27 @@
                     <Label Text="Verifica las operaciones realizadas:"
                            Style="{StaticResource BodyText}"/>
 
-                    <CollectionView ItemsSource="{Binding Operations}">
-                        <CollectionView.ItemTemplate>
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Operations}" Spacing="8">
+                        <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Grid ColumnDefinitions="Auto,*" Padding="0,6" ColumnSpacing="12">
-                                    <CheckBox IsChecked="{Binding IsCompleted}"
-                                              Color="{StaticResource ColorPrimary}"/>
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Name}"
-                                           VerticalOptions="Center"
-                                           TextColor="{StaticResource ColorTextPrimary}"/>
-                                </Grid>
+                                <Border StrokeShape="RoundRectangle 8"
+                                        Stroke="{StaticResource ColorBorderLight}"
+                                        StrokeThickness="1" Padding="12,8"
+                                        BackgroundColor="{StaticResource ColorSurface}">
+                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                                        <CheckBox IsChecked="{Binding IsCompleted}"
+                                                  Color="{StaticResource ColorPrimary}"
+                                                  VerticalOptions="Center"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Name}"
+                                               VerticalOptions="Center"
+                                               FontSize="14"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+                                    </Grid>
+                                </Border>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
                 </VerticalStackLayout>
 
                 <!-- Step 5: Diagnosis -->

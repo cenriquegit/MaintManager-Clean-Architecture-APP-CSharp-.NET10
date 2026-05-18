@@ -76,6 +76,7 @@ obj\Release\net10.0-android\android-arm64\aot\System.IO.Pipelines.dll.so
 obj\Release\net10.0-android\android-arm64\aot\System.Linq.Expressions.dll.so
 obj\Release\net10.0-android\android-arm64\aot\System.Linq.dll.so
 obj\Release\net10.0-android\android-arm64\aot\System.Memory.dll.so
+obj\Release\net10.0-android\android-arm64\aot\System.Net.Http.Json.dll.so
 obj\Release\net10.0-android\android-arm64\aot\System.Net.Http.dll.so
 obj\Release\net10.0-android\android-arm64\aot\System.Net.Primitives.dll.so
 obj\Release\net10.0-android\android-arm64\aot\System.Net.Requests.dll.so

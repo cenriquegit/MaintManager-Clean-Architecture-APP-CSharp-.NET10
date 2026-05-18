@@ -101,7 +101,15 @@ public partial class LotCreateViewModel : BaseViewModel
             return;
         }
 
+        if (Quantity <= 0)
+        {
+            ValidationMessage = "La cantidad debe ser mayor a cero.";
+            HasValidationError = true;
+            return;
+        }
+
         IsSaving = true;
+        HasValidationError = false;
         try
         {
             var request = new
@@ -115,9 +123,14 @@ public partial class LotCreateViewModel : BaseViewModel
             await _apiService.PostAsync<object>($"api/v1/inventory/materials/{SelectedMaterial.Mateid}/lots", request);
             await Shell.Current.GoToAsync("..");
         }
-        catch (Exception)
+        catch (HttpRequestException ex)
         {
-            ValidationMessage = "Error al registrar el lote. Verifica los datos e intenta nuevamente.";
+            ValidationMessage = ex.Message;
+            HasValidationError = true;
+        }
+        catch (Exception ex)
+        {
+            ValidationMessage = $"Error al registrar el lote: {ex.Message}";
             HasValidationError = true;
         }
         finally
