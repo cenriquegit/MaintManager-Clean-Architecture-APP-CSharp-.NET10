@@ -86,17 +86,19 @@ public class ApiService
 
     public async Task<T?> PostAsync<T>(string endpoint, object? data = null)
     {
-        var response = data is null
-            ? await _httpClient.PostAsync(endpoint, null)
-            : await _httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions);
+        HttpContent? content = null;
+        if (data is not null)
+            content = JsonContent.Create(data, options: _jsonOptions);
+        var response = await _httpClient.PostAsync(endpoint, content);
         return await HandleResponse<T>(response);
     }
 
     public async Task<T?> PostAndUnwrapAsync<T>(string endpoint, object? data = null)
     {
-        var response = data is null
-            ? await _httpClient.PostAsync(endpoint, null)
-            : await _httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions);
+        HttpContent? content = null;
+        if (data is not null)
+            content = JsonContent.Create(data, options: _jsonOptions);
+        var response = await _httpClient.PostAsync(endpoint, content);
         return await HandleWrappedResponse<T>(response);
     }
 
@@ -133,9 +135,10 @@ public class ApiService
 
     public async Task<T?> PutAsync<T>(string endpoint, object? data = null)
     {
-        var response = data is null
-            ? await _httpClient.PutAsync(endpoint, null)
-            : await _httpClient.PutAsJsonAsync(endpoint, data, _jsonOptions);
+        HttpContent? content = null;
+        if (data is not null)
+            content = JsonContent.Create(data, options: _jsonOptions);
+        var response = await _httpClient.PutAsync(endpoint, content);
         return await HandleResponse<T>(response);
     }
 

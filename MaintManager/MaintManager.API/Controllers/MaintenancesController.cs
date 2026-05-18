@@ -114,9 +114,10 @@ public sealed class MaintenancesController : ControllerBase
 
         try
         {
+            var assignedTo = request.AssignedTo > 0 ? request.AssignedTo : registeredBy;
             var maintenance = await _maintenanceService.CreateAsync(
                 request.Prcoid, request.Matyid, request.Mileage,
-                request.AssignedTo, registeredBy, request.Setyid, request.Note, ct);
+                assignedTo, registeredBy, request.Setyid, request.Note, ct);
 
             return CreatedAtAction(nameof(GetById),
                 new { id = maintenance.Mainid },

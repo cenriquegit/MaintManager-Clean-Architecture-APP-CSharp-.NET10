@@ -9,10 +9,12 @@ namespace MaintManager.MAUI.ViewModels.Maintenances;
 public partial class MaintenanceWizardViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private readonly AuthService _authService;
 
-    public MaintenanceWizardViewModel(ApiService apiService)
+    public MaintenanceWizardViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
+        _authService = authService;
         Title = "Nueva Orden de Mantenimiento";
     }
 
@@ -65,18 +67,6 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
 
     [ObservableProperty]
     private string _diagnosisCode = string.Empty;
-
-    // Step 6: Next service planning
-    [ObservableProperty]
-    private int _nextServiceKm;
-
-    [ObservableProperty]
-    private DateTime _nextServiceDate = DateTime.Today.AddMonths(3);
-
-    public DateTime NextServiceMinDate => DateTime.Today;
-
-    [ObservableProperty]
-    private string _nextServiceNotes = string.Empty;
 
     // Step 7: Confirmation
     [ObservableProperty]
@@ -185,23 +175,20 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         HasError = false;
         try
         {
+            var isEmergency = SelectedServiceType == "Emergencia";
+            short matyid = (short)(isEmergency ? 2 : 1);
+            short? setyid = isEmergency ? null : (short?)(SelectedServiceType == "Servicio B" ? 2 : 1);
+
             var request = new
             {
-                VehicleId = SelectedVehicle?.VehicleId,
+                Prcoid = SelectedVehicle?.VehicleId ?? 0,
+                Matyid = matyid,
                 Mileage = int.TryParse(MileageText, out var km) ? km : 0,
-                ServiceType = SelectedServiceType,
-                Diagnosis = new
-                {
-                    Code = DiagnosisCode,
-                    Description = DiagnosisDescription,
-                    RecommendedAction = string.Empty,
-                    Severity = string.Empty
-                },
-                NextServiceKm = NextServiceKm,
-                NextServiceDate = NextServiceDate.ToString("yyyy-MM-dd"),
-                NextServiceNotes = NextServiceNotes,
-                Materials = Materials.Select(m => new { m.MaterialId, m.Quantity }),
-                Operations = Operations.Select(o => new { OperationId = o.OperationId, IsCompleted = o.IsCompleted })
+                AssignedTo = _authService.GetWorkid(),
+                Setyid = setyid,
+                Note = string.IsNullOrWhiteSpace(DiagnosisDescription)
+                    ? null : DiagnosisDescription,
+                OriginService = "Taller propio"
             };
 
             await _apiService.PostAsync<object>(ApiRoutes.Maintenances.Create, request);

@@ -534,15 +534,6 @@
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.DiagnosisCode">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel._diagnosisCode"/>
         </member>
-        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.NextServiceKm">
-            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel._nextServiceKm"/>
-        </member>
-        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.NextServiceDate">
-            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel._nextServiceDate"/>
-        </member>
-        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.NextServiceNotes">
-            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel._nextServiceNotes"/>
-        </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.IsSaving">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel._isSaving"/>
         </member>
@@ -901,15 +892,6 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DiagnosisCode">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DiagnosisCode" generated properties.</summary>
         </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.NextServiceKm">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "NextServiceKm" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.NextServiceDate">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "NextServiceDate" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.NextServiceNotes">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "NextServiceNotes" generated properties.</summary>
-        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.UserName">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "UserName" generated properties.</summary>
         </member>
@@ -1161,15 +1143,6 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DiagnosisCode">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DiagnosisCode" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.NextServiceKm">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "NextServiceKm" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.NextServiceDate">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "NextServiceDate" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.NextServiceNotes">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "NextServiceNotes" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.UserName">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "UserName" generated properties.</summary>

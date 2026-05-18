@@ -18,7 +18,7 @@ public sealed class MaintenanceCreateValidator : AbstractValidator<MaintenanceCr
             .GreaterThanOrEqualTo(0).WithMessage("El kilometraje no puede ser negativo.");
 
         RuleFor(x => x.AssignedTo)
-            .GreaterThan(0).WithMessage("Debe asignar un mecánico a la orden.");
+            .GreaterThanOrEqualTo(0).WithMessage("Debe asignar un mecánico a la orden.");
 
         RuleFor(x => x.Setyid)
             .NotNull().WithMessage("El tipo de servicio (A o B) es obligatorio para mantenimientos calendarizados.")
