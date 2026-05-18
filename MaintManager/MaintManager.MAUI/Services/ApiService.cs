@@ -18,12 +18,25 @@ public class ApiService
     public async Task<bool> TryRestoreSessionAsync()
     {
         var token = await SecureStorage.GetAsync("auth_token").ConfigureAwait(false);
-        if (!string.IsNullOrEmpty(token))
+        if (string.IsNullOrEmpty(token))
+            return false;
+
+        var expiresAtStr = Preferences.Get("session_expires_at", null);
+        if (expiresAtStr is not null
+            && DateTime.TryParse(expiresAtStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out var expiresAt)
+            && DateTime.UtcNow >= expiresAt)
         {
-            SetAuthToken(token);
-            return true;
+            ClearAuthToken();
+            SecureStorage.Remove("auth_token");
+            Preferences.Remove("user_username");
+            Preferences.Remove("user_fullname");
+            Preferences.Remove("user_role");
+            Preferences.Remove("session_expires_at");
+            return false;
         }
-        return false;
+
+        SetAuthToken(token);
+        return true;
     }
 
     public static string DefaultBaseUrl =>

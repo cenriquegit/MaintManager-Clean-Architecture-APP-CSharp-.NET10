@@ -28,7 +28,12 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     {
         OnPropertyChanged(nameof(IsFirstStep));
         OnPropertyChanged(nameof(IsLastStep));
+        OnPropertyChanged(nameof(IsNextButtonVisible));
+        OnPropertyChanged(nameof(IsSaveButtonVisible));
     }
+
+    public bool IsNextButtonVisible => !IsLastStep;
+    public bool IsSaveButtonVisible => IsLastStep;
 
     // Step 1: Vehicle selection + mileage
     [ObservableProperty]

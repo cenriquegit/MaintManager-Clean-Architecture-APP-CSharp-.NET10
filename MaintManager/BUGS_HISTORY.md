@@ -54,6 +54,22 @@
 | 43 | FormPicker global: sin TitleColor (texto placeholder invisible) | ALTO | ✅ Resuelto (14/05) |
 | 44 | Picker Wizard Nueva Orden: sin estilo FormPicker | ALTO | ✅ Resuelto (14/05) |
 | 45 | Material Picker en Ingresar Lote: texto blanco (FormPicker sin TextColor) | ALTO | ✅ Resuelto (14/05) |
+| 46 | Acciones rápidas Panel: emoji diminuto en Button multilínea | BAJO | ✅ Resuelto (15/05) |
+| 47 | Menú hamburguesa: doble border entre items por BoxView | BAJO | ✅ Resuelto (15/05) |
+| 48 | Menú hamburguesa: botones no tappables (x:Static falla en DataTemplate) | CRÍTICO | ✅ Resuelto (15/05) |
+| 49 | Menú hamburguesa: no se cierra al navegar | MEDIO | ✅ Resuelto (15/05) |
+| 50 | BI Dashboard sigue crasheando (compiled bindings con LiveChartsCore) | CRÍTICO | ✅ Resuelto (15/05) |
+| 51 | "Nueva orden" crashea la app sin try/catch en GoToAsync | CRÍTICO | ✅ Resuelto (15/05) |
+| 52 | "Nueva orden" no hace nada (navegación silenciosa falla, ruta relativa vs absoluta) | ALTO | ✅ Resuelto (15/05) |
+| 53 | Mantenimientos: se queda en "Cargando órdenes..." (RefreshView congela bindings) | CRÍTICO | ✅ Resuelto (15/05) |
+| 54 | Wizard Nueva Orden: pasos 2-4 no funcionan (DataTrigger en botón bugueado) | ALTO | ✅ Resuelto (15/05) |
+| 55 | Color púrpura #512BD4 persistente en Primary/Secondary de MAUI | MEDIO | ✅ Resuelto (15/05) |
+| 56 | Inventario: ruta AddLot no coincide con ruta registrada | ALTO | ✅ Resuelto (15/05) |
+| 57 | Última card cortada por sticky footer en listas | BAJO | ✅ Resuelto (15/05) |
+| 58 | Wizard: LoadVehicles sin ApiResponse wrapper (deserialización incorrecta) | ALTO | ✅ Resuelto (15/05) |
+| 59 | ExecuteAsync sin timeout (operación colgada deja UI en loading forever) | ALTO | ✅ Resuelto (15/05) |
+| 60 | Loading/Error dentro de RefreshView no se actualizan (bindings congeladas) | CRÍTICO | ✅ Resuelto (15/05) |
+| 61 | Wizard: DataTrigger en botón Siguiente/Guardar pierde estado | ALTO | ✅ Resuelto (15/05) |
 
 ---
 
@@ -1031,16 +1047,237 @@ Agregado `<Setter Property="TextColor" Value="{StaticResource ColorTextPrimary}"
 
 ---
 
+## Bug #46 — Acciones rápidas Panel: emoji diminuto en Button multilínea
+
+### Síntoma
+Los botones de acceso rápido en el Panel mostraban el emoji muy pequeño (FontSize=15) dentro de un Button con HeightRequest=72, dejando gran área de fondo de color vacía.
+
+### Causa raíz
+`Button.Text` renderiza TODO el contenido (emoji + texto) al mismo `FontSize`. Con `&#x0a;` (multilínea), el emoji se veía diminuto porque no se puede escalar independientemente.
+
+### Solución final
+Reemplazados los 4 Buttons por `Border` + `TapGestureRecognizer` + `VerticalStackLayout` con:
+- Emoji independiente a `FontSize="28"` (grande y visible)
+- Texto a `FontSize="11"` (legible pero compacto)
+
+---
+
+## Bug #47 — Menú hamburguesa: doble border entre items por BoxView
+
+### Síntoma
+Cada item del flyout (excepto el primero) tenía un `BoxView HeightRequest="0.5"` encima, creando una línea divisoria que junto con el padding del Border generaba doble separación visual.
+
+### Solución final
+Eliminados TODOS los `BoxView` separadores. La separación entre items ahora se logra con fondos alternados: `Transparent` / `#00000008` (opacidad 8/255) en filas alternas. Sin líneas, sin dobles bordes.
+
+---
+
+## Bug #48 — Menú hamburguesa: botones no tappables (x:Static falla en DataTemplate)
+
+### Síntoma
+Los items del flyout se veían como Labels sin funcionalidad. Al tocarlos no pasaba nada.
+
+### Causa raíz
+`Command="{x:Static local:AppShell.NavigateCommand}"` dentro del `FlyoutContentTemplate` (un `DataTemplate` de Shell). `x:Static` no se resuelve correctamente dentro de DataTemplates anidados en Shell. El `Command` queda como `null` y el `TapGestureRecognizer` no ejecuta ninguna acción.
+
+### Solución final
+Reemplazado `Command` + `CommandParameter` por evento `Tapped` en code-behind:
+- Cada `Border` tiene `ClassId="//Route"` 
+- Un solo handler `OnFlyoutItemTapped` lee `ClassId` y ejecuta `Shell.Current.GoToAsync(route)`
+- Se eliminaron `NavigateCommand` y `FlyoutNavigateCommand` estáticos
+
+---
+
+## Bug #49 — Menú hamburguesa: no se cierra al navegar
+
+### Síntoma
+Al tocar un item del flyout, la navegación ocurría pero el panel lateral seguía abierto. El usuario debía tocar la pantalla para cerrarlo manualmente.
+
+### Causa raíz
+Al reemplazar el menú nativo por `FlyoutContentTemplate`, se pierde el comportamiento automático de `FlyoutIsPresented = false`. El `TapGestureRecognizer` ejecuta la navegación pero no cierra el panel.
+
+### Solución final
+En `OnFlyoutItemTapped`, se agregó `Shell.Current.FlyoutIsPresented = false` + `await Task.Delay(100)` antes de navegar.
+
+---
+
+## Bug #50 — BI Dashboard sigue crasheando (compiled bindings con LiveChartsCore)
+
+### Síntoma
+La página BI Dashboard se cerraba inmediatamente al abrirse.
+
+### Causa raíz
+`x:DataType="vm:BiDashboardViewModel"` en BiDashboardPage.xaml habilitaba bindings compilados. Los controles `lvc:CartesianChart` y `lvc:PieChart` de LiveChartsCore usan tipos `ISeries[]` y `Axis[]` que el source generator de MAUI no maneja correctamente, causando crash durante la construcción visual.
+
+### Solución final
+Eliminado `x:DataType` de `BiDashboardPage.xaml`. Las bindings pasan a reflection.
+
+---
+
+## Bug #51 — "Nueva orden" crashea la app sin try/catch en GoToAsync
+
+### Síntoma
+Al tocar "+ Nueva orden" la app se cerraba completamente.
+
+### Causa raíz
+`CreateNew()` tenía `await Shell.Current.GoToAsync("Maintenances/Create")` sin try/catch. Si GoToAsync lanzaba excepción (por ruta no encontrada, página no creada, etc.), el `async Task` propagaba al crash handler de MAUI y cerraba la app.
+
+### Solución final
+Agregado try/catch en ambos comandos `CreateNew()` y `AddLot()`:
+```csharp
+try { await Shell.Current.GoToAsync("Maintenances/Create"); }
+catch { /* navegación de respaldo */ }
+```
+
+---
+
+## Bug #52 — "Nueva orden" no hace nada (navegación silenciosa)
+
+### Síntoma
+Después del fix del Bug #51, el botón no crasheaba pero tampoco navegaba. No ocurría nada visible.
+
+### Causa raíz
+La ruta `"Maintenances/Create"` se interpretaba de manera ambigua desde dentro del FlyoutItem `Maintenances` (ruta `//Maintenances`). Shell buscaba `//Maintenances/Maintenances/Create` en vez de usar la ruta registrada globalmente.
+
+### Solución final
+Se cerró el flyout antes de navegar (`FlyoutIsPresented = false`) + doble estrategia de ruta: primero intenta `"Maintenances/Create"` (global), si falla intenta `"Create"` (relativa pura). Mismo fix para Inventory/AddLot.
+
+---
+
+## Bug #53 — Mantenimientos: se queda en "Cargando órdenes..."
+
+### Síntoma
+La página de Mantenimientos mostraba el spinner de carga infinitamente incluso después de que la API respondiera correctamente.
+
+### Causa raíz
+El `RefreshView` de MAUI tiene un bug: cuando su `IsRefreshing` está ligado a `IsLoading`, los bindings de los elementos hijos (`IsVisible="{Binding IsLoading}"`) se congelan dentro del `RefreshView` y no se actualizan cuando `IsLoading` cambia a `false`.
+
+### Solución final
+Loading y Error se movieron **FUERA del RefreshView**, como hermanos directos del Grid exterior, con `Grid.Row="2"` y `ZIndex="10"`. El `RefreshView` ahora solo envuelve el contenido Empty + Success.
+
+---
+
+## Bug #54 — Wizard Nueva Orden: pasos 2-4 no funcionan
+
+### Síntoma
+En el wizard multi-paso, los pasos 2, 3 y 4 no se mostraban al hacer clic en "Siguiente". Los pasos 1, 5, 6 y 7 funcionaban correctamente.
+
+### Causa raíz
+El botón "Siguiente" usaba un `DataTrigger` que cambiaba simultáneamente `Text` y `Command` cuando `IsLastStep = True`. MAUI tiene un bug conocido donde los `DataTrigger` sobre botones pierden el estado visual o el binding original al salir del trigger.
+
+### Solución final
+Reemplazado el `DataTrigger` por dos botones con `IsVisible` condicional: "Siguiente" (`IsNextButtonVisible`) y "Guardar" (`IsSaveButtonVisible`). Las propiedades computadas se notifican mediante `OnPropertyChanged` en `OnCurrentStepChanged`.
+
+---
+
+## Bug #55 — Color púrpura #512BD4 persistente en Primary/Secondary de MAUI
+
+### Síntoma
+A pesar de haber cambiado `ColorPrimary` a azul, muchos controles nativos (tab bar, navigation bar, switch, radio button) seguían mostrando color púrpura.
+
+### Causa raíz
+MAUI define su paleta oficial con las claves `Primary`, `Secondary`, `Tertiary` en `Resources/Styles/Colors.xaml` (no `ColorPrimary`). Los estilos internos del framework usan `{StaticResource Primary}` que apuntaba a `#512BD4`.
+
+### Solución final
+Cambiados todos los colores base en `Resources/Styles/Colors.xaml`:
+- `Primary`: `#512BD4` → `#1565C0`
+- `PrimaryDark`: `#ac99ea` → `#0D47A1`
+- `Secondary`: `#DFD8F7` → `#BBDEFB`
+- `Tertiary`: `#2B0B98` → `#0D47A1`
+
+---
+
+## Bug #56 — Inventario: ruta AddLot no coincide con ruta registrada
+
+### Síntoma
+El botón "+ Ingresar lote" llamaba `Shell.Current.GoToAsync("//Inventory/LotCreate")` pero la ruta registrada era `"Inventory/CreateLot"`. La navegación fallaba silenciosamente.
+
+### Solución final
+Ruta corregida a `"Inventory/CreateLot"` + try/catch con respaldo relativo `"CreateLot"`.
+
+---
+
+## Bug #57 — Última card cortada por sticky footer en listas
+
+### Síntoma
+En las páginas con sticky footer (Mantenimientos, Inventario), el último elemento de la lista quedaba parcialmente oculto detrás del footer.
+
+### Solución final
+Agregado `Margin="16,0,16,12"` a los `CollectionView` de `MaintenanceListPage` e `InventoryListPage` para separación inferior de 12px.
+
+---
+
+## Bug #58 — Wizard: LoadVehicles sin ApiResponse wrapper
+
+### Síntoma
+Al abrir el wizard de Nueva Orden, los vehículos no se cargaban y se mostraba un error.
+
+### Causa raíz
+`LoadVehicles()` llamaba `GetAsync<List<VehicleOption>>` esperando un arreglo plano, pero la API devuelve `ApiResponse<IReadOnlyList<VehicleListItem>>` (envuelto en `{ success, data }`). La deserialización fallaba.
+
+### Solución final
+Se agregó un DTO raw `VehicleListRaw` con mapeo explícito. `LoadVehicles()` ahora usa `GetAsync<ApiResponse<List<VehicleListRaw>>>()` y mapea a `VehicleOption`.
+
+---
+
+## Bug #59 — ExecuteAsync sin timeout (UI congelada en loading)
+
+### Síntoma
+Si una operación asíncrona se colgaba (API sin respuesta, deadlock, etc.), la UI quedaba permanentemente en estado de carga con el spinner visible.
+
+### Solución final
+Agregado timeout de 30 segundos en `BaseViewModel.ExecuteAsync()` usando `Task.WhenAny`:
+```csharp
+var timeoutTask = Task.Delay(30000);
+var opTask = operation();
+var completed = await Task.WhenAny(opTask, timeoutTask);
+if (completed == timeoutTask)
+{
+    HasError = true;
+    ErrorMessage = "La operación tardó demasiado. Intenta nuevamente.";
+}
+```
+
+---
+
+## Bug #60 — Loading/Error dentro de RefreshView no se actualizan
+
+### Síntoma
+En Mantenimientos, los estados de Loading y Error dentro del `RefreshView` no se ocultaban cuando `IsLoading`/`HasError` cambiaban.
+
+### Causa raíz
+Bug de MAUI: los bindings de elementos hijos dentro de un `RefreshView` no se actualizan cuando el `RefreshView` cambia su estado `IsRefreshing`.
+
+### Solución final
+Loading y Error se movieron fuera del `RefreshView` a su propio slot en el Grid, con `ZIndex="10"` para superponerse al contenido.
+
+---
+
+## Bug #61 — Wizard: DataTrigger en botón Siguiente/Guardar pierde estado
+
+### Síntoma
+El botón de navegación en el wizard no cambiaba correctamente de "Siguiente" a "Guardar" al llegar al paso 7.
+
+### Causa raíz
+El `DataTrigger` sobre el Button modificaba simultáneamente `Text` y `Command`. MAUI no restaura correctamente los valores originales cuando la condición del trigger deja de cumplirse.
+
+### Solución final
+Reemplazado por dos botones con `IsVisible` condicional:
+- `IsNextButtonVisible` (pasos 1-6): muestra "Siguiente"
+- `IsSaveButtonVisible` (paso 7): muestra "Guardar"
+
+---
+
 ## Estadísticas (actualizado)
 
 | Métrica | Valor |
 |---------|-------|
-| Bugs encontrados | 45 |
-| Bugs corregidos | 45 |
+| Bugs encontrados | 61 |
+| Bugs corregidos | 61 |
 | Bugs reintroducidos | 1 (Bug #5) |
-| Archivos modificados | ~80+ |
-| Líneas de código revisadas | ~12000+ |
-| Tiempo de depuración | ~3 sesiones continuas |
+| Archivos modificados | ~90+ |
+| Líneas de código revisadas | ~15000+ |
+| Tiempo de depuración | ~4 sesiones continuas |
 
 ---
 *Documentación generada automáticamente por Kilo Agent.*

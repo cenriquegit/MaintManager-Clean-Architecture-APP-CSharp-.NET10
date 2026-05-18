@@ -20,6 +20,7 @@ public class AuthService
             Preferences.Set("user_username", response.Username);
             Preferences.Set("user_fullname", response.FullName);
             Preferences.Set("user_role", response.Role);
+            Preferences.Set("session_expires_at", response.ExpiresAt.ToString("O"));
             return true;
         }
         return false;
@@ -38,6 +39,7 @@ public class AuthService
         Preferences.Remove("user_username");
         Preferences.Remove("user_fullname");
         Preferences.Remove("user_role");
+        Preferences.Remove("session_expires_at");
     }
 
     private class LoginResponse
@@ -46,5 +48,6 @@ public class AuthService
         public string Username { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
+        public DateTime ExpiresAt { get; set; }
     }
 }

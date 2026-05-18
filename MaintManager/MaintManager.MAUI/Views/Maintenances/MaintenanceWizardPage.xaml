@@ -262,14 +262,14 @@
             <Button Grid.Column="1"
                     Text="Siguiente"
                     Command="{Binding NextStepCommand}"
-                    Style="{StaticResource PrimaryButton}">
-                <Button.Triggers>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsLastStep}" Value="True">
-                        <Setter Property="Text" Value="Guardar"/>
-                        <Setter Property="Command" Value="{Binding SaveCommand}"/>
-                    </DataTrigger>
-                </Button.Triggers>
-            </Button>
+                    IsVisible="{Binding IsNextButtonVisible}"
+                    Style="{StaticResource PrimaryButton}"/>
+
+            <Button Grid.Column="1"
+                    Text="Guardar"
+                    Command="{Binding SaveCommand}"
+                    IsVisible="{Binding IsSaveButtonVisible}"
+                    Style="{StaticResource PrimaryButton}"/>
         </Grid>
 
     </Grid>
