@@ -17,10 +17,11 @@ public class AuthService
         {
             _apiService.SetAuthToken(response.Token);
             await SecureStorage.SetAsync("auth_token", response.Token);
+            Preferences.Set("auth_token", response.Token);
             Preferences.Set("user_username", response.Username);
             Preferences.Set("user_fullname", response.FullName);
             Preferences.Set("user_role", response.Role);
-            Preferences.Set("session_expires_at", response.ExpiresAt.ToString("O"));
+            Preferences.Set("session_expires_at", DateTime.UtcNow.AddHours(8).ToString("O"));
             return true;
         }
         return false;
@@ -36,6 +37,7 @@ public class AuthService
     {
         _apiService.ClearAuthToken();
         SecureStorage.Remove("auth_token");
+        Preferences.Remove("auth_token");
         Preferences.Remove("user_username");
         Preferences.Remove("user_fullname");
         Preferences.Remove("user_role");
@@ -48,6 +50,5 @@ public class AuthService
         public string Username { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public string Role { get; set; } = string.Empty;
-        public DateTime ExpiresAt { get; set; }
     }
 }

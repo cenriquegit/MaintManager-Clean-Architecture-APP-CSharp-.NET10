@@ -20,15 +20,20 @@ public class ApiService
     {
         var token = await SecureStorage.GetAsync("auth_token").ConfigureAwait(false);
         if (string.IsNullOrEmpty(token))
+            token = Preferences.Get("auth_token", null);
+
+        if (string.IsNullOrEmpty(token))
             return false;
 
         var expiresAtStr = Preferences.Get("session_expires_at", null);
         if (expiresAtStr is not null
-            && DateTime.TryParse(expiresAtStr, null, System.Globalization.DateTimeStyles.RoundtripKind, out var expiresAt)
+            && DateTime.TryParseExact(expiresAtStr, "O", System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.RoundtripKind, out var expiresAt)
             && DateTime.UtcNow >= expiresAt)
         {
             ClearAuthToken();
             SecureStorage.Remove("auth_token");
+            Preferences.Remove("auth_token");
             Preferences.Remove("user_username");
             Preferences.Remove("user_fullname");
             Preferences.Remove("user_role");
