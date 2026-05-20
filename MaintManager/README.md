@@ -68,7 +68,7 @@ MaintManager/
 ├── MaintManager.Infrastructure/  ← EF Core, repositorios, configuraciones Fluent API, seed data
 ├── MaintManager.API/             ← Controladores REST, middleware (JWT, CORS, excepciones), Swagger
 ├── MaintManager.MAUI/            ← App Android/Windows, ViewModels, Pages, Services, Converters, Controls
-└── MaintManager.Shared/          ← Constantes (ApiRoutes, ErrorMessages, RoleNames, AlertTypes)
+└── MaintManager.Shared/          ← Constantes (ApiRoutes, ErrorMessages, RoleNames, AlertTypes) + DTOs compartidos (Shared/Models)
 ```
 
 ---
@@ -124,7 +124,7 @@ Crear `MaintManager.API/appsettings.Development.json`:
 
 ### 4. Nota sobre HttpClient en MAUI
 
-`ApiService.cs` usa `PostAsJsonAsync` / `PutAsJsonAsync` en vez de `StringContent` manual para evitar el bug de MAUI 10.0.0 donde `StringContent(..., "application/json")` no transmite correctamente el header `Content-Type`, causando error 415 del servidor.
+`ApiService.cs` usa `JsonContent.Create(data, options)` para serializar requests POST/PUT. Esto evita el bug de MAUI 10.0.0 donde `StringContent(..., "application/json")` no transmite correctamente el header `Content-Type` (415), y es compatible con AOT en Release. Los DTOs de request/response residen en `MaintManager.Shared.Models` como tipos concretos para que AOT genere serializadores.
 
 ---
 

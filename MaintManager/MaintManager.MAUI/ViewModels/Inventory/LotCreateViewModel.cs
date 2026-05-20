@@ -3,33 +3,19 @@ using CommunityToolkit.Mvvm.Input;
 using MaintManager.MAUI.Models;
 using MaintManager.MAUI.Services;
 using MaintManager.Shared.Constants;
+using MaintManager.Shared.Models;
 using System.Collections.ObjectModel;
-using System.Text.Json;
 
 namespace MaintManager.MAUI.ViewModels.Inventory;
 
 public partial class LotCreateViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
-    private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     public LotCreateViewModel(ApiService apiService)
     {
         _apiService = apiService;
         Title = "Ingresar Lote";
-    }
-
-    private sealed class MaterialListRaw
-    {
-        public int Mateid { get; init; }
-        public string Name { get; init; } = string.Empty;
-        public string? UnitOfMeasure { get; init; }
-    }
-
-    private sealed class ApiResponse<T>
-    {
-        public bool Success { get; set; }
-        public T? Data { get; set; }
     }
 
     [ObservableProperty]
@@ -70,12 +56,18 @@ public partial class LotCreateViewModel : BaseViewModel
     [ObservableProperty]
     private bool _isSaving;
 
+    private sealed class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+    }
+
     [RelayCommand]
     private async Task LoadMaterials()
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<ApiResponse<List<MaterialListRaw>>>(ApiRoutes.Inventory.GetMaterials);
+            var response = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(ApiRoutes.Inventory.GetMaterials);
             if (response?.Success == true && response.Data is not null)
             {
                 Materials.Clear();
@@ -112,14 +104,15 @@ public partial class LotCreateViewModel : BaseViewModel
         HasValidationError = false;
         try
         {
-            var request = new
-            {
-                Mateid = SelectedMaterial.Mateid,
-                Quantity,
-                UnitCost,
-                ExpirationDate = HasExpiration ? ExpirationDate.ToString("yyyy-MM-dd") : null,
-                SupplierLotNumber
-            };
+            var request = new LotCreateRequest(
+                Mateid: SelectedMaterial.Mateid,
+                Quantity: Quantity,
+                UnitCost: UnitCost,
+                ExpirationDate: HasExpiration ? DateOnly.FromDateTime(ExpirationDate) : null,
+                Provid: null,
+                SupplierLotNumber: SupplierLotNumber,
+                Note: null
+            );
             await _apiService.PostAsync<object>($"api/v1/inventory/materials/{SelectedMaterial.Mateid}/lots", request);
             await Shell.Current.GoToAsync("..");
         }

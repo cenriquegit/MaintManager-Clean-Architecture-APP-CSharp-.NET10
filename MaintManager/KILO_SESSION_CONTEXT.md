@@ -45,7 +45,7 @@ MaintManager.sln
 | EF Core | 10.x | Con PostgreSQL (Npgsql) |
 | PostgreSQL | 16+ | BD en localhost:5432, DB: neoplus_maintenance |
 
-## 3. Bugs Corregidos (66 total)
+## 3. Bugs Corregidos (70 total)
 
 Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 
@@ -63,6 +63,10 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 | 64 | Wizard pasos 2-4 sin campos | RadioButtons → Picker, CollectionView → BindableLayout |
 | 65 | Flyout borders duplicados | BoxView como borde inferior único |
 | 66 | Ingreso lote error genérico | catch(HttpRequestException) con mensaje real del servidor |
+| 67 | BI Dashboard crash AOT (series vacías) | Series/Axis `[]` → `null` |
+| 68 | Startup crash AOT (data.GetType) | `JsonSerializer.Serialize` → `JsonContent.Create` |
+| 69 | Namespace conflict ApiResponse<T> | Eliminado de Shared, eliminados duplicados de Application |
+| 70 | DTOs duplicados Application/MAUI | Movidos `MaintenanceCreateRequest`, `LotCreateRequest`, `LoginResponse` a Shared/Models |
 
 ## 4. Estado Actual del Proyecto
 
@@ -73,14 +77,16 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 - Calendario (vista mensual, filtros por vehículo/tipo/estado)
 - Mantenimientos (lista paginada con búsqueda + filtros)
 - Inventario (lista con búsqueda + stock bajo + ingreso lote con materiales reales)
-- BI Dashboard (5 gráficos con LiveChartsCore)
+- BI Dashboard (5 gráficos con LiveChartsCore — estable en AOT Release)
 - Reportes (exportar Excel costo/km con Share dialog)
 - Mi Perfil (info usuario + crear usuario si admin)
 - Configuración (URL API editable + PIN 1234)
 - Detalle de orden con exportación PDF vía Share
 - Wizard de nueva orden (7 pasos, todos funcionales con campos visibles)
-- POST/PUT con Content-Type correcto (PostAsJsonAsync)
+- POST/PUT con Content-Type correcto (JsonContent.Create, AOT-compatible)
 - Menú flyout con bordes inferiores limpios, sin duplicación
+- DTOs compartidos en `Shared/Models` para request/response concretos (AOT compatible)
+- Sesión con expiración calculada localmente (no depende del API)
 
 ### ⚠️ En Progreso / Pendiente
 - Reportes "Órdenes de Mantenimiento" y "Alertas": muestran "no disponible" (no hay endpoint)
@@ -89,8 +95,7 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 - Tema oscuro (RadioButtons placeholder en Settings)
 
 ### 🔴 Problemas Conocidos que Requieren Debug en Dispositivo
-1. Verificar funcionamiento del wizard completo en dispositivo físico (especialmente steps 3-4 con BindableLayout)
-2. Si `Materials` retorna vacío desde la API, el paso 3 se ve sin items — depende de que existan materiales en BD
+1. Si `Materials` retorna vacío desde la API, el paso 3 se ve sin items — depende de que existan materiales en BD
 
 ## 5. Flujo de Navegación (Shell)
 
@@ -193,23 +198,22 @@ Tablas principales:
 
 | Archivo | Último Cambio |
 |---------|---------------|
-| `ApiService.cs` | StringContent → PostAsJsonAsync; TryRestoreSessionAsync verifica expiración |
-| `AuthService.cs` | LoginResponse con ExpiresAt; guarda/limpia session_expires_at |
-| `AppShell.xaml` | Flyout borders: BoxView inferior único, StrokeThickness=0, fondos uniformes |
-| `MaintenanceWizardPage.xaml` | Step2: Picker; Steps3-4: BindableLayout (no CollectionView) |
-| `MaintenanceWizardViewModel.cs` | LoadMaterialsAsync + LoadDefaultOperations() |
-| `LotCreateViewModel.cs` | catch(HttpRequestException) con mensaje real; validación Quantity>0 |
-| `AppShell.xaml` + `.cs` | Flyout personalizado con iconos + navegación por Tapped |
-| `BaseViewModel.cs` | Timeout 30s en ExecuteAsync + IsEmpty=false en catch |
-| `BiDashboardViewModel.cs` | 6 APIs secuenciales con try/catch individual |
-| `BiDashboardPage.xaml` | 5 gráficos LiveChartsCore, sin x:DataType |
-| `HomePage.xaml` | Acciones rápidas con Border + GestureRecognizer |
-| `InventoryListPage.xaml` | Sticky footer, SearchBar con colores, CollectionView margin |
-| `MaintenanceListPage.xaml` | Sticky footer, estados fuera del RefreshView |
-| `LotCreateViewModel.cs` | LoadMaterials con API real |
-| `App.xaml` | FormPicker con TitleColor, estilos Label/Entry/Editor globales |
-| `Resources/Styles/Colors.xaml` | Primary/Secondary/Tertiary azules (#1565C0) |
-| `WorkersController.cs` | POST /api/v1/workers para crear usuarios |
+| `Shared/Models/*` | 6 nuevos DTOs compartidos (MaintenanceCreateRequest, LotCreateRequest, LoginResponse, VehicleListItemDto, MaterialItemDto, ApiResponse eliminado por conflicto) |
+| `ApiService.cs` | JsonContent.Create (AOT-compatible) + TryRestoreSessionAsync con expiración |
+| `AuthService.cs` | LoginResponse ahora desde Shared.Models; ExtractWorkidFromToken |
+| `BiDashboardViewModel.cs` | Series/Axis `[]` → `null` (crash AOT LiveChartsCore) |
+| `MaintenanceWizardViewModel.cs` | Save() usa MaintenanceCreateRequest concreto; ApiResponse privado restaurado |
+| `LotCreateViewModel.cs` | Save() usa LotCreateRequest concreto; ApiResponse privado restaurado |
+| `MaintenanceWizardPage.xaml` | Step2: Picker; Steps3-4: BindableLayout |
+| `AppShell.xaml` | Flyout borders: BoxView BackgroundColor, StrokeThickness=0 |
+| `MaintenancesController.cs` | `AssignedTo` fallback a `registeredBy`; using Shared.Models |
+| `InventoryController.cs` | using Shared.Models |
+| `AuthController.cs` | LoginResponse desde Shared.Models |
+| `MaintenanceCreateValidator.cs` | AssignedTo >= 0; using Shared.Models |
+| `LotCreateValidator.cs` | using Shared.Models |
+| `Application/DTOs/Maintenance/MaintenanceCreateRequest.cs` | Eliminado (movido a Shared) |
+| `Application/DTOs/Inventory/LotCreateRequest.cs` | Eliminado (movido a Shared) |
+| `Application/DTOs/Auth/LoginResponse.cs` | Eliminado (movido a Shared) |
 
 ## 10. Cómo Continuar — Prompt para Nueva Sesión
 
@@ -222,16 +226,18 @@ Lee el archivo KILO_SESSION_CONTEXT.md, BUGS_HISTORY.md y README.md para tener e
 Proyecto en: C:\Users\carlo\Desktop\proyect\MaintManager
 
 Estado actual:
-- 66 bugs corregidos (ver BUGS_HISTORY.md)
+- 70 bugs corregidos (ver BUGS_HISTORY.md)
 - Login, Dashboard, Alertas, Calendario, Mantenimientos, Inventario funcionales
-- BI Dashboard con 5 gráficos LiveChartsCore
-- Wizard multi-paso (7 pasos funcionales, steps 2-4 corregidos: Picker + BindableLayout)
+- BI Dashboard con 5 gráficos LiveChartsCore (estable en AOT Release)
+- Wizard multi-paso (7 pasos funcionales, guardado con tipos concretos)
 - PDF y Excel export funcionando con Share dialog
 - Menú hamburguesa personalizado con iconos, bordes inferiores limpios
-- Sesión persistente vía SecureStorage con expiración a las 8h
+- Sesión persistente vía SecureStorage con expiración a las 8h (calculada localmente)
 - Configuración protegida con PIN 1234
-- POST/PUT con Content-Type correcto (PostAsJsonAsync)
-- Ingreso lote con materiales reales desde API + manejo de errores mejorado
+- POST/PUT con JsonContent.Create (AOT-compatible)
+- Ingreso lote con materiales reales + catch con mensaje real del servidor
+- DTOs compartidos en `Shared/Models` (request/response concretos, AOT compatibles)
+- API: fallback de AssignedTo cuando se envía 0
 
 Para continuar trabajando, necesito:
 1. Leer el código actual

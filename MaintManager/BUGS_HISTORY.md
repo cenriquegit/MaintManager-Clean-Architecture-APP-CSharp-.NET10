@@ -1255,54 +1255,21 @@ Loading y Error se movieron fuera del `RefreshView` a su propio slot en el Grid,
 
 ## Bug #61 — Wizard: DataTrigger en botón Siguiente/Guardar pierde estado
 
-### Síntoma
-El botón de navegación en el wizard no cambiaba correctamente de "Siguiente" a "Guardar" al llegar al paso 7.
-
-### Causa raíz
-El `DataTrigger` sobre el Button modificaba simultáneamente `Text` y `Command`. MAUI no restaura correctamente los valores originales cuando la condición del trigger deja de cumplirse.
-
-### Solución final
-Reemplazado por dos botones con `IsVisible` condicional:
-- `IsNextButtonVisible` (pasos 1-6): muestra "Siguiente"
-- `IsSaveButtonVisible` (paso 7): muestra "Guardar"
-
 ---
 
----
----
-
-## Bug #62 — 415 Content-Type no se envía en POST/PUT (StringContent en ApiService)
+## Bug #62 — 415 Content-Type no se envía en POST/PUT (StringContent → PostAsJsonAsync)
 
 ### Síntoma
 Todas las peticiones POST y PUT desde la app MAUI fallaban con error 415 Unsupported Media Type. El log del servidor mostraba `Request starting POST ... - - -` (sin Content-Type ni Content-Length).
 
 ### Causa raíz
-`ApiService.PostAsync()` y `PostAndUnwrapAsync()` y `PutAsync()` usaban `new StringContent(body, Encoding.UTF8, "application/json")`. En MAUI 10.0.0, el `StringContent` no transmite correctamente el header `Content-Type` en ciertos runtimes (Android/Windows). El servidor `[ApiController]` rechaza la petición por falta de Content-Type.
-
-### Flujo del error
-```
-Usuario toca botón (login, guardar lote, etc.)
-  → ApiService.PostAsync<T>()
-    → new StringContent(json, Encoding.UTF8, "application/json")
-      → HttpClient.PostAsync() ← Content-Type no se envía
-        → API responde 415 Unsupported Media Type
-          → HandleResponse lanza HttpRequestException
-            → catch (Exception) muestra error genérico
-```
+`ApiService` usaba `new StringContent(body, Encoding.UTF8, "application/json")`. En MAUI 10.0.0, `StringContent` no transmite correctamente el header Content-Type en ciertos runtimes. El servidor `[ApiController]` rechaza la petición por falta de Content-Type.
 
 ### Solución final
-Reemplazado `StringContent` manual por `PostAsJsonAsync()` / `PutAsJsonAsync()` de `System.Net.Http.Json`, usando un `JsonSerializerOptions` compartido con `PropertyNameCaseInsensitive = true` para mantener consistencia.
-
-Métodos modificados en `ApiService.cs`:
-- `PostAsync<T>` — ahora usa `_httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions)`
-- `PostAndUnwrapAsync<T>` — ahora usa `_httpClient.PostAsJsonAsync(endpoint, data, _jsonOptions)`
-- `PutAsync<T>` — ahora usa `_httpClient.PutAsJsonAsync(endpoint, data, _jsonOptions)`
+Reemplazado `StringContent` manual por `PostAsJsonAsync()` / `PutAsJsonAsync()` de `System.Net.Http.Json`, usando `JsonContent.Create(data, options)` con AOT-compatible. Métodos modificados: `PostAsync<T>`, `PostAndUnwrapAsync<T>`, `PutAsync<T>`.
 
 ### Archivos modificados
 - `MaintManager.MAUI/Services/ApiService.cs`
-  - `using System.Text;` → `using System.Net.Http.Json;`
-  - Agregado `_jsonOptions` compartido
-  - 3 métodos reemplazados (PostAsync, PostAndUnwrapAsync, PutAsync)
 
 ---
 
@@ -1312,11 +1279,12 @@ Métodos modificados en `ApiService.cs`:
 Al reabrir la app después de más de 8 horas, el usuario seguía en el Dashboard sin necesidad de volver a iniciar sesión.
 
 ### Causa raíz
-`ApiService.TryRestoreSessionAsync()` solo verificaba si el token existía en `SecureStorage`, pero nunca verificaba si la fecha de expiración (`ExpiresAt`) ya había pasado. El token JWT de 8h de la API estaba vencido pero la app lo seguía usando.
+`TryRestoreSessionAsync()` solo verificaba si el token existía, nunca si la fecha de expiración ya había pasado.
 
 ### Solución final
-1. **`AuthService.cs`**: Se agregó `DateTime ExpiresAt` al `LoginResponse` interno y se guarda en `Preferences` con clave `"session_expires_at"` usando formato roundtrip (`"O"`). Se elimina en `Logout()`.
-2. **`ApiService.TryRestoreSessionAsync()`**: Después de leer el token, parsea `session_expires_at` y lo compara con `DateTime.UtcNow`. Si expiró, limpia todos los datos almacenados (token, usuario, rol, expiración) y retorna `false`, forzando al usuario a hacer login nuevamente.
+1. La expiración se calcula localmente: `DateTime.UtcNow.AddHours(8)` (no depende del API).
+2. `TryRestoreSessionAsync()` parsea `session_expires_at` con `DateTime.TryParseExact` y formato `"O"` + `InvariantCulture`. Si expiró, limpia todo y retorna `false`.
+3. Token también guardado en Preferences como respaldo por si SecureStorage falla.
 
 ### Archivos modificados
 - `MaintManager.MAUI/Services/AuthService.cs`
@@ -1327,30 +1295,18 @@ Al reabrir la app después de más de 8 horas, el usuario seguía en el Dashboar
 ## Bug #64 — Wizard Nueva Orden: pasos 2-4 sin campos visibles
 
 ### Síntoma
-En el wizard de 7 pasos, los pasos 2 (Tipo de Servicio), 3 (Componentes/Materiales) y 4 (Operaciones) no mostraban ningún campo, aunque el indicador de paso cambiaba correctamente. Los pasos 1, 5, 6 y 7 funcionaban normalmente.
+Pasos 2 (Tipo de Servicio), 3 (Componentes/Materiales) y 4 (Operaciones) no mostraban ningún campo. Pasos 1, 5, 6 y 7 funcionaban.
 
 ### Causas raíz (3 problemas simultáneos)
-
-#### Causa 1: RadioButtons no renderizan en MAUI Android (Step 2)
-Los 3 `RadioButton` del paso 2 no se renderizan en dispositivos Android físicos con MAUI 10.0.0 (bug conocido del framework). El `VerticalStackLayout` era visible pero sin controles visibles.
-
-#### Causa 2: CollectionView dentro de ScrollView (Steps 3-4)
-MAUI tiene un conflicto de scroll conocido: `CollectionView` dentro de `ScrollView` no renderiza su contenido en ciertos casos, porque ambos controles intentan manejar el scroll.
-
-#### Causa 3: Materials y Operations vacíos (Steps 3-4)
-Las colecciones `Materials` y `Operations` se inicializaban como `new ObservableCollection<>()` vacías y nunca se poblaban. No había código que cargara materiales desde la API ni operaciones por defecto.
+1. **RadioButtons no renderizan en MAUI Android** (Step 2)
+2. **CollectionView dentro de ScrollView** no renderiza en MAUI (Steps 3-4)
+3. **Materials y Operations vacíos** — nunca se poblaban desde API/defaults
 
 ### Solución final
-
-**Step 2**: Reemplazados los 3 `RadioButton` por un `Picker` bound a `ServiceTypes` (mismo patrón que step 1 con vehículos).
-
-**Step 3**: 
-- `CollectionView` → `VerticalStackLayout` + `BindableLayout.ItemsSource` (no tiene scroll propio, funciona dentro de ScrollView)
-- Agregado `LoadMaterialsAsync()` que llama a `GET /api/v1/inventory/materials` y mapea a `MaterialLine`
-
-**Step 4**:
-- `CollectionView` → `VerticalStackLayout` + `BindableLayout.ItemsSource`
-- Agregado `LoadDefaultOperations()` que crea 6 operaciones comunes predefinidas
+- Step 2: `RadioButton` → `Picker` bound a `ServiceTypes`
+- Steps 3-4: `CollectionView` → `VerticalStackLayout` + `BindableLayout.ItemsSource`
+- Step 3: `LoadMaterialsAsync()` carga desde `GET /api/v1/inventory/materials`
+- Step 4: `LoadDefaultOperations()` crea 6 operaciones comunes predefinidas
 
 ### Archivos modificados
 - `MaintManager.MAUI/Views/Maintenances/MaintenanceWizardPage.xaml`
@@ -1361,15 +1317,13 @@ Las colecciones `Materials` y `Operations` se inicializaban como `new Observable
 ## Bug #65 — Flyout menú: borders duplicados entre items
 
 ### Síntoma
-Los items del menú lateral (Alertas, Calendario, Mantenimientos, etc.) tenían bordes superiores e inferiores que chocaban visualmente, creando un efecto de "doble borde" antiestético.
+Items del menú lateral tenían bordes visuales donde los fondos alternados se encontraban, creando efecto de "doble borde".
 
 ### Causa raíz
-El `FlyoutContentTemplate` usaba fondos alternados `Transparent` / `#00000008` (opacidad 3%) para separar visualmente los items. Esta alternancia creaba bordes visuales donde los fondos se encontraban. Además, el `Border` de MAUI en algunas plataformas agregaba un `Stroke` por defecto (sin `StrokeThickness="0"` explícito).
+Fondos alternados `Transparent` / `#00000008` + Border sin `StrokeThickness="0"` explícito en algunas plataformas.
 
 ### Solución final
-1. Todos los items del menú ahora tienen `BackgroundColor="Transparent"` (sin alternancia)
-2. Todos los `Border` tienen `StrokeThickness="0"` explícito
-3. Entre cada item (excepto el último) se agregó `<BoxView HeightRequest="1" Color="#E8E8E8" Margin="20,0"/>` como único borde inferior
+Todos los items con `BackgroundColor="Transparent"`, `StrokeThickness="0"`. Entre items: `<BoxView HeightRequest="1" BackgroundColor="#E8E8E8" Margin="20,0"/>`.
 
 ### Archivos modificados
 - `MaintManager.MAUI/AppShell.xaml`
@@ -1379,24 +1333,115 @@ El `FlyoutContentTemplate` usaba fondos alternados `Transparent` / `#00000008` (
 ## Bug #66 — Ingreso lote: error genérico sin detalle del servidor
 
 ### Síntoma
-Al registrar un lote, el formulario mostraba "Error al registrar el lote. Verifica los datos e intenta nuevamente." sin especificar si era error de validación, permiso denegado, o problema de conexión.
+"Error al registrar el lote. Verifica los datos e intenta nuevamente." sin especificar la causa real.
 
 ### Causa raíz
-El `catch (Exception)` en `LotCreateViewModel.Save()` ocultaba el mensaje real del servidor. Cualquier error (415 Content-Type, 400 validación, 403 rol, 500 servidor) mostraba el mismo mensaje genérico.
-
-Además, no había validación cliente para `Quantity <= 0`, que es una regla del `LotCreateValidator` del servidor.
+`catch (Exception)` genérico ocultaba el mensaje real del servidor (415, 400, 403, 500). Sin validación cliente para `Quantity <= 0`.
 
 ### Solución final
-1. Agregada validación cliente: `if (Quantity <= 0) { ValidationMessage = "La cantidad debe ser mayor a cero."; return; }`
-2. `catch (HttpRequestException ex)` ahora muestra `ex.Message` (que contiene el código HTTP + respuesta del servidor)
-3. `catch (Exception ex)` ahora incluye `ex.Message` en el mensaje
+Validación cliente `Quantity > 0`. `catch(HttpRequestException ex)` muestra `ex.Message` real del servidor.
 
 ### Archivos modificados
 - `MaintManager.MAUI/ViewModels/Inventory/LotCreateViewModel.cs`
 
 ---
 
+## Bug #67 — BI Dashboard crash por LiveChartsCore con series vacías en AOT
+
+### Síntoma
+Al navegar al BI Dashboard, la app se cerraba sin error cuando algunos endpoints de la API respondían y otros no.
+
+### Causa raíz
+Las propiedades `ISeries[]` y `Axis[]` se inicializaban como arreglos vacíos `[]`. Cuando algunos endpoints fallaban (charts sin datos) y otros funcionaban, LiveChartsCore 2.0.2 en MAUI 10 AOT crasheaba al intentar renderizar gráficas con arreglos vacíos.
+
+### Solución final
+Cambiadas todas las propiedades de `ISeries[]` y `Axis[]` de `[]` a `null`. LiveChartsCore maneja null sin crash (no renderiza). Solo se asignan arreglos cuando hay datos reales.
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/BiDashboard/BiDashboardViewModel.cs`
+
+---
+
+## Bug #68 — Startup crash: JsonSerializer.Serialize con data.GetType() en AOT
+
+### Síntoma
+La app se cerraba inmediatamente al abrir después del build Release. El crash ocurría al cargar `ApiService` en DI.
+
+### Causa raíz
+`JsonSerializer.Serialize(data, data.GetType(), _jsonOptions)` con tipos anónimos en `PostAsync<T>`. En AOT, `System.Text.Json` no tiene source generator para tipos anónimos. El cargador de tipos crasheaba al compilar AOT el método.
+
+### Solución final
+Reemplazado `JsonSerializer.Serialize(data, data.GetType(), _jsonOptions)` por `JsonContent.Create(data, options: _jsonOptions)`. `JsonContent` es parte de `System.Net.Http.Json`, tiene soporte AOT nativo y maneja correctamente tipos runtime.
+
+### Archivos modificados
+- `MaintManager.MAUI/Services/ApiService.cs`
+
+---
+
+## Bug #69 — Namespace conflict: ApiResponse<T> en Shared.Models vs DTOs.Common
+
+### Síntoma
+El proyecto API no compilaba por error CS0104: referencia ambigua entre `MaintManager.Application.DTOs.Common.ApiResponse<T>` y `MaintManager.Shared.Models.ApiResponse<T>`.
+
+### Causa raíz
+Se agregó `ApiResponse<T>` a Shared.Models para uso del MAUI, pero el API ya tenía `ApiResponse<T>` en Application.DTOs.Common con factory methods (`Ok()`, `Fail()`) y propiedad `Errors`. Los controladores usan ambos namespaces.
+
+### Solución final
+Eliminado `ApiResponse<T>` de `Shared.Models` (no necesario — MAUI mantiene su propia versión privada en cada ViewModel). Eliminados de Application los DTOs duplicados ahora en Shared: `MaintenanceCreateRequest`, `LotCreateRequest`, `LoginResponse`. Actualizados usings en controladores y validadores.
+
+### Archivos modificados
+- `MaintManager.Shared/Models/ApiResponse.cs` (eliminado)
+- `MaintManager.Application/DTOs/Maintenance/MaintenanceCreateRequest.cs` (eliminado)
+- `MaintManager.Application/DTOs/Inventory/LotCreateRequest.cs` (eliminado)
+- `MaintManager.Application/DTOs/Auth/LoginResponse.cs` (eliminado)
+- `MaintManager.API/Controllers/MaintenancesController.cs`
+- `MaintManager.API/Controllers/InventoryController.cs`
+- `MaintManager.API/Controllers/AuthController.cs`
+- `MaintManager.Application/Validators/MaintenanceCreateValidator.cs`
+- `MaintManager.Application/Validators/LotCreateValidator.cs`
+
+---
+
+## Bug #70 — DTOs duplicados en Application y Shared requerían sincronización manual
+
+### Síntoma
+Los mismos DTOs existían en `Application/DTOs` y como tipos anónimos/privados en MAUI. Cualquier cambio en uno requería actualizar manualmente el otro.
+
+### Causa raíz
+Shared existía solo para constantes y `MaintenanceListItemDto`. Los DTOs de request (MaintenanceCreateRequest, LotCreateRequest) y response (LoginResponse) vivían en Application sin que el MAUI pudiera referenciarlos directamente (MAUI no referencia Application para no arrastrar Domain).
+
+### Solución final
+Se movieron los DTOs críticos de `Application/DTOs` a `Shared/Models`:
+- `MaintenanceCreateRequest` — request de creación de orden
+- `LotCreateRequest` — request de ingreso de lote
+- `LoginResponse` — respuesta de login
+- `VehicleListItemDto` — item de lista de vehículos (reemplaza `VehicleListRaw`)
+- `MaterialItemDto` — item de lista de materiales (reemplaza `MaterialRaw`)
+
+Los validadores y controladores de Application/API ahora usan los tipos de Shared. MAUI usa los mismos tipos concretos, eliminando tipos anónimos en `Save()` y permitiendo que AOT genere serializadores.
+
+### Archivos modificados
+- `MaintManager.Shared/Models/` (6 nuevos archivos)
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceWizardViewModel.cs`
+- `MaintManager.MAUI/ViewModels/Inventory/LotCreateViewModel.cs`
+- `MaintManager.MAUI/Services/AuthService.cs`
+- `MaintManager.MAUI/Services/ApiService.cs`
+
+---
+
 ## Estadísticas (actualizado)
+
+| Métrica | Valor |
+|---------|-------|
+| Bugs encontrados | 70 |
+| Bugs corregidos | 70 |
+| Bugs reintroducidos | 1 (Bug #5) |
+| Archivos modificados | ~105+ |
+| Líneas de código revisadas | ~20000+ |
+| Tiempo de depuración | ~6 sesiones continuas |
+
+---
+*Documentación generada automáticamente por Kilo Agent.*
 
 | Métrica | Valor |
 |---------|-------|

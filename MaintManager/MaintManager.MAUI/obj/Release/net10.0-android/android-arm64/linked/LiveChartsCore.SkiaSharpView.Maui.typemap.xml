@@ -1,5 +1,5 @@
-<api type="release" assembly-name="LiveChartsCore.SkiaSharpView.Maui" mvid="85721693a480479eaf928bdb758a663c">
-  <module assembly-name="LiveChartsCore.SkiaSharpView.Maui" mvid="85721693a480479eaf928bdb758a663c" mvid-bytes="kxZyhYCknkevkovbdYpmPA==">
+<api type="release" assembly-name="LiveChartsCore.SkiaSharpView.Maui" mvid="6b29648fa8ce43c792f4a50527acc405">
+  <module assembly-name="LiveChartsCore.SkiaSharpView.Maui" mvid="6b29648fa8ce43c792f4a50527acc405" mvid-bytes="j2Qpa86ox0OS9KUFJ6zEBQ==">
     <types-scratch>
       <entry key="crc6432ed94bc8b0b3e95/NativeFrameTicker_VSyncTicker" java-name="crc6432ed94bc8b0b3e95/NativeFrameTicker_VSyncTicker" managed-type-name="LiveChartsCore.Native.NativeFrameTicker/VSyncTicker" token="33554569" />
       <entry key="crc6432ed94bc8b0b3e95/PointerController_CustomScaleListener" java-name="crc6432ed94bc8b0b3e95/PointerController_CustomScaleListener" managed-type-name="LiveChartsCore.Native.PointerController/CustomScaleListener" token="33554570" />

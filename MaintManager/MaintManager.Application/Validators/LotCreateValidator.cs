@@ -1,5 +1,5 @@
 using FluentValidation;
-using MaintManager.Application.DTOs.Inventory;
+using MaintManager.Shared.Models;
 
 namespace MaintManager.Application.Validators;
 

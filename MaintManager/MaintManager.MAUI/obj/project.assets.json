@@ -80,7 +80,7 @@
           }
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -93,10 +93,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -111,13 +111,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -2895,7 +2894,7 @@
           "buildTransitive/net8.0-android34.0/HarfBuzzSharp.NativeAssets.Android.targets": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -2908,10 +2907,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -2926,13 +2925,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -5692,7 +5690,7 @@
           "buildTransitive/net8.0-android34.0/HarfBuzzSharp.NativeAssets.Android.targets": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -5705,10 +5703,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -5723,13 +5721,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -8512,7 +8509,7 @@
           }
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -8525,10 +8522,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -8543,13 +8540,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -9312,7 +9308,7 @@
           "buildTransitive/net8.0-ios17.0/HarfBuzzSharp.NativeAssets.iOS.targets": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -9325,10 +9321,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -9343,13 +9339,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -10086,7 +10081,7 @@
           "buildTransitive/net8.0-ios17.0/HarfBuzzSharp.NativeAssets.iOS.targets": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -10099,10 +10094,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -10117,13 +10112,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -10866,7 +10860,7 @@
           }
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -10879,10 +10873,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -10897,13 +10891,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -11646,7 +11639,7 @@
           "buildTransitive/net8.0-maccatalyst17.0/HarfBuzzSharp.NativeAssets.MacCatalyst.targets": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -11659,10 +11652,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -11677,13 +11670,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -12420,7 +12412,7 @@
           "buildTransitive/net8.0-maccatalyst17.0/HarfBuzzSharp.NativeAssets.MacCatalyst.targets": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0/LiveChartsCore.dll": {
@@ -12433,10 +12425,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -12451,13 +12443,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -13205,7 +13196,7 @@
           }
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0-windows7.0/LiveChartsCore.dll": {
@@ -13218,10 +13209,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -13236,13 +13227,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -14327,7 +14317,7 @@
           "lib/net8.0-windows10.0.19041/_._": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0-windows7.0/LiveChartsCore.dll": {
@@ -14340,10 +14330,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -14358,13 +14348,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -15314,7 +15303,7 @@
           "runtimes/win-x64/native/libHarfBuzzSharp.dll": {}
         }
       },
-      "LiveChartsCore/2.0.2": {
+      "LiveChartsCore/2.0.4": {
         "type": "package",
         "compile": {
           "lib/net8.0-windows7.0/LiveChartsCore.dll": {
@@ -15327,10 +15316,10 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.2": {
+      "LiveChartsCore.SkiaSharpView/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
+          "LiveChartsCore": "2.0.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
@@ -15345,13 +15334,12 @@
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
+      "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.2",
-          "LiveChartsCore.SkiaSharpView": "2.0.2",
+          "LiveChartsCore": "2.0.4",
+          "LiveChartsCore.SkiaSharpView": "2.0.4",
           "Microsoft.Maui.Controls": "10.0.0",
-          "Microsoft.Maui.Controls.Compatibility": "10.0.0",
           "SkiaSharp.HarfBuzz": "3.119.0",
           "SkiaSharp.Views.Maui.Controls": "3.119.0"
         },
@@ -16473,10 +16461,10 @@
         "runtimes/win-x86/native/libHarfBuzzSharp.dll"
       ]
     },
-    "LiveChartsCore/2.0.2": {
-      "sha512": "UL1f9H0eypkaSMqSm74BhyvdvDqxe+LplIqPfn/UiLmuS8yK6mGwm4qzI9YNsRaF0uQs4Hcivl67MOajH8Rqtg==",
+    "LiveChartsCore/2.0.4": {
+      "sha512": "AHFa0WVdlHPXpo9yki4RnC4Vl2Akn9beEFUjeqRXi/x9KstHtV5WN6fH07DV641n7p1yf9kYPqjR5Yx0YUXWPQ==",
       "type": "package",
-      "path": "livechartscore/2.0.2",
+      "path": "livechartscore/2.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -16490,14 +16478,14 @@
         "lib/net8.0/LiveChartsCore.xml",
         "lib/netstandard2.0/LiveChartsCore.dll",
         "lib/netstandard2.0/LiveChartsCore.xml",
-        "livechartscore.2.0.2.nupkg.sha512",
+        "livechartscore.2.0.4.nupkg.sha512",
         "livechartscore.nuspec"
       ]
     },
-    "LiveChartsCore.SkiaSharpView/2.0.2": {
-      "sha512": "O84AQUIQ7iL+cF77ulnYv6zhIcA5kyU6KY8veJxFP4Kbb58pRNxF97ZDIjbGs15AH4m/tj2FcsW+FmBw+MPXmw==",
+    "LiveChartsCore.SkiaSharpView/2.0.4": {
+      "sha512": "Smrk6vSIVkKo6M5ZP/brfeqME3eSZhhcRuwLDBA5LdCa3scYWj3XjlhYspyMnI4+0MvoXcXbea/ysAMnatFiKg==",
       "type": "package",
-      "path": "livechartscore.skiasharpview/2.0.2",
+      "path": "livechartscore.skiasharpview/2.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -16511,14 +16499,14 @@
         "lib/net8.0/LiveChartsCore.SkiaSharpView.xml",
         "lib/netstandard2.0/LiveChartsCore.SkiaSharpView.dll",
         "lib/netstandard2.0/LiveChartsCore.SkiaSharpView.xml",
-        "livechartscore.skiasharpview.2.0.2.nupkg.sha512",
+        "livechartscore.skiasharpview.2.0.4.nupkg.sha512",
         "livechartscore.skiasharpview.nuspec"
       ]
     },
-    "LiveChartsCore.SkiaSharpView.Maui/2.0.2": {
-      "sha512": "6DiPOOx+8ak89SPhaUxHYAbfaLfxJadq2/K55Af0MzQ1nBl371W1Aavil0gPqV8iKQKeN3yezu2vY/UQI4USVQ==",
+    "LiveChartsCore.SkiaSharpView.Maui/2.0.4": {
+      "sha512": "qIKPqhVzQHEzSUwnrToMoaH61TFhL9B3ZTXjZMwamXQ4HUgZs905DX1mcw6GrGUTI1zXjGBPL1QFVM67McMuKg==",
       "type": "package",
-      "path": "livechartscore.skiasharpview.maui/2.0.2",
+      "path": "livechartscore.skiasharpview.maui/2.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -16544,7 +16532,7 @@
         "lib/net9.0-windows10.0.19041/LiveChartsCore.SkiaSharpView.Maui.xml",
         "lib/net9.0/LiveChartsCore.SkiaSharpView.Maui.dll",
         "lib/net9.0/LiveChartsCore.SkiaSharpView.Maui.xml",
-        "livechartscore.skiasharpview.maui.2.0.2.nupkg.sha512",
+        "livechartscore.skiasharpview.maui.2.0.4.nupkg.sha512",
         "livechartscore.skiasharpview.maui.nuspec"
       ]
     },
@@ -21482,7 +21470,7 @@
   "projectFileDependencyGroups": {
     "net10.0-android36.0": [
       "CommunityToolkit.Mvvm >= 8.4.0",
-      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.2",
+      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.4",
       "MaintManager.Shared >= 1.0.0",
       "Microsoft.Extensions.Http >= 10.0.0",
       "Microsoft.Extensions.Logging.Debug >= 10.0.0",
@@ -21494,7 +21482,7 @@
     ],
     "net10.0-ios26.2": [
       "CommunityToolkit.Mvvm >= 8.4.0",
-      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.2",
+      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.4",
       "MaintManager.Shared >= 1.0.0",
       "Microsoft.Extensions.Http >= 10.0.0",
       "Microsoft.Extensions.Logging.Debug >= 10.0.0",
@@ -21506,7 +21494,7 @@
     ],
     "net10.0-maccatalyst26.2": [
       "CommunityToolkit.Mvvm >= 8.4.0",
-      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.2",
+      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.4",
       "MaintManager.Shared >= 1.0.0",
       "Microsoft.Extensions.Http >= 10.0.0",
       "Microsoft.Extensions.Logging.Debug >= 10.0.0",
@@ -21518,7 +21506,7 @@
     ],
     "net10.0-windows10.0.19041": [
       "CommunityToolkit.Mvvm >= 8.4.0",
-      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.2",
+      "LiveChartsCore.SkiaSharpView.Maui >= 2.0.4",
       "MaintManager.Shared >= 1.0.0",
       "Microsoft.Extensions.Http >= 10.0.0",
       "Microsoft.Extensions.Logging.Debug >= 10.0.0",
@@ -21612,7 +21600,7 @@
           },
           "LiveChartsCore.SkiaSharpView.Maui": {
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "[2.0.4, )"
           },
           "Microsoft.Extensions.Http": {
             "target": "Package",
@@ -21958,7 +21946,7 @@
           },
           "LiveChartsCore.SkiaSharpView.Maui": {
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "[2.0.4, )"
           },
           "Microsoft.Extensions.Http": {
             "target": "Package",
@@ -22304,7 +22292,7 @@
           },
           "LiveChartsCore.SkiaSharpView.Maui": {
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "[2.0.4, )"
           },
           "Microsoft.Extensions.Http": {
             "target": "Package",
@@ -22651,7 +22639,7 @@
           },
           "LiveChartsCore.SkiaSharpView.Maui": {
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "[2.0.4, )"
           },
           "Microsoft.Extensions.Http": {
             "target": "Package",

@@ -180,7 +180,7 @@
                             <Label Text="Lotes Próximos a Vencer"
                                    FontSize="16" FontAttributes="Bold"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-                            <Label Text="Cantidad de material por estado de vencimiento (próximos 60 días)"
+                            <Label Text="Cantidad de material por estado de vencimiento"
                                    FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
                             <lvc:PieChart
                                 Series="{Binding ExpiringLotsSeries}"
@@ -211,7 +211,6 @@
 
                 </VerticalStackLayout>
             </ScrollView>
-
         </Grid>
     </RefreshView>
 </ContentPage>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PEL5+wu3WTM=",
+  "dgSpecHash": "vJjU79qSSzc=",
   "success": true,
   "projectFilePath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.MAUI\\MaintManager.MAUI.csproj",
   "expectedPackageFiles": [
@@ -11,9 +11,9 @@
     "C:\\Users\\carlo\\.nuget\\packages\\harfbuzzsharp.nativeassets.ios\\8.3.1.1\\harfbuzzsharp.nativeassets.ios.8.3.1.1.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\harfbuzzsharp.nativeassets.maccatalyst\\8.3.1.1\\harfbuzzsharp.nativeassets.maccatalyst.8.3.1.1.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\harfbuzzsharp.nativeassets.win32\\8.3.1.1\\harfbuzzsharp.nativeassets.win32.8.3.1.1.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\livechartscore\\2.0.2\\livechartscore.2.0.2.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\livechartscore.skiasharpview\\2.0.2\\livechartscore.skiasharpview.2.0.2.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\livechartscore.skiasharpview.maui\\2.0.2\\livechartscore.skiasharpview.maui.2.0.2.nupkg.sha512",
+    "C:\\Users\\carlo\\.nuget\\packages\\livechartscore\\2.0.4\\livechartscore.2.0.4.nupkg.sha512",
+    "C:\\Users\\carlo\\.nuget\\packages\\livechartscore.skiasharpview\\2.0.4\\livechartscore.skiasharpview.2.0.4.nupkg.sha512",
+    "C:\\Users\\carlo\\.nuget\\packages\\livechartscore.skiasharpview.maui\\2.0.4\\livechartscore.skiasharpview.maui.2.0.4.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.extensions.configuration\\10.0.0\\microsoft.extensions.configuration.10.0.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.0\\microsoft.extensions.configuration.abstractions.10.0.0.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.extensions.configuration.binder\\10.0.0\\microsoft.extensions.configuration.binder.10.0.0.nupkg.sha512",

@@ -1,4 +1,4 @@
-namespace MaintManager.Application.DTOs.Maintenance;
+namespace MaintManager.Shared.Models;
 
 public sealed record MaintenanceCreateRequest(
     int Prcoid,
@@ -9,5 +9,3 @@ public sealed record MaintenanceCreateRequest(
     string? Note,
     string OriginService = "Taller propio"
 );
-
-/// <summary>Detalle completo de una orden de mantenimiento.</summary>

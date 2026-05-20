@@ -1,6 +1,7 @@
 using FluentValidation;
 using MaintManager.Application.DTOs.Auth;
 using MaintManager.Application.DTOs.Common;
+using MaintManager.Shared.Models;
 using MaintManager.Infrastructure.Data;
 using MaintManager.Shared.Constants;
 using Microsoft.AspNetCore.Mvc;

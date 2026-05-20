@@ -6,6 +6,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MaintManager.MAUI.Services;
 using MaintManager.Shared.Constants;
+using MaintManager.Shared.Models;
 using SkiaSharp;
 using System.Collections.ObjectModel;
 
@@ -42,47 +43,47 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     // Cost per Km chart
     [ObservableProperty]
-    private ISeries[] _costPerKmSeries = [];
+    private ISeries[]? _costPerKmSeries;
 
     [ObservableProperty]
-    private Axis[] _costPerKmXAxes = [];
+    private Axis[]? _costPerKmXAxes;
 
     [ObservableProperty]
-    private Axis[] _costPerKmYAxes = [];
+    private Axis[]? _costPerKmYAxes;
 
     // Emergency rate chart
     [ObservableProperty]
-    private ISeries[] _emergencyRateSeries = [];
+    private ISeries[]? _emergencyRateSeries;
 
     [ObservableProperty]
-    private Axis[] _emergencyRateXAxes = [];
+    private Axis[]? _emergencyRateXAxes;
 
     [ObservableProperty]
-    private Axis[] _emergencyRateYAxes = [];
+    private Axis[]? _emergencyRateYAxes;
 
     // Monthly cost chart
     [ObservableProperty]
-    private ISeries[] _monthlyCostSeries = [];
+    private ISeries[]? _monthlyCostSeries;
 
     [ObservableProperty]
-    private Axis[] _monthlyCostXAxes = [];
+    private Axis[]? _monthlyCostXAxes;
 
     [ObservableProperty]
-    private Axis[] _monthlyCostYAxes = [];
+    private Axis[]? _monthlyCostYAxes;
 
     // Expiring lots chart
     [ObservableProperty]
-    private ISeries[] _expiringLotsSeries = [];
+    private ISeries[]? _expiringLotsSeries;
 
     // Calendar compliance chart
     [ObservableProperty]
-    private ISeries[] _complianceSeries = [];
+    private ISeries[]? _complianceSeries;
 
     [ObservableProperty]
-    private Axis[] _complianceXAxes = [];
+    private Axis[]? _complianceXAxes;
 
     [ObservableProperty]
-    private Axis[] _complianceYAxes = [];
+    private Axis[]? _complianceYAxes;
 
     private static readonly SKColor Blue = SKColor.Parse("#1565C0");
     private static readonly SKColor Green = SKColor.Parse("#2E7D32");
@@ -100,7 +101,7 @@ public partial class BiDashboardViewModel : BaseViewModel
         {
             try
             {
-                var summary = await _apiService.GetAsync<ApiResponse<DashboardSummaryRaw>>(ApiRoutes.Reports.Dashboard);
+                var summary = await _apiService.GetAsync<ApiResponse<DashboardSummaryDto>>(ApiRoutes.Reports.Dashboard);
                 if (summary?.Success == true && summary.Data is not null)
                 {
                     var s = summary.Data;
@@ -112,11 +113,11 @@ public partial class BiDashboardViewModel : BaseViewModel
                     EmergencyRatePercent = $"{s.GlobalEmergencyRatePercent:F1}%";
                 }
             }
-            catch { /* endpoint no disponible, se muestran KPIs en 0 */ }
+            catch { }
 
             try
             {
-                var cost = await _apiService.GetAsync<ApiResponse<List<CostPerKmRaw>>>(ApiRoutes.Reports.CostPerKm);
+                var cost = await _apiService.GetAsync<ApiResponse<List<CostPerKmDto>>>(ApiRoutes.Reports.CostPerKm);
                 if (cost?.Success == true && cost.Data is not null)
                     BuildCostPerKmChart(cost.Data);
             }
@@ -124,7 +125,7 @@ public partial class BiDashboardViewModel : BaseViewModel
 
             try
             {
-                var emergency = await _apiService.GetAsync<ApiResponse<List<EmergencyRateRaw>>>(ApiRoutes.Reports.EmergencyRate);
+                var emergency = await _apiService.GetAsync<ApiResponse<List<EmergencyRateDto>>>(ApiRoutes.Reports.EmergencyRate);
                 if (emergency?.Success == true && emergency.Data is not null)
                     BuildEmergencyRateChart(emergency.Data);
             }
@@ -132,7 +133,7 @@ public partial class BiDashboardViewModel : BaseViewModel
 
             try
             {
-                var monthly = await _apiService.GetAsync<ApiResponse<List<MonthlyCostRaw>>>(ApiRoutes.Reports.MonthlyCost + "?months=6");
+                var monthly = await _apiService.GetAsync<ApiResponse<List<MonthlyCostDto>>>(ApiRoutes.Reports.MonthlyCost + "?months=6");
                 if (monthly?.Success == true && monthly.Data is not null)
                     BuildMonthlyCostChart(monthly.Data);
             }
@@ -140,7 +141,7 @@ public partial class BiDashboardViewModel : BaseViewModel
 
             try
             {
-                var lots = await _apiService.GetAsync<ApiResponse<List<ExpiringLotRaw>>>(ApiRoutes.Inventory.GetExpiringLots + "?days=60");
+                var lots = await _apiService.GetAsync<ApiResponse<List<ExpiringLotDto>>>(ApiRoutes.Inventory.GetExpiringLots + "?days=60");
                 if (lots?.Success == true && lots.Data is not null)
                     BuildExpiringLotsChart(lots.Data);
             }
@@ -148,17 +149,17 @@ public partial class BiDashboardViewModel : BaseViewModel
 
             try
             {
-                var compliance = await _apiService.GetAsync<ApiResponse<List<ComplianceRaw>>>(ApiRoutes.Reports.CalendarCompliance);
+                var compliance = await _apiService.GetAsync<ApiResponse<List<ComplianceDto>>>(ApiRoutes.Reports.CalendarCompliance);
                 if (compliance?.Success == true && compliance.Data is not null)
                     BuildComplianceChart(compliance.Data);
             }
             catch { }
 
-            IsEmpty = CostPerKmSeries.Length == 0 && MonthlyCostSeries.Length == 0;
+            IsEmpty = (CostPerKmSeries?.Length ?? 0) == 0 && (MonthlyCostSeries?.Length ?? 0) == 0;
         });
     }
 
-    private void BuildCostPerKmChart(List<CostPerKmRaw> data)
+    private void BuildCostPerKmChart(List<CostPerKmDto> data)
     {
         var ordered = data.OrderByDescending(d => d.CostPerKm).Take(10).ToList();
         var labels = ordered.Select(d => d.LicensePlate).ToArray();
@@ -197,7 +198,7 @@ public partial class BiDashboardViewModel : BaseViewModel
         ];
     }
 
-    private void BuildEmergencyRateChart(List<EmergencyRateRaw> data)
+    private void BuildEmergencyRateChart(List<EmergencyRateDto> data)
     {
         var ordered = data.OrderByDescending(d => d.EmergencyRatePercent).Take(8).ToList();
         var labels = ordered.Select(d => d.LicensePlate).ToArray();
@@ -235,7 +236,7 @@ public partial class BiDashboardViewModel : BaseViewModel
         ];
     }
 
-    private void BuildMonthlyCostChart(List<MonthlyCostRaw> data)
+    private void BuildMonthlyCostChart(List<MonthlyCostDto> data)
     {
         var ordered = data.OrderBy(d => d.Month).ToList();
         var labels = ordered.Select(d => d.Month.ToString("MMM yy")).ToArray();
@@ -275,7 +276,7 @@ public partial class BiDashboardViewModel : BaseViewModel
         ];
     }
 
-    private void BuildExpiringLotsChart(List<ExpiringLotRaw> data)
+    private void BuildExpiringLotsChart(List<ExpiringLotDto> data)
     {
         var critical = data.Where(l => l.DaysUntilExpiry <= 7).Sum(l => (double)l.CurrentQuantity);
         var warning = data.Where(l => l.DaysUntilExpiry > 7 && l.DaysUntilExpiry <= 30).Sum(l => (double)l.CurrentQuantity);
@@ -286,7 +287,7 @@ public partial class BiDashboardViewModel : BaseViewModel
             new PieSeries<double>
             {
                 Values = [critical],
-                Name = $"Crítico (≤7d) — {critical:F0}",
+                Name = $"Crítico (=7d) — {critical:F0}",
                 Stroke = new SolidColorPaint(Red),
                 Fill = new SolidColorPaint(Red),
                 HoverPushout = 4,
@@ -294,7 +295,7 @@ public partial class BiDashboardViewModel : BaseViewModel
             new PieSeries<double>
             {
                 Values = [warning],
-                Name = $"Próximo (≤30d) — {warning:F0}",
+                Name = $"Próximo (=30d) — {warning:F0}",
                 Stroke = new SolidColorPaint(Orange),
                 Fill = new SolidColorPaint(Orange),
                 HoverPushout = 4,
@@ -310,7 +311,7 @@ public partial class BiDashboardViewModel : BaseViewModel
         ];
     }
 
-    private void BuildComplianceChart(List<ComplianceRaw> data)
+    private void BuildComplianceChart(List<ComplianceDto> data)
     {
         var topDeviations = data.OrderByDescending(d => d.KmDeviation).Take(10).ToList();
         var labels = topDeviations.Select(d => d.LicensePlate).ToArray();
@@ -350,61 +351,6 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     [RelayCommand]
     private async Task Refresh() => await Load();
-
-    // ─── Raw DTOs matching API response structure ───
-
-    private sealed record DashboardSummaryRaw(
-        int TotalVehicles, int ServicesThisMonth, decimal GlobalEmergencyRatePercent,
-        int LowStockMaterials, int UnresolvedAlerts, int ExpiringLots,
-        decimal FleetAvgCostPerKm);
-
-    private sealed class CostPerKmRaw
-    {
-        public int Prcoid { get; init; }
-        public string LicensePlate { get; init; } = string.Empty;
-        public string VehicleName { get; init; } = string.Empty;
-        public int TotalServices { get; init; }
-        public decimal TotalMaterialCost { get; init; }
-        public int CurrentKm { get; init; }
-        public decimal CostPerKm { get; init; }
-    }
-
-    private sealed class EmergencyRateRaw
-    {
-        public int Prcoid { get; init; }
-        public string LicensePlate { get; init; } = string.Empty;
-        public string VehicleName { get; init; } = string.Empty;
-        public int ScheduledCount { get; init; }
-        public int EmergencyCount { get; init; }
-        public int TotalCount { get; init; }
-        public decimal EmergencyRatePercent { get; init; }
-    }
-
-    private sealed class MonthlyCostRaw
-    {
-        public DateTime Month { get; init; }
-        public int Prcoid { get; init; }
-        public string LicensePlate { get; init; } = string.Empty;
-        public int ServicesCount { get; init; }
-        public decimal MonthlyCost { get; init; }
-    }
-
-    private sealed class ExpiringLotRaw
-    {
-        public string MaterialName { get; init; } = string.Empty;
-        public decimal CurrentQuantity { get; init; }
-        public int DaysUntilExpiry { get; init; }
-        public decimal AtRiskCost { get; init; }
-    }
-
-    private sealed class ComplianceRaw
-    {
-        public int Prcoid { get; init; }
-        public string LicensePlate { get; init; } = string.Empty;
-        public string VehicleName { get; init; } = string.Empty;
-        public int KmDeviation { get; init; }
-        public string ComplianceStatus { get; init; } = string.Empty;
-    }
 
     public class ApiResponse<T>
     {

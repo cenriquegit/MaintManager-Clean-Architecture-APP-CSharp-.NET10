@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MaintManager.MAUI.Services;
 using MaintManager.Shared.Constants;
+using MaintManager.Shared.Models;
 using System.Collections.ObjectModel;
 
 namespace MaintManager.MAUI.ViewModels.Maintenances;
@@ -86,11 +87,11 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
             CurrentStep--;
     }
 
-    private sealed class VehicleListRaw
+    private sealed class ApiResponse<T>
     {
-        public int Prcoid { get; init; }
-        public string LicensePlate { get; init; } = string.Empty;
-        public string VehicleName { get; init; } = string.Empty;
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+        public string? Message { get; set; }
     }
 
     [RelayCommand]
@@ -98,7 +99,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<ApiResponse<List<VehicleListRaw>>>(ApiRoutes.Vehicles.GetAll);
+            var response = await _apiService.GetAsync<ApiResponse<List<VehicleListItemDto>>>(ApiRoutes.Vehicles.GetAll);
             if (response?.Success == true && response.Data is not null)
             {
                 Vehicles = new ObservableCollection<VehicleOption>(
@@ -124,7 +125,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     {
         try
         {
-            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialRaw>>>(ApiRoutes.Inventory.GetMaterials);
+            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(ApiRoutes.Inventory.GetMaterials);
             if (raw?.Success == true && raw.Data is not null)
             {
                 Materials = new ObservableCollection<MaterialLine>(
@@ -154,20 +155,6 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         };
     }
 
-    private sealed class MaterialRaw
-    {
-        public int Mateid { get; init; }
-        public string Name { get; init; } = string.Empty;
-        public string UnitOfMeasure { get; init; } = string.Empty;
-    }
-
-    public class ApiResponse<T>
-    {
-        public bool Success { get; set; }
-        public T? Data { get; set; }
-        public string? Message { get; set; }
-    }
-
     [RelayCommand]
     private async Task Save()
     {
@@ -179,17 +166,15 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
             short matyid = (short)(isEmergency ? 2 : 1);
             short? setyid = isEmergency ? null : (short?)(SelectedServiceType == "Servicio B" ? 2 : 1);
 
-            var request = new
-            {
-                Prcoid = SelectedVehicle?.VehicleId ?? 0,
-                Matyid = matyid,
-                Mileage = int.TryParse(MileageText, out var km) ? km : 0,
-                AssignedTo = _authService.GetWorkid(),
-                Setyid = setyid,
-                Note = string.IsNullOrWhiteSpace(DiagnosisDescription)
-                    ? null : DiagnosisDescription,
-                OriginService = "Taller propio"
-            };
+            var request = new MaintenanceCreateRequest(
+                Prcoid: SelectedVehicle?.VehicleId ?? 0,
+                Matyid: matyid,
+                Mileage: int.TryParse(MileageText, out var km) ? km : 0,
+                AssignedTo: _authService.GetWorkid(),
+                Setyid: setyid,
+                Note: string.IsNullOrWhiteSpace(DiagnosisDescription) ? null : DiagnosisDescription,
+                OriginService: "Taller propio"
+            );
 
             await _apiService.PostAsync<object>(ApiRoutes.Maintenances.Create, request);
             await Shell.Current.GoToAsync("..");

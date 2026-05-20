@@ -2,7 +2,7 @@
 
 > **Proyecto:** MaintManager — Sistema de Gestión de Mantenimiento Vehicular con Business Intelligence
 > **Fecha del análisis:** 2026-05-13
-> **Última actualización:** 2026-05-18 (cambios aplicados)
+> **Última actualización:** 2026-05-18 (continuación — 4 correcciones finales)
 > **Analista:** Kilo (asistente IA)
 
 ---
@@ -11,15 +11,23 @@
 
 ### Sesión 2026-05-13 (Backend 10 + Frontend ~35)
 
-### Sesión 2026-05-18 (6 nuevas correcciones)
+### Sesión 2026-05-18 (6 correcciones iniciales)
 | # | Corrección | Archivos | Estado |
 |---|-----------|----------|--------|
-| 1 | **ApiService: StringContent → PostAsJsonAsync** — Bug #62: 415 Content-Type en POST/PUT por bug de MAUI 10.0.0 con StringContent | `ApiService.cs` | ✅ |
-| 2 | **Sesión con expiración 8h** — Bug #63: TryRestoreSessionAsync ahora verifica `session_expires_at` contra UTC; LoginResponse incluye ExpiresAt | `AuthService.cs`, `ApiService.cs` | ✅ |
-| 3 | **Wizard pasos 2-4 funcionales** — Bug #64: RadioButtons → Picker; CollectionView → BindableLayout; Materials/Operations poblados desde API y defaults | `MaintenanceWizardPage.xaml`, `MaintenanceWizardViewModel.cs` | ✅ |
-| 4 | **Flyout borders limpios** — Bug #65: fondos uniformes, StrokeThickness=0, BoxView como borde inferior único entre items | `AppShell.xaml` | ✅ |
-| 5 | **Ingreso lote: error con detalle** — Bug #66: catch(HttpRequestException) muestra mensaje real del servidor; validación cliente Quantity>0 | `LotCreateViewModel.cs` | ✅ |
-| 6 | **--urls con doble guion** — Nota en README.md advirtiendo que `-urls` (un guion) se ignora por launchSettings.json | `README.md` | ✅ |
+| 1 | **ApiService: StringContent → PostAsJsonAsync** — Bug #62: 415 Content-Type | `ApiService.cs` | ✅ |
+| 2 | **Sesión con expiración 8h** — Bug #63 | `AuthService.cs`, `ApiService.cs` | ✅ |
+| 3 | **Wizard pasos 2-4 funcionales** — Bug #64 | `MaintenanceWizardPage.xaml`, `MaintenanceWizardViewModel.cs` | ✅ |
+| 4 | **Flyout borders limpios** — Bug #65 | `AppShell.xaml` | ✅ |
+| 5 | **Ingreso lote: error con detalle** — Bug #66 | `LotCreateViewModel.cs` | ✅ |
+| 6 | **--urls con doble guion** | `README.md` | ✅ |
+
+### Sesión 2026-05-18 (continuación — 4 correcciones finales)
+| # | Corrección | Archivos | Estado |
+|---|-----------|----------|--------|
+| 7 | **BI Dashboard crash AOT** — Bug #67: series `[]` → `null` para evitar crash de LiveChartsCore en AOT Release | `BiDashboardViewModel.cs` | ✅ |
+| 8 | **Startup crash AOT** — Bug #68: `JsonSerializer.Serialize(data, data.GetType())` → `JsonContent.Create(data, options)` | `ApiService.cs` | ✅ |
+| 9 | **DTOs movidos a Shared/Models** — Bugs #69-#70: MaintenanceCreateRequest, LotCreateRequest, LoginResponse, VehicleListItemDto, MaterialItemDto movidos de Application a Shared; usings actualizados en controladores y validadores | `Shared/Models/*`, `MaintenancesController.cs`, `InventoryController.cs`, `AuthController.cs`, `MaintenanceCreateValidator.cs`, `LotCreateValidator.cs` | ✅ |
+| 10 | **Save() con tipos concretos** — Wizard y lote ahora usan `Shared.Models.MaintenanceCreateRequest`/`LotCreateRequest` en vez de tipos anónimos; serializables por AOT | `MaintenanceWizardViewModel.cs`, `LotCreateViewModel.cs`, `AuthService.cs` | ✅ |
 | Módulo | Archivos | Estado |
 |--------|----------|--------|
 | Reusable Controls | `StatusBadge`, `KpiCard`, `VehicleCard`, `EmptyStateView` + code-behinds | ✅ |
@@ -481,7 +489,15 @@ FASE 4 — Correcciones post-despliegue           [✅ COMPLETADA]
 ├── 4.3 Wizard pasos 2-4 con campos visibles     ✅
 ├── 4.4 Flyout borders limpios (BoxView inferior) ✅
 ├── 4.5 Ingreso lote: error con detalle real     ✅
-└── 4.6 Documentación actualizada (BUGS, KILO, README, PROXIMOS) ✅
+├── 4.6 Documentación actualizada                ✅
+└── 4.7 --urls con doble guion en README         ✅
+
+FASE 5 — Estabilización AOT y Shared DTOs      [✅ COMPLETADA]
+├── 5.1 BI Dashboard crash AOT (series null)     ✅
+├── 5.2 Startup crash AOT (JsonContent.Create)   ✅
+├── 5.3 DTOs movidos a Shared/Models             ✅
+├── 5.4 Save() con tipos concretos (no anónimos) ✅
+└── 5.5 Namespace conflict ApiResponse<T>        ✅
 ```
 
 ---

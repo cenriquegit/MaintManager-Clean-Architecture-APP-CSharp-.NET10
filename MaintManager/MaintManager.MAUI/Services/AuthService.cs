@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using MaintManager.Shared.Models;
 
 namespace MaintManager.MAUI.Services;
 
@@ -73,13 +74,5 @@ public class AuthService
         Preferences.Remove("user_role");
         Preferences.Remove("user_workid");
         Preferences.Remove("session_expires_at");
-    }
-
-    private class LoginResponse
-    {
-        public string Token { get; set; } = string.Empty;
-        public string Username { get; set; } = string.Empty;
-        public string FullName { get; set; } = string.Empty;
-        public string Role { get; set; } = string.Empty;
     }
 }

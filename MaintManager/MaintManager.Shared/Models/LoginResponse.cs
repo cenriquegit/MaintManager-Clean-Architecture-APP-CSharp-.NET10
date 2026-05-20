@@ -1,4 +1,4 @@
-namespace MaintManager.Application.DTOs.Auth;
+namespace MaintManager.Shared.Models;
 
 public sealed record LoginResponse(
     string Token,

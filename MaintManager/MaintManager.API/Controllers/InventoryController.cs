@@ -1,6 +1,7 @@
 using FluentValidation;
 using MaintManager.Application.DTOs.Common;
 using MaintManager.Application.DTOs.Inventory;
+using MaintManager.Shared.Models;
 using MaintManager.Application.Mappings;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;

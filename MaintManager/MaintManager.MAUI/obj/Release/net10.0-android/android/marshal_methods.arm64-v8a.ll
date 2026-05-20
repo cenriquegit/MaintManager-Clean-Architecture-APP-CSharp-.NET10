@@ -13,17 +13,17 @@ target triple = "aarch64-unknown-linux-android21"
 	ptr ; MonoClass klass
 }
 
-@assembly_image_cache = dso_local local_unnamed_addr global [136 x ptr] zeroinitializer, align 8
+@assembly_image_cache = dso_local local_unnamed_addr global [137 x ptr] zeroinitializer, align 8
 
 ; Each entry maps hash of an assembly name to an index into the `assembly_image_cache` array
-@assembly_image_cache_hashes = dso_local local_unnamed_addr constant [408 x i64] [
+@assembly_image_cache_hashes = dso_local local_unnamed_addr constant [411 x i64] [
 	i64 u0x0071cf2d27b7d61e, ; 0: lib_Xamarin.AndroidX.SwipeRefreshLayout.dll.so => 84
-	i64 u0x02abedc11addc1ed, ; 1: lib_Mono.Android.Runtime.dll.so => 134
+	i64 u0x02abedc11addc1ed, ; 1: lib_Mono.Android.Runtime.dll.so => 135
 	i64 u0x032267b2a94db371, ; 2: lib_Xamarin.AndroidX.AppCompat.dll.so => 62
 	i64 u0x043032f1d071fae0, ; 3: ru/Microsoft.Maui.Controls.resources => 24
 	i64 u0x044440a55165631e, ; 4: lib-cs-Microsoft.Maui.Controls.resources.dll.so => 2
 	i64 u0x046eb1581a80c6b0, ; 5: vi/Microsoft.Maui.Controls.resources => 30
-	i64 u0x0517ef04e06e9f76, ; 6: System.Net.Primitives => 114
+	i64 u0x0517ef04e06e9f76, ; 6: System.Net.Primitives => 115
 	i64 u0x0565d18c6da3de38, ; 7: Xamarin.AndroidX.RecyclerView => 81
 	i64 u0x0581db89237110e9, ; 8: lib_System.Collections.dll.so => 97
 	i64 u0x05989cb940b225a9, ; 9: Microsoft.Maui.dll => 53
@@ -36,41 +36,41 @@ target triple = "aarch64-unknown-linux-android21"
 	i64 u0x08f3c9788ee2153c, ; 16: Xamarin.AndroidX.DrawerLayout => 70
 	i64 u0x0919c28b89381a0b, ; 17: lib_Microsoft.Extensions.Options.dll.so => 49
 	i64 u0x092266563089ae3e, ; 18: lib_System.Collections.NonGeneric.dll.so => 95
-	i64 u0x09d144a7e214d457, ; 19: System.Security.Cryptography => 124
+	i64 u0x09d144a7e214d457, ; 19: System.Security.Cryptography => 125
 	i64 u0x0a4ff7e2ead194a4, ; 20: lib_SkiaSharp.HarfBuzz.dll.so => 57
 	i64 u0x0a953b6893aed54b, ; 21: lib_LiveChartsCore.dll.so => 37
 	i64 u0x0b3b632c3bbee20c, ; 22: sk/Microsoft.Maui.Controls.resources => 25
 	i64 u0x0b6aff547b84fbe9, ; 23: Xamarin.KotlinX.Serialization.Core.Jvm => 91
 	i64 u0x0be2e1f8ce4064ed, ; 24: Xamarin.AndroidX.ViewPager => 85
 	i64 u0x0c3ca6cc978e2aae, ; 25: pt-BR/Microsoft.Maui.Controls.resources => 21
-	i64 u0x0c59ad9fbbd43abe, ; 26: Mono.Android => 135
+	i64 u0x0c59ad9fbbd43abe, ; 26: Mono.Android => 136
 	i64 u0x0c7790f60165fc06, ; 27: lib_Microsoft.Maui.Essentials.dll.so => 54
 	i64 u0x0cce4bce83380b7f, ; 28: Xamarin.AndroidX.Security.SecurityCrypto => 83
 	i64 u0x0ec01b05613190b9, ; 29: SkiaSharp.Views.Android.dll => 58
 	i64 u0x102a31b45304b1da, ; 30: Xamarin.AndroidX.CustomView => 69
-	i64 u0x10f6cfcbcf801616, ; 31: System.IO.Compression.Brotli => 106
+	i64 u0x10f6cfcbcf801616, ; 31: System.IO.Compression.Brotli => 107
 	i64 u0x125b7f94acb989db, ; 32: Xamarin.AndroidX.RecyclerView.dll => 81
 	i64 u0x13a01de0cbc3f06c, ; 33: lib-fr-Microsoft.Maui.Controls.resources.dll.so => 8
-	i64 u0x13f1e5e209e91af4, ; 34: lib_Java.Interop.dll.so => 133
+	i64 u0x13f1e5e209e91af4, ; 34: lib_Java.Interop.dll.so => 134
 	i64 u0x13f1e880c25d96d1, ; 35: he/Microsoft.Maui.Controls.resources => 9
 	i64 u0x143d8ea60a6a4011, ; 36: Microsoft.Extensions.DependencyInjection.Abstractions => 43
 	i64 u0x17b56e25558a5d36, ; 37: lib-hu-Microsoft.Maui.Controls.resources.dll.so => 12
-	i64 u0x17f9358913beb16a, ; 38: System.Text.Encodings.Web => 125
+	i64 u0x17f9358913beb16a, ; 38: System.Text.Encodings.Web => 126
 	i64 u0x18402a709e357f3b, ; 39: lib_Xamarin.KotlinX.Serialization.Core.Jvm.dll.so => 91
 	i64 u0x18f0ce884e87d89a, ; 40: nb/Microsoft.Maui.Controls.resources.dll => 18
 	i64 u0x1a91866a319e9259, ; 41: lib_System.Collections.Concurrent.dll.so => 94
-	i64 u0x1aac34d1917ba5d3, ; 42: lib_System.dll.so => 131
+	i64 u0x1aac34d1917ba5d3, ; 42: lib_System.dll.so => 132
 	i64 u0x1aad60783ffa3e5b, ; 43: lib-th-Microsoft.Maui.Controls.resources.dll.so => 27
 	i64 u0x1b062566a8f41ee7, ; 44: LiveChartsCore.SkiaSharpView.Maui => 39
-	i64 u0x1c753b5ff15bce1b, ; 45: Mono.Android.Runtime.dll => 134
+	i64 u0x1c753b5ff15bce1b, ; 45: Mono.Android.Runtime.dll => 135
 	i64 u0x1da4110562816681, ; 46: Xamarin.AndroidX.Security.SecurityCrypto.dll => 83
 	i64 u0x1e3d87657e9659bc, ; 47: Xamarin.AndroidX.Navigation.UI => 80
 	i64 u0x1e71143913d56c10, ; 48: lib-ko-Microsoft.Maui.Controls.resources.dll.so => 16
 	i64 u0x1ed8fcce5e9b50a0, ; 49: Microsoft.Extensions.Options.dll => 49
-	i64 u0x209375905fcc1bad, ; 50: lib_System.IO.Compression.Brotli.dll.so => 106
-	i64 u0x2174319c0d835bc9, ; 51: System.Runtime => 123
+	i64 u0x209375905fcc1bad, ; 50: lib_System.IO.Compression.Brotli.dll.so => 107
+	i64 u0x2174319c0d835bc9, ; 51: System.Runtime => 124
 	i64 u0x220fd4f2e7c48170, ; 52: th/Microsoft.Maui.Controls.resources => 27
-	i64 u0x237be844f1f812c7, ; 53: System.Threading.Thread.dll => 128
+	i64 u0x237be844f1f812c7, ; 53: System.Threading.Thread.dll => 129
 	i64 u0x2407aef2bbe8fadf, ; 54: System.Console => 101
 	i64 u0x240abe014b27e7d3, ; 55: Xamarin.AndroidX.Core.dll => 67
 	i64 u0x252073cc3caa62c2, ; 56: fr/Microsoft.Maui.Controls.resources.dll => 8
@@ -80,405 +80,409 @@ target triple = "aarch64-unknown-linux-android21"
 	i64 u0x273f3515de5faf0d, ; 60: id/Microsoft.Maui.Controls.resources.dll => 13
 	i64 u0x2742545f9094896d, ; 61: hr/Microsoft.Maui.Controls.resources => 11
 	i64 u0x27b2b16f3e9de038, ; 62: Xamarin.Google.Crypto.Tink.Android.dll => 88
-	i64 u0x27b410442fad6cf1, ; 63: Java.Interop.dll => 133
-	i64 u0x2801845a2c71fbfb, ; 64: System.Net.Primitives.dll => 114
+	i64 u0x27b410442fad6cf1, ; 63: Java.Interop.dll => 134
+	i64 u0x2801845a2c71fbfb, ; 64: System.Net.Primitives.dll => 115
 	i64 u0x28e52865585a1ebe, ; 65: Microsoft.Extensions.Diagnostics.Abstractions.dll => 44
 	i64 u0x2927d345f3daec35, ; 66: SkiaSharp.dll => 56
 	i64 u0x29aeab763a527e52, ; 67: lib_Xamarin.AndroidX.Navigation.Common.Android.dll.so => 77
 	i64 u0x2a128783efe70ba0, ; 68: uk/Microsoft.Maui.Controls.resources.dll => 29
 	i64 u0x2a45e6c17076bfbd, ; 69: SkiaSharp.HarfBuzz.dll => 57
-	i64 u0x2a91627fe0051b27, ; 70: MaintManager.Shared.dll => 92
-	i64 u0x2ad156c8e1354139, ; 71: fi/Microsoft.Maui.Controls.resources => 7
-	i64 u0x2af298f63581d886, ; 72: System.Text.RegularExpressions.dll => 127
-	i64 u0x2afc1c4f898552ee, ; 73: lib_System.Formats.Asn1.dll.so => 105
-	i64 u0x2b148910ed40fbf9, ; 74: zh-Hant/Microsoft.Maui.Controls.resources.dll => 33
-	i64 u0x2c8bd14bb93a7d82, ; 75: lib-pl-Microsoft.Maui.Controls.resources.dll.so => 20
-	i64 u0x2d169d318a968379, ; 76: System.Threading.dll => 129
-	i64 u0x2d47774b7d993f59, ; 77: sv/Microsoft.Maui.Controls.resources.dll => 26
-	i64 u0x2db915caf23548d2, ; 78: System.Text.Json.dll => 126
-	i64 u0x2e6f1f226821322a, ; 79: el/Microsoft.Maui.Controls.resources.dll => 5
-	i64 u0x2f2e98e1c89b1aff, ; 80: System.Xml.ReaderWriter => 130
-	i64 u0x309ee9eeec09a71e, ; 81: lib_Xamarin.AndroidX.Fragment.dll.so => 71
-	i64 u0x31195fef5d8fb552, ; 82: _Microsoft.Android.Resource.Designer.dll => 34
-	i64 u0x32243413e774362a, ; 83: Xamarin.AndroidX.CardView.dll => 64
-	i64 u0x3235427f8d12dae1, ; 84: lib_System.Drawing.Primitives.dll.so => 103
-	i64 u0x326256f7722d4fe5, ; 85: SkiaSharp.Views.Maui.Controls.dll => 59
-	i64 u0x329753a17a517811, ; 86: fr/Microsoft.Maui.Controls.resources => 8
-	i64 u0x32aa989ff07a84ff, ; 87: lib_System.Xml.ReaderWriter.dll.so => 130
-	i64 u0x33a31443733849fe, ; 88: lib-es-Microsoft.Maui.Controls.resources.dll.so => 6
-	i64 u0x34dfd74fe2afcf37, ; 89: Microsoft.Maui => 53
-	i64 u0x34e292762d9615df, ; 90: cs/Microsoft.Maui.Controls.resources.dll => 2
-	i64 u0x3508234247f48404, ; 91: Microsoft.Maui.Controls => 51
-	i64 u0x3549870798b4cd30, ; 92: lib_Xamarin.AndroidX.ViewPager2.dll.so => 86
-	i64 u0x355282fc1c909694, ; 93: Microsoft.Extensions.Configuration => 40
-	i64 u0x385c17636bb6fe6e, ; 94: Xamarin.AndroidX.CustomView.dll => 69
-	i64 u0x393c226616977fdb, ; 95: lib_Xamarin.AndroidX.ViewPager.dll.so => 85
-	i64 u0x395e37c3334cf82a, ; 96: lib-ca-Microsoft.Maui.Controls.resources.dll.so => 1
-	i64 u0x39c3107c28752af1, ; 97: lib_Microsoft.Extensions.FileProviders.Abstractions.dll.so => 45
-	i64 u0x3be99b43dd39dd37, ; 98: Xamarin.AndroidX.SavedState.SavedState.Android => 82
-	i64 u0x3c7c495f58ac5ee9, ; 99: Xamarin.Kotlin.StdLib => 89
-	i64 u0x3d9c2a242b040a50, ; 100: lib_Xamarin.AndroidX.Core.dll.so => 67
-	i64 u0x3f6f5914291cdcf7, ; 101: Microsoft.Extensions.Hosting.Abstractions => 46
-	i64 u0x40c6d9cbfdb8b9f7, ; 102: SkiaSharp.Views.Maui.Core.dll => 60
-	i64 u0x40f14d2cf3f60766, ; 103: LiveChartsCore.SkiaSharpView => 38
-	i64 u0x41cab042be111c34, ; 104: lib_Xamarin.AndroidX.AppCompat.AppCompatResources.dll.so => 63
-	i64 u0x434c4e1d9284cdae, ; 105: Mono.Android.dll => 135
-	i64 u0x43950f84de7cc79a, ; 106: pl/Microsoft.Maui.Controls.resources.dll => 20
-	i64 u0x4515080865a951a5, ; 107: Xamarin.Kotlin.StdLib.dll => 89
-	i64 u0x46a4213bc97fe5ae, ; 108: lib-ru-Microsoft.Maui.Controls.resources.dll.so => 24
-	i64 u0x47daf4e1afbada10, ; 109: pt/Microsoft.Maui.Controls.resources => 22
-	i64 u0x49e952f19a4e2022, ; 110: System.ObjectModel => 117
-	i64 u0x4a5667b2462a664b, ; 111: lib_Xamarin.AndroidX.Navigation.UI.dll.so => 80
-	i64 u0x4b7b6532ded934b7, ; 112: System.Text.Json => 126
-	i64 u0x4bf547f87e5016a8, ; 113: lib_SkiaSharp.Views.Android.dll.so => 58
-	i64 u0x4c2029a97af23a8d, ; 114: Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android => 75
-	i64 u0x4c7755cf07ad2d5f, ; 115: System.Net.Http.Json.dll => 112
-	i64 u0x4cc5f15266470798, ; 116: lib_Xamarin.AndroidX.Loader.dll.so => 76
-	i64 u0x4d479f968a05e504, ; 117: System.Linq.Expressions.dll => 109
-	i64 u0x4d55a010ffc4faff, ; 118: System.Private.Xml => 119
-	i64 u0x4d95fccc1f67c7ca, ; 119: System.Runtime.Loader.dll => 121
-	i64 u0x4dcf44c3c9b076a2, ; 120: it/Microsoft.Maui.Controls.resources.dll => 14
-	i64 u0x4dd9247f1d2c3235, ; 121: Xamarin.AndroidX.Loader.dll => 76
-	i64 u0x4e32f00cb0937401, ; 122: Mono.Android.Runtime => 134
-	i64 u0x4f21ee6ef9eb527e, ; 123: ca/Microsoft.Maui.Controls.resources => 1
-	i64 u0x5037f0be3c28c7a3, ; 124: lib_Microsoft.Maui.Controls.dll.so => 51
-	i64 u0x5112ed116d87baf8, ; 125: CommunityToolkit.Mvvm => 35
-	i64 u0x5131bbe80989093f, ; 126: Xamarin.AndroidX.Lifecycle.ViewModel.Android.dll => 74
-	i64 u0x51bb8a2afe774e32, ; 127: System.Drawing => 104
-	i64 u0x526ce79eb8e90527, ; 128: lib_System.Net.Primitives.dll.so => 114
-	i64 u0x529ffe06f39ab8db, ; 129: Xamarin.AndroidX.Core => 67
-	i64 u0x52ff996554dbf352, ; 130: Microsoft.Maui.Graphics => 55
-	i64 u0x535f7e40e8fef8af, ; 131: lib-sk-Microsoft.Maui.Controls.resources.dll.so => 25
-	i64 u0x53c3014b9437e684, ; 132: lib-zh-HK-Microsoft.Maui.Controls.resources.dll.so => 31
-	i64 u0x54795225dd1587af, ; 133: lib_System.Runtime.dll.so => 123
-	i64 u0x54b851bc9b470503, ; 134: Xamarin.AndroidX.Navigation.Common.Android => 77
-	i64 u0x556e8b63b660ab8b, ; 135: Xamarin.AndroidX.Lifecycle.Common.Jvm.dll => 72
-	i64 u0x5588627c9a108ec9, ; 136: System.Collections.Specialized => 96
-	i64 u0x561449e1215a61e4, ; 137: lib_SkiaSharp.Views.Maui.Core.dll.so => 60
-	i64 u0x571c5cfbec5ae8e2, ; 138: System.Private.Uri => 118
-	i64 u0x579a06fed6eec900, ; 139: System.Private.CoreLib.dll => 132
-	i64 u0x57adda3c951abb33, ; 140: Microsoft.Extensions.Hosting.Abstractions.dll => 46
-	i64 u0x57c542c14049b66d, ; 141: System.Diagnostics.DiagnosticSource => 102
-	i64 u0x58084c70cbf8bf42, ; 142: lib_MaintManager.Shared.dll.so => 92
-	i64 u0x58601b2dda4a27b9, ; 143: lib-ja-Microsoft.Maui.Controls.resources.dll.so => 15
-	i64 u0x58688d9af496b168, ; 144: Microsoft.Extensions.DependencyInjection.dll => 42
-	i64 u0x58b764eaa003a680, ; 145: LiveChartsCore.SkiaSharpView.Maui.dll => 39
-	i64 u0x5a89a886ae30258d, ; 146: lib_Xamarin.AndroidX.CoordinatorLayout.dll.so => 66
-	i64 u0x5a8f6699f4a1caa9, ; 147: lib_System.Threading.dll.so => 129
-	i64 u0x5ae9cd33b15841bf, ; 148: System.ComponentModel => 100
-	i64 u0x5b5ba1327561f926, ; 149: lib_SkiaSharp.Views.Maui.Controls.dll.so => 59
-	i64 u0x5b5f0e240a06a2a2, ; 150: da/Microsoft.Maui.Controls.resources.dll => 3
-	i64 u0x5c393624b8176517, ; 151: lib_Microsoft.Extensions.Logging.dll.so => 47
-	i64 u0x5db0cbbd1028510e, ; 152: lib_System.Runtime.InteropServices.dll.so => 120
-	i64 u0x5db30905d3e5013b, ; 153: Xamarin.AndroidX.Collection.Jvm.dll => 65
-	i64 u0x5e467bc8f09ad026, ; 154: System.Collections.Specialized.dll => 96
-	i64 u0x5ea92fdb19ec8c4c, ; 155: System.Text.Encodings.Web.dll => 125
-	i64 u0x5eb8046dd40e9ac3, ; 156: System.ComponentModel.Primitives => 98
-	i64 u0x5f36ccf5c6a57e24, ; 157: System.Xml.ReaderWriter.dll => 130
-	i64 u0x5f9a2d823f664957, ; 158: lib-el-Microsoft.Maui.Controls.resources.dll.so => 5
-	i64 u0x609f4b7b63d802d4, ; 159: lib_Microsoft.Extensions.DependencyInjection.dll.so => 42
-	i64 u0x60cd4e33d7e60134, ; 160: Xamarin.KotlinX.Coroutines.Core.Jvm => 90
-	i64 u0x60f62d786afcf130, ; 161: System.Memory => 111
-	i64 u0x61be8d1299194243, ; 162: Microsoft.Maui.Controls.Xaml => 52
-	i64 u0x61d2cba29557038f, ; 163: de/Microsoft.Maui.Controls.resources => 4
-	i64 u0x61d88f399afb2f45, ; 164: lib_System.Runtime.Loader.dll.so => 121
-	i64 u0x622eef6f9e59068d, ; 165: System.Private.CoreLib => 132
-	i64 u0x639fb99a7bef11de, ; 166: Xamarin.AndroidX.Navigation.Runtime.Android.dll => 79
-	i64 u0x6400f68068c1e9f1, ; 167: Xamarin.Google.Android.Material.dll => 87
-	i64 u0x65ecac39144dd3cc, ; 168: Microsoft.Maui.Controls.dll => 51
-	i64 u0x65ece51227bfa724, ; 169: lib_System.Runtime.Numerics.dll.so => 122
-	i64 u0x6692e924eade1b29, ; 170: lib_System.Console.dll.so => 101
-	i64 u0x66a4e5c6a3fb0bae, ; 171: lib_Xamarin.AndroidX.Lifecycle.ViewModel.Android.dll.so => 74
-	i64 u0x66d13304ce1a3efa, ; 172: Xamarin.AndroidX.CursorAdapter => 68
-	i64 u0x6833770b38d7bb8e, ; 173: LiveChartsCore.SkiaSharpView.dll => 38
-	i64 u0x68558ec653afa616, ; 174: lib-da-Microsoft.Maui.Controls.resources.dll.so => 3
-	i64 u0x6872ec7a2e36b1ac, ; 175: System.Drawing.Primitives.dll => 103
-	i64 u0x68fbbbe2eb455198, ; 176: System.Formats.Asn1 => 105
-	i64 u0x69063fc0ba8e6bdd, ; 177: he/Microsoft.Maui.Controls.resources.dll => 9
-	i64 u0x6a4d7577b2317255, ; 178: System.Runtime.InteropServices.dll => 120
-	i64 u0x6ace3b74b15ee4a4, ; 179: nb/Microsoft.Maui.Controls.resources => 18
-	i64 u0x6d12bfaa99c72b1f, ; 180: lib_Microsoft.Maui.Graphics.dll.so => 55
-	i64 u0x6d79993361e10ef2, ; 181: Microsoft.Extensions.Primitives => 50
-	i64 u0x6d86d56b84c8eb71, ; 182: lib_Xamarin.AndroidX.CursorAdapter.dll.so => 68
-	i64 u0x6d9bea6b3e895cf7, ; 183: Microsoft.Extensions.Primitives.dll => 50
-	i64 u0x6e25a02c3833319a, ; 184: lib_Xamarin.AndroidX.Navigation.Fragment.dll.so => 78
-	i64 u0x6ec68da6b6ed1835, ; 185: MaintManager.Shared => 92
-	i64 u0x6fd2265da78b93a4, ; 186: lib_Microsoft.Maui.dll.so => 53
-	i64 u0x6fdfc7de82c33008, ; 187: cs/Microsoft.Maui.Controls.resources => 2
-	i64 u0x70e99f48c05cb921, ; 188: tr/Microsoft.Maui.Controls.resources.dll => 28
-	i64 u0x70fd3deda22442d2, ; 189: lib-nb-Microsoft.Maui.Controls.resources.dll.so => 18
-	i64 u0x717530326f808838, ; 190: lib_Microsoft.Extensions.Diagnostics.Abstractions.dll.so => 44
-	i64 u0x71a495ea3761dde8, ; 191: lib-it-Microsoft.Maui.Controls.resources.dll.so => 14
-	i64 u0x71ad672adbe48f35, ; 192: System.ComponentModel.Primitives.dll => 98
-	i64 u0x72b1fb4109e08d7b, ; 193: lib-hr-Microsoft.Maui.Controls.resources.dll.so => 11
-	i64 u0x73e4ce94e2eb6ffc, ; 194: lib_System.Memory.dll.so => 111
-	i64 u0x755a91767330b3d4, ; 195: lib_Microsoft.Extensions.Configuration.dll.so => 40
-	i64 u0x76ca07b878f44da0, ; 196: System.Runtime.Numerics.dll => 122
-	i64 u0x780bc73597a503a9, ; 197: lib-ms-Microsoft.Maui.Controls.resources.dll.so => 17
-	i64 u0x783606d1e53e7a1a, ; 198: th/Microsoft.Maui.Controls.resources.dll => 27
-	i64 u0x78a45e51311409b6, ; 199: Xamarin.AndroidX.Fragment.dll => 71
-	i64 u0x7adb8da2ac89b647, ; 200: fi/Microsoft.Maui.Controls.resources.dll => 7
-	i64 u0x7bef86a4335c4870, ; 201: System.ComponentModel.TypeConverter => 99
-	i64 u0x7c0820144cd34d6a, ; 202: sk/Microsoft.Maui.Controls.resources.dll => 25
-	i64 u0x7c2a0bd1e0f988fc, ; 203: lib-de-Microsoft.Maui.Controls.resources.dll.so => 4
-	i64 u0x7c60acf6404e96b6, ; 204: Xamarin.AndroidX.Navigation.Common.Android.dll => 77
-	i64 u0x7d649b75d580bb42, ; 205: ms/Microsoft.Maui.Controls.resources.dll => 17
-	i64 u0x7d8ee2bdc8e3aad1, ; 206: System.Numerics.Vectors => 116
-	i64 u0x7dfc3d6d9d8d7b70, ; 207: System.Collections => 97
-	i64 u0x7e946809d6008ef2, ; 208: lib_System.ObjectModel.dll.so => 117
-	i64 u0x7ecc13347c8fd849, ; 209: lib_System.ComponentModel.dll.so => 100
-	i64 u0x7f00ddd9b9ca5a13, ; 210: Xamarin.AndroidX.ViewPager.dll => 85
-	i64 u0x7f9351cd44b1273f, ; 211: Microsoft.Extensions.Configuration.Abstractions => 41
-	i64 u0x7fbd557c99b3ce6f, ; 212: lib_Xamarin.AndroidX.Lifecycle.LiveData.Core.dll.so => 73
-	i64 u0x812c069d5cdecc17, ; 213: System.dll => 131
-	i64 u0x81ab745f6c0f5ce6, ; 214: zh-Hant/Microsoft.Maui.Controls.resources => 33
-	i64 u0x8277f2be6b5ce05f, ; 215: Xamarin.AndroidX.AppCompat => 62
-	i64 u0x828f06563b30bc50, ; 216: lib_Xamarin.AndroidX.CardView.dll.so => 64
-	i64 u0x82df8f5532a10c59, ; 217: lib_System.Drawing.dll.so => 104
-	i64 u0x82f6403342e12049, ; 218: uk/Microsoft.Maui.Controls.resources => 29
-	i64 u0x83c14ba66c8e2b8c, ; 219: zh-Hans/Microsoft.Maui.Controls.resources => 32
-	i64 u0x84f9060cc4a93c8f, ; 220: lib_SkiaSharp.dll.so => 56
-	i64 u0x86a909228dc7657b, ; 221: lib-zh-Hant-Microsoft.Maui.Controls.resources.dll.so => 33
-	i64 u0x86b3e00c36b84509, ; 222: Microsoft.Extensions.Configuration.dll => 40
-	i64 u0x87c69b87d9283884, ; 223: lib_System.Threading.Thread.dll.so => 128
-	i64 u0x87f6569b25707834, ; 224: System.IO.Compression.Brotli.dll => 106
-	i64 u0x8808a9d7c53dc4c0, ; 225: lib_HarfBuzzSharp.dll.so => 36
-	i64 u0x8842b3a5d2d3fb36, ; 226: Microsoft.Maui.Essentials => 54
-	i64 u0x88bda98e0cffb7a9, ; 227: lib_Xamarin.KotlinX.Coroutines.Core.Jvm.dll.so => 90
-	i64 u0x897a606c9e39c75f, ; 228: lib_System.ComponentModel.Primitives.dll.so => 98
-	i64 u0x898a5c6bc9e47ec1, ; 229: lib_Xamarin.AndroidX.SavedState.SavedState.Android.dll.so => 82
-	i64 u0x89b982005ca4240b, ; 230: LiveChartsCore.dll => 37
-	i64 u0x8ad229ea26432ee2, ; 231: Xamarin.AndroidX.Loader => 76
-	i64 u0x8b4ff5d0fdd5faa1, ; 232: lib_System.Diagnostics.DiagnosticSource.dll.so => 102
-	i64 u0x8b9ceca7acae3451, ; 233: lib-he-Microsoft.Maui.Controls.resources.dll.so => 9
-	i64 u0x8c575135aa1ccef4, ; 234: Microsoft.Extensions.FileProviders.Abstractions => 45
-	i64 u0x8d0f420977c2c1c7, ; 235: Xamarin.AndroidX.CursorAdapter.dll => 68
-	i64 u0x8d7b8ab4b3310ead, ; 236: System.Threading => 129
-	i64 u0x8da188285aadfe8e, ; 237: System.Collections.Concurrent => 94
-	i64 u0x8ee08b8194a30f48, ; 238: lib-hi-Microsoft.Maui.Controls.resources.dll.so => 10
-	i64 u0x8ef7601039857a44, ; 239: lib-ro-Microsoft.Maui.Controls.resources.dll.so => 23
-	i64 u0x8f32c6f611f6ffab, ; 240: pt/Microsoft.Maui.Controls.resources.dll => 22
-	i64 u0x8f8829d21c8985a4, ; 241: lib-pt-BR-Microsoft.Maui.Controls.resources.dll.so => 21
-	i64 u0x903101b46fb73a04, ; 242: _Microsoft.Android.Resource.Designer => 34
-	i64 u0x90393bd4865292f3, ; 243: lib_System.IO.Compression.dll.so => 107
-	i64 u0x90634f86c5ebe2b5, ; 244: Xamarin.AndroidX.Lifecycle.ViewModel.Android => 74
-	i64 u0x907b636704ad79ef, ; 245: lib_Microsoft.Maui.Controls.Xaml.dll.so => 52
-	i64 u0x91418dc638b29e68, ; 246: lib_Xamarin.AndroidX.CustomView.dll.so => 69
-	i64 u0x9157bd523cd7ed36, ; 247: lib_System.Text.Json.dll.so => 126
-	i64 u0x91a74f07b30d37e2, ; 248: System.Linq.dll => 110
-	i64 u0x91fa41a87223399f, ; 249: ca/Microsoft.Maui.Controls.resources.dll => 1
-	i64 u0x93cfa73ab28d6e35, ; 250: ms/Microsoft.Maui.Controls.resources => 17
-	i64 u0x944077d8ca3c6580, ; 251: System.IO.Compression.dll => 107
-	i64 u0x961d02cda89a5515, ; 252: lib_MaintManager.MAUI.dll.so => 93
-	i64 u0x967fc325e09bfa8c, ; 253: es/Microsoft.Maui.Controls.resources => 6
-	i64 u0x9732d8dbddea3d9a, ; 254: id/Microsoft.Maui.Controls.resources => 13
-	i64 u0x978be80e5210d31b, ; 255: Microsoft.Maui.Graphics.dll => 55
-	i64 u0x97b8c771ea3e4220, ; 256: System.ComponentModel.dll => 100
-	i64 u0x97e144c9d3c6976e, ; 257: System.Collections.Concurrent.dll => 94
-	i64 u0x98b05cc81e6f333c, ; 258: Xamarin.AndroidX.SavedState.SavedState.Android.dll => 82
-	i64 u0x991d510397f92d9d, ; 259: System.Linq.Expressions => 109
-	i64 u0x999cb19e1a04ffd3, ; 260: CommunityToolkit.Mvvm.dll => 35
-	i64 u0x99cdc6d1f2d3a72f, ; 261: ko/Microsoft.Maui.Controls.resources.dll => 16
-	i64 u0x9d5dbcf5a48583fe, ; 262: lib_Xamarin.AndroidX.Activity.dll.so => 61
-	i64 u0x9d74dee1a7725f34, ; 263: Microsoft.Extensions.Configuration.Abstractions.dll => 41
-	i64 u0x9dd0e195825d65c6, ; 264: lib_Xamarin.AndroidX.Navigation.Runtime.Android.dll.so => 79
-	i64 u0x9e4534b6adaf6e84, ; 265: nl/Microsoft.Maui.Controls.resources => 19
-	i64 u0x9ef542cf1f78c506, ; 266: Xamarin.AndroidX.Lifecycle.LiveData.Core => 73
-	i64 u0xa0d8259f4cc284ec, ; 267: lib_System.Security.Cryptography.dll.so => 124
-	i64 u0xa0e17ca50c77a225, ; 268: lib_Xamarin.Google.Crypto.Tink.Android.dll.so => 88
-	i64 u0xa1440773ee9d341e, ; 269: Xamarin.Google.Android.Material => 87
-	i64 u0xa1b9d7c27f47219f, ; 270: Xamarin.AndroidX.Navigation.UI.dll => 80
-	i64 u0xa2572680829d2c7c, ; 271: System.IO.Pipelines.dll => 108
-	i64 u0xa2beee74530fc01c, ; 272: SkiaSharp.Views.Android => 58
-	i64 u0xa46aa1eaa214539b, ; 273: ko/Microsoft.Maui.Controls.resources => 16
-	i64 u0xa4d20d2ff0563d26, ; 274: lib_CommunityToolkit.Mvvm.dll.so => 35
-	i64 u0xa5e599d1e0524750, ; 275: System.Numerics.Vectors.dll => 116
-	i64 u0xa5f1ba49b85dd355, ; 276: System.Security.Cryptography.dll => 124
-	i64 u0xa684b098dd27b296, ; 277: lib_Xamarin.AndroidX.Security.SecurityCrypto.dll.so => 83
-	i64 u0xa68a420042bb9b1f, ; 278: Xamarin.AndroidX.DrawerLayout.dll => 70
-	i64 u0xa78ce3745383236a, ; 279: Xamarin.AndroidX.Lifecycle.Common.Jvm => 72
-	i64 u0xa7c31b56b4dc7b33, ; 280: hu/Microsoft.Maui.Controls.resources => 12
-	i64 u0xaa2219c8e3449ff5, ; 281: Microsoft.Extensions.Logging.Abstractions => 48
-	i64 u0xaa443ac34067eeef, ; 282: System.Private.Xml.dll => 119
-	i64 u0xaa52de307ef5d1dd, ; 283: System.Net.Http => 113
-	i64 u0xaaaf86367285a918, ; 284: Microsoft.Extensions.DependencyInjection.Abstractions.dll => 43
-	i64 u0xaaf84bb3f052a265, ; 285: el/Microsoft.Maui.Controls.resources => 5
-	i64 u0xab9c1b2687d86b0b, ; 286: lib_System.Linq.Expressions.dll.so => 109
-	i64 u0xac002e3121747999, ; 287: MaintManager.MAUI => 93
-	i64 u0xac2af3fa195a15ce, ; 288: System.Runtime.Numerics => 122
-	i64 u0xac5376a2a538dc10, ; 289: Xamarin.AndroidX.Lifecycle.LiveData.Core.dll => 73
-	i64 u0xacd46e002c3ccb97, ; 290: ro/Microsoft.Maui.Controls.resources => 23
-	i64 u0xad89c07347f1bad6, ; 291: nl/Microsoft.Maui.Controls.resources.dll => 19
-	i64 u0xadc90ab061a9e6e4, ; 292: System.ComponentModel.TypeConverter.dll => 99
-	i64 u0xae282bcd03739de7, ; 293: Java.Interop => 133
-	i64 u0xae53579c90db1107, ; 294: System.ObjectModel.dll => 117
-	i64 u0xb05cc42cd94c6d9d, ; 295: lib-sv-Microsoft.Maui.Controls.resources.dll.so => 26
-	i64 u0xb220631954820169, ; 296: System.Text.RegularExpressions => 127
-	i64 u0xb2a3f67f3bf29fce, ; 297: da/Microsoft.Maui.Controls.resources => 3
-	i64 u0xb3f0a0fcda8d3ebc, ; 298: Xamarin.AndroidX.CardView => 64
-	i64 u0xb46be1aa6d4fff93, ; 299: hi/Microsoft.Maui.Controls.resources => 10
-	i64 u0xb477491be13109d8, ; 300: ar/Microsoft.Maui.Controls.resources => 0
-	i64 u0xb4bd7015ecee9d86, ; 301: System.IO.Pipelines => 108
-	i64 u0xb5c7fcdafbc67ee4, ; 302: Microsoft.Extensions.Logging.Abstractions.dll => 48
-	i64 u0xb7212c4683a94afe, ; 303: System.Drawing.Primitives => 103
-	i64 u0xb7b7753d1f319409, ; 304: sv/Microsoft.Maui.Controls.resources => 26
-	i64 u0xb7c5adb5be3a61e9, ; 305: MaintManager.MAUI.dll => 93
-	i64 u0xb81a2c6e0aee50fe, ; 306: lib_System.Private.CoreLib.dll.so => 132
-	i64 u0xb960d6b2200ba320, ; 307: Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android.dll => 75
-	i64 u0xb9f64d3b230def68, ; 308: lib-pt-Microsoft.Maui.Controls.resources.dll.so => 22
-	i64 u0xb9fc3c8a556e3691, ; 309: ja/Microsoft.Maui.Controls.resources => 15
-	i64 u0xba48785529705af9, ; 310: System.Collections.dll => 97
-	i64 u0xbd0e2c0d55246576, ; 311: System.Net.Http.dll => 113
-	i64 u0xbd437a2cdb333d0d, ; 312: Xamarin.AndroidX.ViewPager2 => 86
-	i64 u0xbee38d4a88835966, ; 313: Xamarin.AndroidX.AppCompat.AppCompatResources => 63
-	i64 u0xbfc1e1fb3095f2b3, ; 314: lib_System.Net.Http.Json.dll.so => 112
-	i64 u0xc040a4ab55817f58, ; 315: ar/Microsoft.Maui.Controls.resources.dll => 0
-	i64 u0xc0d928351ab5ca77, ; 316: System.Console.dll => 101
-	i64 u0xc12b8b3afa48329c, ; 317: lib_System.Linq.dll.so => 110
-	i64 u0xc1ff9ae3cdb6e1e6, ; 318: Xamarin.AndroidX.Activity.dll => 61
-	i64 u0xc28c50f32f81cc73, ; 319: ja/Microsoft.Maui.Controls.resources.dll => 15
-	i64 u0xc2bcfec99f69365e, ; 320: Xamarin.AndroidX.ViewPager2.dll => 86
-	i64 u0xc50fded0ded1418c, ; 321: lib_System.ComponentModel.TypeConverter.dll.so => 99
-	i64 u0xc519125d6bc8fb11, ; 322: lib_System.Net.Requests.dll.so => 115
-	i64 u0xc5293b19e4dc230e, ; 323: Xamarin.AndroidX.Navigation.Fragment => 78
-	i64 u0xc5325b2fcb37446f, ; 324: lib_System.Private.Xml.dll.so => 119
-	i64 u0xc5a0f4b95a699af7, ; 325: lib_System.Private.Uri.dll.so => 118
-	i64 u0xc74d70d4aa96cef3, ; 326: Xamarin.AndroidX.Navigation.Runtime.Android => 79
-	i64 u0xc858a28d9ee5a6c5, ; 327: lib_System.Collections.Specialized.dll.so => 96
-	i64 u0xca3a723e7342c5b6, ; 328: lib-tr-Microsoft.Maui.Controls.resources.dll.so => 28
-	i64 u0xcab3493c70141c2d, ; 329: pl/Microsoft.Maui.Controls.resources => 20
-	i64 u0xcacfddc9f7c6de76, ; 330: ro/Microsoft.Maui.Controls.resources.dll => 23
-	i64 u0xcbd4fdd9cef4a294, ; 331: lib__Microsoft.Android.Resource.Designer.dll.so => 34
-	i64 u0xcc2876b32ef2794c, ; 332: lib_System.Text.RegularExpressions.dll.so => 127
-	i64 u0xcc5c3bb714c4561e, ; 333: Xamarin.KotlinX.Coroutines.Core.Jvm.dll => 90
-	i64 u0xcc76886e09b88260, ; 334: Xamarin.KotlinX.Serialization.Core.Jvm.dll => 91
-	i64 u0xccf25c4b634ccd3a, ; 335: zh-Hans/Microsoft.Maui.Controls.resources.dll => 32
-	i64 u0xcd10a42808629144, ; 336: System.Net.Requests => 115
-	i64 u0xcdd0c48b6937b21c, ; 337: Xamarin.AndroidX.SwipeRefreshLayout => 84
-	i64 u0xcf23d8093f3ceadf, ; 338: System.Diagnostics.DiagnosticSource.dll => 102
-	i64 u0xd1194e1d8a8de83c, ; 339: lib_Xamarin.AndroidX.Lifecycle.Common.Jvm.dll.so => 72
-	i64 u0xd16fd7fb9bbcd43e, ; 340: Microsoft.Extensions.Diagnostics.Abstractions => 44
-	i64 u0xd333d0af9e423810, ; 341: System.Runtime.InteropServices => 120
-	i64 u0xd3426d966bb704f5, ; 342: Xamarin.AndroidX.AppCompat.AppCompatResources.dll => 63
-	i64 u0xd3651b6fc3125825, ; 343: System.Private.Uri.dll => 118
-	i64 u0xd373685349b1fe8b, ; 344: Microsoft.Extensions.Logging.dll => 47
-	i64 u0xd3e4c8d6a2d5d470, ; 345: it/Microsoft.Maui.Controls.resources => 14
-	i64 u0xd4645626dffec99d, ; 346: lib_Microsoft.Extensions.DependencyInjection.Abstractions.dll.so => 43
-	i64 u0xd6d21782156bc35b, ; 347: Xamarin.AndroidX.SwipeRefreshLayout.dll => 84
-	i64 u0xd72329819cbbbc44, ; 348: lib_Microsoft.Extensions.Configuration.Abstractions.dll.so => 41
-	i64 u0xd780f1a3e2e12e16, ; 349: lib_LiveChartsCore.SkiaSharpView.dll.so => 38
-	i64 u0xd7b3764ada9d341d, ; 350: lib_Microsoft.Extensions.Logging.Abstractions.dll.so => 48
-	i64 u0xda1dfa4c534a9251, ; 351: Microsoft.Extensions.DependencyInjection => 42
-	i64 u0xdad05a11827959a3, ; 352: System.Collections.NonGeneric.dll => 95
-	i64 u0xdb5383ab5865c007, ; 353: lib-vi-Microsoft.Maui.Controls.resources.dll.so => 30
-	i64 u0xdb8f858873e2186b, ; 354: SkiaSharp.Views.Maui.Controls => 59
-	i64 u0xdbeda89f832aa805, ; 355: vi/Microsoft.Maui.Controls.resources.dll => 30
-	i64 u0xdbf9607a441b4505, ; 356: System.Linq => 110
-	i64 u0xdce2c53525640bf3, ; 357: Microsoft.Extensions.Logging => 47
-	i64 u0xdd2b722d78ef5f43, ; 358: System.Runtime.dll => 123
-	i64 u0xdd67031857c72f96, ; 359: lib_System.Text.Encodings.Web.dll.so => 125
-	i64 u0xdde30e6b77aa6f6c, ; 360: lib-zh-Hans-Microsoft.Maui.Controls.resources.dll.so => 32
-	i64 u0xddf8227337aa0462, ; 361: SkiaSharp.HarfBuzz => 57
-	i64 u0xde8769ebda7d8647, ; 362: hr/Microsoft.Maui.Controls.resources.dll => 11
-	i64 u0xe0142572c095a480, ; 363: Xamarin.AndroidX.AppCompat.dll => 62
-	i64 u0xe02f89350ec78051, ; 364: Xamarin.AndroidX.CoordinatorLayout.dll => 66
-	i64 u0xe192a588d4410686, ; 365: lib_System.IO.Pipelines.dll.so => 108
-	i64 u0xe1a08bd3fa539e0d, ; 366: System.Runtime.Loader => 121
-	i64 u0xe24095a7afddaab3, ; 367: lib_Microsoft.Extensions.Hosting.Abstractions.dll.so => 46
-	i64 u0xe2420585aeceb728, ; 368: System.Net.Requests.dll => 115
-	i64 u0xe29b73bc11392966, ; 369: lib-id-Microsoft.Maui.Controls.resources.dll.so => 13
-	i64 u0xe3811d68d4fe8463, ; 370: pt-BR/Microsoft.Maui.Controls.resources.dll => 21
-	i64 u0xe494f7ced4ecd10a, ; 371: hu/Microsoft.Maui.Controls.resources.dll => 12
-	i64 u0xe4a9b1e40d1e8917, ; 372: lib-fi-Microsoft.Maui.Controls.resources.dll.so => 7
-	i64 u0xe5434e8a119ceb69, ; 373: lib_Mono.Android.dll.so => 135
-	i64 u0xe89a2a9ef110899b, ; 374: System.Drawing.dll => 104
-	i64 u0xedc632067fb20ff3, ; 375: System.Memory.dll => 111
-	i64 u0xeeb7ebb80150501b, ; 376: lib_Xamarin.AndroidX.Collection.Jvm.dll.so => 65
-	i64 u0xef72742e1bcca27a, ; 377: Microsoft.Maui.Essentials.dll => 54
-	i64 u0xefec0b7fdc57ec42, ; 378: Xamarin.AndroidX.Activity => 61
-	i64 u0xf00c29406ea45e19, ; 379: es/Microsoft.Maui.Controls.resources.dll => 6
-	i64 u0xf11b621fc87b983f, ; 380: Microsoft.Maui.Controls.Xaml.dll => 52
-	i64 u0xf1c4b4005493d871, ; 381: System.Formats.Asn1.dll => 105
-	i64 u0xf22514cfad2d598b, ; 382: lib_Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android.dll.so => 75
-	i64 u0xf238bd79489d3a96, ; 383: lib-nl-Microsoft.Maui.Controls.resources.dll.so => 19
-	i64 u0xf37221fda4ef8830, ; 384: lib_Xamarin.Google.Android.Material.dll.so => 87
-	i64 u0xf397148270133fa9, ; 385: lib_LiveChartsCore.SkiaSharpView.Maui.dll.so => 39
-	i64 u0xf3ddfe05336abf29, ; 386: System => 131
-	i64 u0xf4727d423e5d26f3, ; 387: SkiaSharp => 56
-	i64 u0xf4c1dd70a5496a17, ; 388: System.IO.Compression => 107
-	i64 u0xf6077741019d7428, ; 389: Xamarin.AndroidX.CoordinatorLayout => 66
-	i64 u0xf77b20923f07c667, ; 390: de/Microsoft.Maui.Controls.resources.dll => 4
-	i64 u0xf7e2cac4c45067b3, ; 391: lib_System.Numerics.Vectors.dll.so => 116
-	i64 u0xf7e74930e0e3d214, ; 392: zh-HK/Microsoft.Maui.Controls.resources.dll => 31
-	i64 u0xf84773b5c81e3cef, ; 393: lib-uk-Microsoft.Maui.Controls.resources.dll.so => 29
-	i64 u0xf8e045dc345b2ea3, ; 394: lib_Xamarin.AndroidX.RecyclerView.dll.so => 81
-	i64 u0xf96c777a2a0686f4, ; 395: hi/Microsoft.Maui.Controls.resources.dll => 10
-	i64 u0xf9eec5bb3a6aedc6, ; 396: Microsoft.Extensions.Options => 49
-	i64 u0xfa504dfa0f097d72, ; 397: Microsoft.Extensions.FileProviders.Abstractions.dll => 45
-	i64 u0xfa5ed7226d978949, ; 398: lib-ar-Microsoft.Maui.Controls.resources.dll.so => 0
-	i64 u0xfa645d91e9fc4cba, ; 399: System.Threading.Thread => 128
-	i64 u0xfa99d44ebf9bea5b, ; 400: SkiaSharp.Views.Maui.Core => 60
-	i64 u0xfbf0a31c9fc34bc4, ; 401: lib_System.Net.Http.dll.so => 113
-	i64 u0xfc719aec26adf9d9, ; 402: Xamarin.AndroidX.Navigation.Fragment.dll => 78
-	i64 u0xfd22f00870e40ae0, ; 403: lib_Xamarin.AndroidX.DrawerLayout.dll.so => 70
-	i64 u0xfd583f7657b6a1cb, ; 404: Xamarin.AndroidX.Fragment => 71
-	i64 u0xfeae9952cf03b8cb, ; 405: tr/Microsoft.Maui.Controls.resources => 28
-	i64 u0xfeca84fe7f34860b, ; 406: HarfBuzzSharp.dll => 36
-	i64 u0xff9b54613e0d2cc8 ; 407: System.Net.Http.Json => 112
+	i64 u0x2a6507a5ffabdf28, ; 70: System.Diagnostics.TraceSource.dll => 103
+	i64 u0x2a91627fe0051b27, ; 71: MaintManager.Shared.dll => 92
+	i64 u0x2ad156c8e1354139, ; 72: fi/Microsoft.Maui.Controls.resources => 7
+	i64 u0x2af298f63581d886, ; 73: System.Text.RegularExpressions.dll => 128
+	i64 u0x2afc1c4f898552ee, ; 74: lib_System.Formats.Asn1.dll.so => 106
+	i64 u0x2b148910ed40fbf9, ; 75: zh-Hant/Microsoft.Maui.Controls.resources.dll => 33
+	i64 u0x2c8bd14bb93a7d82, ; 76: lib-pl-Microsoft.Maui.Controls.resources.dll.so => 20
+	i64 u0x2d169d318a968379, ; 77: System.Threading.dll => 130
+	i64 u0x2d47774b7d993f59, ; 78: sv/Microsoft.Maui.Controls.resources.dll => 26
+	i64 u0x2db915caf23548d2, ; 79: System.Text.Json.dll => 127
+	i64 u0x2e6f1f226821322a, ; 80: el/Microsoft.Maui.Controls.resources.dll => 5
+	i64 u0x2f2e98e1c89b1aff, ; 81: System.Xml.ReaderWriter => 131
+	i64 u0x309ee9eeec09a71e, ; 82: lib_Xamarin.AndroidX.Fragment.dll.so => 71
+	i64 u0x31195fef5d8fb552, ; 83: _Microsoft.Android.Resource.Designer.dll => 34
+	i64 u0x32243413e774362a, ; 84: Xamarin.AndroidX.CardView.dll => 64
+	i64 u0x3235427f8d12dae1, ; 85: lib_System.Drawing.Primitives.dll.so => 104
+	i64 u0x326256f7722d4fe5, ; 86: SkiaSharp.Views.Maui.Controls.dll => 59
+	i64 u0x329753a17a517811, ; 87: fr/Microsoft.Maui.Controls.resources => 8
+	i64 u0x32aa989ff07a84ff, ; 88: lib_System.Xml.ReaderWriter.dll.so => 131
+	i64 u0x33a31443733849fe, ; 89: lib-es-Microsoft.Maui.Controls.resources.dll.so => 6
+	i64 u0x34dfd74fe2afcf37, ; 90: Microsoft.Maui => 53
+	i64 u0x34e292762d9615df, ; 91: cs/Microsoft.Maui.Controls.resources.dll => 2
+	i64 u0x3508234247f48404, ; 92: Microsoft.Maui.Controls => 51
+	i64 u0x3549870798b4cd30, ; 93: lib_Xamarin.AndroidX.ViewPager2.dll.so => 86
+	i64 u0x355282fc1c909694, ; 94: Microsoft.Extensions.Configuration => 40
+	i64 u0x385c17636bb6fe6e, ; 95: Xamarin.AndroidX.CustomView.dll => 69
+	i64 u0x393c226616977fdb, ; 96: lib_Xamarin.AndroidX.ViewPager.dll.so => 85
+	i64 u0x395e37c3334cf82a, ; 97: lib-ca-Microsoft.Maui.Controls.resources.dll.so => 1
+	i64 u0x39c3107c28752af1, ; 98: lib_Microsoft.Extensions.FileProviders.Abstractions.dll.so => 45
+	i64 u0x3be99b43dd39dd37, ; 99: Xamarin.AndroidX.SavedState.SavedState.Android => 82
+	i64 u0x3c7c495f58ac5ee9, ; 100: Xamarin.Kotlin.StdLib => 89
+	i64 u0x3d9c2a242b040a50, ; 101: lib_Xamarin.AndroidX.Core.dll.so => 67
+	i64 u0x3f6f5914291cdcf7, ; 102: Microsoft.Extensions.Hosting.Abstractions => 46
+	i64 u0x40c6d9cbfdb8b9f7, ; 103: SkiaSharp.Views.Maui.Core.dll => 60
+	i64 u0x40f14d2cf3f60766, ; 104: LiveChartsCore.SkiaSharpView => 38
+	i64 u0x41cab042be111c34, ; 105: lib_Xamarin.AndroidX.AppCompat.AppCompatResources.dll.so => 63
+	i64 u0x434c4e1d9284cdae, ; 106: Mono.Android.dll => 136
+	i64 u0x43950f84de7cc79a, ; 107: pl/Microsoft.Maui.Controls.resources.dll => 20
+	i64 u0x4515080865a951a5, ; 108: Xamarin.Kotlin.StdLib.dll => 89
+	i64 u0x45c40276a42e283e, ; 109: System.Diagnostics.TraceSource => 103
+	i64 u0x46a4213bc97fe5ae, ; 110: lib-ru-Microsoft.Maui.Controls.resources.dll.so => 24
+	i64 u0x47daf4e1afbada10, ; 111: pt/Microsoft.Maui.Controls.resources => 22
+	i64 u0x49e952f19a4e2022, ; 112: System.ObjectModel => 118
+	i64 u0x4a5667b2462a664b, ; 113: lib_Xamarin.AndroidX.Navigation.UI.dll.so => 80
+	i64 u0x4b7b6532ded934b7, ; 114: System.Text.Json => 127
+	i64 u0x4bf547f87e5016a8, ; 115: lib_SkiaSharp.Views.Android.dll.so => 58
+	i64 u0x4c2029a97af23a8d, ; 116: Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android => 75
+	i64 u0x4c7755cf07ad2d5f, ; 117: System.Net.Http.Json.dll => 113
+	i64 u0x4cc5f15266470798, ; 118: lib_Xamarin.AndroidX.Loader.dll.so => 76
+	i64 u0x4d479f968a05e504, ; 119: System.Linq.Expressions.dll => 110
+	i64 u0x4d55a010ffc4faff, ; 120: System.Private.Xml => 120
+	i64 u0x4d95fccc1f67c7ca, ; 121: System.Runtime.Loader.dll => 122
+	i64 u0x4dcf44c3c9b076a2, ; 122: it/Microsoft.Maui.Controls.resources.dll => 14
+	i64 u0x4dd9247f1d2c3235, ; 123: Xamarin.AndroidX.Loader.dll => 76
+	i64 u0x4e32f00cb0937401, ; 124: Mono.Android.Runtime => 135
+	i64 u0x4f21ee6ef9eb527e, ; 125: ca/Microsoft.Maui.Controls.resources => 1
+	i64 u0x5037f0be3c28c7a3, ; 126: lib_Microsoft.Maui.Controls.dll.so => 51
+	i64 u0x5112ed116d87baf8, ; 127: CommunityToolkit.Mvvm => 35
+	i64 u0x5131bbe80989093f, ; 128: Xamarin.AndroidX.Lifecycle.ViewModel.Android.dll => 74
+	i64 u0x51bb8a2afe774e32, ; 129: System.Drawing => 105
+	i64 u0x526ce79eb8e90527, ; 130: lib_System.Net.Primitives.dll.so => 115
+	i64 u0x529ffe06f39ab8db, ; 131: Xamarin.AndroidX.Core => 67
+	i64 u0x52ff996554dbf352, ; 132: Microsoft.Maui.Graphics => 55
+	i64 u0x535f7e40e8fef8af, ; 133: lib-sk-Microsoft.Maui.Controls.resources.dll.so => 25
+	i64 u0x53c3014b9437e684, ; 134: lib-zh-HK-Microsoft.Maui.Controls.resources.dll.so => 31
+	i64 u0x54795225dd1587af, ; 135: lib_System.Runtime.dll.so => 124
+	i64 u0x54b851bc9b470503, ; 136: Xamarin.AndroidX.Navigation.Common.Android => 77
+	i64 u0x556e8b63b660ab8b, ; 137: Xamarin.AndroidX.Lifecycle.Common.Jvm.dll => 72
+	i64 u0x5588627c9a108ec9, ; 138: System.Collections.Specialized => 96
+	i64 u0x561449e1215a61e4, ; 139: lib_SkiaSharp.Views.Maui.Core.dll.so => 60
+	i64 u0x571c5cfbec5ae8e2, ; 140: System.Private.Uri => 119
+	i64 u0x579a06fed6eec900, ; 141: System.Private.CoreLib.dll => 133
+	i64 u0x57adda3c951abb33, ; 142: Microsoft.Extensions.Hosting.Abstractions.dll => 46
+	i64 u0x57c542c14049b66d, ; 143: System.Diagnostics.DiagnosticSource => 102
+	i64 u0x58084c70cbf8bf42, ; 144: lib_MaintManager.Shared.dll.so => 92
+	i64 u0x58601b2dda4a27b9, ; 145: lib-ja-Microsoft.Maui.Controls.resources.dll.so => 15
+	i64 u0x58688d9af496b168, ; 146: Microsoft.Extensions.DependencyInjection.dll => 42
+	i64 u0x58b764eaa003a680, ; 147: LiveChartsCore.SkiaSharpView.Maui.dll => 39
+	i64 u0x5a89a886ae30258d, ; 148: lib_Xamarin.AndroidX.CoordinatorLayout.dll.so => 66
+	i64 u0x5a8f6699f4a1caa9, ; 149: lib_System.Threading.dll.so => 130
+	i64 u0x5ae9cd33b15841bf, ; 150: System.ComponentModel => 100
+	i64 u0x5b5ba1327561f926, ; 151: lib_SkiaSharp.Views.Maui.Controls.dll.so => 59
+	i64 u0x5b5f0e240a06a2a2, ; 152: da/Microsoft.Maui.Controls.resources.dll => 3
+	i64 u0x5c393624b8176517, ; 153: lib_Microsoft.Extensions.Logging.dll.so => 47
+	i64 u0x5db0cbbd1028510e, ; 154: lib_System.Runtime.InteropServices.dll.so => 121
+	i64 u0x5db30905d3e5013b, ; 155: Xamarin.AndroidX.Collection.Jvm.dll => 65
+	i64 u0x5e467bc8f09ad026, ; 156: System.Collections.Specialized.dll => 96
+	i64 u0x5ea92fdb19ec8c4c, ; 157: System.Text.Encodings.Web.dll => 126
+	i64 u0x5eb8046dd40e9ac3, ; 158: System.ComponentModel.Primitives => 98
+	i64 u0x5f36ccf5c6a57e24, ; 159: System.Xml.ReaderWriter.dll => 131
+	i64 u0x5f9a2d823f664957, ; 160: lib-el-Microsoft.Maui.Controls.resources.dll.so => 5
+	i64 u0x609f4b7b63d802d4, ; 161: lib_Microsoft.Extensions.DependencyInjection.dll.so => 42
+	i64 u0x60cd4e33d7e60134, ; 162: Xamarin.KotlinX.Coroutines.Core.Jvm => 90
+	i64 u0x60f62d786afcf130, ; 163: System.Memory => 112
+	i64 u0x61be8d1299194243, ; 164: Microsoft.Maui.Controls.Xaml => 52
+	i64 u0x61d2cba29557038f, ; 165: de/Microsoft.Maui.Controls.resources => 4
+	i64 u0x61d88f399afb2f45, ; 166: lib_System.Runtime.Loader.dll.so => 122
+	i64 u0x622eef6f9e59068d, ; 167: System.Private.CoreLib => 133
+	i64 u0x639fb99a7bef11de, ; 168: Xamarin.AndroidX.Navigation.Runtime.Android.dll => 79
+	i64 u0x6400f68068c1e9f1, ; 169: Xamarin.Google.Android.Material.dll => 87
+	i64 u0x65ecac39144dd3cc, ; 170: Microsoft.Maui.Controls.dll => 51
+	i64 u0x65ece51227bfa724, ; 171: lib_System.Runtime.Numerics.dll.so => 123
+	i64 u0x6692e924eade1b29, ; 172: lib_System.Console.dll.so => 101
+	i64 u0x66a4e5c6a3fb0bae, ; 173: lib_Xamarin.AndroidX.Lifecycle.ViewModel.Android.dll.so => 74
+	i64 u0x66d13304ce1a3efa, ; 174: Xamarin.AndroidX.CursorAdapter => 68
+	i64 u0x6833770b38d7bb8e, ; 175: LiveChartsCore.SkiaSharpView.dll => 38
+	i64 u0x68558ec653afa616, ; 176: lib-da-Microsoft.Maui.Controls.resources.dll.so => 3
+	i64 u0x6872ec7a2e36b1ac, ; 177: System.Drawing.Primitives.dll => 104
+	i64 u0x68fbbbe2eb455198, ; 178: System.Formats.Asn1 => 106
+	i64 u0x69063fc0ba8e6bdd, ; 179: he/Microsoft.Maui.Controls.resources.dll => 9
+	i64 u0x6a4d7577b2317255, ; 180: System.Runtime.InteropServices.dll => 121
+	i64 u0x6ace3b74b15ee4a4, ; 181: nb/Microsoft.Maui.Controls.resources => 18
+	i64 u0x6d12bfaa99c72b1f, ; 182: lib_Microsoft.Maui.Graphics.dll.so => 55
+	i64 u0x6d79993361e10ef2, ; 183: Microsoft.Extensions.Primitives => 50
+	i64 u0x6d86d56b84c8eb71, ; 184: lib_Xamarin.AndroidX.CursorAdapter.dll.so => 68
+	i64 u0x6d9bea6b3e895cf7, ; 185: Microsoft.Extensions.Primitives.dll => 50
+	i64 u0x6e25a02c3833319a, ; 186: lib_Xamarin.AndroidX.Navigation.Fragment.dll.so => 78
+	i64 u0x6ec68da6b6ed1835, ; 187: MaintManager.Shared => 92
+	i64 u0x6fd2265da78b93a4, ; 188: lib_Microsoft.Maui.dll.so => 53
+	i64 u0x6fdfc7de82c33008, ; 189: cs/Microsoft.Maui.Controls.resources => 2
+	i64 u0x70e99f48c05cb921, ; 190: tr/Microsoft.Maui.Controls.resources.dll => 28
+	i64 u0x70fd3deda22442d2, ; 191: lib-nb-Microsoft.Maui.Controls.resources.dll.so => 18
+	i64 u0x717530326f808838, ; 192: lib_Microsoft.Extensions.Diagnostics.Abstractions.dll.so => 44
+	i64 u0x71a495ea3761dde8, ; 193: lib-it-Microsoft.Maui.Controls.resources.dll.so => 14
+	i64 u0x71ad672adbe48f35, ; 194: System.ComponentModel.Primitives.dll => 98
+	i64 u0x72b1fb4109e08d7b, ; 195: lib-hr-Microsoft.Maui.Controls.resources.dll.so => 11
+	i64 u0x73e4ce94e2eb6ffc, ; 196: lib_System.Memory.dll.so => 112
+	i64 u0x755a91767330b3d4, ; 197: lib_Microsoft.Extensions.Configuration.dll.so => 40
+	i64 u0x76ca07b878f44da0, ; 198: System.Runtime.Numerics.dll => 123
+	i64 u0x780bc73597a503a9, ; 199: lib-ms-Microsoft.Maui.Controls.resources.dll.so => 17
+	i64 u0x783606d1e53e7a1a, ; 200: th/Microsoft.Maui.Controls.resources.dll => 27
+	i64 u0x78a45e51311409b6, ; 201: Xamarin.AndroidX.Fragment.dll => 71
+	i64 u0x7adb8da2ac89b647, ; 202: fi/Microsoft.Maui.Controls.resources.dll => 7
+	i64 u0x7bef86a4335c4870, ; 203: System.ComponentModel.TypeConverter => 99
+	i64 u0x7c0820144cd34d6a, ; 204: sk/Microsoft.Maui.Controls.resources.dll => 25
+	i64 u0x7c2a0bd1e0f988fc, ; 205: lib-de-Microsoft.Maui.Controls.resources.dll.so => 4
+	i64 u0x7c60acf6404e96b6, ; 206: Xamarin.AndroidX.Navigation.Common.Android.dll => 77
+	i64 u0x7d649b75d580bb42, ; 207: ms/Microsoft.Maui.Controls.resources.dll => 17
+	i64 u0x7d8ee2bdc8e3aad1, ; 208: System.Numerics.Vectors => 117
+	i64 u0x7dfc3d6d9d8d7b70, ; 209: System.Collections => 97
+	i64 u0x7e946809d6008ef2, ; 210: lib_System.ObjectModel.dll.so => 118
+	i64 u0x7ecc13347c8fd849, ; 211: lib_System.ComponentModel.dll.so => 100
+	i64 u0x7f00ddd9b9ca5a13, ; 212: Xamarin.AndroidX.ViewPager.dll => 85
+	i64 u0x7f9351cd44b1273f, ; 213: Microsoft.Extensions.Configuration.Abstractions => 41
+	i64 u0x7fbd557c99b3ce6f, ; 214: lib_Xamarin.AndroidX.Lifecycle.LiveData.Core.dll.so => 73
+	i64 u0x812c069d5cdecc17, ; 215: System.dll => 132
+	i64 u0x81ab745f6c0f5ce6, ; 216: zh-Hant/Microsoft.Maui.Controls.resources => 33
+	i64 u0x8277f2be6b5ce05f, ; 217: Xamarin.AndroidX.AppCompat => 62
+	i64 u0x828f06563b30bc50, ; 218: lib_Xamarin.AndroidX.CardView.dll.so => 64
+	i64 u0x82df8f5532a10c59, ; 219: lib_System.Drawing.dll.so => 105
+	i64 u0x82f6403342e12049, ; 220: uk/Microsoft.Maui.Controls.resources => 29
+	i64 u0x83c14ba66c8e2b8c, ; 221: zh-Hans/Microsoft.Maui.Controls.resources => 32
+	i64 u0x84f9060cc4a93c8f, ; 222: lib_SkiaSharp.dll.so => 56
+	i64 u0x86a909228dc7657b, ; 223: lib-zh-Hant-Microsoft.Maui.Controls.resources.dll.so => 33
+	i64 u0x86b3e00c36b84509, ; 224: Microsoft.Extensions.Configuration.dll => 40
+	i64 u0x87c69b87d9283884, ; 225: lib_System.Threading.Thread.dll.so => 129
+	i64 u0x87f6569b25707834, ; 226: System.IO.Compression.Brotli.dll => 107
+	i64 u0x8808a9d7c53dc4c0, ; 227: lib_HarfBuzzSharp.dll.so => 36
+	i64 u0x8842b3a5d2d3fb36, ; 228: Microsoft.Maui.Essentials => 54
+	i64 u0x88bda98e0cffb7a9, ; 229: lib_Xamarin.KotlinX.Coroutines.Core.Jvm.dll.so => 90
+	i64 u0x897a606c9e39c75f, ; 230: lib_System.ComponentModel.Primitives.dll.so => 98
+	i64 u0x898a5c6bc9e47ec1, ; 231: lib_Xamarin.AndroidX.SavedState.SavedState.Android.dll.so => 82
+	i64 u0x89b982005ca4240b, ; 232: LiveChartsCore.dll => 37
+	i64 u0x8ad229ea26432ee2, ; 233: Xamarin.AndroidX.Loader => 76
+	i64 u0x8b4ff5d0fdd5faa1, ; 234: lib_System.Diagnostics.DiagnosticSource.dll.so => 102
+	i64 u0x8b9ceca7acae3451, ; 235: lib-he-Microsoft.Maui.Controls.resources.dll.so => 9
+	i64 u0x8c575135aa1ccef4, ; 236: Microsoft.Extensions.FileProviders.Abstractions => 45
+	i64 u0x8d0f420977c2c1c7, ; 237: Xamarin.AndroidX.CursorAdapter.dll => 68
+	i64 u0x8d7b8ab4b3310ead, ; 238: System.Threading => 130
+	i64 u0x8da188285aadfe8e, ; 239: System.Collections.Concurrent => 94
+	i64 u0x8ee08b8194a30f48, ; 240: lib-hi-Microsoft.Maui.Controls.resources.dll.so => 10
+	i64 u0x8ef7601039857a44, ; 241: lib-ro-Microsoft.Maui.Controls.resources.dll.so => 23
+	i64 u0x8f32c6f611f6ffab, ; 242: pt/Microsoft.Maui.Controls.resources.dll => 22
+	i64 u0x8f8829d21c8985a4, ; 243: lib-pt-BR-Microsoft.Maui.Controls.resources.dll.so => 21
+	i64 u0x90263f8448b8f572, ; 244: lib_System.Diagnostics.TraceSource.dll.so => 103
+	i64 u0x903101b46fb73a04, ; 245: _Microsoft.Android.Resource.Designer => 34
+	i64 u0x90393bd4865292f3, ; 246: lib_System.IO.Compression.dll.so => 108
+	i64 u0x90634f86c5ebe2b5, ; 247: Xamarin.AndroidX.Lifecycle.ViewModel.Android => 74
+	i64 u0x907b636704ad79ef, ; 248: lib_Microsoft.Maui.Controls.Xaml.dll.so => 52
+	i64 u0x91418dc638b29e68, ; 249: lib_Xamarin.AndroidX.CustomView.dll.so => 69
+	i64 u0x9157bd523cd7ed36, ; 250: lib_System.Text.Json.dll.so => 127
+	i64 u0x91a74f07b30d37e2, ; 251: System.Linq.dll => 111
+	i64 u0x91fa41a87223399f, ; 252: ca/Microsoft.Maui.Controls.resources.dll => 1
+	i64 u0x93cfa73ab28d6e35, ; 253: ms/Microsoft.Maui.Controls.resources => 17
+	i64 u0x944077d8ca3c6580, ; 254: System.IO.Compression.dll => 108
+	i64 u0x961d02cda89a5515, ; 255: lib_MaintManager.MAUI.dll.so => 93
+	i64 u0x967fc325e09bfa8c, ; 256: es/Microsoft.Maui.Controls.resources => 6
+	i64 u0x9732d8dbddea3d9a, ; 257: id/Microsoft.Maui.Controls.resources => 13
+	i64 u0x978be80e5210d31b, ; 258: Microsoft.Maui.Graphics.dll => 55
+	i64 u0x97b8c771ea3e4220, ; 259: System.ComponentModel.dll => 100
+	i64 u0x97e144c9d3c6976e, ; 260: System.Collections.Concurrent.dll => 94
+	i64 u0x98b05cc81e6f333c, ; 261: Xamarin.AndroidX.SavedState.SavedState.Android.dll => 82
+	i64 u0x991d510397f92d9d, ; 262: System.Linq.Expressions => 110
+	i64 u0x999cb19e1a04ffd3, ; 263: CommunityToolkit.Mvvm.dll => 35
+	i64 u0x99cdc6d1f2d3a72f, ; 264: ko/Microsoft.Maui.Controls.resources.dll => 16
+	i64 u0x9d5dbcf5a48583fe, ; 265: lib_Xamarin.AndroidX.Activity.dll.so => 61
+	i64 u0x9d74dee1a7725f34, ; 266: Microsoft.Extensions.Configuration.Abstractions.dll => 41
+	i64 u0x9dd0e195825d65c6, ; 267: lib_Xamarin.AndroidX.Navigation.Runtime.Android.dll.so => 79
+	i64 u0x9e4534b6adaf6e84, ; 268: nl/Microsoft.Maui.Controls.resources => 19
+	i64 u0x9ef542cf1f78c506, ; 269: Xamarin.AndroidX.Lifecycle.LiveData.Core => 73
+	i64 u0xa0d8259f4cc284ec, ; 270: lib_System.Security.Cryptography.dll.so => 125
+	i64 u0xa0e17ca50c77a225, ; 271: lib_Xamarin.Google.Crypto.Tink.Android.dll.so => 88
+	i64 u0xa1440773ee9d341e, ; 272: Xamarin.Google.Android.Material => 87
+	i64 u0xa1b9d7c27f47219f, ; 273: Xamarin.AndroidX.Navigation.UI.dll => 80
+	i64 u0xa2572680829d2c7c, ; 274: System.IO.Pipelines.dll => 109
+	i64 u0xa2beee74530fc01c, ; 275: SkiaSharp.Views.Android => 58
+	i64 u0xa46aa1eaa214539b, ; 276: ko/Microsoft.Maui.Controls.resources => 16
+	i64 u0xa4d20d2ff0563d26, ; 277: lib_CommunityToolkit.Mvvm.dll.so => 35
+	i64 u0xa5e599d1e0524750, ; 278: System.Numerics.Vectors.dll => 117
+	i64 u0xa5f1ba49b85dd355, ; 279: System.Security.Cryptography.dll => 125
+	i64 u0xa684b098dd27b296, ; 280: lib_Xamarin.AndroidX.Security.SecurityCrypto.dll.so => 83
+	i64 u0xa68a420042bb9b1f, ; 281: Xamarin.AndroidX.DrawerLayout.dll => 70
+	i64 u0xa78ce3745383236a, ; 282: Xamarin.AndroidX.Lifecycle.Common.Jvm => 72
+	i64 u0xa7c31b56b4dc7b33, ; 283: hu/Microsoft.Maui.Controls.resources => 12
+	i64 u0xaa2219c8e3449ff5, ; 284: Microsoft.Extensions.Logging.Abstractions => 48
+	i64 u0xaa443ac34067eeef, ; 285: System.Private.Xml.dll => 120
+	i64 u0xaa52de307ef5d1dd, ; 286: System.Net.Http => 114
+	i64 u0xaaaf86367285a918, ; 287: Microsoft.Extensions.DependencyInjection.Abstractions.dll => 43
+	i64 u0xaaf84bb3f052a265, ; 288: el/Microsoft.Maui.Controls.resources => 5
+	i64 u0xab9c1b2687d86b0b, ; 289: lib_System.Linq.Expressions.dll.so => 110
+	i64 u0xac002e3121747999, ; 290: MaintManager.MAUI => 93
+	i64 u0xac2af3fa195a15ce, ; 291: System.Runtime.Numerics => 123
+	i64 u0xac5376a2a538dc10, ; 292: Xamarin.AndroidX.Lifecycle.LiveData.Core.dll => 73
+	i64 u0xacd46e002c3ccb97, ; 293: ro/Microsoft.Maui.Controls.resources => 23
+	i64 u0xad89c07347f1bad6, ; 294: nl/Microsoft.Maui.Controls.resources.dll => 19
+	i64 u0xadc90ab061a9e6e4, ; 295: System.ComponentModel.TypeConverter.dll => 99
+	i64 u0xae282bcd03739de7, ; 296: Java.Interop => 134
+	i64 u0xae53579c90db1107, ; 297: System.ObjectModel.dll => 118
+	i64 u0xb05cc42cd94c6d9d, ; 298: lib-sv-Microsoft.Maui.Controls.resources.dll.so => 26
+	i64 u0xb220631954820169, ; 299: System.Text.RegularExpressions => 128
+	i64 u0xb2a3f67f3bf29fce, ; 300: da/Microsoft.Maui.Controls.resources => 3
+	i64 u0xb3f0a0fcda8d3ebc, ; 301: Xamarin.AndroidX.CardView => 64
+	i64 u0xb46be1aa6d4fff93, ; 302: hi/Microsoft.Maui.Controls.resources => 10
+	i64 u0xb477491be13109d8, ; 303: ar/Microsoft.Maui.Controls.resources => 0
+	i64 u0xb4bd7015ecee9d86, ; 304: System.IO.Pipelines => 109
+	i64 u0xb5c7fcdafbc67ee4, ; 305: Microsoft.Extensions.Logging.Abstractions.dll => 48
+	i64 u0xb7212c4683a94afe, ; 306: System.Drawing.Primitives => 104
+	i64 u0xb7b7753d1f319409, ; 307: sv/Microsoft.Maui.Controls.resources => 26
+	i64 u0xb7c5adb5be3a61e9, ; 308: MaintManager.MAUI.dll => 93
+	i64 u0xb81a2c6e0aee50fe, ; 309: lib_System.Private.CoreLib.dll.so => 133
+	i64 u0xb960d6b2200ba320, ; 310: Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android.dll => 75
+	i64 u0xb9f64d3b230def68, ; 311: lib-pt-Microsoft.Maui.Controls.resources.dll.so => 22
+	i64 u0xb9fc3c8a556e3691, ; 312: ja/Microsoft.Maui.Controls.resources => 15
+	i64 u0xba48785529705af9, ; 313: System.Collections.dll => 97
+	i64 u0xbd0e2c0d55246576, ; 314: System.Net.Http.dll => 114
+	i64 u0xbd437a2cdb333d0d, ; 315: Xamarin.AndroidX.ViewPager2 => 86
+	i64 u0xbee38d4a88835966, ; 316: Xamarin.AndroidX.AppCompat.AppCompatResources => 63
+	i64 u0xbfc1e1fb3095f2b3, ; 317: lib_System.Net.Http.Json.dll.so => 113
+	i64 u0xc040a4ab55817f58, ; 318: ar/Microsoft.Maui.Controls.resources.dll => 0
+	i64 u0xc0d928351ab5ca77, ; 319: System.Console.dll => 101
+	i64 u0xc12b8b3afa48329c, ; 320: lib_System.Linq.dll.so => 111
+	i64 u0xc1ff9ae3cdb6e1e6, ; 321: Xamarin.AndroidX.Activity.dll => 61
+	i64 u0xc28c50f32f81cc73, ; 322: ja/Microsoft.Maui.Controls.resources.dll => 15
+	i64 u0xc2bcfec99f69365e, ; 323: Xamarin.AndroidX.ViewPager2.dll => 86
+	i64 u0xc50fded0ded1418c, ; 324: lib_System.ComponentModel.TypeConverter.dll.so => 99
+	i64 u0xc519125d6bc8fb11, ; 325: lib_System.Net.Requests.dll.so => 116
+	i64 u0xc5293b19e4dc230e, ; 326: Xamarin.AndroidX.Navigation.Fragment => 78
+	i64 u0xc5325b2fcb37446f, ; 327: lib_System.Private.Xml.dll.so => 120
+	i64 u0xc5a0f4b95a699af7, ; 328: lib_System.Private.Uri.dll.so => 119
+	i64 u0xc74d70d4aa96cef3, ; 329: Xamarin.AndroidX.Navigation.Runtime.Android => 79
+	i64 u0xc858a28d9ee5a6c5, ; 330: lib_System.Collections.Specialized.dll.so => 96
+	i64 u0xca3a723e7342c5b6, ; 331: lib-tr-Microsoft.Maui.Controls.resources.dll.so => 28
+	i64 u0xcab3493c70141c2d, ; 332: pl/Microsoft.Maui.Controls.resources => 20
+	i64 u0xcacfddc9f7c6de76, ; 333: ro/Microsoft.Maui.Controls.resources.dll => 23
+	i64 u0xcbd4fdd9cef4a294, ; 334: lib__Microsoft.Android.Resource.Designer.dll.so => 34
+	i64 u0xcc2876b32ef2794c, ; 335: lib_System.Text.RegularExpressions.dll.so => 128
+	i64 u0xcc5c3bb714c4561e, ; 336: Xamarin.KotlinX.Coroutines.Core.Jvm.dll => 90
+	i64 u0xcc76886e09b88260, ; 337: Xamarin.KotlinX.Serialization.Core.Jvm.dll => 91
+	i64 u0xccf25c4b634ccd3a, ; 338: zh-Hans/Microsoft.Maui.Controls.resources.dll => 32
+	i64 u0xcd10a42808629144, ; 339: System.Net.Requests => 116
+	i64 u0xcdd0c48b6937b21c, ; 340: Xamarin.AndroidX.SwipeRefreshLayout => 84
+	i64 u0xcf23d8093f3ceadf, ; 341: System.Diagnostics.DiagnosticSource.dll => 102
+	i64 u0xd1194e1d8a8de83c, ; 342: lib_Xamarin.AndroidX.Lifecycle.Common.Jvm.dll.so => 72
+	i64 u0xd16fd7fb9bbcd43e, ; 343: Microsoft.Extensions.Diagnostics.Abstractions => 44
+	i64 u0xd333d0af9e423810, ; 344: System.Runtime.InteropServices => 121
+	i64 u0xd3426d966bb704f5, ; 345: Xamarin.AndroidX.AppCompat.AppCompatResources.dll => 63
+	i64 u0xd3651b6fc3125825, ; 346: System.Private.Uri.dll => 119
+	i64 u0xd373685349b1fe8b, ; 347: Microsoft.Extensions.Logging.dll => 47
+	i64 u0xd3e4c8d6a2d5d470, ; 348: it/Microsoft.Maui.Controls.resources => 14
+	i64 u0xd4645626dffec99d, ; 349: lib_Microsoft.Extensions.DependencyInjection.Abstractions.dll.so => 43
+	i64 u0xd6d21782156bc35b, ; 350: Xamarin.AndroidX.SwipeRefreshLayout.dll => 84
+	i64 u0xd72329819cbbbc44, ; 351: lib_Microsoft.Extensions.Configuration.Abstractions.dll.so => 41
+	i64 u0xd780f1a3e2e12e16, ; 352: lib_LiveChartsCore.SkiaSharpView.dll.so => 38
+	i64 u0xd7b3764ada9d341d, ; 353: lib_Microsoft.Extensions.Logging.Abstractions.dll.so => 48
+	i64 u0xda1dfa4c534a9251, ; 354: Microsoft.Extensions.DependencyInjection => 42
+	i64 u0xdad05a11827959a3, ; 355: System.Collections.NonGeneric.dll => 95
+	i64 u0xdb5383ab5865c007, ; 356: lib-vi-Microsoft.Maui.Controls.resources.dll.so => 30
+	i64 u0xdb8f858873e2186b, ; 357: SkiaSharp.Views.Maui.Controls => 59
+	i64 u0xdbeda89f832aa805, ; 358: vi/Microsoft.Maui.Controls.resources.dll => 30
+	i64 u0xdbf9607a441b4505, ; 359: System.Linq => 111
+	i64 u0xdce2c53525640bf3, ; 360: Microsoft.Extensions.Logging => 47
+	i64 u0xdd2b722d78ef5f43, ; 361: System.Runtime.dll => 124
+	i64 u0xdd67031857c72f96, ; 362: lib_System.Text.Encodings.Web.dll.so => 126
+	i64 u0xdde30e6b77aa6f6c, ; 363: lib-zh-Hans-Microsoft.Maui.Controls.resources.dll.so => 32
+	i64 u0xddf8227337aa0462, ; 364: SkiaSharp.HarfBuzz => 57
+	i64 u0xde8769ebda7d8647, ; 365: hr/Microsoft.Maui.Controls.resources.dll => 11
+	i64 u0xe0142572c095a480, ; 366: Xamarin.AndroidX.AppCompat.dll => 62
+	i64 u0xe02f89350ec78051, ; 367: Xamarin.AndroidX.CoordinatorLayout.dll => 66
+	i64 u0xe192a588d4410686, ; 368: lib_System.IO.Pipelines.dll.so => 109
+	i64 u0xe1a08bd3fa539e0d, ; 369: System.Runtime.Loader => 122
+	i64 u0xe24095a7afddaab3, ; 370: lib_Microsoft.Extensions.Hosting.Abstractions.dll.so => 46
+	i64 u0xe2420585aeceb728, ; 371: System.Net.Requests.dll => 116
+	i64 u0xe29b73bc11392966, ; 372: lib-id-Microsoft.Maui.Controls.resources.dll.so => 13
+	i64 u0xe3811d68d4fe8463, ; 373: pt-BR/Microsoft.Maui.Controls.resources.dll => 21
+	i64 u0xe494f7ced4ecd10a, ; 374: hu/Microsoft.Maui.Controls.resources.dll => 12
+	i64 u0xe4a9b1e40d1e8917, ; 375: lib-fi-Microsoft.Maui.Controls.resources.dll.so => 7
+	i64 u0xe5434e8a119ceb69, ; 376: lib_Mono.Android.dll.so => 136
+	i64 u0xe89a2a9ef110899b, ; 377: System.Drawing.dll => 105
+	i64 u0xedc632067fb20ff3, ; 378: System.Memory.dll => 112
+	i64 u0xeeb7ebb80150501b, ; 379: lib_Xamarin.AndroidX.Collection.Jvm.dll.so => 65
+	i64 u0xef72742e1bcca27a, ; 380: Microsoft.Maui.Essentials.dll => 54
+	i64 u0xefec0b7fdc57ec42, ; 381: Xamarin.AndroidX.Activity => 61
+	i64 u0xf00c29406ea45e19, ; 382: es/Microsoft.Maui.Controls.resources.dll => 6
+	i64 u0xf11b621fc87b983f, ; 383: Microsoft.Maui.Controls.Xaml.dll => 52
+	i64 u0xf1c4b4005493d871, ; 384: System.Formats.Asn1.dll => 106
+	i64 u0xf22514cfad2d598b, ; 385: lib_Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android.dll.so => 75
+	i64 u0xf238bd79489d3a96, ; 386: lib-nl-Microsoft.Maui.Controls.resources.dll.so => 19
+	i64 u0xf37221fda4ef8830, ; 387: lib_Xamarin.Google.Android.Material.dll.so => 87
+	i64 u0xf397148270133fa9, ; 388: lib_LiveChartsCore.SkiaSharpView.Maui.dll.so => 39
+	i64 u0xf3ddfe05336abf29, ; 389: System => 132
+	i64 u0xf4727d423e5d26f3, ; 390: SkiaSharp => 56
+	i64 u0xf4c1dd70a5496a17, ; 391: System.IO.Compression => 108
+	i64 u0xf6077741019d7428, ; 392: Xamarin.AndroidX.CoordinatorLayout => 66
+	i64 u0xf77b20923f07c667, ; 393: de/Microsoft.Maui.Controls.resources.dll => 4
+	i64 u0xf7e2cac4c45067b3, ; 394: lib_System.Numerics.Vectors.dll.so => 117
+	i64 u0xf7e74930e0e3d214, ; 395: zh-HK/Microsoft.Maui.Controls.resources.dll => 31
+	i64 u0xf84773b5c81e3cef, ; 396: lib-uk-Microsoft.Maui.Controls.resources.dll.so => 29
+	i64 u0xf8e045dc345b2ea3, ; 397: lib_Xamarin.AndroidX.RecyclerView.dll.so => 81
+	i64 u0xf96c777a2a0686f4, ; 398: hi/Microsoft.Maui.Controls.resources.dll => 10
+	i64 u0xf9eec5bb3a6aedc6, ; 399: Microsoft.Extensions.Options => 49
+	i64 u0xfa504dfa0f097d72, ; 400: Microsoft.Extensions.FileProviders.Abstractions.dll => 45
+	i64 u0xfa5ed7226d978949, ; 401: lib-ar-Microsoft.Maui.Controls.resources.dll.so => 0
+	i64 u0xfa645d91e9fc4cba, ; 402: System.Threading.Thread => 129
+	i64 u0xfa99d44ebf9bea5b, ; 403: SkiaSharp.Views.Maui.Core => 60
+	i64 u0xfbf0a31c9fc34bc4, ; 404: lib_System.Net.Http.dll.so => 114
+	i64 u0xfc719aec26adf9d9, ; 405: Xamarin.AndroidX.Navigation.Fragment.dll => 78
+	i64 u0xfd22f00870e40ae0, ; 406: lib_Xamarin.AndroidX.DrawerLayout.dll.so => 70
+	i64 u0xfd583f7657b6a1cb, ; 407: Xamarin.AndroidX.Fragment => 71
+	i64 u0xfeae9952cf03b8cb, ; 408: tr/Microsoft.Maui.Controls.resources => 28
+	i64 u0xfeca84fe7f34860b, ; 409: HarfBuzzSharp.dll => 36
+	i64 u0xff9b54613e0d2cc8 ; 410: System.Net.Http.Json => 113
 ], align 8
 
-@assembly_image_cache_indices = dso_local local_unnamed_addr constant [408 x i32] [
-	i32 84, i32 134, i32 62, i32 24, i32 2, i32 30, i32 114, i32 81,
+@assembly_image_cache_indices = dso_local local_unnamed_addr constant [411 x i32] [
+	i32 84, i32 135, i32 62, i32 24, i32 2, i32 30, i32 115, i32 81,
 	i32 97, i32 53, i32 36, i32 31, i32 65, i32 37, i32 24, i32 95,
-	i32 70, i32 49, i32 95, i32 124, i32 57, i32 37, i32 25, i32 91,
-	i32 85, i32 21, i32 135, i32 54, i32 83, i32 58, i32 69, i32 106,
-	i32 81, i32 8, i32 133, i32 9, i32 43, i32 12, i32 125, i32 91,
-	i32 18, i32 94, i32 131, i32 27, i32 39, i32 134, i32 83, i32 80,
-	i32 16, i32 49, i32 106, i32 123, i32 27, i32 128, i32 101, i32 67,
-	i32 8, i32 88, i32 89, i32 50, i32 13, i32 11, i32 88, i32 133,
-	i32 114, i32 44, i32 56, i32 77, i32 29, i32 57, i32 92, i32 7,
-	i32 127, i32 105, i32 33, i32 20, i32 129, i32 26, i32 126, i32 5,
-	i32 130, i32 71, i32 34, i32 64, i32 103, i32 59, i32 8, i32 130,
-	i32 6, i32 53, i32 2, i32 51, i32 86, i32 40, i32 69, i32 85,
-	i32 1, i32 45, i32 82, i32 89, i32 67, i32 46, i32 60, i32 38,
-	i32 63, i32 135, i32 20, i32 89, i32 24, i32 22, i32 117, i32 80,
-	i32 126, i32 58, i32 75, i32 112, i32 76, i32 109, i32 119, i32 121,
-	i32 14, i32 76, i32 134, i32 1, i32 51, i32 35, i32 74, i32 104,
-	i32 114, i32 67, i32 55, i32 25, i32 31, i32 123, i32 77, i32 72,
-	i32 96, i32 60, i32 118, i32 132, i32 46, i32 102, i32 92, i32 15,
-	i32 42, i32 39, i32 66, i32 129, i32 100, i32 59, i32 3, i32 47,
-	i32 120, i32 65, i32 96, i32 125, i32 98, i32 130, i32 5, i32 42,
-	i32 90, i32 111, i32 52, i32 4, i32 121, i32 132, i32 79, i32 87,
-	i32 51, i32 122, i32 101, i32 74, i32 68, i32 38, i32 3, i32 103,
-	i32 105, i32 9, i32 120, i32 18, i32 55, i32 50, i32 68, i32 50,
-	i32 78, i32 92, i32 53, i32 2, i32 28, i32 18, i32 44, i32 14,
-	i32 98, i32 11, i32 111, i32 40, i32 122, i32 17, i32 27, i32 71,
-	i32 7, i32 99, i32 25, i32 4, i32 77, i32 17, i32 116, i32 97,
-	i32 117, i32 100, i32 85, i32 41, i32 73, i32 131, i32 33, i32 62,
-	i32 64, i32 104, i32 29, i32 32, i32 56, i32 33, i32 40, i32 128,
-	i32 106, i32 36, i32 54, i32 90, i32 98, i32 82, i32 37, i32 76,
-	i32 102, i32 9, i32 45, i32 68, i32 129, i32 94, i32 10, i32 23,
-	i32 22, i32 21, i32 34, i32 107, i32 74, i32 52, i32 69, i32 126,
-	i32 110, i32 1, i32 17, i32 107, i32 93, i32 6, i32 13, i32 55,
-	i32 100, i32 94, i32 82, i32 109, i32 35, i32 16, i32 61, i32 41,
-	i32 79, i32 19, i32 73, i32 124, i32 88, i32 87, i32 80, i32 108,
-	i32 58, i32 16, i32 35, i32 116, i32 124, i32 83, i32 70, i32 72,
-	i32 12, i32 48, i32 119, i32 113, i32 43, i32 5, i32 109, i32 93,
-	i32 122, i32 73, i32 23, i32 19, i32 99, i32 133, i32 117, i32 26,
-	i32 127, i32 3, i32 64, i32 10, i32 0, i32 108, i32 48, i32 103,
-	i32 26, i32 93, i32 132, i32 75, i32 22, i32 15, i32 97, i32 113,
-	i32 86, i32 63, i32 112, i32 0, i32 101, i32 110, i32 61, i32 15,
-	i32 86, i32 99, i32 115, i32 78, i32 119, i32 118, i32 79, i32 96,
-	i32 28, i32 20, i32 23, i32 34, i32 127, i32 90, i32 91, i32 32,
-	i32 115, i32 84, i32 102, i32 72, i32 44, i32 120, i32 63, i32 118,
-	i32 47, i32 14, i32 43, i32 84, i32 41, i32 38, i32 48, i32 42,
-	i32 95, i32 30, i32 59, i32 30, i32 110, i32 47, i32 123, i32 125,
-	i32 32, i32 57, i32 11, i32 62, i32 66, i32 108, i32 121, i32 46,
-	i32 115, i32 13, i32 21, i32 12, i32 7, i32 135, i32 104, i32 111,
-	i32 65, i32 54, i32 61, i32 6, i32 52, i32 105, i32 75, i32 19,
-	i32 87, i32 39, i32 131, i32 56, i32 107, i32 66, i32 4, i32 116,
-	i32 31, i32 29, i32 81, i32 10, i32 49, i32 45, i32 0, i32 128,
-	i32 60, i32 113, i32 78, i32 70, i32 71, i32 28, i32 36, i32 112
+	i32 70, i32 49, i32 95, i32 125, i32 57, i32 37, i32 25, i32 91,
+	i32 85, i32 21, i32 136, i32 54, i32 83, i32 58, i32 69, i32 107,
+	i32 81, i32 8, i32 134, i32 9, i32 43, i32 12, i32 126, i32 91,
+	i32 18, i32 94, i32 132, i32 27, i32 39, i32 135, i32 83, i32 80,
+	i32 16, i32 49, i32 107, i32 124, i32 27, i32 129, i32 101, i32 67,
+	i32 8, i32 88, i32 89, i32 50, i32 13, i32 11, i32 88, i32 134,
+	i32 115, i32 44, i32 56, i32 77, i32 29, i32 57, i32 103, i32 92,
+	i32 7, i32 128, i32 106, i32 33, i32 20, i32 130, i32 26, i32 127,
+	i32 5, i32 131, i32 71, i32 34, i32 64, i32 104, i32 59, i32 8,
+	i32 131, i32 6, i32 53, i32 2, i32 51, i32 86, i32 40, i32 69,
+	i32 85, i32 1, i32 45, i32 82, i32 89, i32 67, i32 46, i32 60,
+	i32 38, i32 63, i32 136, i32 20, i32 89, i32 103, i32 24, i32 22,
+	i32 118, i32 80, i32 127, i32 58, i32 75, i32 113, i32 76, i32 110,
+	i32 120, i32 122, i32 14, i32 76, i32 135, i32 1, i32 51, i32 35,
+	i32 74, i32 105, i32 115, i32 67, i32 55, i32 25, i32 31, i32 124,
+	i32 77, i32 72, i32 96, i32 60, i32 119, i32 133, i32 46, i32 102,
+	i32 92, i32 15, i32 42, i32 39, i32 66, i32 130, i32 100, i32 59,
+	i32 3, i32 47, i32 121, i32 65, i32 96, i32 126, i32 98, i32 131,
+	i32 5, i32 42, i32 90, i32 112, i32 52, i32 4, i32 122, i32 133,
+	i32 79, i32 87, i32 51, i32 123, i32 101, i32 74, i32 68, i32 38,
+	i32 3, i32 104, i32 106, i32 9, i32 121, i32 18, i32 55, i32 50,
+	i32 68, i32 50, i32 78, i32 92, i32 53, i32 2, i32 28, i32 18,
+	i32 44, i32 14, i32 98, i32 11, i32 112, i32 40, i32 123, i32 17,
+	i32 27, i32 71, i32 7, i32 99, i32 25, i32 4, i32 77, i32 17,
+	i32 117, i32 97, i32 118, i32 100, i32 85, i32 41, i32 73, i32 132,
+	i32 33, i32 62, i32 64, i32 105, i32 29, i32 32, i32 56, i32 33,
+	i32 40, i32 129, i32 107, i32 36, i32 54, i32 90, i32 98, i32 82,
+	i32 37, i32 76, i32 102, i32 9, i32 45, i32 68, i32 130, i32 94,
+	i32 10, i32 23, i32 22, i32 21, i32 103, i32 34, i32 108, i32 74,
+	i32 52, i32 69, i32 127, i32 111, i32 1, i32 17, i32 108, i32 93,
+	i32 6, i32 13, i32 55, i32 100, i32 94, i32 82, i32 110, i32 35,
+	i32 16, i32 61, i32 41, i32 79, i32 19, i32 73, i32 125, i32 88,
+	i32 87, i32 80, i32 109, i32 58, i32 16, i32 35, i32 117, i32 125,
+	i32 83, i32 70, i32 72, i32 12, i32 48, i32 120, i32 114, i32 43,
+	i32 5, i32 110, i32 93, i32 123, i32 73, i32 23, i32 19, i32 99,
+	i32 134, i32 118, i32 26, i32 128, i32 3, i32 64, i32 10, i32 0,
+	i32 109, i32 48, i32 104, i32 26, i32 93, i32 133, i32 75, i32 22,
+	i32 15, i32 97, i32 114, i32 86, i32 63, i32 113, i32 0, i32 101,
+	i32 111, i32 61, i32 15, i32 86, i32 99, i32 116, i32 78, i32 120,
+	i32 119, i32 79, i32 96, i32 28, i32 20, i32 23, i32 34, i32 128,
+	i32 90, i32 91, i32 32, i32 116, i32 84, i32 102, i32 72, i32 44,
+	i32 121, i32 63, i32 119, i32 47, i32 14, i32 43, i32 84, i32 41,
+	i32 38, i32 48, i32 42, i32 95, i32 30, i32 59, i32 30, i32 111,
+	i32 47, i32 124, i32 126, i32 32, i32 57, i32 11, i32 62, i32 66,
+	i32 109, i32 122, i32 46, i32 116, i32 13, i32 21, i32 12, i32 7,
+	i32 136, i32 105, i32 112, i32 65, i32 54, i32 61, i32 6, i32 52,
+	i32 106, i32 75, i32 19, i32 87, i32 39, i32 132, i32 56, i32 108,
+	i32 66, i32 4, i32 117, i32 31, i32 29, i32 81, i32 10, i32 49,
+	i32 45, i32 0, i32 129, i32 60, i32 114, i32 78, i32 70, i32 71,
+	i32 28, i32 36, i32 113
 ], align 4
 
 @marshal_methods_number_of_classes = dso_local local_unnamed_addr constant i32 137, align 4
@@ -1177,371 +1181,371 @@ target triple = "aarch64-unknown-linux-android21"
 
 @mm_method_names = dso_local local_unnamed_addr constant [378 x %struct.MarshalMethodName] [
 	%struct.MarshalMethodName {
-		i64 u0x00000087060008ca, ; name: n_OnItemClick_Landroid_widget_AdapterView_Landroid_view_View_IJ_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int32,Int64)
+		i64 u0x00000088060008ca, ; name: n_OnItemClick_Landroid_widget_AdapterView_Landroid_view_View_IJ_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int32,Int64)
 		ptr @.MarshalMethodName.0_name; char* name
 	}, ; 0
 	%struct.MarshalMethodName {
-		i64 u0x00000087060009ed, ; name: n_OnEditorAction_Landroid_widget_TextView_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x00000088060009ed, ; name: n_OnEditorAction_Landroid_widget_TextView_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.1_name; char* name
 	}, ; 1
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a8c, ; name: n_OnCheckedChanged_Landroid_widget_CompoundButton_Z_mm_wrapper(IntPtr,IntPtr,IntPtr,SByte)
+		i64 u0x0000008806000a8c, ; name: n_OnCheckedChanged_Landroid_widget_CompoundButton_Z_mm_wrapper(IntPtr,IntPtr,IntPtr,SByte)
 		ptr @.MarshalMethodName.2_name; char* name
 	}, ; 2
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000e0d, ; name: n_AfterTextChanged_Landroid_text_Editable__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000e0d, ; name: n_AfterTextChanged_Landroid_text_Editable__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.3_name; char* name
 	}, ; 3
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000e0e, ; name: n_BeforeTextChanged_Ljava_lang_CharSequence_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
+		i64 u0x0000008806000e0e, ; name: n_BeforeTextChanged_Ljava_lang_CharSequence_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.4_name; char* name
 	}, ; 4
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000e0f, ; name: n_OnTextChanged_Ljava_lang_CharSequence_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
+		i64 u0x0000008806000e0f, ; name: n_OnTextChanged_Ljava_lang_CharSequence_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.5_name; char* name
 	}, ; 5
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001232, ; name: n_OnAnimationCancel_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001232, ; name: n_OnAnimationCancel_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.6_name; char* name
 	}, ; 6
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001233, ; name: n_OnAnimationEnd_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001233, ; name: n_OnAnimationEnd_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.7_name; char* name
 	}, ; 7
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001234, ; name: n_OnAnimationRepeat_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001234, ; name: n_OnAnimationRepeat_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.8_name; char* name
 	}, ; 8
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001235, ; name: n_OnAnimationStart_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001235, ; name: n_OnAnimationStart_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.9_name; char* name
 	}, ; 9
 	%struct.MarshalMethodName {
-		i64 u0x000000870600126b, ; name: n_OnAnimationUpdate_Landroid_animation_ValueAnimator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600126b, ; name: n_OnAnimationUpdate_Landroid_animation_ValueAnimator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.10_name; char* name
 	}, ; 10
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001506, ; name: n_OnViewAttachedToWindow_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001506, ; name: n_OnViewAttachedToWindow_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.11_name; char* name
 	}, ; 11
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001507, ; name: n_OnViewDetachedFromWindow_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001507, ; name: n_OnViewDetachedFromWindow_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.12_name; char* name
 	}, ; 12
 	%struct.MarshalMethodName {
-		i64 u0x000000870600151d, ; name: n_OnClick_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600151d, ; name: n_OnClick_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.13_name; char* name
 	}, ; 13
 	%struct.MarshalMethodName {
-		i64 u0x000000870600153b, ; name: n_OnFocusChange_Landroid_view_View_Z_mm_wrapper(IntPtr,IntPtr,IntPtr,SByte)
+		i64 u0x000000880600153b, ; name: n_OnFocusChange_Landroid_view_View_Z_mm_wrapper(IntPtr,IntPtr,IntPtr,SByte)
 		ptr @.MarshalMethodName.14_name; char* name
 	}, ; 14
 	%struct.MarshalMethodName {
-		i64 u0x000000870600154f, ; name: n_OnHover_Landroid_view_View_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600154f, ; name: n_OnHover_Landroid_view_View_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.15_name; char* name
 	}, ; 15
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001564, ; name: n_OnKey_Landroid_view_View_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806001564, ; name: n_OnKey_Landroid_view_View_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.16_name; char* name
 	}, ; 16
 	%struct.MarshalMethodName {
-		i64 u0x000000870600157b, ; name: n_OnLayoutChange_Landroid_view_View_IIIIIIII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)
+		i64 u0x000000880600157b, ; name: n_OnLayoutChange_Landroid_view_View_IIIIIIII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.17_name; char* name
 	}, ; 17
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001592, ; name: n_OnScrollChange_Landroid_view_View_IIII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32,Int32)
+		i64 u0x0000008806001592, ; name: n_OnScrollChange_Landroid_view_View_IIII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.18_name; char* name
 	}, ; 18
 	%struct.MarshalMethodName {
-		i64 u0x00000087060015a5, ; name: n_OnTouch_Landroid_view_View_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060015a5, ; name: n_OnTouch_Landroid_view_View_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.19_name; char* name
 	}, ; 19
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001d10, ; name: n_OnChildViewAdded_Landroid_view_View_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001d10, ; name: n_OnChildViewAdded_Landroid_view_View_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.20_name; char* name
 	}, ; 20
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001d11, ; name: n_OnChildViewRemoved_Landroid_view_View_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001d11, ; name: n_OnChildViewRemoved_Landroid_view_View_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.21_name; char* name
 	}, ; 21
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001d9f, ; name: n_OnAnimationEnd_Landroid_view_animation_Animation__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001d9f, ; name: n_OnAnimationEnd_Landroid_view_animation_Animation__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.22_name; char* name
 	}, ; 22
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001da0, ; name: n_OnAnimationRepeat_Landroid_view_animation_Animation__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001da0, ; name: n_OnAnimationRepeat_Landroid_view_animation_Animation__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.23_name; char* name
 	}, ; 23
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001da1, ; name: n_OnAnimationStart_Landroid_view_animation_Animation__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001da1, ; name: n_OnAnimationStart_Landroid_view_animation_Animation__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.24_name; char* name
 	}, ; 24
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d44, ; name: n_Close_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002d44, ; name: n_Close_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.25_name; char* name
 	}, ; 25
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d45, ; name: n_Read_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002d45, ; name: n_Read_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.26_name; char* name
 	}, ; 26
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d46, ; name: n_Read_arrayB_mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002d46, ; name: n_Read_arrayB_mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.27_name; char* name
 	}, ; 27
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d47, ; name: n_Read_arrayBII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x0000008806002d47, ; name: n_Read_arrayBII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.28_name; char* name
 	}, ; 28
 	%struct.MarshalMethodName {
-		i64 u0x00000087060031b7, ; name: n_Equals_Ljava_lang_Object__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060031b7, ; name: n_Equals_Ljava_lang_Object__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.29_name; char* name
 	}, ; 29
 	%struct.MarshalMethodName {
-		i64 u0x00000087060031b8, ; name: n_GetHashCode_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060031b8, ; name: n_GetHashCode_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.30_name; char* name
 	}, ; 30
 	%struct.MarshalMethodName {
-		i64 u0x00000087060031b9, ; name: n_ToString_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060031b9, ; name: n_ToString_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.31_name; char* name
 	}, ; 31
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d73, ; name: n_Close_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002d73, ; name: n_Close_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.25_name; char* name
 	}, ; 32
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d74, ; name: n_Flush_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002d74, ; name: n_Flush_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.32_name; char* name
 	}, ; 33
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d75, ; name: n_Write_arrayB_mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002d75, ; name: n_Write_arrayB_mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.33_name; char* name
 	}, ; 34
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d76, ; name: n_Write_arrayBII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x0000008806002d76, ; name: n_Write_arrayBII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.34_name; char* name
 	}, ; 35
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002d77, ; name: n_Write_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806002d77, ; name: n_Write_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.35_name; char* name
 	}, ; 36
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000269, ; name: n_GetAttributeCount_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000269, ; name: n_GetAttributeCount_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.36_name; char* name
 	}, ; 37
 	%struct.MarshalMethodName {
-		i64 u0x000000870600026a, ; name: n_GetColumnNumber_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600026a, ; name: n_GetColumnNumber_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.37_name; char* name
 	}, ; 38
 	%struct.MarshalMethodName {
-		i64 u0x000000870600026b, ; name: n_GetDepth_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600026b, ; name: n_GetDepth_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.38_name; char* name
 	}, ; 39
 	%struct.MarshalMethodName {
-		i64 u0x000000870600026c, ; name: n_GetEventType_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600026c, ; name: n_GetEventType_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.39_name; char* name
 	}, ; 40
 	%struct.MarshalMethodName {
-		i64 u0x000000870600026d, ; name: n_GetInputEncoding_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600026d, ; name: n_GetInputEncoding_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.40_name; char* name
 	}, ; 41
 	%struct.MarshalMethodName {
-		i64 u0x000000870600026e, ; name: n_IsEmptyElementTag_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600026e, ; name: n_IsEmptyElementTag_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.41_name; char* name
 	}, ; 42
 	%struct.MarshalMethodName {
-		i64 u0x000000870600026f, ; name: n_IsWhitespace_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600026f, ; name: n_IsWhitespace_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.42_name; char* name
 	}, ; 43
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000270, ; name: n_GetLineNumber_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000270, ; name: n_GetLineNumber_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.43_name; char* name
 	}, ; 44
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000271, ; name: n_GetName_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000271, ; name: n_GetName_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.44_name; char* name
 	}, ; 45
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000272, ; name: n_GetNamespace_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000272, ; name: n_GetNamespace_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.45_name; char* name
 	}, ; 46
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000273, ; name: n_GetPositionDescription_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000273, ; name: n_GetPositionDescription_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.46_name; char* name
 	}, ; 47
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000274, ; name: n_GetPrefix_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000274, ; name: n_GetPrefix_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.47_name; char* name
 	}, ; 48
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000275, ; name: n_GetText_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000275, ; name: n_GetText_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.48_name; char* name
 	}, ; 49
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000276, ; name: n_DefineEntityReplacementText_Ljava_lang_String_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000276, ; name: n_DefineEntityReplacementText_Ljava_lang_String_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.49_name; char* name
 	}, ; 50
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000277, ; name: n_GetAttributeName_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000277, ; name: n_GetAttributeName_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.50_name; char* name
 	}, ; 51
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000278, ; name: n_GetAttributeNamespace_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000278, ; name: n_GetAttributeNamespace_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.51_name; char* name
 	}, ; 52
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000279, ; name: n_GetAttributePrefix_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000279, ; name: n_GetAttributePrefix_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.52_name; char* name
 	}, ; 53
 	%struct.MarshalMethodName {
-		i64 u0x000000870600027a, ; name: n_GetAttributeType_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x000000880600027a, ; name: n_GetAttributeType_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.53_name; char* name
 	}, ; 54
 	%struct.MarshalMethodName {
-		i64 u0x000000870600027b, ; name: n_GetAttributeValue_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x000000880600027b, ; name: n_GetAttributeValue_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.54_name; char* name
 	}, ; 55
 	%struct.MarshalMethodName {
-		i64 u0x000000870600027c, ; name: n_GetAttributeValue_Ljava_lang_String_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600027c, ; name: n_GetAttributeValue_Ljava_lang_String_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.55_name; char* name
 	}, ; 56
 	%struct.MarshalMethodName {
-		i64 u0x000000870600027d, ; name: n_GetFeature_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600027d, ; name: n_GetFeature_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.56_name; char* name
 	}, ; 57
 	%struct.MarshalMethodName {
-		i64 u0x000000870600027e, ; name: n_GetNamespace_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600027e, ; name: n_GetNamespace_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.57_name; char* name
 	}, ; 58
 	%struct.MarshalMethodName {
-		i64 u0x000000870600027f, ; name: n_GetNamespaceCount_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x000000880600027f, ; name: n_GetNamespaceCount_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.58_name; char* name
 	}, ; 59
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000280, ; name: n_GetNamespacePrefix_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000280, ; name: n_GetNamespacePrefix_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.59_name; char* name
 	}, ; 60
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000281, ; name: n_GetNamespaceUri_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000281, ; name: n_GetNamespaceUri_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.60_name; char* name
 	}, ; 61
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000282, ; name: n_GetProperty_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000282, ; name: n_GetProperty_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.61_name; char* name
 	}, ; 62
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000283, ; name: n_GetTextCharacters_arrayI_mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000283, ; name: n_GetTextCharacters_arrayI_mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.62_name; char* name
 	}, ; 63
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000284, ; name: n_IsAttributeDefault_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000284, ; name: n_IsAttributeDefault_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.63_name; char* name
 	}, ; 64
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000285, ; name: n_Next_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000285, ; name: n_Next_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.64_name; char* name
 	}, ; 65
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000286, ; name: n_NextTag_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000286, ; name: n_NextTag_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.65_name; char* name
 	}, ; 66
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000287, ; name: n_NextText_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000287, ; name: n_NextText_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.66_name; char* name
 	}, ; 67
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000288, ; name: n_NextToken_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000288, ; name: n_NextToken_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.67_name; char* name
 	}, ; 68
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000289, ; name: n_Require_ILjava_lang_String_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr,IntPtr)
+		i64 u0x0000008806000289, ; name: n_Require_ILjava_lang_String_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.68_name; char* name
 	}, ; 69
 	%struct.MarshalMethodName {
-		i64 u0x000000870600028a, ; name: n_SetFeature_Ljava_lang_String_Z_mm_wrapper(IntPtr,IntPtr,IntPtr,SByte)
+		i64 u0x000000880600028a, ; name: n_SetFeature_Ljava_lang_String_Z_mm_wrapper(IntPtr,IntPtr,IntPtr,SByte)
 		ptr @.MarshalMethodName.69_name; char* name
 	}, ; 70
 	%struct.MarshalMethodName {
-		i64 u0x000000870600028b, ; name: n_SetInput_Ljava_io_InputStream_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600028b, ; name: n_SetInput_Ljava_io_InputStream_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.70_name; char* name
 	}, ; 71
 	%struct.MarshalMethodName {
-		i64 u0x000000870600028c, ; name: n_SetInput_Ljava_io_Reader__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600028c, ; name: n_SetInput_Ljava_io_Reader__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.71_name; char* name
 	}, ; 72
 	%struct.MarshalMethodName {
-		i64 u0x000000870600028d, ; name: n_SetProperty_Ljava_lang_String_Ljava_lang_Object__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600028d, ; name: n_SetProperty_Ljava_lang_String_Ljava_lang_Object__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.72_name; char* name
 	}, ; 73
 	%struct.MarshalMethodName {
-		i64 u0x00000087060026cb, ; name: n_OnCancel_Landroid_content_DialogInterface__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060026cb, ; name: n_OnCancel_Landroid_content_DialogInterface__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.73_name; char* name
 	}, ; 74
 	%struct.MarshalMethodName {
-		i64 u0x00000087060026dd, ; name: n_OnClick_Landroid_content_DialogInterface_I_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32)
+		i64 u0x00000088060026dd, ; name: n_OnClick_Landroid_content_DialogInterface_I_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.74_name; char* name
 	}, ; 75
 	%struct.MarshalMethodName {
-		i64 u0x00000087060026f0, ; name: n_OnDismiss_Landroid_content_DialogInterface__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060026f0, ; name: n_OnDismiss_Landroid_content_DialogInterface__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.75_name; char* name
 	}, ; 76
 	%struct.MarshalMethodName {
-		i64 u0x000000870600271b, ; name: n_OnShow_Landroid_content_DialogInterface__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600271b, ; name: n_OnShow_Landroid_content_DialogInterface__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.76_name; char* name
 	}, ; 77
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a45, ; name: n_OnDateSet_Landroid_widget_DatePicker_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
+		i64 u0x0000008806002a45, ; name: n_OnDateSet_Landroid_widget_DatePicker_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.77_name; char* name
 	}, ; 78
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002b08, ; name: n_OnTimeSet_Landroid_widget_TimePicker_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x0000008806002b08, ; name: n_OnTimeSet_Landroid_widget_TimePicker_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.78_name; char* name
 	}, ; 79
 	%struct.MarshalMethodName {
-		i64 u0x00000087060032f9, ; name: n_Run_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060032f9, ; name: n_Run_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.79_name; char* name
 	}, ; 80
 	%struct.MarshalMethodName {
-		i64 u0x00000087060016fb, ; name: n_DoFrame_J_mm_wrapper(IntPtr,IntPtr,Int64)
+		i64 u0x00000088060016fb, ; name: n_DoFrame_J_mm_wrapper(IntPtr,IntPtr,Int64)
 		ptr @.MarshalMethodName.80_name; char* name
 	}, ; 81
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001be8, ; name: n_OnScale_Landroid_view_ScaleGestureDetector__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001be8, ; name: n_OnScale_Landroid_view_ScaleGestureDetector__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.81_name; char* name
 	}, ; 82
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001774, ; name: n_OnDown_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001774, ; name: n_OnDown_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.82_name; char* name
 	}, ; 83
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001775, ; name: n_OnFling_Landroid_view_MotionEvent_Landroid_view_MotionEvent_FF_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Single,Single)
+		i64 u0x0000008806001775, ; name: n_OnFling_Landroid_view_MotionEvent_Landroid_view_MotionEvent_FF_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Single,Single)
 		ptr @.MarshalMethodName.83_name; char* name
 	}, ; 84
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001776, ; name: n_OnLongPress_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001776, ; name: n_OnLongPress_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.84_name; char* name
 	}, ; 85
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001777, ; name: n_OnScroll_Landroid_view_MotionEvent_Landroid_view_MotionEvent_FF_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Single,Single)
+		i64 u0x0000008806001777, ; name: n_OnScroll_Landroid_view_MotionEvent_Landroid_view_MotionEvent_FF_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Single,Single)
 		ptr @.MarshalMethodName.85_name; char* name
 	}, ; 86
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001778, ; name: n_OnShowPress_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001778, ; name: n_OnShowPress_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.86_name; char* name
 	}, ; 87
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001779, ; name: n_OnSingleTapUp_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001779, ; name: n_OnSingleTapUp_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.87_name; char* name
 	}, ; 88
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ce4, ; name: n_OnLayout_ZIIII_mm_wrapper(IntPtr,IntPtr,SByte,Int32,Int32,Int32,Int32)
+		i64 u0x0000008806001ce4, ; name: n_OnLayout_ZIIII_mm_wrapper(IntPtr,IntPtr,SByte,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.88_name; char* name
 	}, ; 89
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d2, ; name: n_OnMeasure_II_mm_wrapper(IntPtr,IntPtr,Int32,Int32)
+		i64 u0x00000088060014d2, ; name: n_OnMeasure_II_mm_wrapper(IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.89_name; char* name
 	}, ; 90
 	%struct.MarshalMethodName {
-		i64 u0x00000087060023e6, ; name: n_Draw_Landroid_graphics_Canvas__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060023e6, ; name: n_Draw_Landroid_graphics_Canvas__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.90_name; char* name
 	}, ; 91
 	%struct.MarshalMethodName {
@@ -1549,7 +1553,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.91_name; char* name
 	}, ; 92
 	%struct.MarshalMethodName {
-		i64 u0x000000870600152f, ; name: n_OnDrag_Landroid_view_View_Landroid_view_DragEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600152f, ; name: n_OnDrag_Landroid_view_View_Landroid_view_DragEvent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.92_name; char* name
 	}, ; 93
 	%struct.MarshalMethodName {
@@ -1565,59 +1569,59 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.95_name; char* name
 	}, ; 96
 	%struct.MarshalMethodName {
-		i64 u0x000000870600129d, ; name: n_OnAnimationCancel_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600129d, ; name: n_OnAnimationCancel_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.6_name; char* name
 	}, ; 97
 	%struct.MarshalMethodName {
-		i64 u0x000000870600129e, ; name: n_OnAnimationEnd_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600129e, ; name: n_OnAnimationEnd_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.7_name; char* name
 	}, ; 98
 	%struct.MarshalMethodName {
-		i64 u0x000000870600129f, ; name: n_OnAnimationRepeat_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600129f, ; name: n_OnAnimationRepeat_Landroid_animation_Animator__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.8_name; char* name
 	}, ; 99
 	%struct.MarshalMethodName {
-		i64 u0x00000087060031ba, ; name: n_JavaFinalize_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060031ba, ; name: n_JavaFinalize_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.96_name; char* name
 	}, ; 100
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001625, ; name: n_OnGlobalLayout_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806001625, ; name: n_OnGlobalLayout_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.97_name; char* name
 	}, ; 101
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001842, ; name: n_OnMenuItemClick_Landroid_view_MenuItem__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001842, ; name: n_OnMenuItemClick_Landroid_view_MenuItem__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.98_name; char* name
 	}, ; 102
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002523, ; name: n_OnDraw_Landroid_graphics_drawable_shapes_Shape_Landroid_graphics_Canvas_Landroid_graphics_Paint__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002523, ; name: n_OnDraw_Landroid_graphics_drawable_shapes_Shape_Landroid_graphics_Canvas_Landroid_graphics_Paint__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.99_name; char* name
 	}, ; 103
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001757, ; name: n_OnDoubleTap_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001757, ; name: n_OnDoubleTap_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.100_name; char* name
 	}, ; 104
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001758, ; name: n_OnDoubleTapEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001758, ; name: n_OnDoubleTapEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.101_name; char* name
 	}, ; 105
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001759, ; name: n_OnSingleTapConfirmed_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001759, ; name: n_OnSingleTapConfirmed_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.102_name; char* name
 	}, ; 106
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001be9, ; name: n_OnScaleBegin_Landroid_view_ScaleGestureDetector__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001be9, ; name: n_OnScaleBegin_Landroid_view_ScaleGestureDetector__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.103_name; char* name
 	}, ; 107
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001bea, ; name: n_OnScaleEnd_Landroid_view_ScaleGestureDetector__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001bea, ; name: n_OnScaleEnd_Landroid_view_ScaleGestureDetector__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.104_name; char* name
 	}, ; 108
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ce5, ; name: n_OnInterceptTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001ce5, ; name: n_OnInterceptTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.105_name; char* name
 	}, ; 109
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d3, ; name: n_OnTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014d3, ; name: n_OnTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.106_name; char* name
 	}, ; 110
 	%struct.MarshalMethodName {
@@ -1637,7 +1641,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.110_name; char* name
 	}, ; 114
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001745, ; name: n_OnTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001745, ; name: n_OnTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.106_name; char* name
 	}, ; 115
 	%struct.MarshalMethodName {
@@ -1657,23 +1661,23 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.75_name; char* name
 	}, ; 119
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002ad4, ; name: n_OnKeyDown_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002ad4, ; name: n_OnKeyDown_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.114_name; char* name
 	}, ; 120
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002ad5, ; name: n_OnKeyLongPress_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002ad5, ; name: n_OnKeyLongPress_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.115_name; char* name
 	}, ; 121
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002ad6, ; name: n_OnKeyMultiple_IILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,Int32,IntPtr)
+		i64 u0x0000008806002ad6, ; name: n_OnKeyMultiple_IILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,Int32,IntPtr)
 		ptr @.MarshalMethodName.116_name; char* name
 	}, ; 122
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002ad7, ; name: n_OnKeyShortcut_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002ad7, ; name: n_OnKeyShortcut_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.117_name; char* name
 	}, ; 123
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002ad8, ; name: n_OnKeyUp_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002ad8, ; name: n_OnKeyUp_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.118_name; char* name
 	}, ; 124
 	%struct.MarshalMethodName {
@@ -1681,7 +1685,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.119_name; char* name
 	}, ; 125
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d4, ; name: n_OnApplyWindowInsets_Landroid_view_WindowInsets__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014d4, ; name: n_OnApplyWindowInsets_Landroid_view_WindowInsets__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.120_name; char* name
 	}, ; 126
 	%struct.MarshalMethodName {
@@ -1709,7 +1713,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.125_name; char* name
 	}, ; 132
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ce6, ; name: n_DrawChild_Landroid_graphics_Canvas_Landroid_view_View_J_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int64)
+		i64 u0x0000008806001ce6, ; name: n_DrawChild_Landroid_graphics_Canvas_Landroid_view_View_J_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int64)
 		ptr @.MarshalMethodName.126_name; char* name
 	}, ; 133
 	%struct.MarshalMethodName {
@@ -1733,11 +1737,11 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.131_name; char* name
 	}, ; 138
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d5, ; name: n_OnAttachedToWindow_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060014d5, ; name: n_OnAttachedToWindow_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.132_name; char* name
 	}, ; 139
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000ad8, ; name: n_OnLayout_ZIIII_mm_wrapper(IntPtr,IntPtr,SByte,Int32,Int32,Int32,Int32)
+		i64 u0x0000008806000ad8, ; name: n_OnLayout_ZIIII_mm_wrapper(IntPtr,IntPtr,SByte,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.88_name; char* name
 	}, ; 140
 	%struct.MarshalMethodName {
@@ -1745,31 +1749,31 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.90_name; char* name
 	}, ; 141
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a4e, ; name: n_GetCount_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000a4e, ; name: n_GetCount_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.133_name; char* name
 	}, ; 142
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a4f, ; name: n_GetItem_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000a4f, ; name: n_GetItem_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.134_name; char* name
 	}, ; 143
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a50, ; name: n_GetItemId_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000a50, ; name: n_GetItemId_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.109_name; char* name
 	}, ; 144
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a51, ; name: n_GetView_ILandroid_view_View_Landroid_view_ViewGroup__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr,IntPtr)
+		i64 u0x0000008806000a51, ; name: n_GetView_ILandroid_view_View_Landroid_view_ViewGroup__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.135_name; char* name
 	}, ; 145
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000b2d, ; name: n_GetFilter_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000b2d, ; name: n_GetFilter_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.136_name; char* name
 	}, ; 146
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000abb, ; name: n_PerformFiltering_Ljava_lang_CharSequence__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000abb, ; name: n_PerformFiltering_Ljava_lang_CharSequence__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.137_name; char* name
 	}, ; 147
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000abc, ; name: n_PublishResults_Ljava_lang_CharSequence_Landroid_widget_Filter_FilterResults__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000abc, ; name: n_PublishResults_Ljava_lang_CharSequence_Landroid_widget_Filter_FilterResults__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.138_name; char* name
 	}, ; 148
 	%struct.MarshalMethodName {
@@ -1837,7 +1841,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.153_name; char* name
 	}, ; 164
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d6, ; name: n_OnDetachedFromWindow_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060014d6, ; name: n_OnDetachedFromWindow_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.154_name; char* name
 	}, ; 165
 	%struct.MarshalMethodName {
@@ -1897,31 +1901,31 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.165_name; char* name
 	}, ; 179
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d7, ; name: n_Draw_Landroid_graphics_Canvas__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014d7, ; name: n_Draw_Landroid_graphics_Canvas__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.90_name; char* name
 	}, ; 180
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d8, ; name: n_OnSizeChanged_IIII_mm_wrapper(IntPtr,IntPtr,Int32,Int32,Int32,Int32)
+		i64 u0x00000088060014d8, ; name: n_OnSizeChanged_IIII_mm_wrapper(IntPtr,IntPtr,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.166_name; char* name
 	}, ; 181
 	%struct.MarshalMethodName {
-		i64 u0x00000087060008de, ; name: n_OnItemLongClick_Landroid_widget_AdapterView_Landroid_view_View_IJ_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int32,Int64)
+		i64 u0x00000088060008de, ; name: n_OnItemLongClick_Landroid_widget_AdapterView_Landroid_view_View_IJ_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int32,Int64)
 		ptr @.MarshalMethodName.167_name; char* name
 	}, ; 182
 	%struct.MarshalMethodName {
-		i64 u0x00000087060016d4, ; name: n_OnActionItemClicked_Landroid_view_ActionMode_Landroid_view_MenuItem__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060016d4, ; name: n_OnActionItemClicked_Landroid_view_ActionMode_Landroid_view_MenuItem__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.168_name; char* name
 	}, ; 183
 	%struct.MarshalMethodName {
-		i64 u0x00000087060016d5, ; name: n_OnCreateActionMode_Landroid_view_ActionMode_Landroid_view_Menu__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060016d5, ; name: n_OnCreateActionMode_Landroid_view_ActionMode_Landroid_view_Menu__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.169_name; char* name
 	}, ; 184
 	%struct.MarshalMethodName {
-		i64 u0x00000087060016d6, ; name: n_OnDestroyActionMode_Landroid_view_ActionMode__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060016d6, ; name: n_OnDestroyActionMode_Landroid_view_ActionMode__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.170_name; char* name
 	}, ; 185
 	%struct.MarshalMethodName {
-		i64 u0x00000087060016d7, ; name: n_OnPrepareActionMode_Landroid_view_ActionMode_Landroid_view_Menu__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060016d7, ; name: n_OnPrepareActionMode_Landroid_view_ActionMode_Landroid_view_Menu__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.171_name; char* name
 	}, ; 186
 	%struct.MarshalMethodName {
@@ -1941,55 +1945,55 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.175_name; char* name
 	}, ; 190
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014d9, ; name: n_OnKeyPreIme_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x00000088060014d9, ; name: n_OnKeyPreIme_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.176_name; char* name
 	}, ; 191
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014da, ; name: n_OnFocusChanged_ZILandroid_graphics_Rect__mm_wrapper(IntPtr,IntPtr,SByte,Int32,IntPtr)
+		i64 u0x00000088060014da, ; name: n_OnFocusChanged_ZILandroid_graphics_Rect__mm_wrapper(IntPtr,IntPtr,SByte,Int32,IntPtr)
 		ptr @.MarshalMethodName.177_name; char* name
 	}, ; 192
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000b95, ; name: n_GetPositionForSection_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000b95, ; name: n_GetPositionForSection_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.178_name; char* name
 	}, ; 193
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000b96, ; name: n_GetSectionForPosition_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000b96, ; name: n_GetSectionForPosition_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.179_name; char* name
 	}, ; 194
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000b97, ; name: n_GetSections_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000b97, ; name: n_GetSections_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.180_name; char* name
 	}, ; 195
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a52, ; name: n_HasStableIds_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000a52, ; name: n_HasStableIds_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.181_name; char* name
 	}, ; 196
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a53, ; name: n_GetViewTypeCount_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000a53, ; name: n_GetViewTypeCount_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.182_name; char* name
 	}, ; 197
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a54, ; name: n_AreAllItemsEnabled_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806000a54, ; name: n_AreAllItemsEnabled_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.183_name; char* name
 	}, ; 198
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a55, ; name: n_GetItemViewType_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000a55, ; name: n_GetItemViewType_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.122_name; char* name
 	}, ; 199
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000a56, ; name: n_IsEnabled_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000a56, ; name: n_IsEnabled_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.184_name; char* name
 	}, ; 200
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ce7, ; name: n_OnNestedScrollAccepted_Landroid_view_View_Landroid_view_View_I_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int32)
+		i64 u0x0000008806001ce7, ; name: n_OnNestedScrollAccepted_Landroid_view_View_Landroid_view_View_I_mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.185_name; char* name
 	}, ; 201
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ce8, ; name: n_OnStopNestedScroll_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001ce8, ; name: n_OnStopNestedScroll_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.186_name; char* name
 	}, ; 202
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ce9, ; name: n_OnNestedScroll_Landroid_view_View_IIII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32,Int32)
+		i64 u0x0000008806001ce9, ; name: n_OnNestedScroll_Landroid_view_View_IIII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.187_name; char* name
 	}, ; 203
 	%struct.MarshalMethodName {
@@ -1997,19 +2001,19 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.188_name; char* name
 	}, ; 204
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000892, ; name: n_OnScroll_Landroid_widget_AbsListView_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
+		i64 u0x0000008806000892, ; name: n_OnScroll_Landroid_widget_AbsListView_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.189_name; char* name
 	}, ; 205
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000893, ; name: n_OnScrollStateChanged_Landroid_widget_AbsListView_I_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32)
+		i64 u0x0000008806000893, ; name: n_OnScrollStateChanged_Landroid_widget_AbsListView_I_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.190_name; char* name
 	}, ; 206
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014db, ; name: n_DispatchTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014db, ; name: n_DispatchTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.191_name; char* name
 	}, ; 207
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001cea, ; name: n_AddView_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001cea, ; name: n_AddView_Landroid_view_View__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.192_name; char* name
 	}, ; 208
 	%struct.MarshalMethodName {
@@ -2017,171 +2021,171 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.193_name; char* name
 	}, ; 209
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002968, ; name: n_OnCreate_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002968, ; name: n_OnCreate_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.112_name; char* name
 	}, ; 210
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002969, ; name: n_OnDestroy_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002969, ; name: n_OnDestroy_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.94_name; char* name
 	}, ; 211
 	%struct.MarshalMethodName {
-		i64 u0x000000870600296a, ; name: n_DispatchTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600296a, ; name: n_DispatchTouchEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.191_name; char* name
 	}, ; 212
 	%struct.MarshalMethodName {
-		i64 u0x000000870600296b, ; name: n_OnActivityResult_IILandroid_content_Intent__mm_wrapper(IntPtr,IntPtr,Int32,Int32,IntPtr)
+		i64 u0x000000880600296b, ; name: n_OnActivityResult_IILandroid_content_Intent__mm_wrapper(IntPtr,IntPtr,Int32,Int32,IntPtr)
 		ptr @.MarshalMethodName.194_name; char* name
 	}, ; 213
 	%struct.MarshalMethodName {
-		i64 u0x000000870600296c, ; name: n_OnBackPressed_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600296c, ; name: n_OnBackPressed_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.195_name; char* name
 	}, ; 214
 	%struct.MarshalMethodName {
-		i64 u0x000000870600296d, ; name: n_OnConfigurationChanged_Landroid_content_res_Configuration__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600296d, ; name: n_OnConfigurationChanged_Landroid_content_res_Configuration__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.196_name; char* name
 	}, ; 215
 	%struct.MarshalMethodName {
-		i64 u0x000000870600296e, ; name: n_OnNewIntent_Landroid_content_Intent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600296e, ; name: n_OnNewIntent_Landroid_content_Intent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.197_name; char* name
 	}, ; 216
 	%struct.MarshalMethodName {
-		i64 u0x000000870600296f, ; name: n_OnPostCreate_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600296f, ; name: n_OnPostCreate_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.198_name; char* name
 	}, ; 217
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002970, ; name: n_OnPostResume_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002970, ; name: n_OnPostResume_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.199_name; char* name
 	}, ; 218
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002971, ; name: n_OnRestart_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002971, ; name: n_OnRestart_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.200_name; char* name
 	}, ; 219
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002972, ; name: n_OnRequestPermissionsResult_IarrayLjava_lang_String_arrayI_mm_wrapper(IntPtr,IntPtr,Int32,IntPtr,IntPtr)
+		i64 u0x0000008806002972, ; name: n_OnRequestPermissionsResult_IarrayLjava_lang_String_arrayI_mm_wrapper(IntPtr,IntPtr,Int32,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.201_name; char* name
 	}, ; 220
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002973, ; name: n_OnRestoreInstanceState_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002973, ; name: n_OnRestoreInstanceState_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.202_name; char* name
 	}, ; 221
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002974, ; name: n_OnKeyDown_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002974, ; name: n_OnKeyDown_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.114_name; char* name
 	}, ; 222
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002975, ; name: n_OnKeyLongPress_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002975, ; name: n_OnKeyLongPress_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.115_name; char* name
 	}, ; 223
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002976, ; name: n_OnKeyMultiple_IILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,Int32,IntPtr)
+		i64 u0x0000008806002976, ; name: n_OnKeyMultiple_IILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,Int32,IntPtr)
 		ptr @.MarshalMethodName.116_name; char* name
 	}, ; 224
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002977, ; name: n_OnKeyShortcut_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002977, ; name: n_OnKeyShortcut_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.117_name; char* name
 	}, ; 225
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002978, ; name: n_OnKeyUp_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
+		i64 u0x0000008806002978, ; name: n_OnKeyUp_ILandroid_view_KeyEvent__mm_wrapper(IntPtr,IntPtr,Int32,IntPtr)
 		ptr @.MarshalMethodName.118_name; char* name
 	}, ; 226
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029cf, ; name: n_OnCreate_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060029cf, ; name: n_OnCreate_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.203_name; char* name
 	}, ; 227
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029d0, ; name: n_OnLowMemory_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060029d0, ; name: n_OnLowMemory_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.204_name; char* name
 	}, ; 228
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029d1, ; name: n_OnTrimMemory_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x00000088060029d1, ; name: n_OnTrimMemory_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.205_name; char* name
 	}, ; 229
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029d2, ; name: n_OnConfigurationChanged_Landroid_content_res_Configuration__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029d2, ; name: n_OnConfigurationChanged_Landroid_content_res_Configuration__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.196_name; char* name
 	}, ; 230
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a1b, ; name: n_OnActivityCreated_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a1b, ; name: n_OnActivityCreated_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.206_name; char* name
 	}, ; 231
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a1c, ; name: n_OnActivityDestroyed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a1c, ; name: n_OnActivityDestroyed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.207_name; char* name
 	}, ; 232
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a1d, ; name: n_OnActivityPaused_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a1d, ; name: n_OnActivityPaused_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.208_name; char* name
 	}, ; 233
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a1e, ; name: n_OnActivityResumed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a1e, ; name: n_OnActivityResumed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.209_name; char* name
 	}, ; 234
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a1f, ; name: n_OnActivitySaveInstanceState_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a1f, ; name: n_OnActivitySaveInstanceState_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.210_name; char* name
 	}, ; 235
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a20, ; name: n_OnActivityStarted_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a20, ; name: n_OnActivityStarted_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.211_name; char* name
 	}, ; 236
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a21, ; name: n_OnActivityStopped_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a21, ; name: n_OnActivityStopped_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.212_name; char* name
 	}, ; 237
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029f7, ; name: n_OnActivityPostCreated_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029f7, ; name: n_OnActivityPostCreated_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.213_name; char* name
 	}, ; 238
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029f8, ; name: n_OnActivityPostDestroyed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029f8, ; name: n_OnActivityPostDestroyed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.214_name; char* name
 	}, ; 239
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029f9, ; name: n_OnActivityPostPaused_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029f9, ; name: n_OnActivityPostPaused_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.215_name; char* name
 	}, ; 240
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029fa, ; name: n_OnActivityPostResumed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029fa, ; name: n_OnActivityPostResumed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.216_name; char* name
 	}, ; 241
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029fb, ; name: n_OnActivityPostSaveInstanceState_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029fb, ; name: n_OnActivityPostSaveInstanceState_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.217_name; char* name
 	}, ; 242
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029fc, ; name: n_OnActivityPostStarted_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029fc, ; name: n_OnActivityPostStarted_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.218_name; char* name
 	}, ; 243
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029fd, ; name: n_OnActivityPostStopped_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029fd, ; name: n_OnActivityPostStopped_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.219_name; char* name
 	}, ; 244
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029fe, ; name: n_OnActivityPreCreated_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029fe, ; name: n_OnActivityPreCreated_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.220_name; char* name
 	}, ; 245
 	%struct.MarshalMethodName {
-		i64 u0x00000087060029ff, ; name: n_OnActivityPreDestroyed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060029ff, ; name: n_OnActivityPreDestroyed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.221_name; char* name
 	}, ; 246
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a00, ; name: n_OnActivityPrePaused_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a00, ; name: n_OnActivityPrePaused_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.222_name; char* name
 	}, ; 247
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a01, ; name: n_OnActivityPreResumed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a01, ; name: n_OnActivityPreResumed_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.223_name; char* name
 	}, ; 248
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a02, ; name: n_OnActivityPreSaveInstanceState_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a02, ; name: n_OnActivityPreSaveInstanceState_Landroid_app_Activity_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.224_name; char* name
 	}, ; 249
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a03, ; name: n_OnActivityPreStarted_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a03, ; name: n_OnActivityPreStarted_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.225_name; char* name
 	}, ; 250
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002a04, ; name: n_OnActivityPreStopped_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002a04, ; name: n_OnActivityPreStopped_Landroid_app_Activity__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.226_name; char* name
 	}, ; 251
 	%struct.MarshalMethodName {
@@ -2217,11 +2221,11 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.234_name; char* name
 	}, ; 259
 	%struct.MarshalMethodName {
-		i64 u0x00000087060023c1, ; name: n_OnBoundsChange_Landroid_graphics_Rect__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060023c1, ; name: n_OnBoundsChange_Landroid_graphics_Rect__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.235_name; char* name
 	}, ; 260
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014dc, ; name: n_OnConfigurationChanged_Landroid_content_res_Configuration__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014dc, ; name: n_OnConfigurationChanged_Landroid_content_res_Configuration__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.196_name; char* name
 	}, ; 261
 	%struct.MarshalMethodName {
@@ -2253,27 +2257,27 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.242_name; char* name
 	}, ; 268
 	%struct.MarshalMethodName {
-		i64 u0x000000870600101a, ; name: n_GetInputType_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x000000880600101a, ; name: n_GetInputType_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.243_name; char* name
 	}, ; 269
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001093, ; name: n_GetAcceptedChars_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806001093, ; name: n_GetAcceptedChars_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.244_name; char* name
 	}, ; 270
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001094, ; name: n_Filter_Ljava_lang_CharSequence_IILandroid_text_Spanned_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,IntPtr,Int32,Int32)
+		i64 u0x0000008806001094, ; name: n_Filter_Ljava_lang_CharSequence_IILandroid_text_Spanned_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.245_name; char* name
 	}, ; 271
 	%struct.MarshalMethodName {
-		i64 u0x00000087060009da, ; name: n_OnSelectionChanged_II_mm_wrapper(IntPtr,IntPtr,Int32,Int32)
+		i64 u0x00000088060009da, ; name: n_OnSelectionChanged_II_mm_wrapper(IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.246_name; char* name
 	}, ; 272
 	%struct.MarshalMethodName {
-		i64 u0x00000087060009db, ; name: n_GetDefaultMovementMethod_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060009db, ; name: n_GetDefaultMovementMethod_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.247_name; char* name
 	}, ; 273
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000784, ; name: n_ShouldInterceptRequest_Landroid_webkit_WebView_Landroid_webkit_WebResourceRequest__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000784, ; name: n_ShouldInterceptRequest_Landroid_webkit_WebView_Landroid_webkit_WebResourceRequest__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.248_name; char* name
 	}, ; 274
 	%struct.MarshalMethodName {
@@ -2285,7 +2289,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.250_name; char* name
 	}, ; 276
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014dd, ; name: n_OnLayout_ZIIII_mm_wrapper(IntPtr,IntPtr,SByte,Int32,Int32,Int32,Int32)
+		i64 u0x00000088060014dd, ; name: n_OnLayout_ZIIII_mm_wrapper(IntPtr,IntPtr,SByte,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.88_name; char* name
 	}, ; 277
 	%struct.MarshalMethodName {
@@ -2297,15 +2301,15 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.251_name; char* name
 	}, ; 279
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014de, ; name: n_IsHorizontalScrollBarEnabled_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060014de, ; name: n_IsHorizontalScrollBarEnabled_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.252_name; char* name
 	}, ; 280
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014df, ; name: n_SetHorizontalScrollBarEnabled_Z_mm_wrapper(IntPtr,IntPtr,SByte)
+		i64 u0x00000088060014df, ; name: n_SetHorizontalScrollBarEnabled_Z_mm_wrapper(IntPtr,IntPtr,SByte)
 		ptr @.MarshalMethodName.253_name; char* name
 	}, ; 281
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014e0, ; name: n_OnScrollChanged_IIII_mm_wrapper(IntPtr,IntPtr,Int32,Int32,Int32,Int32)
+		i64 u0x00000088060014e0, ; name: n_OnScrollChanged_IIII_mm_wrapper(IntPtr,IntPtr,Int32,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.254_name; char* name
 	}, ; 282
 	%struct.MarshalMethodName {
@@ -2325,35 +2329,35 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.256_name; char* name
 	}, ; 286
 	%struct.MarshalMethodName {
-		i64 u0x00000087060006c5, ; name: n_OnShowFileChooser_Landroid_webkit_WebView_Landroid_webkit_ValueCallback_Landroid_webkit_WebChromeClient_FileChooserParams__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060006c5, ; name: n_OnShowFileChooser_Landroid_webkit_WebView_Landroid_webkit_ValueCallback_Landroid_webkit_WebChromeClient_FileChooserParams__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.257_name; char* name
 	}, ; 287
 	%struct.MarshalMethodName {
-		i64 u0x00000087060006c6, ; name: n_OnShowCustomView_Landroid_view_View_Landroid_webkit_WebChromeClient_CustomViewCallback__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060006c6, ; name: n_OnShowCustomView_Landroid_view_View_Landroid_webkit_WebChromeClient_CustomViewCallback__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.258_name; char* name
 	}, ; 288
 	%struct.MarshalMethodName {
-		i64 u0x00000087060006c7, ; name: n_OnHideCustomView_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060006c7, ; name: n_OnHideCustomView_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.259_name; char* name
 	}, ; 289
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000785, ; name: n_ShouldOverrideUrlLoading_Landroid_webkit_WebView_Landroid_webkit_WebResourceRequest__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000785, ; name: n_ShouldOverrideUrlLoading_Landroid_webkit_WebView_Landroid_webkit_WebResourceRequest__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.260_name; char* name
 	}, ; 290
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000786, ; name: n_OnPageStarted_Landroid_webkit_WebView_Ljava_lang_String_Landroid_graphics_Bitmap__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000786, ; name: n_OnPageStarted_Landroid_webkit_WebView_Ljava_lang_String_Landroid_graphics_Bitmap__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.261_name; char* name
 	}, ; 291
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000787, ; name: n_OnPageFinished_Landroid_webkit_WebView_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000787, ; name: n_OnPageFinished_Landroid_webkit_WebView_Ljava_lang_String__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.262_name; char* name
 	}, ; 292
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000788, ; name: n_OnReceivedError_Landroid_webkit_WebView_Landroid_webkit_WebResourceRequest_Landroid_webkit_WebResourceError__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000788, ; name: n_OnReceivedError_Landroid_webkit_WebView_Landroid_webkit_WebResourceRequest_Landroid_webkit_WebResourceError__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.263_name; char* name
 	}, ; 293
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000789, ; name: n_OnRenderProcessGone_Landroid_webkit_WebView_Landroid_webkit_RenderProcessGoneDetail__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000789, ; name: n_OnRenderProcessGone_Landroid_webkit_WebView_Landroid_webkit_RenderProcessGoneDetail__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.264_name; char* name
 	}, ; 294
 	%struct.MarshalMethodName {
@@ -2401,11 +2405,11 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.275_name; char* name
 	}, ; 305
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014e1, ; name: n_OnHoverEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014e1, ; name: n_OnHoverEvent_Landroid_view_MotionEvent__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.276_name; char* name
 	}, ; 306
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000685, ; name: n_OnReceiveValue_Ljava_lang_Object__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000685, ; name: n_OnReceiveValue_Ljava_lang_Object__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.277_name; char* name
 	}, ; 307
 	%struct.MarshalMethodName {
@@ -2413,11 +2417,11 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.88_name; char* name
 	}, ; 308
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014e2, ; name: n_GetVisibility_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x00000088060014e2, ; name: n_GetVisibility_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.278_name; char* name
 	}, ; 309
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014e3, ; name: n_SetVisibility_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x00000088060014e3, ; name: n_SetVisibility_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.279_name; char* name
 	}, ; 310
 	%struct.MarshalMethodName {
@@ -2425,19 +2429,19 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.280_name; char* name
 	}, ; 311
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000c54, ; name: n_OnProgressChanged_Landroid_widget_SeekBar_IZ_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,SByte)
+		i64 u0x0000008806000c54, ; name: n_OnProgressChanged_Landroid_widget_SeekBar_IZ_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,SByte)
 		ptr @.MarshalMethodName.281_name; char* name
 	}, ; 312
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000c55, ; name: n_OnStartTrackingTouch_Landroid_widget_SeekBar__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000c55, ; name: n_OnStartTrackingTouch_Landroid_widget_SeekBar__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.282_name; char* name
 	}, ; 313
 	%struct.MarshalMethodName {
-		i64 u0x0000008706000c56, ; name: n_OnStopTrackingTouch_Landroid_widget_SeekBar__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806000c56, ; name: n_OnStopTrackingTouch_Landroid_widget_SeekBar__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.283_name; char* name
 	}, ; 314
 	%struct.MarshalMethodName {
-		i64 u0x000000870600252c, ; name: n_Resize_II_mm_wrapper(IntPtr,IntPtr,Int32,Int32)
+		i64 u0x000000880600252c, ; name: n_Resize_II_mm_wrapper(IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.284_name; char* name
 	}, ; 315
 	%struct.MarshalMethodName {
@@ -2449,19 +2453,19 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.286_name; char* name
 	}, ; 317
 	%struct.MarshalMethodName {
-		i64 u0x000000870600127f, ; name: n_OnChanged_F_mm_wrapper(IntPtr,IntPtr,Single)
+		i64 u0x000000880600127f, ; name: n_OnChanged_F_mm_wrapper(IntPtr,IntPtr,Single)
 		ptr @.MarshalMethodName.287_name; char* name
 	}, ; 318
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002979, ; name: n_OnResume_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002979, ; name: n_OnResume_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.95_name; char* name
 	}, ; 319
 	%struct.MarshalMethodName {
-		i64 u0x000000870600297a, ; name: n_OnSaveInstanceState_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x000000880600297a, ; name: n_OnSaveInstanceState_Landroid_os_Bundle__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.288_name; char* name
 	}, ; 320
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002614, ; name: n_OnReceive_Landroid_content_Context_Landroid_content_Intent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806002614, ; name: n_OnReceive_Landroid_content_Context_Landroid_content_Intent__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.289_name; char* name
 	}, ; 321
 	%struct.MarshalMethodName {
@@ -2469,63 +2473,63 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.290_name; char* name
 	}, ; 322
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001ba3, ; name: n_OnOrientationChanged_I_mm_wrapper(IntPtr,IntPtr,Int32)
+		i64 u0x0000008806001ba3, ; name: n_OnOrientationChanged_I_mm_wrapper(IntPtr,IntPtr,Int32)
 		ptr @.MarshalMethodName.291_name; char* name
 	}, ; 323
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001c3a, ; name: n_OnSurfaceTextureAvailable_Landroid_graphics_SurfaceTexture_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x0000008806001c3a, ; name: n_OnSurfaceTextureAvailable_Landroid_graphics_SurfaceTexture_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.292_name; char* name
 	}, ; 324
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001c3b, ; name: n_OnSurfaceTextureDestroyed_Landroid_graphics_SurfaceTexture__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001c3b, ; name: n_OnSurfaceTextureDestroyed_Landroid_graphics_SurfaceTexture__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.293_name; char* name
 	}, ; 325
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001c3c, ; name: n_OnSurfaceTextureSizeChanged_Landroid_graphics_SurfaceTexture_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x0000008806001c3c, ; name: n_OnSurfaceTextureSizeChanged_Landroid_graphics_SurfaceTexture_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.294_name; char* name
 	}, ; 326
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001c3d, ; name: n_OnSurfaceTextureUpdated_Landroid_graphics_SurfaceTexture__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001c3d, ; name: n_OnSurfaceTextureUpdated_Landroid_graphics_SurfaceTexture__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.295_name; char* name
 	}, ; 327
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002dc8, ; name: n_Close_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002dc8, ; name: n_Close_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.25_name; char* name
 	}, ; 328
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002dc9, ; name: n_Flush_mm_wrapper(IntPtr,IntPtr)
+		i64 u0x0000008806002dc9, ; name: n_Flush_mm_wrapper(IntPtr,IntPtr)
 		ptr @.MarshalMethodName.32_name; char* name
 	}, ; 329
 	%struct.MarshalMethodName {
-		i64 u0x0000008706002dca, ; name: n_Write_arrayCII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x0000008806002dca, ; name: n_Write_arrayCII_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.296_name; char* name
 	}, ; 330
 	%struct.MarshalMethodName {
-		i64 u0x00000087060014e4, ; name: n_OnDraw_Landroid_graphics_Canvas__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060014e4, ; name: n_OnDraw_Landroid_graphics_Canvas__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.297_name; char* name
 	}, ; 331
 	%struct.MarshalMethodName {
-		i64 u0x00000087060010e1, ; name: n_OnDrawFrame_Ljavax_microedition_khronos_opengles_GL10__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060010e1, ; name: n_OnDrawFrame_Ljavax_microedition_khronos_opengles_GL10__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.298_name; char* name
 	}, ; 332
 	%struct.MarshalMethodName {
-		i64 u0x00000087060010e2, ; name: n_OnSurfaceChanged_Ljavax_microedition_khronos_opengles_GL10_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
+		i64 u0x00000088060010e2, ; name: n_OnSurfaceChanged_Ljavax_microedition_khronos_opengles_GL10_II_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32)
 		ptr @.MarshalMethodName.299_name; char* name
 	}, ; 333
 	%struct.MarshalMethodName {
-		i64 u0x00000087060010e3, ; name: n_OnSurfaceCreated_Ljavax_microedition_khronos_opengles_GL10_Ljavax_microedition_khronos_egl_EGLConfig__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060010e3, ; name: n_OnSurfaceCreated_Ljavax_microedition_khronos_opengles_GL10_Ljavax_microedition_khronos_egl_EGLConfig__mm_wrapper(IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.300_name; char* name
 	}, ; 334
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001996, ; name: n_SurfaceChanged_Landroid_view_SurfaceHolder_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
+		i64 u0x0000008806001996, ; name: n_SurfaceChanged_Landroid_view_SurfaceHolder_III_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,Int32,Int32)
 		ptr @.MarshalMethodName.301_name; char* name
 	}, ; 335
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001997, ; name: n_SurfaceCreated_Landroid_view_SurfaceHolder__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001997, ; name: n_SurfaceCreated_Landroid_view_SurfaceHolder__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.302_name; char* name
 	}, ; 336
 	%struct.MarshalMethodName {
-		i64 u0x0000008706001998, ; name: n_SurfaceDestroyed_Landroid_view_SurfaceHolder__mm_wrapper(IntPtr,IntPtr,IntPtr)
+		i64 u0x0000008806001998, ; name: n_SurfaceDestroyed_Landroid_view_SurfaceHolder__mm_wrapper(IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.303_name; char* name
 	}, ; 337
 	%struct.MarshalMethodName {
@@ -2557,7 +2561,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.309_name; char* name
 	}, ; 344
 	%struct.MarshalMethodName {
-		i64 u0x000000870600270e, ; name: n_OnClick_Landroid_content_DialogInterface_IZ_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,SByte)
+		i64 u0x000000880600270e, ; name: n_OnClick_Landroid_content_DialogInterface_IZ_mm_wrapper(IntPtr,IntPtr,IntPtr,Int32,SByte)
 		ptr @.MarshalMethodName.310_name; char* name
 	}, ; 345
 	%struct.MarshalMethodName {
@@ -2681,7 +2685,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @.MarshalMethodName.337_name; char* name
 	}, ; 375
 	%struct.MarshalMethodName {
-		i64 u0x00000087060033ca, ; name: n_Activate_mm(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
+		i64 u0x00000088060033ca, ; name: n_Activate_mm(IntPtr,IntPtr,IntPtr,IntPtr,IntPtr,IntPtr)
 		ptr @.MarshalMethodName.338_name; char* name
 	}, ; 376
 	%struct.MarshalMethodName {
@@ -3104,7 +3108,7 @@ define void @Java_mono_android_widget_AdapterView_1OnItemClickListenerImplemento
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 0, i32 noundef 100665546, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onItemClick_0_0_60008ca)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 0, i32 noundef 100665546, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onItemClick_0_0_60008ca)
 	%cb2 = load ptr, ptr @native_cb_onItemClick_0_0_60008ca, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3130,7 +3134,7 @@ define void @Java_crc64e1fb321c08285b90_CellAdapter_n_1onItemClick__Landroid_wid
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 0, i32 noundef 100665546, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onItemClick_0_0_60008ca)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 0, i32 noundef 100665546, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onItemClick_0_0_60008ca)
 	%cb2 = load ptr, ptr @native_cb_onItemClick_0_0_60008ca, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3156,7 +3160,7 @@ define i1 @Java_mono_android_widget_TextView_1OnEditorActionListenerImplementor_
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 1, i32 noundef 100665837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onEditorAction_0_1_60009ed)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 1, i32 noundef 100665837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onEditorAction_0_1_60009ed)
 	%cb2 = load ptr, ptr @native_cb_onEditorAction_0_1_60009ed, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3182,7 +3186,7 @@ define i1 @Java_crc640ec207abc449b2ca_ShellSearchView_n_1onEditorAction__Landroi
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 1, i32 noundef 100665837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onEditorAction_0_1_60009ed)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 1, i32 noundef 100665837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onEditorAction_0_1_60009ed)
 	%cb2 = load ptr, ptr @native_cb_onEditorAction_0_1_60009ed, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3208,7 +3212,7 @@ define i1 @Java_crc64e1fb321c08285b90_EntryCellView_n_1onEditorAction__Landroid_
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 1, i32 noundef 100665837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onEditorAction_0_1_60009ed)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 1, i32 noundef 100665837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onEditorAction_0_1_60009ed)
 	%cb2 = load ptr, ptr @native_cb_onEditorAction_0_1_60009ed, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3234,7 +3238,7 @@ define void @Java_mono_android_widget_CompoundButton_1OnCheckedChangeListenerImp
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 2, i32 noundef 100665996, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCheckedChanged_0_2_6000a8c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 2, i32 noundef 100665996, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCheckedChanged_0_2_6000a8c)
 	%cb2 = load ptr, ptr @native_cb_onCheckedChanged_0_2_6000a8c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3260,7 +3264,7 @@ define void @Java_crc64e1fb321c08285b90_SwitchCellView_n_1onCheckedChanged__Land
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 2, i32 noundef 100665996, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCheckedChanged_0_2_6000a8c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 2, i32 noundef 100665996, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCheckedChanged_0_2_6000a8c)
 	%cb2 = load ptr, ptr @native_cb_onCheckedChanged_0_2_6000a8c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3286,7 +3290,7 @@ define void @Java_crc64fcf28c0e24b4cc31_SwitchHandler_1CheckedChangeListener_n_1
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 2, i32 noundef 100665996, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCheckedChanged_0_2_6000a8c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 2, i32 noundef 100665996, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCheckedChanged_0_2_6000a8c)
 	%cb2 = load ptr, ptr @native_cb_onCheckedChanged_0_2_6000a8c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3312,7 +3316,7 @@ define void @Java_mono_android_text_TextWatcherImplementor_n_1afterTextChanged__
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666893, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_afterTextChanged_0_3_6000e0d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666893, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_afterTextChanged_0_3_6000e0d)
 	%cb2 = load ptr, ptr @native_cb_afterTextChanged_0_3_6000e0d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3338,7 +3342,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchView_n_1afterTextChanged__Lan
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666893, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_afterTextChanged_0_3_6000e0d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666893, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_afterTextChanged_0_3_6000e0d)
 	%cb2 = load ptr, ptr @native_cb_afterTextChanged_0_3_6000e0d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3364,7 +3368,7 @@ define void @Java_crc64e1fb321c08285b90_EntryCellView_n_1afterTextChanged__Landr
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666893, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_afterTextChanged_0_3_6000e0d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666893, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_afterTextChanged_0_3_6000e0d)
 	%cb2 = load ptr, ptr @native_cb_afterTextChanged_0_3_6000e0d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3390,7 +3394,7 @@ define void @Java_mono_android_text_TextWatcherImplementor_n_1beforeTextChanged_
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666894, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_beforeTextChanged_0_3_6000e0e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666894, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_beforeTextChanged_0_3_6000e0e)
 	%cb2 = load ptr, ptr @native_cb_beforeTextChanged_0_3_6000e0e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3416,7 +3420,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchView_n_1beforeTextChanged__Lj
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666894, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_beforeTextChanged_0_3_6000e0e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666894, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_beforeTextChanged_0_3_6000e0e)
 	%cb2 = load ptr, ptr @native_cb_beforeTextChanged_0_3_6000e0e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3442,7 +3446,7 @@ define void @Java_crc64e1fb321c08285b90_EntryCellView_n_1beforeTextChanged__Ljav
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666894, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_beforeTextChanged_0_3_6000e0e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666894, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_beforeTextChanged_0_3_6000e0e)
 	%cb2 = load ptr, ptr @native_cb_beforeTextChanged_0_3_6000e0e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3468,7 +3472,7 @@ define void @Java_mono_android_text_TextWatcherImplementor_n_1onTextChanged__Lja
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666895, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTextChanged_0_3_6000e0f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666895, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTextChanged_0_3_6000e0f)
 	%cb2 = load ptr, ptr @native_cb_onTextChanged_0_3_6000e0f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3494,7 +3498,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchView_n_1onTextChanged__Ljava_
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666895, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTextChanged_0_3_6000e0f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666895, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTextChanged_0_3_6000e0f)
 	%cb2 = load ptr, ptr @native_cb_onTextChanged_0_3_6000e0f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3520,7 +3524,7 @@ define void @Java_crc64e1fb321c08285b90_EntryCellView_n_1onTextChanged__Ljava_la
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 3, i32 noundef 100666895, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTextChanged_0_3_6000e0f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 3, i32 noundef 100666895, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTextChanged_0_3_6000e0f)
 	%cb2 = load ptr, ptr @native_cb_onTextChanged_0_3_6000e0f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3546,7 +3550,7 @@ define void @Java_mono_android_animation_AnimatorEventDispatcher_n_1onAnimationC
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 4, i32 noundef 100667954, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationCancel_0_4_6001232)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 4, i32 noundef 100667954, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationCancel_0_4_6001232)
 	%cb2 = load ptr, ptr @native_cb_onAnimationCancel_0_4_6001232, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3572,7 +3576,7 @@ define void @Java_mono_android_animation_AnimatorEventDispatcher_n_1onAnimationE
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 4, i32 noundef 100667955, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_4_6001233)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 4, i32 noundef 100667955, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_4_6001233)
 	%cb2 = load ptr, ptr @native_cb_onAnimationEnd_0_4_6001233, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3598,7 +3602,7 @@ define void @Java_mono_android_animation_AnimatorEventDispatcher_n_1onAnimationR
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 4, i32 noundef 100667956, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_4_6001234)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 4, i32 noundef 100667956, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_4_6001234)
 	%cb2 = load ptr, ptr @native_cb_onAnimationRepeat_0_4_6001234, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3624,7 +3628,7 @@ define void @Java_mono_android_animation_AnimatorEventDispatcher_n_1onAnimationS
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 4, i32 noundef 100667957, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationStart_0_4_6001235)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 4, i32 noundef 100667957, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationStart_0_4_6001235)
 	%cb2 = load ptr, ptr @native_cb_onAnimationStart_0_4_6001235, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3650,7 +3654,7 @@ define void @Java_mono_android_animation_ValueAnimator_1AnimatorUpdateListenerIm
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 5, i32 noundef 100668011, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationUpdate_0_5_600126b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 5, i32 noundef 100668011, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationUpdate_0_5_600126b)
 	%cb2 = load ptr, ptr @native_cb_onAnimationUpdate_0_5_600126b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3676,7 +3680,7 @@ define void @Java_mono_android_view_View_1OnAttachStateChangeListenerImplementor
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 6, i32 noundef 100668678, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onViewAttachedToWindow_0_6_6001506)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 6, i32 noundef 100668678, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onViewAttachedToWindow_0_6_6001506)
 	%cb2 = load ptr, ptr @native_cb_onViewAttachedToWindow_0_6_6001506, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3702,7 +3706,7 @@ define void @Java_mono_android_view_View_1OnAttachStateChangeListenerImplementor
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 6, i32 noundef 100668679, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onViewDetachedFromWindow_0_6_6001507)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 6, i32 noundef 100668679, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onViewDetachedFromWindow_0_6_6001507)
 	%cb2 = load ptr, ptr @native_cb_onViewDetachedFromWindow_0_6_6001507, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3728,7 +3732,7 @@ define void @Java_mono_android_view_View_1OnClickListenerImplementor_n_1onClick_
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3754,7 +3758,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSectionRenderer_n_1onClick__Landroi
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3780,7 +3784,7 @@ define void @Java_crc640ec207abc449b2ca_ShellToolbarTracker_n_1onClick__Landroid
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3806,7 +3810,7 @@ define void @Java_crc645d80431ce5f73f11_SelectableViewHolder_n_1onClick__Landroi
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3832,7 +3836,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiDatePicker_n_1onClick__Landroid_view
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3858,7 +3862,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiPageControl_1TEditClickListener_n_1o
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3884,7 +3888,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiTimePicker_n_1onClick__Landroid_view
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3910,7 +3914,7 @@ define void @Java_crc6452ffdc5b34af3a0f_StepperHandlerManager_1StepperListener_n
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3936,7 +3940,7 @@ define void @Java_crc64fcf28c0e24b4cc31_ButtonHandler_1ButtonClickListener_n_1on
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3962,7 +3966,7 @@ define void @Java_crc64fcf28c0e24b4cc31_ToolbarHandler_1ProcessBackClick_n_1onCl
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -3988,7 +3992,7 @@ define void @Java_androidx_appcompat_widget_Toolbar_1NavigationOnClickEventDispa
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 7, i32 noundef 100668701, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_7_600151d)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_7_600151d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4014,7 +4018,7 @@ define void @Java_mono_android_view_View_1OnFocusChangeListenerImplementor_n_1on
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 8, i32 noundef 100668731, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChange_0_8_600153b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 8, i32 noundef 100668731, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChange_0_8_600153b)
 	%cb2 = load ptr, ptr @native_cb_onFocusChange_0_8_600153b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4040,7 +4044,7 @@ define void @Java_crc64e1fb321c08285b90_EntryCellView_n_1onFocusChange__Landroid
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 8, i32 noundef 100668731, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChange_0_8_600153b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 8, i32 noundef 100668731, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChange_0_8_600153b)
 	%cb2 = load ptr, ptr @native_cb_onFocusChange_0_8_600153b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4066,7 +4070,7 @@ define void @Java_crc64fcf28c0e24b4cc31_SearchBarHandler_1FocusChangeListener_n_
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 8, i32 noundef 100668731, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChange_0_8_600153b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 8, i32 noundef 100668731, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChange_0_8_600153b)
 	%cb2 = load ptr, ptr @native_cb_onFocusChange_0_8_600153b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4092,7 +4096,7 @@ define i1 @Java_mono_android_view_View_1OnHoverListenerImplementor_n_1onHover__L
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 9, i32 noundef 100668751, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHover_0_9_600154f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 9, i32 noundef 100668751, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHover_0_9_600154f)
 	%cb2 = load ptr, ptr @native_cb_onHover_0_9_600154f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4118,7 +4122,7 @@ define i1 @Java_crc64338477404e88479c_PointerGestureHandler_n_1onHover__Landroid
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 9, i32 noundef 100668751, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHover_0_9_600154f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 9, i32 noundef 100668751, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHover_0_9_600154f)
 	%cb2 = load ptr, ptr @native_cb_onHover_0_9_600154f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4144,7 +4148,7 @@ define i1 @Java_mono_android_view_View_1OnKeyListenerImplementor_n_1onKey(ptr no
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 10, i32 noundef 100668772, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKey_0_10_6001564)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 10, i32 noundef 100668772, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKey_0_10_6001564)
 	%cb2 = load ptr, ptr @native_cb_onKey_0_10_6001564, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4170,7 +4174,7 @@ define void @Java_mono_android_view_View_1OnLayoutChangeListenerImplementor_n_1o
 
 loadCallback: ; preds = %9
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 11, i32 noundef 100668795, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayoutChange_0_11_600157b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 11, i32 noundef 100668795, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayoutChange_0_11_600157b)
 	%cb2 = load ptr, ptr @native_cb_onLayoutChange_0_11_600157b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4196,7 +4200,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_n_1onLayoutChange__Landroi
 
 loadCallback: ; preds = %9
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 11, i32 noundef 100668795, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayoutChange_0_11_600157b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 11, i32 noundef 100668795, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayoutChange_0_11_600157b)
 	%cb2 = load ptr, ptr @native_cb_onLayoutChange_0_11_600157b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4222,7 +4226,7 @@ define void @Java_mono_android_view_View_1OnScrollChangeListenerImplementor_n_1o
 
 loadCallback: ; preds = %5
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 12, i32 noundef 100668818, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScrollChange_0_12_6001592)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 12, i32 noundef 100668818, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScrollChange_0_12_6001592)
 	%cb2 = load ptr, ptr @native_cb_onScrollChange_0_12_6001592, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4248,7 +4252,7 @@ define i1 @Java_mono_android_view_View_1OnTouchListenerImplementor_n_1onTouch__L
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 13, i32 noundef 100668837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouch_0_13_60015a5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 13, i32 noundef 100668837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouch_0_13_60015a5)
 	%cb2 = load ptr, ptr @native_cb_onTouch_0_13_60015a5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4274,7 +4278,7 @@ define i1 @Java_crc64e1fb321c08285b90_ConditionalFocusLayout_n_1onTouch__Landroi
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 13, i32 noundef 100668837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouch_0_13_60015a5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 13, i32 noundef 100668837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouch_0_13_60015a5)
 	%cb2 = load ptr, ptr @native_cb_onTouch_0_13_60015a5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4300,7 +4304,7 @@ define i1 @Java_crc64fcf28c0e24b4cc31_ButtonHandler_1ButtonTouchListener_n_1onTo
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 13, i32 noundef 100668837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouch_0_13_60015a5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 13, i32 noundef 100668837, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouch_0_13_60015a5)
 	%cb2 = load ptr, ptr @native_cb_onTouch_0_13_60015a5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4326,7 +4330,7 @@ define void @Java_mono_android_view_ViewGroup_1OnHierarchyChangeListenerImplemen
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 14, i32 noundef 100670736, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onChildViewAdded_0_14_6001d10)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 14, i32 noundef 100670736, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onChildViewAdded_0_14_6001d10)
 	%cb2 = load ptr, ptr @native_cb_onChildViewAdded_0_14_6001d10, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4352,7 +4356,7 @@ define void @Java_mono_android_view_ViewGroup_1OnHierarchyChangeListenerImplemen
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 14, i32 noundef 100670737, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onChildViewRemoved_0_14_6001d11)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 14, i32 noundef 100670737, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onChildViewRemoved_0_14_6001d11)
 	%cb2 = load ptr, ptr @native_cb_onChildViewRemoved_0_14_6001d11, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4378,7 +4382,7 @@ define void @Java_mono_android_view_animation_Animation_1AnimationListenerImplem
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 15, i32 noundef 100670879, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_15_6001d9f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 15, i32 noundef 100670879, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_15_6001d9f)
 	%cb2 = load ptr, ptr @native_cb_onAnimationEnd_0_15_6001d9f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4404,7 +4408,7 @@ define void @Java_crc640ec207abc449b2ca_ShellContentFragment_n_1onAnimationEnd__
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 15, i32 noundef 100670879, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_15_6001d9f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 15, i32 noundef 100670879, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_15_6001d9f)
 	%cb2 = load ptr, ptr @native_cb_onAnimationEnd_0_15_6001d9f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4430,7 +4434,7 @@ define void @Java_mono_android_view_animation_Animation_1AnimationListenerImplem
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 15, i32 noundef 100670880, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_15_6001da0)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 15, i32 noundef 100670880, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_15_6001da0)
 	%cb2 = load ptr, ptr @native_cb_onAnimationRepeat_0_15_6001da0, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4456,7 +4460,7 @@ define void @Java_crc640ec207abc449b2ca_ShellContentFragment_n_1onAnimationRepea
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 15, i32 noundef 100670880, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_15_6001da0)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 15, i32 noundef 100670880, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_15_6001da0)
 	%cb2 = load ptr, ptr @native_cb_onAnimationRepeat_0_15_6001da0, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4482,7 +4486,7 @@ define void @Java_mono_android_view_animation_Animation_1AnimationListenerImplem
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 15, i32 noundef 100670881, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationStart_0_15_6001da1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 15, i32 noundef 100670881, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationStart_0_15_6001da1)
 	%cb2 = load ptr, ptr @native_cb_onAnimationStart_0_15_6001da1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4508,7 +4512,7 @@ define void @Java_crc640ec207abc449b2ca_ShellContentFragment_n_1onAnimationStart
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 15, i32 noundef 100670881, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationStart_0_15_6001da1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 15, i32 noundef 100670881, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationStart_0_15_6001da1)
 	%cb2 = load ptr, ptr @native_cb_onAnimationStart_0_15_6001da1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4534,7 +4538,7 @@ define void @Java_mono_android_runtime_InputStreamAdapter_n_1close(ptr noundef %
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 16, i32 noundef 100674884, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_close_0_16_6002d44)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 16, i32 noundef 100674884, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_close_0_16_6002d44)
 	%cb2 = load ptr, ptr @native_cb_close_0_16_6002d44, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4560,7 +4564,7 @@ define i32 @Java_mono_android_runtime_InputStreamAdapter_n_1read__(ptr noundef %
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 16, i32 noundef 100674885, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_read_0_16_6002d45)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 16, i32 noundef 100674885, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_read_0_16_6002d45)
 	%cb2 = load ptr, ptr @native_cb_read_0_16_6002d45, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4586,7 +4590,7 @@ define i32 @Java_mono_android_runtime_InputStreamAdapter_n_1read___3B(ptr nounde
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 16, i32 noundef 100674886, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_read_0_16_6002d46)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 16, i32 noundef 100674886, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_read_0_16_6002d46)
 	%cb2 = load ptr, ptr @native_cb_read_0_16_6002d46, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4612,7 +4616,7 @@ define i32 @Java_mono_android_runtime_InputStreamAdapter_n_1read___3BII(ptr noun
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 16, i32 noundef 100674887, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_read_0_16_6002d47)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 16, i32 noundef 100674887, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_read_0_16_6002d47)
 	%cb2 = load ptr, ptr @native_cb_read_0_16_6002d47, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4638,7 +4642,7 @@ define i1 @Java_mono_android_runtime_JavaObject_n_1equals(ptr noundef %env, ptr 
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 17, i32 noundef 100676023, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_equals_0_17_60031b7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 17, i32 noundef 100676023, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_equals_0_17_60031b7)
 	%cb2 = load ptr, ptr @native_cb_equals_0_17_60031b7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4664,7 +4668,7 @@ define i32 @Java_mono_android_runtime_JavaObject_n_1hashCode(ptr noundef %env, p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 17, i32 noundef 100676024, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_hashCode_0_17_60031b8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 17, i32 noundef 100676024, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_hashCode_0_17_60031b8)
 	%cb2 = load ptr, ptr @native_cb_hashCode_0_17_60031b8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4690,7 +4694,7 @@ define ptr @Java_mono_android_runtime_JavaObject_n_1toString__(ptr noundef %env,
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 17, i32 noundef 100676025, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_toString_0_17_60031b9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 17, i32 noundef 100676025, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_toString_0_17_60031b9)
 	%cb2 = load ptr, ptr @native_cb_toString_0_17_60031b9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4716,7 +4720,7 @@ define ptr @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_1ObjectWrapper_n_1
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 17, i32 noundef 100676025, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_toString_0_17_60031b9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 17, i32 noundef 100676025, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_toString_0_17_60031b9)
 	%cb2 = load ptr, ptr @native_cb_toString_0_17_60031b9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4742,7 +4746,7 @@ define void @Java_mono_android_runtime_OutputStreamAdapter_n_1close(ptr noundef 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 18, i32 noundef 100674931, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_close_0_18_6002d73)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 18, i32 noundef 100674931, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_close_0_18_6002d73)
 	%cb2 = load ptr, ptr @native_cb_close_0_18_6002d73, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4768,7 +4772,7 @@ define void @Java_mono_android_runtime_OutputStreamAdapter_n_1flush(ptr noundef 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 18, i32 noundef 100674932, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_flush_0_18_6002d74)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 18, i32 noundef 100674932, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_flush_0_18_6002d74)
 	%cb2 = load ptr, ptr @native_cb_flush_0_18_6002d74, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4794,7 +4798,7 @@ define void @Java_mono_android_runtime_OutputStreamAdapter_n_1write___3B(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 18, i32 noundef 100674933, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_18_6002d75)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 18, i32 noundef 100674933, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_18_6002d75)
 	%cb2 = load ptr, ptr @native_cb_write_0_18_6002d75, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4820,7 +4824,7 @@ define void @Java_mono_android_runtime_OutputStreamAdapter_n_1write___3BII(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 18, i32 noundef 100674934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_18_6002d76)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 18, i32 noundef 100674934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_18_6002d76)
 	%cb2 = load ptr, ptr @native_cb_write_0_18_6002d76, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4846,7 +4850,7 @@ define void @Java_mono_android_runtime_OutputStreamAdapter_n_1write__I(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 18, i32 noundef 100674935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_18_6002d77)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 18, i32 noundef 100674935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_18_6002d77)
 	%cb2 = load ptr, ptr @native_cb_write_0_18_6002d77, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4872,7 +4876,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1getAttributeCount(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663913, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeCount_0_19_6000269)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663913, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeCount_0_19_6000269)
 	%cb2 = load ptr, ptr @native_cb_getAttributeCount_0_19_6000269, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4898,7 +4902,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1getColumnNumber(ptr noun
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663914, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getColumnNumber_0_19_600026a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663914, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getColumnNumber_0_19_600026a)
 	%cb2 = load ptr, ptr @native_cb_getColumnNumber_0_19_600026a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4924,7 +4928,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1getDepth(ptr noundef %en
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663915, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDepth_0_19_600026b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663915, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDepth_0_19_600026b)
 	%cb2 = load ptr, ptr @native_cb_getDepth_0_19_600026b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4950,7 +4954,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1getEventType(ptr noundef
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663916, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getEventType_0_19_600026c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663916, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getEventType_0_19_600026c)
 	%cb2 = load ptr, ptr @native_cb_getEventType_0_19_600026c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -4976,7 +4980,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getInputEncoding(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663917, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getInputEncoding_0_19_600026d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663917, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getInputEncoding_0_19_600026d)
 	%cb2 = load ptr, ptr @native_cb_getInputEncoding_0_19_600026d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5002,7 +5006,7 @@ define i1 @Java_android_runtime_XmlReaderPullParser_n_1isEmptyElementTag(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663918, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isEmptyElementTag_0_19_600026e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663918, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isEmptyElementTag_0_19_600026e)
 	%cb2 = load ptr, ptr @native_cb_isEmptyElementTag_0_19_600026e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5028,7 +5032,7 @@ define i1 @Java_android_runtime_XmlReaderPullParser_n_1isWhitespace(ptr noundef 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663919, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isWhitespace_0_19_600026f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663919, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isWhitespace_0_19_600026f)
 	%cb2 = load ptr, ptr @native_cb_isWhitespace_0_19_600026f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5054,7 +5058,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1getLineNumber(ptr nounde
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663920, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getLineNumber_0_19_6000270)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663920, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getLineNumber_0_19_6000270)
 	%cb2 = load ptr, ptr @native_cb_getLineNumber_0_19_6000270, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5080,7 +5084,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getName(ptr noundef %env
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663921, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getName_0_19_6000271)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663921, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getName_0_19_6000271)
 	%cb2 = load ptr, ptr @native_cb_getName_0_19_6000271, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5106,7 +5110,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getNamespace__(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663922, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespace_0_19_6000272)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663922, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespace_0_19_6000272)
 	%cb2 = load ptr, ptr @native_cb_getNamespace_0_19_6000272, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5132,7 +5136,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getPositionDescription(p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663923, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getPositionDescription_0_19_6000273)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663923, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getPositionDescription_0_19_6000273)
 	%cb2 = load ptr, ptr @native_cb_getPositionDescription_0_19_6000273, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5158,7 +5162,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getPrefix(ptr noundef %e
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663924, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getPrefix_0_19_6000274)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663924, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getPrefix_0_19_6000274)
 	%cb2 = load ptr, ptr @native_cb_getPrefix_0_19_6000274, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5184,7 +5188,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getText(ptr noundef %env
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663925, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getText_0_19_6000275)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663925, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getText_0_19_6000275)
 	%cb2 = load ptr, ptr @native_cb_getText_0_19_6000275, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5210,7 +5214,7 @@ define void @Java_android_runtime_XmlReaderPullParser_n_1defineEntityReplacement
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663926, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_defineEntityReplacementText_0_19_6000276)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663926, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_defineEntityReplacementText_0_19_6000276)
 	%cb2 = load ptr, ptr @native_cb_defineEntityReplacementText_0_19_6000276, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5236,7 +5240,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getAttributeName(ptr nou
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663927, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeName_0_19_6000277)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663927, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeName_0_19_6000277)
 	%cb2 = load ptr, ptr @native_cb_getAttributeName_0_19_6000277, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5262,7 +5266,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getAttributeNamespace(pt
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663928, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeNamespace_0_19_6000278)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663928, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeNamespace_0_19_6000278)
 	%cb2 = load ptr, ptr @native_cb_getAttributeNamespace_0_19_6000278, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5288,7 +5292,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getAttributePrefix(ptr n
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663929, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributePrefix_0_19_6000279)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663929, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributePrefix_0_19_6000279)
 	%cb2 = load ptr, ptr @native_cb_getAttributePrefix_0_19_6000279, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5314,7 +5318,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getAttributeType(ptr nou
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663930, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeType_0_19_600027a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663930, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeType_0_19_600027a)
 	%cb2 = load ptr, ptr @native_cb_getAttributeType_0_19_600027a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5340,7 +5344,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getAttributeValue__I(ptr
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663931, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeValue_0_19_600027b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663931, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeValue_0_19_600027b)
 	%cb2 = load ptr, ptr @native_cb_getAttributeValue_0_19_600027b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5366,7 +5370,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getAttributeValue__Ljava
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663932, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeValue_0_19_600027c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663932, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAttributeValue_0_19_600027c)
 	%cb2 = load ptr, ptr @native_cb_getAttributeValue_0_19_600027c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5392,7 +5396,7 @@ define i1 @Java_android_runtime_XmlReaderPullParser_n_1getFeature(ptr noundef %e
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663933, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getFeature_0_19_600027d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663933, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getFeature_0_19_600027d)
 	%cb2 = load ptr, ptr @native_cb_getFeature_0_19_600027d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5418,7 +5422,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getNamespace__Ljava_lang
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespace_0_19_600027e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespace_0_19_600027e)
 	%cb2 = load ptr, ptr @native_cb_getNamespace_0_19_600027e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5444,7 +5448,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1getNamespaceCount(ptr no
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespaceCount_0_19_600027f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespaceCount_0_19_600027f)
 	%cb2 = load ptr, ptr @native_cb_getNamespaceCount_0_19_600027f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5470,7 +5474,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getNamespacePrefix(ptr n
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespacePrefix_0_19_6000280)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespacePrefix_0_19_6000280)
 	%cb2 = load ptr, ptr @native_cb_getNamespacePrefix_0_19_6000280, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5496,7 +5500,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getNamespaceUri(ptr noun
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespaceUri_0_19_6000281)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getNamespaceUri_0_19_6000281)
 	%cb2 = load ptr, ptr @native_cb_getNamespaceUri_0_19_6000281, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5522,7 +5526,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getProperty(ptr noundef 
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663938, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getProperty_0_19_6000282)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663938, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getProperty_0_19_6000282)
 	%cb2 = load ptr, ptr @native_cb_getProperty_0_19_6000282, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5548,7 +5552,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1getTextCharacters(ptr no
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663939, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getTextCharacters_0_19_6000283)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663939, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getTextCharacters_0_19_6000283)
 	%cb2 = load ptr, ptr @native_cb_getTextCharacters_0_19_6000283, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5574,7 +5578,7 @@ define i1 @Java_android_runtime_XmlReaderPullParser_n_1isAttributeDefault(ptr no
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663940, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isAttributeDefault_0_19_6000284)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663940, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isAttributeDefault_0_19_6000284)
 	%cb2 = load ptr, ptr @native_cb_isAttributeDefault_0_19_6000284, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5600,7 +5604,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1next(ptr noundef %env, p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663941, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_next_0_19_6000285)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663941, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_next_0_19_6000285)
 	%cb2 = load ptr, ptr @native_cb_next_0_19_6000285, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5626,7 +5630,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1nextTag(ptr noundef %env
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663942, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_nextTag_0_19_6000286)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663942, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_nextTag_0_19_6000286)
 	%cb2 = load ptr, ptr @native_cb_nextTag_0_19_6000286, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5652,7 +5656,7 @@ define ptr @Java_android_runtime_XmlReaderPullParser_n_1nextText(ptr noundef %en
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663943, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_nextText_0_19_6000287)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663943, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_nextText_0_19_6000287)
 	%cb2 = load ptr, ptr @native_cb_nextText_0_19_6000287, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5678,7 +5682,7 @@ define i32 @Java_android_runtime_XmlReaderPullParser_n_1nextToken(ptr noundef %e
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663944, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_nextToken_0_19_6000288)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663944, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_nextToken_0_19_6000288)
 	%cb2 = load ptr, ptr @native_cb_nextToken_0_19_6000288, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5704,7 +5708,7 @@ define void @Java_android_runtime_XmlReaderPullParser_n_1require(ptr noundef %en
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663945, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_require_0_19_6000289)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663945, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_require_0_19_6000289)
 	%cb2 = load ptr, ptr @native_cb_require_0_19_6000289, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5730,7 +5734,7 @@ define void @Java_android_runtime_XmlReaderPullParser_n_1setFeature(ptr noundef 
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663946, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setFeature_0_19_600028a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663946, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setFeature_0_19_600028a)
 	%cb2 = load ptr, ptr @native_cb_setFeature_0_19_600028a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5756,7 +5760,7 @@ define void @Java_android_runtime_XmlReaderPullParser_n_1setInput__Ljava_io_Inpu
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663947, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setInput_0_19_600028b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663947, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setInput_0_19_600028b)
 	%cb2 = load ptr, ptr @native_cb_setInput_0_19_600028b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5782,7 +5786,7 @@ define void @Java_android_runtime_XmlReaderPullParser_n_1setInput__Ljava_io_Read
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663948, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setInput_0_19_600028c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663948, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setInput_0_19_600028c)
 	%cb2 = load ptr, ptr @native_cb_setInput_0_19_600028c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5808,7 +5812,7 @@ define void @Java_android_runtime_XmlReaderPullParser_n_1setProperty(ptr noundef
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 19, i32 noundef 100663949, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setProperty_0_19_600028d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 19, i32 noundef 100663949, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setProperty_0_19_600028d)
 	%cb2 = load ptr, ptr @native_cb_setProperty_0_19_600028d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5834,7 +5838,7 @@ define void @Java_mono_android_content_DialogInterface_1OnCancelListenerImplemen
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 20, i32 noundef 100673227, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCancel_0_20_60026cb)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 20, i32 noundef 100673227, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCancel_0_20_60026cb)
 	%cb2 = load ptr, ptr @native_cb_onCancel_0_20_60026cb, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5860,7 +5864,7 @@ define void @Java_androidx_appcompat_app_AlertDialog_1IDialogInterfaceOnCancelLi
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 20, i32 noundef 100673227, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCancel_0_20_60026cb)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 20, i32 noundef 100673227, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCancel_0_20_60026cb)
 	%cb2 = load ptr, ptr @native_cb_onCancel_0_20_60026cb, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5886,7 +5890,7 @@ define void @Java_mono_android_content_DialogInterface_1OnClickListenerImplement
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 21, i32 noundef 100673245, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_21_60026dd)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 21, i32 noundef 100673245, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_21_60026dd)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_21_60026dd, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5912,7 +5916,7 @@ define void @Java_androidx_appcompat_app_AlertDialog_1IDialogInterfaceOnClickLis
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 21, i32 noundef 100673245, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_21_60026dd)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 21, i32 noundef 100673245, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_21_60026dd)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_21_60026dd, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5938,7 +5942,7 @@ define void @Java_mono_android_content_DialogInterface_1OnDismissListenerImpleme
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 22, i32 noundef 100673264, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDismiss_0_22_60026f0)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 22, i32 noundef 100673264, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDismiss_0_22_60026f0)
 	%cb2 = load ptr, ptr @native_cb_onDismiss_0_22_60026f0, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5964,7 +5968,7 @@ define void @Java_mono_android_content_DialogInterface_1OnShowListenerImplemento
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 23, i32 noundef 100673307, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShow_0_23_600271b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 23, i32 noundef 100673307, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShow_0_23_600271b)
 	%cb2 = load ptr, ptr @native_cb_onShow_0_23_600271b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -5990,7 +5994,7 @@ define void @Java_mono_android_app_DatePickerDialog_1OnDateSetListenerImplemento
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 24, i32 noundef 100674117, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDateSet_0_24_6002a45)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 24, i32 noundef 100674117, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDateSet_0_24_6002a45)
 	%cb2 = load ptr, ptr @native_cb_onDateSet_0_24_6002a45, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6016,7 +6020,7 @@ define void @Java_mono_android_app_TimePickerDialog_1OnTimeSetListenerImplemento
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 25, i32 noundef 100674312, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTimeSet_0_25_6002b08)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 25, i32 noundef 100674312, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTimeSet_0_25_6002b08)
 	%cb2 = load ptr, ptr @native_cb_onTimeSet_0_25_6002b08, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6042,7 +6046,7 @@ define void @Java_mono_java_lang_Runnable_n_1run__(ptr noundef %env, ptr noundef
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 26, i32 noundef 100676345, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_run_0_26_60032f9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 26, i32 noundef 100676345, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_run_0_26_60032f9)
 	%cb2 = load ptr, ptr @native_cb_run_0_26_60032f9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6068,7 +6072,7 @@ define void @Java_mono_java_lang_RunnableImplementor_n_1run__(ptr noundef %env, 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 26, i32 noundef 100676345, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_run_0_26_60032f9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 26, i32 noundef 100676345, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_run_0_26_60032f9)
 	%cb2 = load ptr, ptr @native_cb_run_0_26_60032f9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6094,7 +6098,7 @@ define void @Java_crc6432ed94bc8b0b3e95_NativeFrameTicker_1VSyncTicker_n_1doFram
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 27, i32 noundef 100669179, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_doFrame_0_27_60016fb)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 27, i32 noundef 100669179, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_doFrame_0_27_60016fb)
 	%cb2 = load ptr, ptr @native_cb_doFrame_0_27_60016fb, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6120,7 +6124,7 @@ define i1 @Java_crc6432ed94bc8b0b3e95_PointerController_1CustomScaleListener_n_1
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 28, i32 noundef 100670440, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScale_0_28_6001be8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 28, i32 noundef 100670440, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScale_0_28_6001be8)
 	%cb2 = load ptr, ptr @native_cb_onScale_0_28_6001be8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6146,7 +6150,7 @@ define i1 @Java_crc64338477404e88479c_InnerScaleListener_n_1onScale__Landroid_vi
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 28, i32 noundef 100670440, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScale_0_28_6001be8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 28, i32 noundef 100670440, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScale_0_28_6001be8)
 	%cb2 = load ptr, ptr @native_cb_onScale_0_28_6001be8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6172,7 +6176,7 @@ define i1 @Java_crc64f728827fec74e9c3_TapWindowTracker_1GestureListener_n_1onDow
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
 	%cb2 = load ptr, ptr @native_cb_onDown_0_29_6001774, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6198,7 +6202,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onDown__Landroid_v
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
 	%cb2 = load ptr, ptr @native_cb_onDown_0_29_6001774, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6224,7 +6228,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1TapGe
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
 	%cb2 = load ptr, ptr @native_cb_onDown_0_29_6001774, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6250,7 +6254,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1LongP
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669300, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDown_0_29_6001774)
 	%cb2 = load ptr, ptr @native_cb_onDown_0_29_6001774, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6276,7 +6280,7 @@ define i1 @Java_crc64f728827fec74e9c3_TapWindowTracker_1GestureListener_n_1onFli
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
 	%cb2 = load ptr, ptr @native_cb_onFling_0_29_6001775, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6302,7 +6306,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onFling__Landroid_
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
 	%cb2 = load ptr, ptr @native_cb_onFling_0_29_6001775, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6328,7 +6332,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1TapGe
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
 	%cb2 = load ptr, ptr @native_cb_onFling_0_29_6001775, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6354,7 +6358,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1LongP
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669301, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFling_0_29_6001775)
 	%cb2 = load ptr, ptr @native_cb_onFling_0_29_6001775, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6380,7 +6384,7 @@ define void @Java_crc64f728827fec74e9c3_TapWindowTracker_1GestureListener_n_1onL
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
 	%cb2 = load ptr, ptr @native_cb_onLongPress_0_29_6001776, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6406,7 +6410,7 @@ define void @Java_crc64338477404e88479c_InnerGestureListener_n_1onLongPress__Lan
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
 	%cb2 = load ptr, ptr @native_cb_onLongPress_0_29_6001776, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6432,7 +6436,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1Tap
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
 	%cb2 = load ptr, ptr @native_cb_onLongPress_0_29_6001776, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6458,7 +6462,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1Lon
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669302, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLongPress_0_29_6001776)
 	%cb2 = load ptr, ptr @native_cb_onLongPress_0_29_6001776, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6484,7 +6488,7 @@ define i1 @Java_crc64f728827fec74e9c3_TapWindowTracker_1GestureListener_n_1onScr
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
 	%cb2 = load ptr, ptr @native_cb_onScroll_0_29_6001777, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6510,7 +6514,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onScroll__Landroid
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
 	%cb2 = load ptr, ptr @native_cb_onScroll_0_29_6001777, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6536,7 +6540,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1TapGe
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
 	%cb2 = load ptr, ptr @native_cb_onScroll_0_29_6001777, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6562,7 +6566,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1LongP
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669303, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_29_6001777)
 	%cb2 = load ptr, ptr @native_cb_onScroll_0_29_6001777, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6588,7 +6592,7 @@ define void @Java_crc64f728827fec74e9c3_TapWindowTracker_1GestureListener_n_1onS
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
 	%cb2 = load ptr, ptr @native_cb_onShowPress_0_29_6001778, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6614,7 +6618,7 @@ define void @Java_crc64338477404e88479c_InnerGestureListener_n_1onShowPress__Lan
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
 	%cb2 = load ptr, ptr @native_cb_onShowPress_0_29_6001778, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6640,7 +6644,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1Tap
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
 	%cb2 = load ptr, ptr @native_cb_onShowPress_0_29_6001778, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6666,7 +6670,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1Lon
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669304, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowPress_0_29_6001778)
 	%cb2 = load ptr, ptr @native_cb_onShowPress_0_29_6001778, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6692,7 +6696,7 @@ define i1 @Java_crc64f728827fec74e9c3_TapWindowTracker_1GestureListener_n_1onSin
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
 	%cb2 = load ptr, ptr @native_cb_onSingleTapUp_0_29_6001779, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6718,7 +6722,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onSingleTapUp__Lan
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
 	%cb2 = load ptr, ptr @native_cb_onSingleTapUp_0_29_6001779, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6744,7 +6748,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1TapGe
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
 	%cb2 = load ptr, ptr @native_cb_onSingleTapUp_0_29_6001779, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6770,7 +6774,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_1LongP
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 29, i32 noundef 100669305, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapUp_0_29_6001779)
 	%cb2 = load ptr, ptr @native_cb_onSingleTapUp_0_29_6001779, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6796,7 +6800,7 @@ define void @Java_crc64f728827fec74e9c3_Toolbar_1Container_n_1onLayout__ZIIII(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6822,7 +6826,7 @@ define void @Java_crc640ec207abc449b2ca_ContainerView_n_1onLayout__ZIIII(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6848,7 +6852,7 @@ define void @Java_crc640ec207abc449b2ca_ShellFlyoutTemplatedContentRenderer_1Hea
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6874,7 +6878,7 @@ define void @Java_crc640ec207abc449b2ca_ShellPageContainer_n_1onLayout__ZIIII(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6900,7 +6904,7 @@ define void @Java_crc645d80431ce5f73f11_ItemContentView_n_1onLayout__ZIIII(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6926,7 +6930,7 @@ define void @Java_crc64e1fb321c08285b90_VisualElementRenderer_11_n_1onLayout__ZI
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6952,7 +6956,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_n_1onLayout__ZIIII(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -6978,7 +6982,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1Container_n_1onLayout_
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7004,7 +7008,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_n_1o
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7030,7 +7034,7 @@ define void @Java_crc6452ffdc5b34af3a0f_ContentViewGroup_n_1onLayout__ZIIII(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7056,7 +7060,7 @@ define void @Java_crc6452ffdc5b34af3a0f_LayoutViewGroup_n_1onLayout__ZIIII(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7082,7 +7086,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiSwipeView_n_1onLayout__ZIIII(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670692, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_30_6001ce4)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_30_6001ce4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7108,7 +7112,7 @@ define void @Java_crc64f728827fec74e9c3_Toolbar_1Container_n_1onMeasure__II(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7134,7 +7138,7 @@ define void @Java_crc640ec207abc449b2ca_ContainerView_n_1onMeasure__II(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7160,7 +7164,7 @@ define void @Java_crc640ec207abc449b2ca_ShellFlyoutTemplatedContentRenderer_1Hea
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7186,7 +7190,7 @@ define void @Java_crc640ec207abc449b2ca_ShellPageContainer_n_1onMeasure__II(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7212,7 +7216,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchView_n_1onMeasure__II(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7238,7 +7242,7 @@ define void @Java_crc645d80431ce5f73f11_ItemContentView_n_1onMeasure__II(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7264,7 +7268,7 @@ define void @Java_crc645d80431ce5f73f11_MauiCarouselRecyclerView_n_1onMeasure__I
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7290,7 +7294,7 @@ define void @Java_crc645d80431ce5f73f11_SizedItemContentView_n_1onMeasure__II(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7316,7 +7320,7 @@ define void @Java_crc64e1fb321c08285b90_FrameRenderer_n_1onMeasure__II(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7342,7 +7346,7 @@ define void @Java_crc64e1fb321c08285b90_VisualElementRenderer_11_n_1onMeasure__I
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7368,7 +7372,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1Container_n_1onMeasure
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7394,7 +7398,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_n_1o
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7420,7 +7424,7 @@ define void @Java_crc64e1fb321c08285b90_TableViewRenderer_n_1onMeasure__II(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7446,7 +7450,7 @@ define void @Java_crc6452ffdc5b34af3a0f_ContentViewGroup_n_1onMeasure__II(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7472,7 +7476,7 @@ define void @Java_crc6452ffdc5b34af3a0f_LayoutViewGroup_n_1onMeasure__II(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7498,7 +7502,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiMaterialButton_n_1onMeasure__II(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7524,7 +7528,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiScrollView_n_1onMeasure__II(ptr noun
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7550,7 +7554,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiShapeableImageView_n_1onMeasure__II(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668626, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMeasure_0_31_60014d2)
 	%cb2 = load ptr, ptr @native_cb_onMeasure_0_31_60014d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7576,7 +7580,7 @@ define void @Java_crc64338477404e88479c_ColorChangeRevealDrawable_n_1draw(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 32, i32 noundef 100672486, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_32_60023e6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 32, i32 noundef 100672486, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_32_60023e6)
 	%cb2 = load ptr, ptr @native_cb_draw_0_32_60023e6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -7680,7 +7684,7 @@ define i1 @Java_crc64338477404e88479c_DragAndDropGestureHandler_n_1onDrag(ptr no
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 34, i32 noundef 100668719, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDrag_0_34_600152f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 34, i32 noundef 100668719, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDrag_0_34_600152f)
 	%cb2 = load ptr, ptr @native_cb_onDrag_0_34_600152f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8252,7 +8256,7 @@ define void @Java_crc64338477404e88479c_GenericAnimatorListener_n_1onAnimationCa
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 36, i32 noundef 100668061, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationCancel_0_36_600129d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 36, i32 noundef 100668061, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationCancel_0_36_600129d)
 	%cb2 = load ptr, ptr @native_cb_onAnimationCancel_0_36_600129d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8278,7 +8282,7 @@ define void @Java_crc64338477404e88479c_GenericAnimatorListener_n_1onAnimationEn
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 36, i32 noundef 100668062, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_36_600129e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 36, i32 noundef 100668062, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationEnd_0_36_600129e)
 	%cb2 = load ptr, ptr @native_cb_onAnimationEnd_0_36_600129e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8304,7 +8308,7 @@ define void @Java_crc64338477404e88479c_GenericAnimatorListener_n_1onAnimationRe
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 36, i32 noundef 100668063, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_36_600129f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 36, i32 noundef 100668063, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAnimationRepeat_0_36_600129f)
 	%cb2 = load ptr, ptr @native_cb_onAnimationRepeat_0_36_600129f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8330,7 +8334,7 @@ define void @Java_crc64338477404e88479c_GenericAnimatorListener_n_1finalize(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 17, i32 noundef 100676026, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_finalize_0_17_60031ba)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 17, i32 noundef 100676026, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_finalize_0_17_60031ba)
 	%cb2 = load ptr, ptr @native_cb_finalize_0_17_60031ba, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8356,7 +8360,7 @@ define void @Java_crc64338477404e88479c_GenericGlobalLayoutListener_n_1onGlobalL
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 37, i32 noundef 100668965, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onGlobalLayout_0_37_6001625)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 37, i32 noundef 100668965, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onGlobalLayout_0_37_6001625)
 	%cb2 = load ptr, ptr @native_cb_onGlobalLayout_0_37_6001625, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8382,7 +8386,7 @@ define void @Java_crc645d80431ce5f73f11_MauiCarouselRecyclerView_1CarouselViewOn
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 37, i32 noundef 100668965, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onGlobalLayout_0_37_6001625)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 37, i32 noundef 100668965, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onGlobalLayout_0_37_6001625)
 	%cb2 = load ptr, ptr @native_cb_onGlobalLayout_0_37_6001625, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8408,7 +8412,7 @@ define i1 @Java_crc64338477404e88479c_GenericMenuClickListener_n_1onMenuItemClic
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 38, i32 noundef 100669506, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMenuItemClick_0_38_6001842)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 38, i32 noundef 100669506, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onMenuItemClick_0_38_6001842)
 	%cb2 = load ptr, ptr @native_cb_onMenuItemClick_0_38_6001842, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8434,7 +8438,7 @@ define void @Java_crc64338477404e88479c_GradientStrokeDrawable_n_1onDraw__Landro
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 39, i32 noundef 100672803, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_39_6002523)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 39, i32 noundef 100672803, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_39_6002523)
 	%cb2 = load ptr, ptr @native_cb_onDraw_0_39_6002523, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8460,7 +8464,7 @@ define void @Java_crc6452ffdc5b34af3a0f_BorderDrawable_n_1onDraw__Landroid_graph
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 39, i32 noundef 100672803, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_39_6002523)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 39, i32 noundef 100672803, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_39_6002523)
 	%cb2 = load ptr, ptr @native_cb_onDraw_0_39_6002523, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8486,7 +8490,7 @@ define void @Java_crc64b5e713d400f589b7_MauiDrawable_n_1onDraw__Landroid_graphic
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 39, i32 noundef 100672803, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_39_6002523)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 39, i32 noundef 100672803, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_39_6002523)
 	%cb2 = load ptr, ptr @native_cb_onDraw_0_39_6002523, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8512,7 +8516,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onDoubleTap(ptr no
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 40, i32 noundef 100669271, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDoubleTap_0_40_6001757)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 40, i32 noundef 100669271, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDoubleTap_0_40_6001757)
 	%cb2 = load ptr, ptr @native_cb_onDoubleTap_0_40_6001757, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8538,7 +8542,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onDoubleTapEvent(p
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 40, i32 noundef 100669272, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDoubleTapEvent_0_40_6001758)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 40, i32 noundef 100669272, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDoubleTapEvent_0_40_6001758)
 	%cb2 = load ptr, ptr @native_cb_onDoubleTapEvent_0_40_6001758, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8564,7 +8568,7 @@ define i1 @Java_crc64338477404e88479c_InnerGestureListener_n_1onSingleTapConfirm
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 40, i32 noundef 100669273, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapConfirmed_0_40_6001759)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 40, i32 noundef 100669273, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSingleTapConfirmed_0_40_6001759)
 	%cb2 = load ptr, ptr @native_cb_onSingleTapConfirmed_0_40_6001759, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8590,7 +8594,7 @@ define i1 @Java_crc64338477404e88479c_InnerScaleListener_n_1onScaleBegin(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 28, i32 noundef 100670441, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScaleBegin_0_28_6001be9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 28, i32 noundef 100670441, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScaleBegin_0_28_6001be9)
 	%cb2 = load ptr, ptr @native_cb_onScaleBegin_0_28_6001be9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8616,7 +8620,7 @@ define void @Java_crc64338477404e88479c_InnerScaleListener_n_1onScaleEnd(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 28, i32 noundef 100670442, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScaleEnd_0_28_6001bea)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 28, i32 noundef 100670442, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScaleEnd_0_28_6001bea)
 	%cb2 = load ptr, ptr @native_cb_onScaleEnd_0_28_6001bea, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8642,7 +8646,7 @@ define i1 @Java_crc64338477404e88479c_MauiViewPager_n_1onInterceptTouchEvent__La
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8668,7 +8672,7 @@ define i1 @Java_crc640ec207abc449b2ca_ShellFlyoutRenderer_n_1onInterceptTouchEve
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8694,7 +8698,7 @@ define i1 @Java_crc645d80431ce5f73f11_MauiCarouselRecyclerView_n_1onInterceptTou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8720,7 +8724,7 @@ define i1 @Java_crc64e1fb321c08285b90_ListViewRenderer_1SwipeRefreshLayoutWithFi
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8746,7 +8750,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_n_1onI
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8772,7 +8776,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiScrollView_n_1onInterceptTouchEvent__L
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8798,7 +8802,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiHorizontalScrollView_n_1onInterceptTou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8824,7 +8828,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiSwipeView_n_1onInterceptTouchEvent__La
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8850,7 +8854,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_SwipeViewPager_n_1onInterceptTouchEvent__L
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670693, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onInterceptTouchEvent_0_30_6001ce5)
 	%cb2 = load ptr, ptr @native_cb_onInterceptTouchEvent_0_30_6001ce5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8876,7 +8880,7 @@ define i1 @Java_crc64338477404e88479c_MauiViewPager_n_1onTouchEvent__Landroid_vi
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8902,7 +8906,7 @@ define i1 @Java_crc645d80431ce5f73f11_MauiCarouselRecyclerView_n_1onTouchEvent__
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8928,7 +8932,7 @@ define i1 @Java_crc64e1fb321c08285b90_FrameRenderer_n_1onTouchEvent__Landroid_vi
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8954,7 +8958,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_LayoutViewGroup_n_1onTouchEvent__Landroid_
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -8980,7 +8984,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiScrollView_n_1onTouchEvent__Landroid_v
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9006,7 +9010,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiHorizontalScrollView_n_1onTouchEvent__
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9032,7 +9036,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiSwipeView_n_1onTouchEvent__Landroid_vi
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9058,7 +9062,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_PlatformTouchGraphicsView_n_1onTouchEvent_
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9084,7 +9088,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_SwipeViewPager_n_1onTouchEvent__Landroid_v
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668627, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_31_60014d3)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_31_60014d3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9448,7 +9452,7 @@ define i1 @Java_crc64338477404e88479c_TapAndPanGestureDetector_n_1onTouchEvent(p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 43, i32 noundef 100669253, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_43_6001745)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 43, i32 noundef 100669253, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTouchEvent_0_43_6001745)
 	%cb2 = load ptr, ptr @native_cb_onTouchEvent_0_43_6001745, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9578,7 +9582,7 @@ define i1 @Java_crc64338477404e88479c_ModalNavigationManager_1ModalFragment_1Cus
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 45, i32 noundef 100674260, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyDown_0_45_6002ad4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 45, i32 noundef 100674260, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyDown_0_45_6002ad4)
 	%cb2 = load ptr, ptr @native_cb_onKeyDown_0_45_6002ad4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9604,7 +9608,7 @@ define i1 @Java_crc64338477404e88479c_ModalNavigationManager_1ModalFragment_1Cus
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 45, i32 noundef 100674261, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyLongPress_0_45_6002ad5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 45, i32 noundef 100674261, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyLongPress_0_45_6002ad5)
 	%cb2 = load ptr, ptr @native_cb_onKeyLongPress_0_45_6002ad5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9630,7 +9634,7 @@ define i1 @Java_crc64338477404e88479c_ModalNavigationManager_1ModalFragment_1Cus
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 45, i32 noundef 100674262, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyMultiple_0_45_6002ad6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 45, i32 noundef 100674262, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyMultiple_0_45_6002ad6)
 	%cb2 = load ptr, ptr @native_cb_onKeyMultiple_0_45_6002ad6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9656,7 +9660,7 @@ define i1 @Java_crc64338477404e88479c_ModalNavigationManager_1ModalFragment_1Cus
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 45, i32 noundef 100674263, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyShortcut_0_45_6002ad7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 45, i32 noundef 100674263, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyShortcut_0_45_6002ad7)
 	%cb2 = load ptr, ptr @native_cb_onKeyShortcut_0_45_6002ad7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9682,7 +9686,7 @@ define i1 @Java_crc64338477404e88479c_ModalNavigationManager_1ModalFragment_1Cus
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 45, i32 noundef 100674264, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyUp_0_45_6002ad8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 45, i32 noundef 100674264, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyUp_0_45_6002ad8)
 	%cb2 = load ptr, ptr @native_cb_onKeyUp_0_45_6002ad8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -9734,7 +9738,7 @@ define ptr @Java_crc640ec207abc449b2ca_CustomFrameLayout_n_1onApplyWindowInsets(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668628, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onApplyWindowInsets_0_31_60014d4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668628, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onApplyWindowInsets_0_31_60014d4)
 	%cb2 = load ptr, ptr @native_cb_onApplyWindowInsets_0_31_60014d4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10410,7 +10414,7 @@ define i1 @Java_crc640ec207abc449b2ca_ShellFlyoutRenderer_n_1drawChild(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670694, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_drawChild_0_30_6001ce6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670694, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_drawChild_0_30_6001ce6)
 	%cb2 = load ptr, ptr @native_cb_drawChild_0_30_6001ce6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10670,7 +10674,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchView_n_1onAttachedToWindow__(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10696,7 +10700,7 @@ define void @Java_crc645d80431ce5f73f11_MauiCarouselRecyclerView_n_1onAttachedTo
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10722,7 +10726,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_n_1onAttachedToWindow__
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10748,7 +10752,7 @@ define void @Java_crc64e1fb321c08285b90_TableViewRenderer_n_1onAttachedToWindow_
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10774,7 +10778,7 @@ define void @Java_crc6452ffdc5b34af3a0f_ContentViewGroup_n_1onAttachedToWindow__
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10800,7 +10804,7 @@ define void @Java_crc6452ffdc5b34af3a0f_LayoutViewGroup_n_1onAttachedToWindow__(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10826,7 +10830,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiSwipeView_n_1onAttachedToWindow__(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10852,7 +10856,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_n_1onAttachedToWindow__(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10878,7 +10882,7 @@ define void @Java_crc648e35430423bd4943_SKCanvasView_n_1onAttachedToWindow__(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668629, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onAttachedToWindow_0_31_60014d5)
 	%cb2 = load ptr, ptr @native_cb_onAttachedToWindow_0_31_60014d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10904,7 +10908,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchView_n_1onLayout__ZIIII(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 52, i32 noundef 100666072, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_52_6000ad8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 52, i32 noundef 100666072, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_52_6000ad8)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_52_6000ad8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10930,7 +10934,7 @@ define void @Java_crc64e1fb321c08285b90_FrameRenderer_n_1onLayout__ZIIII(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 52, i32 noundef 100666072, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_52_6000ad8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 52, i32 noundef 100666072, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_52_6000ad8)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_52_6000ad8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -10956,7 +10960,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiScrollView_n_1onLayout__ZIIII(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 52, i32 noundef 100666072, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_52_6000ad8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 52, i32 noundef 100666072, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_52_6000ad8)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_52_6000ad8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11008,7 +11012,7 @@ define i32 @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_n_1getCount__(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getCount_0_54_6000a4e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getCount_0_54_6000a4e)
 	%cb2 = load ptr, ptr @native_cb_getCount_0_54_6000a4e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11034,7 +11038,7 @@ define i32 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1getCount__(ptr noundef
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getCount_0_54_6000a4e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getCount_0_54_6000a4e)
 	%cb2 = load ptr, ptr @native_cb_getCount_0_54_6000a4e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11060,7 +11064,7 @@ define i32 @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1getCount__(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getCount_0_54_6000a4e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665934, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getCount_0_54_6000a4e)
 	%cb2 = load ptr, ptr @native_cb_getCount_0_54_6000a4e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11086,7 +11090,7 @@ define ptr @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_n_1getItem(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItem_0_54_6000a4f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItem_0_54_6000a4f)
 	%cb2 = load ptr, ptr @native_cb_getItem_0_54_6000a4f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11112,7 +11116,7 @@ define i64 @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_n_1getItemId__I(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemId_0_54_6000a50)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemId_0_54_6000a50)
 	%cb2 = load ptr, ptr @native_cb_getItemId_0_54_6000a50, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11138,7 +11142,7 @@ define i64 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1getItemId__I(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemId_0_54_6000a50)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemId_0_54_6000a50)
 	%cb2 = load ptr, ptr @native_cb_getItemId_0_54_6000a50, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11164,7 +11168,7 @@ define i64 @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1getItemId__I(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemId_0_54_6000a50)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665936, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemId_0_54_6000a50)
 	%cb2 = load ptr, ptr @native_cb_getItemId_0_54_6000a50, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11190,7 +11194,7 @@ define ptr @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_n_1getView__ILandr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getView_0_54_6000a51)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getView_0_54_6000a51)
 	%cb2 = load ptr, ptr @native_cb_getView_0_54_6000a51, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11216,7 +11220,7 @@ define ptr @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1getView__ILandroid_vie
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getView_0_54_6000a51)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getView_0_54_6000a51)
 	%cb2 = load ptr, ptr @native_cb_getView_0_54_6000a51, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11242,7 +11246,7 @@ define ptr @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1getView__ILandr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getView_0_54_6000a51)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665937, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getView_0_54_6000a51)
 	%cb2 = load ptr, ptr @native_cb_getView_0_54_6000a51, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11268,7 +11272,7 @@ define ptr @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_n_1getFilter(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 55, i32 noundef 100666157, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getFilter_0_55_6000b2d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 55, i32 noundef 100666157, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getFilter_0_55_6000b2d)
 	%cb2 = load ptr, ptr @native_cb_getFilter_0_55_6000b2d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11294,7 +11298,7 @@ define ptr @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_1CustomFilter_n_1p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 56, i32 noundef 100666043, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_performFiltering_0_56_6000abb)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 56, i32 noundef 100666043, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_performFiltering_0_56_6000abb)
 	%cb2 = load ptr, ptr @native_cb_performFiltering_0_56_6000abb, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11320,7 +11324,7 @@ define void @Java_crc640ec207abc449b2ca_ShellSearchViewAdapter_1CustomFilter_n_1
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 56, i32 noundef 100666044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_publishResults_0_56_6000abc)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 56, i32 noundef 100666044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_publishResults_0_56_6000abc)
 	%cb2 = load ptr, ptr @native_cb_publishResults_0_56_6000abc, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -11996,7 +12000,7 @@ define void @Java_crc645d80431ce5f73f11_MauiCarouselRecyclerView_n_1onDetachedFr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12022,7 +12026,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_n_1onDetachedFromWindow
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12048,7 +12052,7 @@ define void @Java_crc6452ffdc5b34af3a0f_ContentViewGroup_n_1onDetachedFromWindow
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12074,7 +12078,7 @@ define void @Java_crc6452ffdc5b34af3a0f_LayoutViewGroup_n_1onDetachedFromWindow_
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12100,7 +12104,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiScrollView_n_1onDetachedFromWindow__
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12126,7 +12130,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_n_1onDetachedFromWindow__(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12152,7 +12156,7 @@ define void @Java_crc648e35430423bd4943_SKCanvasView_n_1onDetachedFromWindow__(p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668630, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDetachedFromWindow_0_31_60014d6)
 	%cb2 = load ptr, ptr @native_cb_onDetachedFromWindow_0_31_60014d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12646,7 +12650,7 @@ define void @Java_crc64e1fb321c08285b90_FrameRenderer_n_1draw__Landroid_graphics
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668631, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_31_60014d7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668631, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_31_60014d7)
 	%cb2 = load ptr, ptr @native_cb_draw_0_31_60014d7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12672,7 +12676,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiHorizontalScrollView_n_1draw__Landro
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668631, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_31_60014d7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668631, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_31_60014d7)
 	%cb2 = load ptr, ptr @native_cb_draw_0_31_60014d7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12698,7 +12702,7 @@ define void @Java_crc643f2b18b2570eaa5a_PlatformGraphicsView_n_1draw__Landroid_g
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668631, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_31_60014d7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668631, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_draw_0_31_60014d7)
 	%cb2 = load ptr, ptr @native_cb_draw_0_31_60014d7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12724,7 +12728,7 @@ define void @Java_crc64e1fb321c08285b90_FrameRenderer_n_1onSizeChanged__IIII(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668632, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSizeChanged_0_31_60014d8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668632, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSizeChanged_0_31_60014d8)
 	%cb2 = load ptr, ptr @native_cb_onSizeChanged_0_31_60014d8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12750,7 +12754,7 @@ define void @Java_crc643f2b18b2570eaa5a_PlatformGraphicsView_n_1onSizeChanged__I
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668632, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSizeChanged_0_31_60014d8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668632, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSizeChanged_0_31_60014d8)
 	%cb2 = load ptr, ptr @native_cb_onSizeChanged_0_31_60014d8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12776,7 +12780,7 @@ define void @Java_crc648e35430423bd4943_SKCanvasView_n_1onSizeChanged__IIII(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668632, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSizeChanged_0_31_60014d8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668632, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSizeChanged_0_31_60014d8)
 	%cb2 = load ptr, ptr @native_cb_onSizeChanged_0_31_60014d8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12802,7 +12806,7 @@ define i1 @Java_crc64e1fb321c08285b90_CellAdapter_n_1onItemLongClick(ptr noundef
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 71, i32 noundef 100665566, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onItemLongClick_0_71_60008de)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 71, i32 noundef 100665566, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onItemLongClick_0_71_60008de)
 	%cb2 = load ptr, ptr @native_cb_onItemLongClick_0_71_60008de, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12828,7 +12832,7 @@ define i1 @Java_crc64e1fb321c08285b90_CellAdapter_n_1onActionItemClicked__Landro
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 72, i32 noundef 100669140, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActionItemClicked_0_72_60016d4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 72, i32 noundef 100669140, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActionItemClicked_0_72_60016d4)
 	%cb2 = load ptr, ptr @native_cb_onActionItemClicked_0_72_60016d4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12854,7 +12858,7 @@ define i1 @Java_crc64e1fb321c08285b90_CellAdapter_n_1onCreateActionMode__Landroi
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 72, i32 noundef 100669141, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreateActionMode_0_72_60016d5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 72, i32 noundef 100669141, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreateActionMode_0_72_60016d5)
 	%cb2 = load ptr, ptr @native_cb_onCreateActionMode_0_72_60016d5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12880,7 +12884,7 @@ define void @Java_crc64e1fb321c08285b90_CellAdapter_n_1onDestroyActionMode__Land
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 72, i32 noundef 100669142, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDestroyActionMode_0_72_60016d6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 72, i32 noundef 100669142, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDestroyActionMode_0_72_60016d6)
 	%cb2 = load ptr, ptr @native_cb_onDestroyActionMode_0_72_60016d6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -12906,7 +12910,7 @@ define i1 @Java_crc64e1fb321c08285b90_CellAdapter_n_1onPrepareActionMode__Landro
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 72, i32 noundef 100669143, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPrepareActionMode_0_72_60016d7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 72, i32 noundef 100669143, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPrepareActionMode_0_72_60016d7)
 	%cb2 = load ptr, ptr @native_cb_onPrepareActionMode_0_72_60016d7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13036,7 +13040,7 @@ define i1 @Java_crc64e1fb321c08285b90_EntryCellEditText_n_1onKeyPreIme(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668633, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyPreIme_0_31_60014d9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668633, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyPreIme_0_31_60014d9)
 	%cb2 = load ptr, ptr @native_cb_onKeyPreIme_0_31_60014d9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13062,7 +13066,7 @@ define void @Java_crc64e1fb321c08285b90_EntryCellEditText_n_1onFocusChanged(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668634, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChanged_0_31_60014da)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668634, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onFocusChanged_0_31_60014da)
 	%cb2 = load ptr, ptr @native_cb_onFocusChanged_0_31_60014da, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13088,7 +13092,7 @@ define i32 @Java_crc64e1fb321c08285b90_GroupedListViewAdapter_n_1getPositionForS
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 74, i32 noundef 100666261, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getPositionForSection_0_74_6000b95)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 74, i32 noundef 100666261, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getPositionForSection_0_74_6000b95)
 	%cb2 = load ptr, ptr @native_cb_getPositionForSection_0_74_6000b95, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13114,7 +13118,7 @@ define i32 @Java_crc64e1fb321c08285b90_GroupedListViewAdapter_n_1getSectionForPo
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 74, i32 noundef 100666262, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getSectionForPosition_0_74_6000b96)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 74, i32 noundef 100666262, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getSectionForPosition_0_74_6000b96)
 	%cb2 = load ptr, ptr @native_cb_getSectionForPosition_0_74_6000b96, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13140,7 +13144,7 @@ define ptr @Java_crc64e1fb321c08285b90_GroupedListViewAdapter_n_1getSections(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 74, i32 noundef 100666263, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getSections_0_74_6000b97)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 74, i32 noundef 100666263, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getSections_0_74_6000b97)
 	%cb2 = load ptr, ptr @native_cb_getSections_0_74_6000b97, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13166,7 +13170,7 @@ define i1 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1hasStableIds(ptr nounde
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665938, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_hasStableIds_0_54_6000a52)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665938, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_hasStableIds_0_54_6000a52)
 	%cb2 = load ptr, ptr @native_cb_hasStableIds_0_54_6000a52, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13192,7 +13196,7 @@ define ptr @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1getItem__I(ptr noundef
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItem_0_54_6000a4f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItem_0_54_6000a4f)
 	%cb2 = load ptr, ptr @native_cb_getItem_0_54_6000a4f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13218,7 +13222,7 @@ define ptr @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1getItem__I(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItem_0_54_6000a4f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665935, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItem_0_54_6000a4f)
 	%cb2 = load ptr, ptr @native_cb_getItem_0_54_6000a4f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13244,7 +13248,7 @@ define i32 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1getViewTypeCount__(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665939, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getViewTypeCount_0_54_6000a53)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665939, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getViewTypeCount_0_54_6000a53)
 	%cb2 = load ptr, ptr @native_cb_getViewTypeCount_0_54_6000a53, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13270,7 +13274,7 @@ define i32 @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1getViewTypeCoun
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665939, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getViewTypeCount_0_54_6000a53)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665939, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getViewTypeCount_0_54_6000a53)
 	%cb2 = load ptr, ptr @native_cb_getViewTypeCount_0_54_6000a53, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13296,7 +13300,7 @@ define i1 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1areAllItemsEnabled__(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665940, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_areAllItemsEnabled_0_54_6000a54)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665940, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_areAllItemsEnabled_0_54_6000a54)
 	%cb2 = load ptr, ptr @native_cb_areAllItemsEnabled_0_54_6000a54, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13322,7 +13326,7 @@ define i1 @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1areAllItemsEnabl
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665940, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_areAllItemsEnabled_0_54_6000a54)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665940, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_areAllItemsEnabled_0_54_6000a54)
 	%cb2 = load ptr, ptr @native_cb_areAllItemsEnabled_0_54_6000a54, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13348,7 +13352,7 @@ define i32 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1getItemViewType__I(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665941, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemViewType_0_54_6000a55)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665941, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemViewType_0_54_6000a55)
 	%cb2 = load ptr, ptr @native_cb_getItemViewType_0_54_6000a55, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13374,7 +13378,7 @@ define i32 @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1getItemViewType
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665941, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemViewType_0_54_6000a55)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665941, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getItemViewType_0_54_6000a55)
 	%cb2 = load ptr, ptr @native_cb_getItemViewType_0_54_6000a55, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13400,7 +13404,7 @@ define i1 @Java_crc64e1fb321c08285b90_ListViewAdapter_n_1isEnabled__I(ptr nounde
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665942, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isEnabled_0_54_6000a56)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665942, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isEnabled_0_54_6000a56)
 	%cb2 = load ptr, ptr @native_cb_isEnabled_0_54_6000a56, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13426,7 +13430,7 @@ define i1 @Java_crc64e1fb321c08285b90_TableViewModelRenderer_n_1isEnabled__I(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 54, i32 noundef 100665942, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isEnabled_0_54_6000a56)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 54, i32 noundef 100665942, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isEnabled_0_54_6000a56)
 	%cb2 = load ptr, ptr @native_cb_isEnabled_0_54_6000a56, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13452,7 +13456,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1SwipeRefreshLayoutWith
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670695, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNestedScrollAccepted_0_30_6001ce7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670695, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNestedScrollAccepted_0_30_6001ce7)
 	%cb2 = load ptr, ptr @native_cb_onNestedScrollAccepted_0_30_6001ce7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13478,7 +13482,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1SwipeRefreshLayoutWith
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670696, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onStopNestedScroll_0_30_6001ce8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670696, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onStopNestedScroll_0_30_6001ce8)
 	%cb2 = load ptr, ptr @native_cb_onStopNestedScroll_0_30_6001ce8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13504,7 +13508,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1SwipeRefreshLayoutWith
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670697, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNestedScroll_0_30_6001ce9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670697, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNestedScroll_0_30_6001ce9)
 	%cb2 = load ptr, ptr @native_cb_onNestedScroll_0_30_6001ce9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13582,7 +13586,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1ListViewScrollDetector
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 76, i32 noundef 100665490, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_76_6000892)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 76, i32 noundef 100665490, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScroll_0_76_6000892)
 	%cb2 = load ptr, ptr @native_cb_onScroll_0_76_6000892, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13608,7 +13612,7 @@ define void @Java_crc64e1fb321c08285b90_ListViewRenderer_1ListViewScrollDetector
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 76, i32 noundef 100665491, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScrollStateChanged_0_76_6000893)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 76, i32 noundef 100665491, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScrollStateChanged_0_76_6000893)
 	%cb2 = load ptr, ptr @native_cb_onScrollStateChanged_0_76_6000893, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13634,7 +13638,7 @@ define i1 @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_n_1dis
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668635, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_31_60014db)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668635, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_31_60014db)
 	%cb2 = load ptr, ptr @native_cb_dispatchTouchEvent_0_31_60014db, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13660,7 +13664,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiSwipeView_n_1dispatchTouchEvent__Landr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668635, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_31_60014db)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668635, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_31_60014db)
 	%cb2 = load ptr, ptr @native_cb_dispatchTouchEvent_0_31_60014db, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13686,7 +13690,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_WrapperView_n_1dispatchTouchEvent__Landroi
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668635, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_31_60014db)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668635, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_31_60014db)
 	%cb2 = load ptr, ptr @native_cb_dispatchTouchEvent_0_31_60014db, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13712,7 +13716,7 @@ define void @Java_crc64e1fb321c08285b90_ViewCellRenderer_1ViewCellContainer_n_1a
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 30, i32 noundef 100670698, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_addView_0_30_6001cea)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 30, i32 noundef 100670698, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_addView_0_30_6001cea)
 	%cb2 = load ptr, ptr @native_cb_addView_0_30_6001cea, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13764,7 +13768,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onCreate__Landr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673896, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_78_6002968)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673896, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_78_6002968)
 	%cb2 = load ptr, ptr @native_cb_onCreate_0_78_6002968, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13790,7 +13794,7 @@ define void @Java_crc6468b6408a11370c2f_WebAuthenticatorIntermediateActivity_n_1
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673896, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_78_6002968)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673896, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_78_6002968)
 	%cb2 = load ptr, ptr @native_cb_onCreate_0_78_6002968, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13816,7 +13820,7 @@ define void @Java_crc64ba438d8f48cf7e75_IntermediateActivity_n_1onCreate__Landro
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673896, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_78_6002968)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673896, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_78_6002968)
 	%cb2 = load ptr, ptr @native_cb_onCreate_0_78_6002968, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13842,7 +13846,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onDestroy(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673897, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDestroy_0_78_6002969)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673897, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDestroy_0_78_6002969)
 	%cb2 = load ptr, ptr @native_cb_onDestroy_0_78_6002969, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13868,7 +13872,7 @@ define i1 @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1dispatchTouchEven
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673898, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_78_600296a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673898, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_dispatchTouchEvent_0_78_600296a)
 	%cb2 = load ptr, ptr @native_cb_dispatchTouchEvent_0_78_600296a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13894,7 +13898,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onActivityResul
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673899, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResult_0_78_600296b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673899, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResult_0_78_600296b)
 	%cb2 = load ptr, ptr @native_cb_onActivityResult_0_78_600296b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13920,7 +13924,7 @@ define void @Java_crc64ba438d8f48cf7e75_IntermediateActivity_n_1onActivityResult
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673899, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResult_0_78_600296b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673899, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResult_0_78_600296b)
 	%cb2 = load ptr, ptr @native_cb_onActivityResult_0_78_600296b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13946,7 +13950,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onBackPressed(p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673900, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onBackPressed_0_78_600296c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673900, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onBackPressed_0_78_600296c)
 	%cb2 = load ptr, ptr @native_cb_onBackPressed_0_78_600296c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13972,7 +13976,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onConfiguration
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673901, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_78_600296d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673901, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_78_600296d)
 	%cb2 = load ptr, ptr @native_cb_onConfigurationChanged_0_78_600296d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -13998,7 +14002,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onNewIntent__La
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673902, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNewIntent_0_78_600296e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673902, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNewIntent_0_78_600296e)
 	%cb2 = load ptr, ptr @native_cb_onNewIntent_0_78_600296e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14024,7 +14028,7 @@ define void @Java_crc6468b6408a11370c2f_WebAuthenticatorIntermediateActivity_n_1
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673902, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNewIntent_0_78_600296e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673902, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onNewIntent_0_78_600296e)
 	%cb2 = load ptr, ptr @native_cb_onNewIntent_0_78_600296e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14050,7 +14054,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onPostCreate(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673903, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPostCreate_0_78_600296f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673903, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPostCreate_0_78_600296f)
 	%cb2 = load ptr, ptr @native_cb_onPostCreate_0_78_600296f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14076,7 +14080,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onPostResume(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673904, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPostResume_0_78_6002970)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673904, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPostResume_0_78_6002970)
 	%cb2 = load ptr, ptr @native_cb_onPostResume_0_78_6002970, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14102,7 +14106,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onRestart(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673905, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRestart_0_78_6002971)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673905, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRestart_0_78_6002971)
 	%cb2 = load ptr, ptr @native_cb_onRestart_0_78_6002971, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14128,7 +14132,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onRequestPermis
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673906, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRequestPermissionsResult_0_78_6002972)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673906, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRequestPermissionsResult_0_78_6002972)
 	%cb2 = load ptr, ptr @native_cb_onRequestPermissionsResult_0_78_6002972, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14154,7 +14158,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onRestoreInstan
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673907, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRestoreInstanceState_0_78_6002973)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673907, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRestoreInstanceState_0_78_6002973)
 	%cb2 = load ptr, ptr @native_cb_onRestoreInstanceState_0_78_6002973, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14180,7 +14184,7 @@ define i1 @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onKeyDown(ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673908, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyDown_0_78_6002974)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673908, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyDown_0_78_6002974)
 	%cb2 = load ptr, ptr @native_cb_onKeyDown_0_78_6002974, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14206,7 +14210,7 @@ define i1 @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onKeyLongPress(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673909, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyLongPress_0_78_6002975)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673909, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyLongPress_0_78_6002975)
 	%cb2 = load ptr, ptr @native_cb_onKeyLongPress_0_78_6002975, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14232,7 +14236,7 @@ define i1 @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onKeyMultiple(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673910, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyMultiple_0_78_6002976)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673910, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyMultiple_0_78_6002976)
 	%cb2 = load ptr, ptr @native_cb_onKeyMultiple_0_78_6002976, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14258,7 +14262,7 @@ define i1 @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onKeyShortcut(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673911, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyShortcut_0_78_6002977)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673911, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyShortcut_0_78_6002977)
 	%cb2 = load ptr, ptr @native_cb_onKeyShortcut_0_78_6002977, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14284,7 +14288,7 @@ define i1 @Java_crc6488302ad6e9e4df1a_MauiAppCompatActivity_n_1onKeyUp(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673912, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyUp_0_78_6002978)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673912, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onKeyUp_0_78_6002978)
 	%cb2 = load ptr, ptr @native_cb_onKeyUp_0_78_6002978, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14310,7 +14314,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_n_1onCreate(ptr noundef 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 79, i32 noundef 100673999, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_79_60029cf)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 79, i32 noundef 100673999, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onCreate_0_79_60029cf)
 	%cb2 = load ptr, ptr @native_cb_onCreate_0_79_60029cf, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14336,7 +14340,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_n_1onLowMemory(ptr nound
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 79, i32 noundef 100674000, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLowMemory_0_79_60029d0)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 79, i32 noundef 100674000, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLowMemory_0_79_60029d0)
 	%cb2 = load ptr, ptr @native_cb_onLowMemory_0_79_60029d0, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14362,7 +14366,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_n_1onTrimMemory(ptr noun
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 79, i32 noundef 100674001, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTrimMemory_0_79_60029d1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 79, i32 noundef 100674001, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onTrimMemory_0_79_60029d1)
 	%cb2 = load ptr, ptr @native_cb_onTrimMemory_0_79_60029d1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14388,7 +14392,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_n_1onConfigurationChange
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 79, i32 noundef 100674002, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_79_60029d2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 79, i32 noundef 100674002, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_79_60029d2)
 	%cb2 = load ptr, ptr @native_cb_onConfigurationChanged_0_79_60029d2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14414,7 +14418,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674075, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityCreated_0_80_6002a1b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674075, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityCreated_0_80_6002a1b)
 	%cb2 = load ptr, ptr @native_cb_onActivityCreated_0_80_6002a1b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14440,7 +14444,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674075, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityCreated_0_80_6002a1b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674075, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityCreated_0_80_6002a1b)
 	%cb2 = load ptr, ptr @native_cb_onActivityCreated_0_80_6002a1b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14466,7 +14470,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674076, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityDestroyed_0_80_6002a1c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674076, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityDestroyed_0_80_6002a1c)
 	%cb2 = load ptr, ptr @native_cb_onActivityDestroyed_0_80_6002a1c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14492,7 +14496,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674076, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityDestroyed_0_80_6002a1c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674076, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityDestroyed_0_80_6002a1c)
 	%cb2 = load ptr, ptr @native_cb_onActivityDestroyed_0_80_6002a1c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14518,7 +14522,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674077, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPaused_0_80_6002a1d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674077, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPaused_0_80_6002a1d)
 	%cb2 = load ptr, ptr @native_cb_onActivityPaused_0_80_6002a1d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14544,7 +14548,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674077, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPaused_0_80_6002a1d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674077, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPaused_0_80_6002a1d)
 	%cb2 = load ptr, ptr @native_cb_onActivityPaused_0_80_6002a1d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14570,7 +14574,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674078, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResumed_0_80_6002a1e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674078, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResumed_0_80_6002a1e)
 	%cb2 = load ptr, ptr @native_cb_onActivityResumed_0_80_6002a1e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14596,7 +14600,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674078, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResumed_0_80_6002a1e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674078, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityResumed_0_80_6002a1e)
 	%cb2 = load ptr, ptr @native_cb_onActivityResumed_0_80_6002a1e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14622,7 +14626,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674079, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivitySaveInstanceState_0_80_6002a1f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674079, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivitySaveInstanceState_0_80_6002a1f)
 	%cb2 = load ptr, ptr @native_cb_onActivitySaveInstanceState_0_80_6002a1f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14648,7 +14652,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674079, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivitySaveInstanceState_0_80_6002a1f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674079, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivitySaveInstanceState_0_80_6002a1f)
 	%cb2 = load ptr, ptr @native_cb_onActivitySaveInstanceState_0_80_6002a1f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14674,7 +14678,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674080, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStarted_0_80_6002a20)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674080, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStarted_0_80_6002a20)
 	%cb2 = load ptr, ptr @native_cb_onActivityStarted_0_80_6002a20, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14700,7 +14704,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674080, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStarted_0_80_6002a20)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674080, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStarted_0_80_6002a20)
 	%cb2 = load ptr, ptr @native_cb_onActivityStarted_0_80_6002a20, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14726,7 +14730,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674081, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStopped_0_80_6002a21)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674081, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStopped_0_80_6002a21)
 	%cb2 = load ptr, ptr @native_cb_onActivityStopped_0_80_6002a21, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14752,7 +14756,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 80, i32 noundef 100674081, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStopped_0_80_6002a21)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 80, i32 noundef 100674081, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityStopped_0_80_6002a21)
 	%cb2 = load ptr, ptr @native_cb_onActivityStopped_0_80_6002a21, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14778,7 +14782,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674039, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostCreated_0_81_60029f7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674039, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostCreated_0_81_60029f7)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostCreated_0_81_60029f7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14804,7 +14808,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674039, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostCreated_0_81_60029f7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674039, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostCreated_0_81_60029f7)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostCreated_0_81_60029f7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14830,7 +14834,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674040, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostDestroyed_0_81_60029f8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674040, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostDestroyed_0_81_60029f8)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostDestroyed_0_81_60029f8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14856,7 +14860,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674040, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostDestroyed_0_81_60029f8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674040, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostDestroyed_0_81_60029f8)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostDestroyed_0_81_60029f8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14882,7 +14886,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674041, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostPaused_0_81_60029f9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674041, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostPaused_0_81_60029f9)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostPaused_0_81_60029f9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14908,7 +14912,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674041, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostPaused_0_81_60029f9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674041, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostPaused_0_81_60029f9)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostPaused_0_81_60029f9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14934,7 +14938,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674042, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostResumed_0_81_60029fa)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674042, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostResumed_0_81_60029fa)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostResumed_0_81_60029fa, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14960,7 +14964,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674042, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostResumed_0_81_60029fa)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674042, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostResumed_0_81_60029fa)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostResumed_0_81_60029fa, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -14986,7 +14990,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674043, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostSaveInstanceState_0_81_60029fb)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674043, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostSaveInstanceState_0_81_60029fb)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostSaveInstanceState_0_81_60029fb, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15012,7 +15016,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674043, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostSaveInstanceState_0_81_60029fb)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674043, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostSaveInstanceState_0_81_60029fb)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostSaveInstanceState_0_81_60029fb, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15038,7 +15042,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStarted_0_81_60029fc)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStarted_0_81_60029fc)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostStarted_0_81_60029fc, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15064,7 +15068,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStarted_0_81_60029fc)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStarted_0_81_60029fc)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostStarted_0_81_60029fc, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15090,7 +15094,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674045, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStopped_0_81_60029fd)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674045, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStopped_0_81_60029fd)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostStopped_0_81_60029fd, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15116,7 +15120,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674045, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStopped_0_81_60029fd)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674045, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPostStopped_0_81_60029fd)
 	%cb2 = load ptr, ptr @native_cb_onActivityPostStopped_0_81_60029fd, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15142,7 +15146,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674046, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreCreated_0_81_60029fe)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674046, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreCreated_0_81_60029fe)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreCreated_0_81_60029fe, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15168,7 +15172,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674046, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreCreated_0_81_60029fe)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674046, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreCreated_0_81_60029fe)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreCreated_0_81_60029fe, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15194,7 +15198,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674047, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreDestroyed_0_81_60029ff)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674047, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreDestroyed_0_81_60029ff)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreDestroyed_0_81_60029ff, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15220,7 +15224,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674047, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreDestroyed_0_81_60029ff)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674047, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreDestroyed_0_81_60029ff)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreDestroyed_0_81_60029ff, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15246,7 +15250,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674048, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPrePaused_0_81_6002a00)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674048, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPrePaused_0_81_6002a00)
 	%cb2 = load ptr, ptr @native_cb_onActivityPrePaused_0_81_6002a00, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15272,7 +15276,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674048, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPrePaused_0_81_6002a00)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674048, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPrePaused_0_81_6002a00)
 	%cb2 = load ptr, ptr @native_cb_onActivityPrePaused_0_81_6002a00, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15298,7 +15302,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674049, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreResumed_0_81_6002a01)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674049, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreResumed_0_81_6002a01)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreResumed_0_81_6002a01, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15324,7 +15328,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674049, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreResumed_0_81_6002a01)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674049, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreResumed_0_81_6002a01)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreResumed_0_81_6002a01, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15350,7 +15354,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674050, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreSaveInstanceState_0_81_6002a02)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674050, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreSaveInstanceState_0_81_6002a02)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreSaveInstanceState_0_81_6002a02, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15376,7 +15380,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674050, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreSaveInstanceState_0_81_6002a02)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674050, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreSaveInstanceState_0_81_6002a02)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreSaveInstanceState_0_81_6002a02, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15402,7 +15406,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674051, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStarted_0_81_6002a03)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674051, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStarted_0_81_6002a03)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreStarted_0_81_6002a03, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15428,7 +15432,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674051, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStarted_0_81_6002a03)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674051, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStarted_0_81_6002a03)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreStarted_0_81_6002a03, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15454,7 +15458,7 @@ define void @Java_crc6488302ad6e9e4df1a_MauiApplication_1ActivityLifecycleCallba
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674052, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStopped_0_81_6002a04)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674052, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStopped_0_81_6002a04)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreStopped_0_81_6002a04, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15480,7 +15484,7 @@ define void @Java_crc64ba438d8f48cf7e75_ActivityLifecycleContextListener_n_1onAc
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 81, i32 noundef 100674052, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStopped_0_81_6002a04)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 81, i32 noundef 100674052, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onActivityPreStopped_0_81_6002a04)
 	%cb2 = load ptr, ptr @native_cb_onActivityPreStopped_0_81_6002a04, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15714,7 +15718,7 @@ define void @Java_crc6452ffdc5b34af3a0f_BorderDrawable_n_1onBoundsChange__Landro
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 82, i32 noundef 100672449, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onBoundsChange_0_82_60023c1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 82, i32 noundef 100672449, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onBoundsChange_0_82_60023c1)
 	%cb2 = load ptr, ptr @native_cb_onBoundsChange_0_82_60023c1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15740,7 +15744,7 @@ define void @Java_crc64b5e713d400f589b7_MauiDrawable_n_1onBoundsChange__Landroid
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 82, i32 noundef 100672449, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onBoundsChange_0_82_60023c1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 82, i32 noundef 100672449, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onBoundsChange_0_82_60023c1)
 	%cb2 = load ptr, ptr @native_cb_onBoundsChange_0_82_60023c1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15766,7 +15770,7 @@ define void @Java_crc6452ffdc5b34af3a0f_ContentViewGroup_n_1onConfigurationChang
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668636, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_31_60014dc)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668636, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_31_60014dc)
 	%cb2 = load ptr, ptr @native_cb_onConfigurationChanged_0_31_60014dc, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15792,7 +15796,7 @@ define void @Java_crc6452ffdc5b34af3a0f_LayoutViewGroup_n_1onConfigurationChange
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668636, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_31_60014dc)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668636, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_31_60014dc)
 	%cb2 = load ptr, ptr @native_cb_onConfigurationChanged_0_31_60014dc, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -15818,7 +15822,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiScrollView_n_1onConfigurationChanged
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668636, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_31_60014dc)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668636, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onConfigurationChanged_0_31_60014dc)
 	%cb2 = load ptr, ptr @native_cb_onConfigurationChanged_0_31_60014dc, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16078,7 +16082,7 @@ define i32 @Java_crc6452ffdc5b34af3a0f_LocalizedDigitsKeyListener_n_1getInputTyp
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 86, i32 noundef 100667418, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getInputType_0_86_600101a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 86, i32 noundef 100667418, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getInputType_0_86_600101a)
 	%cb2 = load ptr, ptr @native_cb_getInputType_0_86_600101a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16104,7 +16108,7 @@ define ptr @Java_crc6452ffdc5b34af3a0f_LocalizedDigitsKeyListener_n_1getAccepted
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 87, i32 noundef 100667539, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAcceptedChars_0_87_6001093)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 87, i32 noundef 100667539, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getAcceptedChars_0_87_6001093)
 	%cb2 = load ptr, ptr @native_cb_getAcceptedChars_0_87_6001093, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16130,7 +16134,7 @@ define ptr @Java_crc6452ffdc5b34af3a0f_LocalizedDigitsKeyListener_n_1filter(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 87, i32 noundef 100667540, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_filter_0_87_6001094)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 87, i32 noundef 100667540, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_filter_0_87_6001094)
 	%cb2 = load ptr, ptr @native_cb_filter_0_87_6001094, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16156,7 +16160,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiAppCompatEditText_n_1onSelectionChan
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 88, i32 noundef 100665818, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSelectionChanged_0_88_60009da)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 88, i32 noundef 100665818, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSelectionChanged_0_88_60009da)
 	%cb2 = load ptr, ptr @native_cb_onSelectionChanged_0_88_60009da, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16182,7 +16186,7 @@ define ptr @Java_crc6452ffdc5b34af3a0f_MauiDatePicker_n_1getDefaultMovementMetho
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 88, i32 noundef 100665819, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDefaultMovementMethod_0_88_60009db)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 88, i32 noundef 100665819, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDefaultMovementMethod_0_88_60009db)
 	%cb2 = load ptr, ptr @native_cb_getDefaultMovementMethod_0_88_60009db, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16208,7 +16212,7 @@ define ptr @Java_crc6452ffdc5b34af3a0f_MauiPickerBase_n_1getDefaultMovementMetho
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 88, i32 noundef 100665819, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDefaultMovementMethod_0_88_60009db)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 88, i32 noundef 100665819, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDefaultMovementMethod_0_88_60009db)
 	%cb2 = load ptr, ptr @native_cb_getDefaultMovementMethod_0_88_60009db, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16234,7 +16238,7 @@ define ptr @Java_crc6452ffdc5b34af3a0f_MauiTimePicker_n_1getDefaultMovementMetho
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 88, i32 noundef 100665819, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDefaultMovementMethod_0_88_60009db)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 88, i32 noundef 100665819, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getDefaultMovementMethod_0_88_60009db)
 	%cb2 = load ptr, ptr @native_cb_getDefaultMovementMethod_0_88_60009db, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16260,7 +16264,7 @@ define ptr @Java_crc6452ffdc5b34af3a0f_MauiHybridWebViewClient_n_1shouldIntercep
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 89, i32 noundef 100665220, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_shouldInterceptRequest_0_89_6000784)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 89, i32 noundef 100665220, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_shouldInterceptRequest_0_89_6000784)
 	%cb2 = load ptr, ptr @native_cb_shouldInterceptRequest_0_89_6000784, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16338,7 +16342,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiMaterialButton_n_1onLayout__ZIIII(pt
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668637, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_31_60014dd)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668637, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_31_60014dd)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_31_60014dd, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16364,7 +16368,7 @@ define void @Java_crc6452ffdc5b34af3a0f_PlatformTouchGraphicsView_n_1onLayout__Z
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668637, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_31_60014dd)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668637, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onLayout_0_31_60014dd)
 	%cb2 = load ptr, ptr @native_cb_onLayout_0_31_60014dd, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16468,7 +16472,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiHorizontalScrollView_n_1isHorizontalSc
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668638, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isHorizontalScrollBarEnabled_0_31_60014de)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668638, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_isHorizontalScrollBarEnabled_0_31_60014de)
 	%cb2 = load ptr, ptr @native_cb_isHorizontalScrollBarEnabled_0_31_60014de, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16494,7 +16498,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiHorizontalScrollView_n_1setHorizonta
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668639, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setHorizontalScrollBarEnabled_0_31_60014df)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668639, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setHorizontalScrollBarEnabled_0_31_60014df)
 	%cb2 = load ptr, ptr @native_cb_setHorizontalScrollBarEnabled_0_31_60014df, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16520,7 +16524,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiHorizontalScrollView_n_1onScrollChan
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668640, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScrollChanged_0_31_60014e0)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668640, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onScrollChanged_0_31_60014e0)
 	%cb2 = load ptr, ptr @native_cb_onScrollChanged_0_31_60014e0, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16650,7 +16654,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiWebChromeClient_n_1onShowFileChooser(p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 95, i32 noundef 100665029, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowFileChooser_0_95_60006c5)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 95, i32 noundef 100665029, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowFileChooser_0_95_60006c5)
 	%cb2 = load ptr, ptr @native_cb_onShowFileChooser_0_95_60006c5, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16676,7 +16680,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiWebChromeClient_n_1onShowCustomView(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 95, i32 noundef 100665030, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowCustomView_0_95_60006c6)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 95, i32 noundef 100665030, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onShowCustomView_0_95_60006c6)
 	%cb2 = load ptr, ptr @native_cb_onShowCustomView_0_95_60006c6, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16702,7 +16706,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiWebChromeClient_n_1onHideCustomView(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 95, i32 noundef 100665031, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHideCustomView_0_95_60006c7)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 95, i32 noundef 100665031, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHideCustomView_0_95_60006c7)
 	%cb2 = load ptr, ptr @native_cb_onHideCustomView_0_95_60006c7, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16728,7 +16732,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiWebViewClient_n_1shouldOverrideUrlLoad
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 89, i32 noundef 100665221, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_shouldOverrideUrlLoading_0_89_6000785)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 89, i32 noundef 100665221, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_shouldOverrideUrlLoading_0_89_6000785)
 	%cb2 = load ptr, ptr @native_cb_shouldOverrideUrlLoading_0_89_6000785, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16754,7 +16758,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiWebViewClient_n_1onPageStarted(ptr n
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 89, i32 noundef 100665222, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPageStarted_0_89_6000786)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 89, i32 noundef 100665222, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPageStarted_0_89_6000786)
 	%cb2 = load ptr, ptr @native_cb_onPageStarted_0_89_6000786, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16780,7 +16784,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiWebViewClient_n_1onPageFinished(ptr 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 89, i32 noundef 100665223, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPageFinished_0_89_6000787)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 89, i32 noundef 100665223, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onPageFinished_0_89_6000787)
 	%cb2 = load ptr, ptr @native_cb_onPageFinished_0_89_6000787, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16806,7 +16810,7 @@ define void @Java_crc6452ffdc5b34af3a0f_MauiWebViewClient_n_1onReceivedError(ptr
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 89, i32 noundef 100665224, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceivedError_0_89_6000788)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 89, i32 noundef 100665224, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceivedError_0_89_6000788)
 	%cb2 = load ptr, ptr @native_cb_onReceivedError_0_89_6000788, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -16832,7 +16836,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_MauiWebViewClient_n_1onRenderProcessGone(p
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 89, i32 noundef 100665225, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRenderProcessGone_0_89_6000789)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 89, i32 noundef 100665225, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onRenderProcessGone_0_89_6000789)
 	%cb2 = load ptr, ptr @native_cb_onRenderProcessGone_0_89_6000789, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17170,7 +17174,7 @@ define i1 @Java_crc6452ffdc5b34af3a0f_PlatformTouchGraphicsView_n_1onHoverEvent(
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668641, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHoverEvent_0_31_60014e1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668641, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onHoverEvent_0_31_60014e1)
 	%cb2 = load ptr, ptr @native_cb_onHoverEvent_0_31_60014e1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17196,7 +17200,7 @@ define void @Java_crc6452ffdc5b34af3a0f_WebViewExtensions_1JavascriptResult_n_1o
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 97, i32 noundef 100664965, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceiveValue_0_97_6000685)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 97, i32 noundef 100664965, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceiveValue_0_97_6000685)
 	%cb2 = load ptr, ptr @native_cb_onReceiveValue_0_97_6000685, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17248,7 +17252,7 @@ define i32 @Java_crc6452ffdc5b34af3a0f_WrapperView_n_1getVisibility(ptr noundef 
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668642, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getVisibility_0_31_60014e2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668642, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_getVisibility_0_31_60014e2)
 	%cb2 = load ptr, ptr @native_cb_getVisibility_0_31_60014e2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17274,7 +17278,7 @@ define void @Java_crc6452ffdc5b34af3a0f_WrapperView_n_1setVisibility(ptr noundef
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668643, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setVisibility_0_31_60014e3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668643, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_setVisibility_0_31_60014e3)
 	%cb2 = load ptr, ptr @native_cb_setVisibility_0_31_60014e3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17326,7 +17330,7 @@ define void @Java_crc64fcf28c0e24b4cc31_SliderHandler_1SeekBarChangeListener_n_1
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 100, i32 noundef 100666452, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onProgressChanged_0_100_6000c54)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 100, i32 noundef 100666452, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onProgressChanged_0_100_6000c54)
 	%cb2 = load ptr, ptr @native_cb_onProgressChanged_0_100_6000c54, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17352,7 +17356,7 @@ define void @Java_crc64fcf28c0e24b4cc31_SliderHandler_1SeekBarChangeListener_n_1
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 100, i32 noundef 100666453, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onStartTrackingTouch_0_100_6000c55)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 100, i32 noundef 100666453, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onStartTrackingTouch_0_100_6000c55)
 	%cb2 = load ptr, ptr @native_cb_onStartTrackingTouch_0_100_6000c55, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17378,7 +17382,7 @@ define void @Java_crc64fcf28c0e24b4cc31_SliderHandler_1SeekBarChangeListener_n_1
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 100, i32 noundef 100666454, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onStopTrackingTouch_0_100_6000c56)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 100, i32 noundef 100666454, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onStopTrackingTouch_0_100_6000c56)
 	%cb2 = load ptr, ptr @native_cb_onStopTrackingTouch_0_100_6000c56, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17404,7 +17408,7 @@ define ptr @Java_crc64b5e713d400f589b7_LinearGradientShaderFactory_n_1resize__II
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 101, i32 noundef 100672812, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_resize_0_101_600252c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 101, i32 noundef 100672812, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_resize_0_101_600252c)
 	%cb2 = load ptr, ptr @native_cb_resize_0_101_600252c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17430,7 +17434,7 @@ define ptr @Java_crc64b5e713d400f589b7_RadialGradientShaderFactory_n_1resize__II
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 101, i32 noundef 100672812, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_resize_0_101_600252c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 101, i32 noundef 100672812, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_resize_0_101_600252c)
 	%cb2 = load ptr, ptr @native_cb_resize_0_101_600252c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17508,7 +17512,7 @@ define void @Java_crc64a096dc44ad241142_PlatformTicker_1DurationScaleListener_n_
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 103, i32 noundef 100668031, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onChanged_0_103_600127f)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 103, i32 noundef 100668031, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onChanged_0_103_600127f)
 	%cb2 = load ptr, ptr @native_cb_onChanged_0_103_600127f, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17534,7 +17538,7 @@ define void @Java_crc6468b6408a11370c2f_WebAuthenticatorIntermediateActivity_n_1
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673913, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onResume_0_78_6002979)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673913, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onResume_0_78_6002979)
 	%cb2 = load ptr, ptr @native_cb_onResume_0_78_6002979, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17560,7 +17564,7 @@ define void @Java_crc6468b6408a11370c2f_WebAuthenticatorIntermediateActivity_n_1
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673914, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSaveInstanceState_0_78_600297a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673914, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSaveInstanceState_0_78_600297a)
 	%cb2 = load ptr, ptr @native_cb_onSaveInstanceState_0_78_600297a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17586,7 +17590,7 @@ define void @Java_crc64ba438d8f48cf7e75_IntermediateActivity_n_1onSaveInstanceSt
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 78, i32 noundef 100673914, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSaveInstanceState_0_78_600297a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 78, i32 noundef 100673914, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSaveInstanceState_0_78_600297a)
 	%cb2 = load ptr, ptr @native_cb_onSaveInstanceState_0_78_600297a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17612,7 +17616,7 @@ define void @Java_crc64e53d2f592022988e_ConnectivityBroadcastReceiver_n_1onRecei
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 104, i32 noundef 100673044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceive_0_104_6002614)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 104, i32 noundef 100673044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceive_0_104_6002614)
 	%cb2 = load ptr, ptr @native_cb_onReceive_0_104_6002614, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17638,7 +17642,7 @@ define void @Java_crc640a8d9a12ddbf2cf2_BatteryBroadcastReceiver_n_1onReceive__L
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 104, i32 noundef 100673044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceive_0_104_6002614)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 104, i32 noundef 100673044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceive_0_104_6002614)
 	%cb2 = load ptr, ptr @native_cb_onReceive_0_104_6002614, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17664,7 +17668,7 @@ define void @Java_crc640a8d9a12ddbf2cf2_EnergySaverBroadcastReceiver_n_1onReceiv
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 104, i32 noundef 100673044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceive_0_104_6002614)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 104, i32 noundef 100673044, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onReceive_0_104_6002614)
 	%cb2 = load ptr, ptr @native_cb_onReceive_0_104_6002614, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17716,7 +17720,7 @@ define void @Java_crc640a8d9a12ddbf2cf2_DeviceDisplayImplementation_1Listener_n_
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 106, i32 noundef 100670371, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onOrientationChanged_0_106_6001ba3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 106, i32 noundef 100670371, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onOrientationChanged_0_106_6001ba3)
 	%cb2 = load ptr, ptr @native_cb_onOrientationChanged_0_106_6001ba3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17742,7 +17746,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_n_1onSurfaceTextureAvailab
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 107, i32 noundef 100670522, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureAvailable_0_107_6001c3a)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 107, i32 noundef 100670522, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureAvailable_0_107_6001c3a)
 	%cb2 = load ptr, ptr @native_cb_onSurfaceTextureAvailable_0_107_6001c3a, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17768,7 +17772,7 @@ define i1 @Java_crc648e35430423bd4943_GLTextureView_n_1onSurfaceTextureDestroyed
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 107, i32 noundef 100670523, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureDestroyed_0_107_6001c3b)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 107, i32 noundef 100670523, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureDestroyed_0_107_6001c3b)
 	%cb2 = load ptr, ptr @native_cb_onSurfaceTextureDestroyed_0_107_6001c3b, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17794,7 +17798,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_n_1onSurfaceTextureSizeCha
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 107, i32 noundef 100670524, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureSizeChanged_0_107_6001c3c)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 107, i32 noundef 100670524, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureSizeChanged_0_107_6001c3c)
 	%cb2 = load ptr, ptr @native_cb_onSurfaceTextureSizeChanged_0_107_6001c3c, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17820,7 +17824,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_n_1onSurfaceTextureUpdated
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 107, i32 noundef 100670525, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureUpdated_0_107_6001c3d)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 107, i32 noundef 100670525, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceTextureUpdated_0_107_6001c3d)
 	%cb2 = load ptr, ptr @native_cb_onSurfaceTextureUpdated_0_107_6001c3d, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17846,7 +17850,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_1LogWriter_n_1close(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 108, i32 noundef 100675016, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_close_0_108_6002dc8)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 108, i32 noundef 100675016, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_close_0_108_6002dc8)
 	%cb2 = load ptr, ptr @native_cb_close_0_108_6002dc8, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17872,7 +17876,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_1LogWriter_n_1flush(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 108, i32 noundef 100675017, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_flush_0_108_6002dc9)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 108, i32 noundef 100675017, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_flush_0_108_6002dc9)
 	%cb2 = load ptr, ptr @native_cb_flush_0_108_6002dc9, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17898,7 +17902,7 @@ define void @Java_crc648e35430423bd4943_GLTextureView_1LogWriter_n_1write(ptr no
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 108, i32 noundef 100675018, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_108_6002dca)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 108, i32 noundef 100675018, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_write_0_108_6002dca)
 	%cb2 = load ptr, ptr @native_cb_write_0_108_6002dca, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17924,7 +17928,7 @@ define void @Java_crc648e35430423bd4943_SKCanvasView_n_1onDraw(ptr noundef %env,
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 31, i32 noundef 100668644, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_31_60014e4)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 31, i32 noundef 100668644, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDraw_0_31_60014e4)
 	%cb2 = load ptr, ptr @native_cb_onDraw_0_31_60014e4, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17950,7 +17954,7 @@ define void @Java_crc648e35430423bd4943_SKGLSurfaceViewRenderer_n_1onDrawFrame(p
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 109, i32 noundef 100667617, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDrawFrame_0_109_60010e1)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 109, i32 noundef 100667617, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onDrawFrame_0_109_60010e1)
 	%cb2 = load ptr, ptr @native_cb_onDrawFrame_0_109_60010e1, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -17976,7 +17980,7 @@ define void @Java_crc648e35430423bd4943_SKGLSurfaceViewRenderer_n_1onSurfaceChan
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 109, i32 noundef 100667618, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceChanged_0_109_60010e2)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 109, i32 noundef 100667618, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceChanged_0_109_60010e2)
 	%cb2 = load ptr, ptr @native_cb_onSurfaceChanged_0_109_60010e2, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -18002,7 +18006,7 @@ define void @Java_crc648e35430423bd4943_SKGLSurfaceViewRenderer_n_1onSurfaceCrea
 
 loadCallback: ; preds = %2
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 109, i32 noundef 100667619, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceCreated_0_109_60010e3)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 109, i32 noundef 100667619, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onSurfaceCreated_0_109_60010e3)
 	%cb2 = load ptr, ptr @native_cb_onSurfaceCreated_0_109_60010e3, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -18028,7 +18032,7 @@ define void @Java_crc648e35430423bd4943_SKSurfaceView_n_1surfaceChanged(ptr noun
 
 loadCallback: ; preds = %4
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 110, i32 noundef 100669846, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_surfaceChanged_0_110_6001996)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 110, i32 noundef 100669846, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_surfaceChanged_0_110_6001996)
 	%cb2 = load ptr, ptr @native_cb_surfaceChanged_0_110_6001996, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -18054,7 +18058,7 @@ define void @Java_crc648e35430423bd4943_SKSurfaceView_n_1surfaceCreated(ptr noun
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 110, i32 noundef 100669847, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_surfaceCreated_0_110_6001997)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 110, i32 noundef 100669847, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_surfaceCreated_0_110_6001997)
 	%cb2 = load ptr, ptr @native_cb_surfaceCreated_0_110_6001997, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -18080,7 +18084,7 @@ define void @Java_crc648e35430423bd4943_SKSurfaceView_n_1surfaceDestroyed(ptr no
 
 loadCallback: ; preds = %1
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 110, i32 noundef 100669848, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_surfaceDestroyed_0_110_6001998)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 110, i32 noundef 100669848, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_surfaceDestroyed_0_110_6001998)
 	%cb2 = load ptr, ptr @native_cb_surfaceDestroyed_0_110_6001998, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -18288,7 +18292,7 @@ define void @Java_androidx_appcompat_app_AlertDialog_1IDialogInterfaceOnMultiCho
 
 loadCallback: ; preds = %3
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 116, i32 noundef 100673294, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_116_600270e)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 116, i32 noundef 100673294, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_onClick_0_116_600270e)
 	%cb2 = load ptr, ptr @native_cb_onClick_0_116_600270e, align 8, !tbaa !3
 	br label %callbackLoaded
 
@@ -19094,7 +19098,7 @@ define void @Java_mono_android_TypeManager_n_1activate(ptr noundef %env, ptr nou
 
 loadCallback: ; preds = %0
 	%get_func_ptr = load ptr, ptr @get_function_pointer, align 8, !tbaa !3
-	call void %get_func_ptr(i32 noundef 135, i32 noundef 136, i32 noundef 100676554, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_activate_0_136_60033ca)
+	call void %get_func_ptr(i32 noundef 136, i32 noundef 136, i32 noundef 100676554, ptr nonnull noundef align(8) dereferenceable(8) @native_cb_activate_0_136_60033ca)
 	%cb2 = load ptr, ptr @native_cb_activate_0_136_60033ca, align 8, !tbaa !3
 	br label %callbackLoaded
 

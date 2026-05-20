@@ -1,4 +1,4 @@
-namespace MaintManager.Application.DTOs.Inventory;
+namespace MaintManager.Shared.Models;
 
 public sealed record LotCreateRequest(
     int Mateid,
@@ -9,5 +9,3 @@ public sealed record LotCreateRequest(
     string? SupplierLotNumber,
     string? Note
 );
-
-/// <summary>Lote en respuesta.</summary>
