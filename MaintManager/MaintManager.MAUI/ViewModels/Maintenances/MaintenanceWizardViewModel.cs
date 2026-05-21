@@ -195,10 +195,9 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
                 OriginService: "Taller propio"
             );
 
-            var response = await _apiService.PostAsync<ApiCreateResponse>(ApiRoutes.Maintenances.Create, request);
-            var mainid = response?.Data ?? 0;
+            var mainid = await _apiService.PostAndUnwrapAsync<int>(ApiRoutes.Maintenances.Create, request);
             if (mainid > 0)
-                await Shell.Current.GoToAsync($"Maintenances/Detail?mainid={mainid}");
+                await Shell.Current.GoToAsync($"///Maintenances/Detail?mainid={mainid}");
             else
                 await Shell.Current.GoToAsync("..");
         }
@@ -248,10 +247,4 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         public string? Message { get; set; }
     }
 
-    private sealed class ApiCreateResponse
-    {
-        public bool Success { get; set; }
-        public int Data { get; set; }
-        public string? Message { get; set; }
-    }
 }

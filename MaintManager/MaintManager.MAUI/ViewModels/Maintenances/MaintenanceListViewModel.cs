@@ -84,7 +84,7 @@ public partial class MaintenanceListViewModel : BaseViewModel
     [RelayCommand]
     private async Task ViewDetail(int mainid)
     {
-        await Shell.Current.GoToAsync($"Maintenances/Detail?mainid={mainid}");
+        await Shell.Current.GoToAsync($"///Maintenances/Detail?mainid={mainid}");
     }
 
     [RelayCommand]
@@ -93,8 +93,7 @@ public partial class MaintenanceListViewModel : BaseViewModel
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
 
-        try { await Shell.Current.GoToAsync("Maintenances/Create"); }
-        catch { try { await Shell.Current.GoToAsync("Create"); } catch { } }
+        await Shell.Current.GoToAsync("///Maintenances/Create");
     }
 
     public record MaintenanceItem

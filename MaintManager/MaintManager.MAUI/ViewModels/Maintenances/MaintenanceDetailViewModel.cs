@@ -54,7 +54,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             { "vehicleId", MaintenanceDetail.Prcoid },
             { "vehicleName", $"{MaintenanceDetail.VehicleName} - {MaintenanceDetail.LicensePlate}" }
         };
-        await Shell.Current.GoToAsync("Maintenances/VehicleHistory", parameters);
+        await Shell.Current.GoToAsync("///Maintenances/VehicleHistory", parameters);
     }
 
     [RelayCommand]
