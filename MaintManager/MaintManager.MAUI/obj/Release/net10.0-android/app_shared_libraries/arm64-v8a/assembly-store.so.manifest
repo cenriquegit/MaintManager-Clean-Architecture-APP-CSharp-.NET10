@@ -47,7 +47,7 @@
 0x2a128783efe70ba0 di:72 mi:72 do:3194014 ds:10015 ddo:0 dds:0 cdo:0 cds:0 uk/Microsoft.Maui.Controls.resources.dll
 0x2a45e6c17076bfbd di:100 mi:100 do:5509304 ds:15113 ddo:0 dds:0 cdo:0 cds:0 SkiaSharp.HarfBuzz.dll
 0x2a6507a5ffabdf28 di:9 mi:9 do:149498 ds:7039 ddo:0 dds:0 cdo:0 cds:0 System.Diagnostics.TraceSource.dll
-0x2a91627fe0051b27 di:135 mi:135 do:6691726 ds:18166 ddo:0 dds:0 cdo:0 cds:0 MaintManager.Shared.dll
+0x2a91627fe0051b27 di:135 mi:135 do:6691726 ds:18156 ddo:0 dds:0 cdo:0 cds:0 MaintManager.Shared.dll
 0x2ad156c8e1354139 di:50 mi:50 do:2974055 ds:9992 ddo:0 dds:0 cdo:0 cds:0 fi/Microsoft.Maui.Controls.resources
 0x2af298f63581d886 di:34 mi:34 do:1069801 ds:172980 ddo:0 dds:0 cdo:0 cds:0 System.Text.RegularExpressions.dll
 0x2b148910ed40fbf9 di:76 mi:76 do:3234048 ds:9987 ddo:0 dds:0 cdo:0 cds:0 zh-Hant/Microsoft.Maui.Controls.resources.dll
@@ -124,7 +124,7 @@
 0x6ace3b74b15ee4a4 di:61 mi:61 do:3084069 ds:9984 ddo:0 dds:0 cdo:0 cds:0 nb/Microsoft.Maui.Controls.resources
 0x6d79993361e10ef2 di:93 mi:93 do:3952021 ds:5041 ddo:0 dds:0 cdo:0 cds:0 Microsoft.Extensions.Primitives
 0x6d9bea6b3e895cf7 di:93 mi:93 do:3952021 ds:5041 ddo:0 dds:0 cdo:0 cds:0 Microsoft.Extensions.Primitives.dll
-0x6ec68da6b6ed1835 di:135 mi:135 do:6691726 ds:18166 ddo:0 dds:0 cdo:0 cds:0 MaintManager.Shared
+0x6ec68da6b6ed1835 di:135 mi:135 do:6691726 ds:18156 ddo:0 dds:0 cdo:0 cds:0 MaintManager.Shared
 0x6fdfc7de82c33008 di:45 mi:45 do:2924061 ds:10003 ddo:0 dds:0 cdo:0 cds:0 cs/Microsoft.Maui.Controls.resources
 0x70e99f48c05cb921 di:71 mi:71 do:3184019 ds:9995 ddo:0 dds:0 cdo:0 cds:0 tr/Microsoft.Maui.Controls.resources.dll
 0x71ad672adbe48f35 di:4 mi:4 do:59586 ds:6728 ddo:0 dds:0 cdo:0 cds:0 System.ComponentModel.Primitives.dll
@@ -188,7 +188,7 @@
 0xaa52de307ef5d1dd di:20 mi:20 do:450052 ds:71332 ddo:0 dds:0 cdo:0 cds:0 System.Net.Http
 0xaaaf86367285a918 di:86 mi:86 do:3893538 ds:15262 ddo:0 dds:0 cdo:0 cds:0 Microsoft.Extensions.DependencyInjection.Abstractions.dll
 0xaaf84bb3f052a265 di:48 mi:48 do:2954051 ds:10017 ddo:0 dds:0 cdo:0 cds:0 el/Microsoft.Maui.Controls.resources
-0xac002e3121747999 di:136 mi:136 do:6709892 ds:273777 ddo:0 dds:0 cdo:0 cds:0 MaintManager.MAUI
+0xac002e3121747999 di:136 mi:136 do:6709882 ds:273774 ddo:0 dds:0 cdo:0 cds:0 MaintManager.MAUI
 0xac2af3fa195a15ce di:29 mi:29 do:755437 ds:39481 ddo:0 dds:0 cdo:0 cds:0 System.Runtime.Numerics
 0xac5376a2a538dc10 di:116 mi:116 do:6078856 ds:8355 ddo:0 dds:0 cdo:0 cds:0 Xamarin.AndroidX.Lifecycle.LiveData.Core.dll
 0xacd46e002c3ccb97 di:66 mi:66 do:3134031 ds:9984 ddo:0 dds:0 cdo:0 cds:0 ro/Microsoft.Maui.Controls.resources
@@ -205,7 +205,7 @@
 0xb5c7fcdafbc67ee4 di:91 mi:91 do:3929630 ds:11903 ddo:0 dds:0 cdo:0 cds:0 Microsoft.Extensions.Logging.Abstractions.dll
 0xb7212c4683a94afe di:10 mi:10 do:156537 ds:6344 ddo:0 dds:0 cdo:0 cds:0 System.Drawing.Primitives
 0xb7b7753d1f319409 di:69 mi:69 do:3164011 ds:9980 ddo:0 dds:0 cdo:0 cds:0 sv/Microsoft.Maui.Controls.resources
-0xb7c5adb5be3a61e9 di:136 mi:136 do:6709892 ds:273777 ddo:0 dds:0 cdo:0 cds:0 MaintManager.MAUI.dll
+0xb7c5adb5be3a61e9 di:136 mi:136 do:6709882 ds:273774 ddo:0 dds:0 cdo:0 cds:0 MaintManager.MAUI.dll
 0xb960d6b2200ba320 di:118 mi:118 do:6099537 ds:6407 ddo:0 dds:0 cdo:0 cds:0 Xamarin.AndroidX.Lifecycle.ViewModelSavedState.Android.dll
 0xb9fc3c8a556e3691 di:58 mi:58 do:3054062 ds:10010 ddo:0 dds:0 cdo:0 cds:0 ja/Microsoft.Maui.Controls.resources
 0xba48785529705af9 di:3 mi:3 do:40917 ds:18669 ddo:0 dds:0 cdo:0 cds:0 System.Collections.dll

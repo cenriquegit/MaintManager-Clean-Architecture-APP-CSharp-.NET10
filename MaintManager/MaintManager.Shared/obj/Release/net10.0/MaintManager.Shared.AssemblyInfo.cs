@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MaintManager.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+635893f1b5fa9e9bde9eda819abb20bf4bfe13f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a3c040ee1730ec3ceb068c8c862b8e00b333686")]
 [assembly: System.Reflection.AssemblyProductAttribute("MaintManager.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MaintManager.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
