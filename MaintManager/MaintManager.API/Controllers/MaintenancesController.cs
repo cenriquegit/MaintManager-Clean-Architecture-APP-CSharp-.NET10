@@ -10,6 +10,7 @@ using MaintManager.Shared.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MaintManager.Domain.Entities;
 using System.Security.Claims;
 namespace MaintManager.API.Controllers;
 
@@ -23,6 +24,7 @@ public sealed class MaintenancesController : ControllerBase
     private readonly IMaintenanceService _maintenanceService;
     private readonly IMaintenanceRepository _maintenanceRepo;
     private readonly IVehicleRepository _vehicleRepo;
+    private readonly IInventoryService _inventoryService;
     private readonly FleetMaintenanceContext _context;
     private readonly IValidator<MaintenanceCreateRequest> _createValidator;
 
@@ -30,12 +32,14 @@ public sealed class MaintenancesController : ControllerBase
         IMaintenanceService maintenanceService,
         IMaintenanceRepository maintenanceRepo,
         IVehicleRepository vehicleRepo,
+        IInventoryService inventoryService,
         FleetMaintenanceContext context,
         IValidator<MaintenanceCreateRequest> createValidator)
     {
         _maintenanceService = maintenanceService;
         _maintenanceRepo = maintenanceRepo;
         _vehicleRepo = vehicleRepo;
+        _inventoryService = inventoryService;
         _context = context;
         _createValidator = createValidator;
     }
@@ -43,9 +47,9 @@ public sealed class MaintenancesController : ControllerBase
     /// <summary>Obtener lista paginada de mantenimientos (optimizado sin N+1).</summary>
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponse<PagedResponse<MaintenanceListItem>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromQuery] PagedRequest paged, CancellationToken ct)
+    public async Task<IActionResult> GetAll([FromQuery] PagedRequest paged, CancellationToken ct, [FromQuery] string? status = null)
     {
-        var pagedResult = await _maintenanceRepo.GetPagedListItemsAsync(paged.Page, paged.PageSize, ct);
+        var pagedResult = await _maintenanceRepo.GetPagedListItemsAsync(paged.Page, paged.PageSize, status, ct);
     
         var response = new PagedResponse<MaintenanceListItem>
         {
@@ -176,6 +180,80 @@ public sealed class MaintenancesController : ControllerBase
         }
     }
 
+    /// <summary>Consumir material de inventario (FIFO) en una orden de mantenimiento.</summary>
+    [HttpPost("{id:int}/consume")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ConsumeMaterial(
+        int id,
+        [FromBody] ConsumeRequest request,
+        CancellationToken ct)
+    {
+        try
+        {
+            await _inventoryService.ConsumeStockFifoAsync(
+                request.Mateid, request.Quantity, id, ct);
+            return Ok(ApiResponse<object>.Ok(new { message = "Material consumido correctamente." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
+    /// <summary>Instalar un componente en el vehículo durante un mantenimiento.</summary>
+    [HttpPost("{id:int}/components")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> InstallComponent(
+        int id,
+        [FromBody] InstallComponentRequest request,
+        CancellationToken ct)
+    {
+        try
+        {
+            var maintenance = await _maintenanceRepo.GetWithDetailsAsync(id, ct);
+            var component = InstalledComponent.Create(
+                maintenance.Prcoid, request.ActionCatalogId, id,
+                maintenance.Mileage, request.LotId, request.UsefulLifeDays);
+
+            _context.InstalledComponents.Add(component);
+            await _context.SaveChangesAsync(ct);
+
+            return Ok(ApiResponse<object>.Ok(new { message = "Componente instalado correctamente." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
+    /// <summary>Reasignar técnico responsable de la orden. Solo Admin.</summary>
+    [HttpPut("{id:int}/assign")]
+    [Authorize(Roles = RoleNames.Admin)]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AssignTechnician(
+        int id,
+        [FromBody] AssignTechnicianRequest request,
+        CancellationToken ct)
+    {
+        try
+        {
+            var maintenance = await _maintenanceRepo.GetWithDetailsAsync(id, ct);
+            if (maintenance is null)
+                return NotFound(ApiResponse<object>.Fail("Orden no encontrada."));
+
+            maintenance.AssignTo(request.Workid);
+            await _maintenanceRepo.SaveChangesAsync(ct);
+
+            return Ok(ApiResponse<object>.Ok(new { message = "Técnico reasignado correctamente." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
     /// <summary>Cerrar una orden de mantenimiento.</summary>
     [HttpPut("{id:int}/close")]
     [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
@@ -210,4 +288,47 @@ public sealed class MaintenancesController : ControllerBase
 
         return Ok(ApiResponse<IReadOnlyList<MaintenanceListItem>>.Ok(result));
     }
+
+    /// <summary>Estadísticas rápidas de mantenimientos para el panel principal.</summary>
+    [HttpGet("stats")]
+    [ProducesResponseType(typeof(ApiResponse<MaintenanceStatsResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetStats(CancellationToken ct)
+    {
+        var monthStart = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        var totalFi = await _context.Maintenances
+            .CountAsync(m => m.Statid == "FI", ct);
+        var totalAc = await _context.Maintenances
+            .CountAsync(m => m.Statid == "AC", ct);
+        var completedThisMonth = await _context.Maintenances
+            .CountAsync(m => m.Statid == "FI" && m.MaintenanceDate >= monthStart, ct);
+        var emergencyThisMonth = await _context.Maintenances
+            .CountAsync(m => m.Matyid == 2
+                && m.MaintenanceDate >= monthStart, ct);
+
+        return Ok(ApiResponse<MaintenanceStatsResponse>.Ok(
+            new MaintenanceStatsResponse(totalAc, totalAc, completedThisMonth, emergencyThisMonth)));
+    }
+
+    /// <summary>Catálogo de acciones disponibles para instalar componentes.</summary>
+    [HttpGet("actions/catalog")]
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ActionCatalogItem>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetActionCatalog(CancellationToken ct)
+    {
+        var items = await _context.ActionCatalogs
+            .Where(a => a.Status)
+            .OrderBy(a => a.Category).ThenBy(a => a.Name)
+            .Select(a => new ActionCatalogItem(a.Acatid, a.Name, a.Category))
+            .ToListAsync(ct);
+        return Ok(ApiResponse<IReadOnlyList<ActionCatalogItem>>.Ok(items));
+    }
 }
+
+public sealed record MaintenanceStatsResponse(
+    int Scheduled,
+    int InProgress,
+    int CompletedThisMonth,
+    int EmergencyThisMonth
+);
+
+public sealed record ActionCatalogItem(int Acatid, string Name, string? Category);

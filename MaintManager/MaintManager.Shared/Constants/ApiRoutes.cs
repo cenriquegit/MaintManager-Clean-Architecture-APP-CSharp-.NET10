@@ -20,7 +20,6 @@ public static class ApiRoutes
         public const string GetAll = Base;
         public const string GetById = $"{Base}/{{id}}";
         public const string GetCurrentKm = $"{Base}/{{id}}/current-km";
-        public const string GetSchedule = $"{Base}/{{id}}/schedule";
     }
 
     public static class Maintenances
@@ -31,29 +30,40 @@ public static class ApiRoutes
         public const string Create = Base;
         public const string CompleteAction = $"{Base}/{{id}}/actions/{{actionId}}/complete";
         public const string SaveDiagnosis = $"{Base}/{{id}}/diagnosis";
+        public const string ConsumeMaterial = $"{Base}/{{id}}/consume";
+        public const string InstallComponent = $"{Base}/{{id}}/components";
+        public const string AssignTechnician = $"{Base}/{{id}}/assign";
         public const string Close = $"{Base}/{{id}}/close";
         public const string GetByVehicle = $"{ApiRoutes.Base}/vehicles/{{vehicleId}}/maintenances";
+        public const string ActionCatalog = $"{Base}/actions/catalog";
     }
 
     public static class Inventory
     {
         public const string Base = $"{ApiRoutes.Base}/inventory";
         public const string GetMaterials = $"{Base}/materials";
-        public const string GetMaterialById = $"{Base}/materials/{{id}}";
-        public const string CreateMaterial = $"{Base}/materials";
-        public const string RegisterLot = $"{Base}/materials/{{id}}/lots";
-        public const string DiscardLot = $"{Base}/lots/{{lotId}}/discard";
-        public const string RateMaterial = $"{Base}/materials/{{id}}/ratings";
-        public const string GetLowStock = $"{Base}/low-stock";
+        public const string GetLowStock = $"{Base}/materials/low-stock";
+        public const string GetMaterialLots = $"{Base}/materials/{{id}}/lots";
         public const string GetExpiringLots = $"{Base}/expiring-lots";
+        public const string CreateMaterial = $"{Base}/materials";
+        public const string CreateLot = $"{Base}/materials/{{id}}/lots";
+        public const string DiscardLot = $"{Base}/lots/{{lotId}}/discard";
+        public const string RateMaterial = $"{Base}/materials/{{mateid}}/ratings";
     }
 
     public static class Alerts
     {
         public const string Base = $"{ApiRoutes.Base}/alerts";
         public const string GetUnresolved = Base;
+        public const string Check = $"{Base}/check";
         public const string MarkRead = $"{Base}/{{id}}/read";
         public const string Resolve = $"{Base}/{{id}}/resolve";
+    }
+
+    public static class Workers
+    {
+        public const string Base = $"{ApiRoutes.Base}/workers";
+        public const string GetTechnicians = $"{Base}/technicians";
     }
 
     public static class Reports

@@ -38,8 +38,6 @@ internal sealed class MaterialConfiguration : IEntityTypeConfiguration<Material>
         builder.Property(m => m.CreatedAt).HasColumnName("created_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-        // updated_at: columna agregada por 02_ajustes_fase1.sql [A2]
-        // EF Core la mapea normalmente — la columna existe en BD tras aplicar ajustes
         builder.Property(m => m.UpdatedAt).HasColumnName("updated_at")
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 

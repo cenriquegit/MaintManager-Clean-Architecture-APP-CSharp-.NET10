@@ -146,6 +146,12 @@ public sealed class Maintenance
         UpdatedAt = DateTime.UtcNow;
     }
 
+    public void AssignTo(int workid)
+    {
+        AssignedTo = workid;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     public void UpdateNote(string? note)
     {
         Note = note;

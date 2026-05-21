@@ -19,7 +19,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         Title = "Nueva Orden de Mantenimiento";
     }
 
-    public const int MaxSteps = 7;
+    public const int MaxSteps = 4;
 
     [ObservableProperty]
     private int _currentStep = 1;
@@ -48,9 +48,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     partial void OnSelectedVehicleChanged(VehicleOption? value)
     {
         if (value is not null)
-        {
             _ = LoadVehicleCurrentKmAsync(value);
-        }
         else
         {
             VehicleLastKm = 0;
@@ -102,22 +100,17 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
 
     public List<string> ServiceTypes { get; } = new() { "Servicio A", "Servicio B", "Emergencia" };
 
-    // Step 3: Components and materials
+    // Step 3: Technician assignment
     [ObservableProperty]
-    private ObservableCollection<MaterialLine> _materials = new();
-
-    // Step 4: Operations checklist
-    [ObservableProperty]
-    private ObservableCollection<OperationItem> _operations = new();
-
-    // Step 5: Diagnosis
-    [ObservableProperty]
-    private string _diagnosisDescription = string.Empty;
+    private ObservableCollection<TechnicianOption> _technicians = new();
 
     [ObservableProperty]
-    private string _diagnosisCode = string.Empty;
+    private TechnicianOption? _selectedTechnician;
 
-    // Step 7: Confirmation
+    [ObservableProperty]
+    private string _mechanicNote = string.Empty;
+
+    // Step 4: Confirmation
     [ObservableProperty]
     private bool _isSaving;
 
@@ -133,20 +126,6 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     {
         if (CurrentStep > 1)
             CurrentStep--;
-    }
-
-    private sealed class ApiResponse<T>
-    {
-        public bool Success { get; set; }
-        public T? Data { get; set; }
-        public string? Message { get; set; }
-    }
-
-    private sealed class ApiCreateResponse
-    {
-        public bool Success { get; set; }
-        public int Data { get; set; }
-        public string? Message { get; set; }
     }
 
     [RelayCommand]
@@ -173,42 +152,25 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
             }
         });
 
-        await LoadMaterialsAsync();
-        LoadDefaultOperations();
+        await LoadTechniciansAsync();
     }
 
-    private async Task LoadMaterialsAsync()
+    private async Task LoadTechniciansAsync()
     {
         try
         {
-            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(ApiRoutes.Inventory.GetMaterials);
+            var raw = await _apiService.GetAsync<TechnicianListResponse>(ApiRoutes.Workers.GetTechnicians);
             if (raw?.Success == true && raw.Data is not null)
             {
-                Materials = new ObservableCollection<MaterialLine>(
-                    raw.Data.Select(m => new MaterialLine
+                Technicians = new ObservableCollection<TechnicianOption>(
+                    raw.Data.Select(t => new TechnicianOption
                     {
-                        MaterialId = m.Mateid,
-                        Name = m.Name,
-                        UnitOfMeasure = m.UnitOfMeasure,
+                        Workid = t.Workid,
+                        FullName = t.FullName,
                     }));
             }
         }
-        catch
-        {
-        }
-    }
-
-    private void LoadDefaultOperations()
-    {
-        Operations = new ObservableCollection<OperationItem>
-        {
-            new() { OperationId = 1, Name = "Cambio de aceite y filtro" },
-            new() { OperationId = 2, Name = "Revisión de frenos" },
-            new() { OperationId = 3, Name = "Revisión de neumáticos" },
-            new() { OperationId = 4, Name = "Revisión de sistema eléctrico" },
-            new() { OperationId = 5, Name = "Lubricación general" },
-            new() { OperationId = 6, Name = "Revisión de suspensión y dirección" },
-        };
+        catch { }
     }
 
     [RelayCommand]
@@ -221,14 +183,15 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
             var isEmergency = SelectedServiceType == "Emergencia";
             short matyid = (short)(isEmergency ? 2 : 1);
             short? setyid = isEmergency ? null : (short?)(SelectedServiceType == "Servicio B" ? 2 : 1);
+            var assignedWorkid = SelectedTechnician?.Workid ?? _authService.GetWorkid();
 
             var request = new MaintenanceCreateRequest(
                 Prcoid: SelectedVehicle?.VehicleId ?? 0,
                 Matyid: matyid,
                 Mileage: int.TryParse(MileageText, out var km) ? km : 0,
-                AssignedTo: _authService.GetWorkid(),
+                AssignedTo: assignedWorkid,
                 Setyid: setyid,
-                Note: string.IsNullOrWhiteSpace(DiagnosisDescription) ? null : DiagnosisDescription,
+                Note: string.IsNullOrWhiteSpace(MechanicNote) ? null : MechanicNote,
                 OriginService: "Taller propio"
             );
 
@@ -259,18 +222,36 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         public override string ToString() => $"{Name} - {LicensePlate}";
     }
 
-    public class MaterialLine
+    public class TechnicianOption
     {
-        public int MaterialId { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string UnitOfMeasure { get; set; } = string.Empty;
-        public decimal Quantity { get; set; }
+        public int Workid { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public override string ToString() => FullName;
     }
 
-    public class OperationItem
+    public class TechnicianListResponse
     {
-        public int OperationId { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public bool IsCompleted { get; set; }
+        public bool Success { get; set; }
+        public List<TechnicianDto>? Data { get; set; }
+    }
+
+    public class TechnicianDto
+    {
+        public int Workid { get; set; }
+        public string FullName { get; set; } = string.Empty;
+    }
+
+    private sealed class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+        public string? Message { get; set; }
+    }
+
+    private sealed class ApiCreateResponse
+    {
+        public bool Success { get; set; }
+        public int Data { get; set; }
+        public string? Message { get; set; }
     }
 }

@@ -16,7 +16,8 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 
-Console.WriteLine(">>> Program.cs iniciado (línea 1)");
+Console.WriteLine(">>> Program.cs iniciado (linea 1)");
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
 Console.WriteLine(">>> WebApplication.CreateBuilder completado");

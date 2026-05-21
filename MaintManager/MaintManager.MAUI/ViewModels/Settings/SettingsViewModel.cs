@@ -14,22 +14,8 @@ public partial class SettingsViewModel : BaseViewModel
     {
         _authService = authService;
         _apiService = apiService;
-        Title = "Configuración";
-
-        ApiUrl = Preferences.Get("api_url", ApiService.DefaultBaseUrl);
+        Title = "Configuración del Sistema";
     }
-
-    [ObservableProperty]
-    private string _apiUrl = string.Empty;
-
-    [ObservableProperty]
-    private string _pinInput = string.Empty;
-
-    [ObservableProperty]
-    private string _pinError = string.Empty;
-
-    [ObservableProperty]
-    private bool _isLocked = true;
 
     [ObservableProperty]
     private string _intervalKm = "5000";
@@ -39,8 +25,6 @@ public partial class SettingsViewModel : BaseViewModel
 
     [ObservableProperty]
     private bool _configLoaded;
-
-    private const string SettingsPin = "1234";
 
     [RelayCommand]
     private async Task LoadConfig()
@@ -76,41 +60,6 @@ public partial class SettingsViewModel : BaseViewModel
 
             await Shell.Current.DisplayAlert("Configuración", "Parámetros guardados correctamente.", "Aceptar");
         });
-    }
-
-    [RelayCommand]
-    private void CheckPin()
-    {
-        if (PinInput == SettingsPin)
-        {
-            IsLocked = false;
-            PinError = string.Empty;
-            PinInput = string.Empty;
-            LoadConfigCommand.Execute(null);
-        }
-        else
-        {
-            PinError = "PIN incorrecto. Intenta nuevamente.";
-            PinInput = string.Empty;
-        }
-    }
-
-    [RelayCommand]
-    private async Task GoHome()
-    {
-        await Shell.Current.GoToAsync("//Login");
-    }
-
-    [RelayCommand]
-    private async Task SaveSettings()
-    {
-        if (!string.IsNullOrWhiteSpace(ApiUrl))
-        {
-            Preferences.Set("api_url", ApiUrl);
-            _apiService.ApplySavedBaseUrl();
-        }
-        await Shell.Current.DisplayAlert("Configuración",
-            "Cambios guardados correctamente.\nReinicia sesión para aplicar la nueva URL.", "Aceptar");
     }
 
     [RelayCommand]

@@ -53,7 +53,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:LotItem">
                             <Border Style="{StaticResource Card}" Margin="0,0,0,8">
-                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
                                       ColumnDefinitions="*,Auto" RowSpacing="6">
 
                                     <!-- Header: lote + estado -->
@@ -108,6 +108,17 @@
                                                    TextColor="{StaticResource ColorPrimary}"/>
                                         </VerticalStackLayout>
                                     </HorizontalStackLayout>
+
+                                    <!-- Botón Descartar (solo lotes activos) -->
+                                    <Button Grid.Row="4" Grid.ColumnSpan="2"
+                                            Text="Descartar"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LotListViewModel}}, Path=DiscardLotCommand}"
+                                            CommandParameter="{Binding .}"
+                                            IsVisible="{Binding CanDiscard}"
+                                            BackgroundColor="{StaticResource ColorError}"
+                                            TextColor="White"
+                                            FontSize="12" HeightRequest="34" Padding="10,0"
+                                            HorizontalOptions="Start" Margin="0,4,0,0"/>
 
                                 </Grid>
                             </Border>

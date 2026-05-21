@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
+    x:Class="MaintManager.MAUI.Views.Inventory.CreateMaterialPage"
+    x:DataType="vm:CreateMaterialViewModel"
+    Title="Nuevo Material"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+
+            <Label Text="Crear nuevo material"
+                   FontSize="22" FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+            <Label Text="Categoría:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8"
+                    Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="4,0">
+                <Picker ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        ItemDisplayBinding="{Binding .}"
+                        Title="Seleccionar categoría..."
+                        Style="{StaticResource FormPicker}"/>
+            </Border>
+
+            <Label Text="Nombre del material:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8"
+                    Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding MaterialName}"
+                       Placeholder="ej: Aceite Motor 5W-30 Sintético"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Unidad de medida:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8"
+                    Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding UnitOfMeasure}"
+                       Placeholder="ej: Litros, Unidad, Par, Set"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Stock mínimo:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8"
+                    Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding StockMinimum}"
+                       Keyboard="Numeric"
+                       Placeholder="ej: 10"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Descripción (opcional):" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8"
+                    Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,4">
+                <Editor Text="{Binding Description}"
+                        HeightRequest="80"
+                        Placeholder="ej: Aceite sintético para motores gasolineros 4 cilindros"
+                        TextColor="{StaticResource ColorTextPrimary}"
+                        PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <!-- Error message -->
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   FontSize="13" TextColor="{StaticResource ColorError}"
+                   HorizontalTextAlignment="Center"/>
+
+            <Button Text="Guardar Material"
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

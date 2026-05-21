@@ -73,6 +73,16 @@ public partial class InventoryListViewModel : BaseViewModel
     }
 
     [RelayCommand]
+    private async Task CreateMaterial()
+    {
+        Shell.Current.FlyoutIsPresented = false;
+        await Task.Delay(200);
+
+        try { await Shell.Current.GoToAsync("Inventory/CreateMaterial"); }
+        catch { try { await Shell.Current.GoToAsync("CreateMaterial"); } catch { } }
+    }
+
+    [RelayCommand]
     private async Task ViewLots(MaterialItem material)
     {
         if (material is null) return;

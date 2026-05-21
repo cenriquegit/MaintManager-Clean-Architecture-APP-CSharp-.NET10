@@ -46,7 +46,7 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
             .ToListAsync(ct);
 
     public async Task<PagedResult<MaintenanceListItemDto>> GetPagedListItemsAsync(
-        int page, int pageSize, CancellationToken ct = default)
+        int page, int pageSize, string? status = null, CancellationToken ct = default)
     {
         var query = from m in _context.Maintenances
                     join v in _context.Vehicles on m.Prcoid equals v.Prcoid
@@ -58,7 +58,7 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
                     from w in wg.DefaultIfEmpty()
                     join per in _context.Persons on w.Persid equals per.Persid into perg
                     from per in perg.DefaultIfEmpty()
-                    where m.Statid == "AC"
+                    where string.IsNullOrEmpty(status) || m.Statid == status
                     orderby m.MaintenanceDate descending
                     select new MaintenanceListItemDto
                     {

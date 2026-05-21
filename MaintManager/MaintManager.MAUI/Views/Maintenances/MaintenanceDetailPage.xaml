@@ -104,14 +104,12 @@
                                    Text="{Binding MaintenanceDetail.AssignedToName}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                         </Grid>
-
-                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
-
-                        <HorizontalStackLayout Spacing="8">
-                            <Label Text="Registrado por:" Style="{StaticResource CaptionText}" VerticalOptions="Center"/>
-                            <Label Text="{Binding MaintenanceDetail.RegisteredByName}"
-                                   Style="{StaticResource BodyText}"/>
-                        </HorizontalStackLayout>
+                        <Button Text="Ver historial completo del vehículo"
+                                Command="{Binding ViewVehicleHistoryCommand}"
+                                FontSize="12" HeightRequest="34" Padding="10,0"
+                                BackgroundColor="{StaticResource ColorInfoContainer}"
+                                TextColor="{StaticResource ColorPrimary}"
+                                HorizontalOptions="Start" Margin="0,4,0,0"/>
                     </VerticalStackLayout>
                 </Border>
 
@@ -265,6 +263,36 @@
                     </VerticalStackLayout>
                 </Border>
 
+                <!-- Instalar Componente -->
+                <Border StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="16"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Instalar Componente"
+                               FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                        <Label Text="Componente:" Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="4,0">
+                            <Picker ItemsSource="{Binding ComponentActions}"
+                                    SelectedItem="{Binding SelectedComponent}"
+                                    ItemDisplayBinding="{Binding .}"
+                                    Title="Seleccionar componente..."
+                                    Style="{StaticResource FormPicker}"/>
+                        </Border>
+
+                        <Button Text="Instalar"
+                                Command="{Binding InstallComponentCommand}"
+                                Style="{StaticResource AccentButton}"
+                                HorizontalOptions="Fill"/>
+                    </VerticalStackLayout>
+                </Border>
+
                 <!-- Material consumption section -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
@@ -286,6 +314,38 @@
                                     ItemDisplayBinding="{Binding .}"
                                     Title="Seleccionar material..."
                                     Style="{StaticResource FormPicker}"/>
+                        </Border>
+
+                        <!-- FIFO Lot info (se muestra al seleccionar un material) -->
+                        <Border IsVisible="{Binding ShowLotInfo}"
+                                StrokeShape="RoundRectangle 8"
+                                BackgroundColor="{StaticResource ColorInfoContainer}"
+                                StrokeThickness="0" Padding="12,8">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Lote a consumir (FIFO):"
+                                       FontSize="12" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorTextPrimary}"/>
+                                <HorizontalStackLayout Spacing="16">
+                                    <VerticalStackLayout Spacing="0">
+                                        <Label Text="Lote" Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding LotNumberDisplay}"
+                                               FontSize="13" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Spacing="0">
+                                        <Label Text="Vence" Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding LotExpiryDisplay}"
+                                               FontSize="13"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Spacing="0">
+                                        <Label Text="Costo unit." Style="{StaticResource CaptionText}"/>
+                                        <Label Text="{Binding LotCostDisplay}"
+                                               FontSize="13" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorPrimary}"/>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
                         </Border>
 
                         <Label Text="Cantidad:" Style="{StaticResource CaptionText}"/>

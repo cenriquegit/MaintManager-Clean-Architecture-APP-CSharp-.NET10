@@ -5,9 +5,11 @@ using MaintManager.Shared.Models;
 using MaintManager.Application.Mappings;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
+using MaintManager.Infrastructure.Data;
 using MaintManager.Shared.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace MaintManager.API.Controllers;
@@ -23,17 +25,20 @@ public sealed class InventoryController : ControllerBase
     private readonly IInventoryRepository _inventoryRepo;
     private readonly IValidator<MaterialCreateRequest> _materialValidator;
     private readonly IValidator<LotCreateRequest> _lotValidator;
+    private readonly FleetMaintenanceContext _context;
 
     public InventoryController(
         IInventoryService inventoryService,
         IInventoryRepository inventoryRepo,
         IValidator<MaterialCreateRequest> materialValidator,
-        IValidator<LotCreateRequest> lotValidator)
+        IValidator<LotCreateRequest> lotValidator,
+        FleetMaintenanceContext context)
     {
         _inventoryService = inventoryService;
         _inventoryRepo = inventoryRepo;
         _materialValidator = materialValidator;
         _lotValidator = lotValidator;
+        _context = context;
     }
 
     /// <summary>Obtener todos los materiales del inventario.</summary>
@@ -44,6 +49,19 @@ public sealed class InventoryController : ControllerBase
         var materials = await _inventoryRepo.GetMaterialsAsync(ct);
         return Ok(ApiResponse<IReadOnlyList<MaterialListItem>>.Ok(
             materials.Select(m => m.ToListItem()).ToList()));
+    }
+
+    /// <summary>Obtener categorías de materiales.</summary>
+    [HttpGet("categories")]
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<CategoryItem>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCategories(CancellationToken ct)
+    {
+        var categories = await _context.MaterialCategories
+            .Where(c => c.Status)
+            .OrderBy(c => c.Name)
+            .Select(c => new CategoryItem(c.Macaid, c.Name))
+            .ToListAsync(ct);
+        return Ok(ApiResponse<IReadOnlyList<CategoryItem>>.Ok(categories));
     }
 
     /// <summary>Obtener detalle de un material con sus lotes activos.</summary>
@@ -100,6 +118,16 @@ public sealed class InventoryController : ControllerBase
 
         return StatusCode(StatusCodes.Status201Created,
             ApiResponse<object>.Ok(new { message = "Lote ingresado correctamente." }));
+    }
+
+    /// <summary>Obtener todos los lotes de un material, ordenados FIFO por vencimiento.</summary>
+    [HttpGet("materials/{id:int}/lots")]
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<LotResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetLots(int id, CancellationToken ct)
+    {
+        var lots = await _inventoryRepo.GetFifoLotsAsync(id, ct);
+        var result = lots.Select(l => l.ToResponse()).ToList();
+        return Ok(ApiResponse<IReadOnlyList<LotResponse>>.Ok(result));
     }
 
     /// <summary>Descartar cantidad de un lote. Solo Admin.</summary>
@@ -164,6 +192,8 @@ public sealed class InventoryController : ControllerBase
         }
     }
 }
+
+public sealed record CategoryItem(short Macaid, string Name);
 
 // ─────────────────────────────────────────────────────────────────────────────
 

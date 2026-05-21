@@ -7,11 +7,14 @@ namespace MaintManager.MAUI.ViewModels.Auth;
 public partial class LoginViewModel : BaseViewModel
 {
     private readonly AuthService _authService;
+    private readonly ApiService _apiService;
 
-    public LoginViewModel(AuthService authService)
+    public LoginViewModel(AuthService authService, ApiService apiService)
     {
         _authService = authService;
+        _apiService = apiService;
         Title = "Iniciar Sesión";
+        ApiUrl = Preferences.Get("api_url", ApiService.DefaultBaseUrl);
     }
 
     [ObservableProperty]
@@ -23,16 +26,33 @@ public partial class LoginViewModel : BaseViewModel
     [ObservableProperty]
     private bool _showPassword;
 
+    [ObservableProperty]
+    private bool _showUrlConfig;
+
+    [ObservableProperty]
+    private string _apiUrl = string.Empty;
+
+    [RelayCommand]
+    private void ToggleUrlConfig()
+    {
+        ShowUrlConfig = !ShowUrlConfig;
+    }
+
+    [RelayCommand]
+    private void SaveUrlConfig()
+    {
+        if (!string.IsNullOrWhiteSpace(ApiUrl))
+        {
+            Preferences.Set("api_url", ApiUrl);
+            _apiService.ApplySavedBaseUrl();
+            ShowUrlConfig = false;
+        }
+    }
+
     [RelayCommand]
     private void TogglePasswordVisibility()
     {
         ShowPassword = !ShowPassword;
-    }
-
-    [RelayCommand]
-    private async Task GoToSettings()
-    {
-        await Shell.Current.GoToAsync("//Settings");
     }
 
     [RelayCommand]

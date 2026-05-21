@@ -5,204 +5,74 @@
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Settings"
     x:Class="MaintManager.MAUI.Views.Settings.SettingsPage"
     x:DataType="vm:SettingsViewModel"
-    Title="Configuración"
+    Title="Configuración del Sistema"
     BackgroundColor="{StaticResource ColorBackground}">
 
-    <Grid>
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20,20,20,44">
 
-        <!-- LOCKED: Pantalla de PIN -->
-        <VerticalStackLayout IsVisible="{Binding IsLocked}"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center"
-                             Spacing="20"
-                             Padding="40">
+            <!-- Sección: Parámetros del Sistema (principal) -->
+            <Border Style="{StaticResource Card}"
+                    IsVisible="{Binding ConfigLoaded}">
+                <VerticalStackLayout Spacing="12" Padding="16">
 
-            <Border StrokeShape="RoundRectangle 16"
-                    BackgroundColor="{StaticResource ColorSurface}"
-                    Stroke="{StaticResource ColorBorderLight}"
-                    StrokeThickness="1"
-                    Padding="32"
-                    WidthRequest="320">
-
-                <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
-
-                    <Label Text="🔒"
-                           FontSize="48"
-                           HorizontalOptions="Center"/>
-
-                    <Label Text="Configuración protegida"
+                    <Label Text="Parámetros del Sistema"
                            FontSize="20" FontAttributes="Bold"
-                           TextColor="{StaticResource ColorTextPrimary}"
-                           HorizontalOptions="Center"/>
+                           TextColor="{StaticResource ColorTextPrimary}"/>
 
-                    <Label Text="Ingresa el código PIN para acceder:"
-                           FontSize="14"
-                           TextColor="{StaticResource ColorTextSecondary}"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Configuración general de mantenimientos"
+                           Style="{StaticResource BodyText}"/>
 
-                    <Entry Text="{Binding PinInput}"
-                           Placeholder="PIN"
-                           Keyboard="Numeric"
-                           MaxLength="10"
-                           HorizontalOptions="Fill"
-                           TextColor="{StaticResource ColorTextPrimary}"
-                           PlaceholderColor="{StaticResource Gray500}"/>
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="{StaticResource ColorBorderLight}"/>
 
-                    <Label Text="{Binding PinError}"
-                           TextColor="{StaticResource ColorError}"
-                           FontSize="13"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center"
-                           IsVisible="{Binding PinError, Converter={StaticResource IsNotNullConverter}}"/>
+                    <Label Text="Intervalo entre mantenimientos (km)"
+                           Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding IntervalKm}"
+                               Keyboard="Numeric"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+                    </Border>
 
-                    <Button Text="Acceder"
-                            Command="{Binding CheckPinCommand}"
+                    <Label Text="Umbral de alerta de km próximo"
+                           Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding AlertKmThreshold}"
+                               Keyboard="Numeric"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+                    </Border>
+
+                    <Button Text="Guardar parámetros"
+                            Command="{Binding SaveConfigCommand}"
                             Style="{StaticResource PrimaryButton}"
-                            HorizontalOptions="Fill"
-                            HeightRequest="48"/>
-
+                            HorizontalOptions="Fill"/>
                 </VerticalStackLayout>
             </Border>
-        </VerticalStackLayout>
 
-        <!-- UNLOCKED: Contenido de configuración -->
-        <ScrollView IsVisible="{Binding IsLocked, Converter={StaticResource InvertedBoolConverter}}">
-            <VerticalStackLayout Spacing="20" Padding="20,20,20,44">
-
-                <!-- Botón Volver al inicio (Login) -->
-                <Button Text="← Volver al inicio"
-                        Command="{Binding GoHomeCommand}"
-                        BackgroundColor="Transparent"
-                        TextColor="{StaticResource ColorPrimary}"
-                        FontSize="15"
-                        HorizontalOptions="Start"
-                        Padding="0"/>
-
-                <!-- Sección: Configuración de API -->
-                <Border Style="{StaticResource Card}">
-                    <VerticalStackLayout Spacing="12" Padding="16">
-
-                        <Label Text="Configuración de API"
-                               FontSize="18" FontAttributes="Bold"
-                               TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <BoxView HeightRequest="1"
-                                 BackgroundColor="{StaticResource ColorBorderLight}"/>
-
-                        <Label Text="URL del servidor"
-                               Style="{StaticResource CaptionText}"/>
-                        <Entry Text="{Binding ApiUrl}"
-                               Placeholder="http://192.168.1.100:5056"
-                               Keyboard="Plain"
-                               HorizontalOptions="Fill"
-                               TextColor="{StaticResource ColorTextPrimary}"
-                               PlaceholderColor="{StaticResource Gray500}"/>
-
-                        <Button Text="Guardar cambios"
-                                Command="{Binding SaveSettingsCommand}"
-                                Style="{StaticResource PrimaryButton}"
-                                HorizontalOptions="Fill"/>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- Sección: Parámetros del sistema -->
-                <Border Style="{StaticResource Card}"
-                        IsVisible="{Binding ConfigLoaded}">
-                    <VerticalStackLayout Spacing="12" Padding="16">
-
-                        <Label Text="Parámetros del Sistema"
-                               FontSize="18" FontAttributes="Bold"
-                               TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <BoxView HeightRequest="1"
-                                 BackgroundColor="{StaticResource ColorBorderLight}"/>
-
-                        <Label Text="Intervalo entre mantenimientos (km)"
-                               Style="{StaticResource CaptionText}"/>
-                        <Border StrokeShape="RoundRectangle 8"
-                                Stroke="{StaticResource ColorBorder}"
-                                StrokeThickness="1" Padding="12,0">
-                            <Entry Text="{Binding IntervalKm}"
-                                   Keyboard="Numeric"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                        </Border>
-
-                        <Label Text="Umbral de alerta de km próximo"
-                               Style="{StaticResource CaptionText}"/>
-                        <Border StrokeShape="RoundRectangle 8"
-                                Stroke="{StaticResource ColorBorder}"
-                                StrokeThickness="1" Padding="12,0">
-                            <Entry Text="{Binding AlertKmThreshold}"
-                                   Keyboard="Numeric"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                        </Border>
-
-                        <Button Text="Guardar parámetros"
-                                Command="{Binding SaveConfigCommand}"
-                                Style="{StaticResource AccentButton}"
-                                HorizontalOptions="Fill"/>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- Sección: Tema (Placeholder) -->
-                <Border Style="{StaticResource Card}">
-                    <VerticalStackLayout Spacing="12" Padding="16">
-
-                        <Label Text="Apariencia"
-                               FontSize="18" FontAttributes="Bold"
-                               TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <BoxView HeightRequest="1"
-                                 BackgroundColor="{StaticResource ColorBorderLight}"/>
-
-                        <Label Text="Selector de tema (próximamente)"
-                               Style="{StaticResource BodyText}"
-                               TextColor="{StaticResource ColorTextSecondary}"/>
-
-                        <HorizontalStackLayout Spacing="12">
-                            <RadioButton Content="Claro" IsChecked="True"/>
-                            <RadioButton Content="Oscuro"/>
-                            <RadioButton Content="Sistema"/>
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- Sección: Versión de la app -->
-                <Border Style="{StaticResource Card}">
-                    <VerticalStackLayout Spacing="8" Padding="16">
-
-                        <Label Text="Acerca de"
-                               FontSize="18" FontAttributes="Bold"
-                               TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <BoxView HeightRequest="1"
-                                 BackgroundColor="{StaticResource ColorBorderLight}"/>
-
-                        <Grid ColumnDefinitions="*,Auto">
-                            <Label Text="Versión de la aplicación"
-                                   Style="{StaticResource BodyText}"/>
-                            <Label Grid.Column="1"
-                                   Text="1.0.0"
-                                   Style="{StaticResource BodyText}"
-                                   TextColor="{StaticResource ColorTextSecondary}"/>
-                        </Grid>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- Botón de Cerrar sesión -->
-                <Button Text="Cerrar sesión"
-                        Command="{Binding LogoutCommand}"
-                        BackgroundColor="{StaticResource ColorError}"
-                        TextColor="White"
-                        FontAttributes="Bold"
-                        HeightRequest="50"
-                        CornerRadius="12"
-                        Margin="0,8,0,0"
-                        HorizontalOptions="Fill"/>
-
+            <!-- Loading while config is loading -->
+            <VerticalStackLayout IsVisible="{Binding ConfigLoaded, Converter={StaticResource InvertedBoolConverter}}"
+                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="12"
+                                 Padding="0,40,0,0">
+                <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+                <Label Text="Cargando configuración..."
+                       Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
             </VerticalStackLayout>
-        </ScrollView>
 
-    </Grid>
+            <!-- Sección: Cerrar sesión -->
+            <Button Text="Cerrar sesión"
+                    Command="{Binding LogoutCommand}"
+                    BackgroundColor="{StaticResource ColorError}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

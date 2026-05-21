@@ -41,12 +41,14 @@ public static class InventoryMappings
 
         return new LotResponse(
             Maloid: l.Maloid,
+            Mateid: l.Mateid,
             InitialQuantity: l.InitialQuantity,
             CurrentQuantity: l.CurrentQuantity,
             UnitCost: l.UnitCost,
             EntryDate: l.EntryDate,
             ExpirationDate: l.ExpirationDate,
             DaysUntilExpiry: daysUntilExpiry,
+            SupplierLotNumber: l.SupplierLotNumber,
             LotStatus: l.LotStatus
         );
     }

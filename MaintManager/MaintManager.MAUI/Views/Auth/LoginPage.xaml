@@ -11,14 +11,44 @@
 
         <Label Text="MaintManager" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
 
-        <!-- Botón para volver a Configuración y cambiar URL -->
-        <Button Text="← Cambiar URL de conexión"
-                Command="{Binding GoToSettingsCommand}"
-                BackgroundColor="Transparent"
-                TextColor="{StaticResource ColorPrimary}"
-                FontSize="13"
-                HorizontalOptions="Center"
-                Padding="0"/>
+        <!-- Configuración URL colapsable -->
+        <Border StrokeShape="RoundRectangle 8"
+                Stroke="{StaticResource ColorBorderLight}"
+                StrokeThickness="1" Padding="12,8">
+            <VerticalStackLayout Spacing="8">
+                <Button Text="▸ Cambiar URL de conexión"
+                        Command="{Binding ToggleUrlConfigCommand}"
+                        IsVisible="{Binding ShowUrlConfig, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource ColorPrimary}"
+                        FontSize="13"
+                        HorizontalOptions="Start"
+                        Padding="0"/>
+                <Button Text="▾ Ocultar conexión"
+                        Command="{Binding ToggleUrlConfigCommand}"
+                        IsVisible="{Binding ShowUrlConfig}"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource ColorPrimary}"
+                        FontSize="13"
+                        HorizontalOptions="Start"
+                        Padding="0"/>
+                <VerticalStackLayout IsVisible="{Binding ShowUrlConfig}" Spacing="8">
+                    <Label Text="URL del servidor" FontSize="12"
+                           TextColor="{StaticResource ColorTextSecondary}"/>
+                    <Entry Text="{Binding ApiUrl}"
+                           Placeholder="http://192.168.1.100:5056"
+                           Keyboard="Plain"
+                           TextColor="{StaticResource ColorTextPrimary}"
+                           PlaceholderColor="{StaticResource Gray500}"/>
+                    <Button Text="Guardar URL"
+                            Command="{Binding SaveUrlConfigCommand}"
+                            BackgroundColor="{StaticResource ColorSecondary}"
+                            TextColor="White"
+                            HeightRequest="36" FontSize="13"
+                            HorizontalOptions="Fill"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
 
         <Entry Placeholder="Usuario" Text="{Binding Username}"
                TextColor="{StaticResource ColorTextPrimary}"

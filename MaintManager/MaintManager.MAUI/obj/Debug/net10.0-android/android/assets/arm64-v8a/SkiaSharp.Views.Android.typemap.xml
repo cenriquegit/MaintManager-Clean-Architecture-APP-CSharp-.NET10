@@ -1,4 +1,4 @@
-<api type="debug" assembly-name="SkiaSharp.Views.Android" mvid="501f9a83619c405294ddf081c67b68d0">
+<api type="debug" assembly-name="SkiaSharp.Views.Android" mvid="5e77d5bc9d2e40caa416864f4173aa7a">
   <java-to-managed>
     <entry java-name="crc648e35430423bd4943/GLTextureView" managed-name="SkiaSharp.Views.Android.GLTextureView, SkiaSharp.Views.Android" managed-type-token-id="33554439" />
     <entry java-name="crc648e35430423bd4943/GLTextureView_LogWriter" managed-name="SkiaSharp.Views.Android.GLTextureView+LogWriter, SkiaSharp.Views.Android" managed-type-token-id="33554464" />

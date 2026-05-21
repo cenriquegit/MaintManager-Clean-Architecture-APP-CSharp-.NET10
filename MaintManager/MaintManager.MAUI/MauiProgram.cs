@@ -1,4 +1,5 @@
 ﻿using LiveChartsCore.SkiaSharpView.Maui;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using MaintManager.MAUI.Services;
 using MaintManager.MAUI.ViewModels.Alerts;
 using MaintManager.MAUI.ViewModels.Auth;
@@ -33,6 +34,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseSkiaSharp()
             .UseLiveCharts()
             .ConfigureFonts(fonts =>
             {
@@ -49,6 +51,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AlertListViewModel>();
         builder.Services.AddTransient<InventoryListViewModel>();
         builder.Services.AddTransient<LotCreateViewModel>();
+        builder.Services.AddTransient<CreateMaterialViewModel>();
         builder.Services.AddTransient<LotListViewModel>();
         builder.Services.AddTransient<MaintenanceListViewModel>();
         builder.Services.AddTransient<MaintenanceDetailViewModel>();
@@ -57,6 +60,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CalendarViewModel>();
         builder.Services.AddTransient<BiDashboardViewModel>();
         builder.Services.AddTransient<ReportsViewModel>();
+        builder.Services.AddTransient<VehicleHistoryViewModel>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<UserProfileViewModel>();
 
@@ -64,11 +68,13 @@ public static class MauiProgram
         builder.Services.AddTransient<AlertListPage>();
         builder.Services.AddTransient<InventoryListPage>();
         builder.Services.AddTransient<LotCreatePage>();
+        builder.Services.AddTransient<CreateMaterialPage>();
         builder.Services.AddTransient<LotListPage>();
         builder.Services.AddTransient<MaintenanceListPage>();
         builder.Services.AddTransient<MaintenanceDetailPage>();
         builder.Services.AddTransient<MaintenanceWizardPage>();
         builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<VehicleHistoryPage>();
         builder.Services.AddTransient<CalendarPage>();
         builder.Services.AddTransient<BiDashboardPage>();
         builder.Services.AddTransient<ReportsPage>();

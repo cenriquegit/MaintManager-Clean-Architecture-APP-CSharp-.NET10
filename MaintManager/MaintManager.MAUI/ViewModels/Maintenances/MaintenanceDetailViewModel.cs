@@ -46,6 +46,18 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     }
 
     [RelayCommand]
+    private async Task ViewVehicleHistory()
+    {
+        if (MaintenanceDetail is null) return;
+        var parameters = new Dictionary<string, object>
+        {
+            { "vehicleId", MaintenanceDetail.Prcoid },
+            { "vehicleName", $"{MaintenanceDetail.VehicleName} - {MaintenanceDetail.LicensePlate}" }
+        };
+        await Shell.Current.GoToAsync("Maintenances/VehicleHistory", parameters);
+    }
+
+    [RelayCommand]
     private async Task SaveDiagnosis()
     {
         await ExecuteAsync(async () =>
@@ -101,6 +113,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
 
             await LoadMaterialsAsync();
             await LoadTechniciansAsync();
+            await LoadComponentActionsAsync();
         });
     }
 
@@ -119,6 +132,18 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                         UnitOfMeasure = m.UnitOfMeasure,
                     }));
             }
+        }
+        catch { }
+    }
+
+    private async Task LoadComponentActionsAsync()
+    {
+        try
+        {
+            var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(
+                ApiRoutes.Maintenances.ActionCatalog);
+            if (raw?.Success == true && raw.Data is not null)
+                ComponentActions = new ObservableCollection<ActionCatalogOption>(raw.Data);
         }
         catch { }
     }
@@ -187,8 +212,56 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [ObservableProperty]
     private MaterialOption? _selectedMaterial;
 
+    partial void OnSelectedMaterialChanged(MaterialOption? value)
+    {
+        _ = LoadSelectedMaterialLotInfo(value);
+    }
+
     [ObservableProperty]
     private string _consumeQuantity = string.Empty;
+
+    // FIFO lot info for selected material
+    [ObservableProperty]
+    private bool _showLotInfo;
+
+    [ObservableProperty]
+    private string _lotNumberDisplay = string.Empty;
+
+    [ObservableProperty]
+    private string _lotExpiryDisplay = string.Empty;
+
+    [ObservableProperty]
+    private string _lotCostDisplay = string.Empty;
+
+    private async Task LoadSelectedMaterialLotInfo(MaterialOption? material)
+    {
+        if (material is null)
+        {
+            ShowLotInfo = false;
+            return;
+        }
+        try
+        {
+            var endpoint = ApiRoutes.Inventory.GetMaterialLots.Replace("{id}", material.Mateid.ToString());
+            var response = await _apiService.GetAsync<ApiResponse<List<LotInfo>>>(endpoint);
+            if (response?.Success == true && response.Data is not null && response.Data.Count > 0)
+            {
+                var firstLot = response.Data[0]; // FIFO: primero que vence
+                LotNumberDisplay = string.IsNullOrEmpty(firstLot.SupplierLotNumber) ? "S/N" : firstLot.SupplierLotNumber;
+                LotExpiryDisplay = firstLot.ExpirationDate ?? "Sin vencimiento";
+                LotCostDisplay = $"S/ {firstLot.UnitCost:N2}";
+                ShowLotInfo = true;
+            }
+            else
+            {
+                ShowLotInfo = false;
+            }
+        }
+        catch
+        {
+            ShowLotInfo = false;
+        }
+    }
 
     [ObservableProperty]
     private ObservableCollection<TechnicianOption> _technicians = new();
@@ -207,12 +280,52 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                 HasError = true;
                 return;
             }
-            var request = new { Mateid = SelectedMaterial.Mateid, Quantity = qty };
+
+            var mateConsumed = SelectedMaterial.Mateid;
+            var nameConsumed = SelectedMaterial.Name;
+
+            var request = new { Mateid = mateConsumed, Quantity = qty };
             var endpoint = ApiRoutes.Maintenances.ConsumeMaterial.Replace("{id}", _mainid.ToString());
             await _apiService.PostAsync<object>(endpoint, request);
+
             ConsumeQuantity = string.Empty;
             SelectedMaterial = null;
             await Load();
+
+            // Preguntar si quiere calificar el material recién consumido
+            var rate = await Shell.Current.DisplayAlert("Calificar material",
+                $"¿Deseas calificar {nameConsumed}?", "Sí, calificar", "No, gracias");
+
+            if (rate)
+            {
+                var rating = await Shell.Current.DisplayActionSheet(
+                    $"Califica {nameConsumed} (1-5 estrellas)", "Cancelar", null,
+                    "⭐ 1 - Malo", "⭐⭐ 2 - Regular", "⭐⭐⭐ 3 - Bueno",
+                    "⭐⭐⭐⭐ 4 - Muy bueno", "⭐⭐⭐⭐⭐ 5 - Excelente");
+
+                if (rating is not null && rating != "Cancelar")
+                {
+                    var stars = rating.Count(c => c == '⭐');
+                    if (stars > 0)
+                    {
+                        var observation = await Shell.Current.DisplayPromptAsync(
+                            "Observación (opcional)",
+                            "Agrega un comentario sobre el material:",
+                            "Guardar", "Omitir",
+                            placeholder: "ej: Buen rendimiento, llegó en buen estado...");
+
+                        var rateEndpoint = ApiRoutes.Inventory.RateMaterial
+                            .Replace("{mateid}", mateConsumed.ToString());
+                        await _apiService.PostAsync<object>(rateEndpoint, new
+                        {
+                            Mateid = mateConsumed,
+                            Mainid = _mainid,
+                            Rating = stars,
+                            Observation = string.IsNullOrWhiteSpace(observation) ? null : observation
+                        });
+                    }
+                }
+            }
         });
     }
 
@@ -231,6 +344,32 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
 
     [ObservableProperty]
     private ObservableCollection<ComponentItem> _components = new();
+
+    // ── Install Component ──────────────────────────────────────
+
+    [ObservableProperty]
+    private ObservableCollection<ActionCatalogOption> _componentActions = new();
+
+    [ObservableProperty]
+    private ActionCatalogOption? _selectedComponent;
+
+    [RelayCommand]
+    private async Task InstallComponent()
+    {
+        await ExecuteAsync(async () =>
+        {
+            if (SelectedComponent is null) return;
+            var endpoint = ApiRoutes.Maintenances.InstallComponent.Replace("{id}", _mainid.ToString());
+            await _apiService.PostAsync<object>(endpoint, new
+            {
+                ActionCatalogId = SelectedComponent.Acatid,
+                LotId = (int?)null,
+                UsefulLifeDays = (int?)null
+            });
+            SelectedComponent = null;
+            await Load();
+        });
+    }
 
     [RelayCommand]
     private async Task ExportPdf()
@@ -261,6 +400,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     public class MaintenanceDetailResponse
     {
         public int Mainid { get; set; }
+        public int Prcoid { get; set; }
         public string OrderNumber { get; set; } = string.Empty;
         public string LicensePlate { get; set; } = string.Empty;
         public string VehicleName { get; set; } = string.Empty;
@@ -336,5 +476,20 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         public int Workid { get; set; }
         public string FullName { get; set; } = string.Empty;
+    }
+
+    public sealed class LotInfo
+    {
+        public decimal UnitCost { get; set; }
+        public string? ExpirationDate { get; set; }
+        public string? SupplierLotNumber { get; set; }
+    }
+
+    public class ActionCatalogOption
+    {
+        public int Acatid { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Category { get; set; }
+        public override string ToString() => Name;
     }
 }

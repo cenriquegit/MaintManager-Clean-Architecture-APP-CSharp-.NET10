@@ -2,13 +2,13 @@ namespace MaintManager.Application.DTOs.Inventory;
 
 public sealed record LotResponse(
     int Maloid,
-    decimal InitialQuantity,
+    int Mateid,
     decimal CurrentQuantity,
+    decimal InitialQuantity,
     decimal UnitCost,
     DateTime EntryDate,
     DateOnly? ExpirationDate,
     int? DaysUntilExpiry,
+    string? SupplierLotNumber,
     string LotStatus
 );
-
-/// <summary>Descartar cantidad de un lote.</summary>

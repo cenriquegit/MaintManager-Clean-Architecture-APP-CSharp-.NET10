@@ -1,5 +1,5 @@
-<api type="release" assembly-name="SkiaSharp.Views.Android" mvid="501f9a83619c405294ddf081c67b68d0">
-  <module assembly-name="SkiaSharp.Views.Android" mvid="501f9a83619c405294ddf081c67b68d0" mvid-bytes="g5ofUJxhUkCU3fCBxnto0A==">
+<api type="release" assembly-name="SkiaSharp.Views.Android" mvid="5e77d5bc9d2e40caa416864f4173aa7a">
+  <module assembly-name="SkiaSharp.Views.Android" mvid="5e77d5bc9d2e40caa416864f4173aa7a" mvid-bytes="vNV3Xi6dykCkFoZPQXOqeg==">
     <types-scratch>
       <entry key="crc648e35430423bd4943/GLTextureView" java-name="crc648e35430423bd4943/GLTextureView" managed-type-name="SkiaSharp.Views.Android.GLTextureView" token="33554439" />
       <entry key="crc648e35430423bd4943/GLTextureView_LogWriter" java-name="crc648e35430423bd4943/GLTextureView_LogWriter" managed-type-name="SkiaSharp.Views.Android.GLTextureView/LogWriter" token="33554464" />

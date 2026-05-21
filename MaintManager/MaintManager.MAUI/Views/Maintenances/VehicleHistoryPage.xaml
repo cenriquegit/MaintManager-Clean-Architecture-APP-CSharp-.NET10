@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Maintenances"
+    xmlns:models="clr-namespace:MaintManager.Shared.Models"
+    x:Class="MaintManager.MAUI.Views.Maintenances.VehicleHistoryPage"
+    x:DataType="vm:VehicleHistoryViewModel"
+    Title="Historial"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <Grid>
+
+        <!-- LOADING -->
+        <VerticalStackLayout IsVisible="{Binding IsInitialLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+            <Label Text="Cargando historial..." Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- ERROR -->
+        <VerticalStackLayout IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                   TextColor="{StaticResource ColorError}"/>
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+            <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                    Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- EMPTY -->
+        <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="🔧" FontSize="48" HorizontalOptions="Center"/>
+            <Label Text="Este vehículo no tiene mantenimientos registrados."
+                   Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- SUCCESS -->
+        <RefreshView IsVisible="{Binding IsSuccess}"
+                     Command="{Binding LoadCommand}" IsRefreshing="{Binding IsLoading}">
+            <ScrollView>
+                <VerticalStackLayout Spacing="8" Padding="16,8,16,24">
+
+                    <Label Text="{Binding VehicleInfo}"
+                           FontSize="20" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+                    <Label Text="Historial de mantenimientos"
+                           Style="{StaticResource CaptionText}" Margin="0,0,0,8"/>
+
+                    <CollectionView ItemsSource="{Binding Maintenances}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:MaintenanceListItemDto">
+                                <Border Style="{StaticResource Card}" Margin="0,0,0,6">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:VehicleHistoryViewModel}}, Path=ViewDetailCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Border.GestureRecognizers>
+                                    <Grid RowDefinitions="Auto,Auto,Auto"
+                                          ColumnDefinitions="*,Auto" RowSpacing="4">
+
+                                        <Label Grid.Row="0" Grid.Column="0"
+                                               Text="{Binding MaintenanceType}"
+                                               FontSize="14" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                                        <Label Grid.Row="0" Grid.Column="1"
+                                               Text="{Binding Status, StringFormat='[{0}]'}"
+                                               FontSize="12" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorInfo}" VerticalOptions="Center"/>
+
+                                        <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2"
+                                                               Spacing="16">
+                                            <Label Text="{Binding MaintenanceDate, StringFormat='{0:dd/MM/yyyy}'}"
+                                                   Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding Mileage, StringFormat='{0:N0} km'}"
+                                                   Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding ServiceType}"
+                                                   Style="{StaticResource CaptionText}"/>
+                                        </HorizontalStackLayout>
+
+                                        <Label Grid.Row="2" Grid.ColumnSpan="2"
+                                               Text="{Binding AssignedToName, StringFormat='Técnico: {0}'}"
+                                               Style="{StaticResource CaptionText}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+    </Grid>
+</ContentPage>

@@ -3,18 +3,17 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Maintenances"
-    xmlns:conv="clr-namespace:MaintManager.MAUI.Converters"
     x:Class="MaintManager.MAUI.Views.Maintenances.MaintenanceWizardPage"
     Title="{Binding Title}"
     BackgroundColor="{StaticResource ColorBackground}">
 
     <Grid RowDefinitions="Auto,*,Auto">
 
-        <!-- Step indicator (simplificado) -->
+        <!-- Step indicator -->
         <Border Grid.Row="0" BackgroundColor="{StaticResource ColorSurface}" StrokeThickness="0" Padding="16,10">
             <HorizontalStackLayout Spacing="6">
                 <Label Text="Paso" FontSize="13" TextColor="{StaticResource ColorTextSecondary}" VerticalOptions="Center"/>
-                <Label Text="{Binding CurrentStep, StringFormat='{0}/7'}" FontSize="16" FontAttributes="Bold"
+                <Label Text="{Binding CurrentStep, StringFormat='{0}/4'}" FontSize="16" FontAttributes="Bold"
                        TextColor="{StaticResource ColorPrimary}" VerticalOptions="Center"/>
             </HorizontalStackLayout>
         </Border>
@@ -76,135 +75,31 @@
                     </Border>
                 </VerticalStackLayout>
 
-                <!-- Step 3: Components and materials -->
+                <!-- Step 3: Technician assignment -->
                 <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=3}"
                                      Spacing="16">
-                    <Label Text="Componentes y Materiales" FontSize="20" FontAttributes="Bold"
+                    <Label Text="Asignar Técnico" FontSize="20" FontAttributes="Bold"
                            TextColor="{StaticResource ColorTextPrimary}"/>
-                    <Label Text="Registra los materiales utilizados:"
+                    <Label Text="Selecciona el mecánico responsable de esta orden:"
                            Style="{StaticResource BodyText}"/>
 
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Materials}" Spacing="8">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Border StrokeShape="RoundRectangle 8"
-                                        Stroke="{StaticResource ColorBorderLight}"
-                                        StrokeThickness="1" Padding="12,8"
-                                        BackgroundColor="{StaticResource ColorSurface}">
-                                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
-                                        <VerticalStackLayout VerticalOptions="Center">
-                                            <Label Text="{Binding Name}"
-                                                   FontSize="14"
-                                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                                            <Label Text="{Binding UnitOfMeasure}"
-                                                   FontSize="11"
-                                                   TextColor="{StaticResource ColorTextSecondary}"/>
-                                        </VerticalStackLayout>
-                                        <Border Grid.Column="1"
-                                                StrokeShape="RoundRectangle 6"
-                                                Stroke="{StaticResource ColorBorder}"
-                                                StrokeThickness="1" Padding="8,0"
-                                                BackgroundColor="{StaticResource ColorSurface}">
-                                            <Entry Text="{Binding Quantity}"
-                                                   Keyboard="Numeric"
-                                                   WidthRequest="80"
-                                                   Placeholder="0"
-                                                   TextColor="{StaticResource ColorTextPrimary}"
-                                                   PlaceholderColor="{StaticResource Gray500}"/>
-                                        </Border>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </VerticalStackLayout>
-                </VerticalStackLayout>
-
-                <!-- Step 4: Operations checklist -->
-                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=4}"
-                                     Spacing="16">
-                    <Label Text="Lista de Operaciones" FontSize="20" FontAttributes="Bold"
-                           TextColor="{StaticResource ColorTextPrimary}"/>
-                    <Label Text="Verifica las operaciones realizadas:"
-                           Style="{StaticResource BodyText}"/>
-
-                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Operations}" Spacing="8">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Border StrokeShape="RoundRectangle 8"
-                                        Stroke="{StaticResource ColorBorderLight}"
-                                        StrokeThickness="1" Padding="12,8"
-                                        BackgroundColor="{StaticResource ColorSurface}">
-                                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                                        <CheckBox IsChecked="{Binding IsCompleted}"
-                                                  Color="{StaticResource ColorPrimary}"
-                                                  VerticalOptions="Center"/>
-                                        <Label Grid.Column="1"
-                                               Text="{Binding Name}"
-                                               VerticalOptions="Center"
-                                               FontSize="14"
-                                               TextColor="{StaticResource ColorTextPrimary}"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </VerticalStackLayout>
-                </VerticalStackLayout>
-
-                <!-- Step 5: Diagnosis -->
-                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=5}"
-                                     Spacing="16">
-                    <Label Text="Diagnóstico" FontSize="20" FontAttributes="Bold"
-                           TextColor="{StaticResource ColorTextPrimary}"/>
-                    <Label Text="Describe el diagnóstico realizado:"
-                           Style="{StaticResource BodyText}"/>
-
-                    <VerticalStackLayout Spacing="4">
-                        <Label Text="Código de diagnóstico" Style="{StaticResource CaptionText}"/>
-                        <Border StrokeShape="RoundRectangle 8"
-                                Stroke="{StaticResource ColorBorder}"
-                                StrokeThickness="1" Padding="12,0">
-                            <Entry Text="{Binding DiagnosisCode}"
-                                   Placeholder="ej: DGN-001"
-                                   TextColor="{StaticResource ColorTextPrimary}"
-                                   PlaceholderColor="{StaticResource Gray500}"/>
-                        </Border>
-                    </VerticalStackLayout>
-
-                    <VerticalStackLayout Spacing="4">
-                        <Label Text="Descripción" Style="{StaticResource CaptionText}"/>
-                        <Border StrokeShape="RoundRectangle 8"
-                                Stroke="{StaticResource ColorBorder}"
-                                StrokeThickness="1" Padding="12,4">
-                            <Editor Text="{Binding DiagnosisDescription}"
-                                    Placeholder="Describe el diagnóstico encontrado..."
-                                    HeightRequest="120"
-                                    TextColor="{StaticResource ColorTextPrimary}"
-                                    PlaceholderColor="{StaticResource Gray500}"/>
-                        </Border>
-                    </VerticalStackLayout>
-                </VerticalStackLayout>
-
-                <!-- Step 6: Next service planning -->
-                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=6}"
-                                     Spacing="16">
-                    <Label Text="Próximo Servicio" FontSize="20" FontAttributes="Bold"
-                           TextColor="{StaticResource ColorTextPrimary}"/>
-                    <Label Text="El sistema recalculará automáticamente el próximo mantenimiento según el kilometraje registrado."
-                           Style="{StaticResource BodyText}"/>
-
-                    <Border BackgroundColor="{StaticResource ColorInfoContainer}"
-                            StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="12">
-                        <Label Text="La recalendarización se realiza al cerrar la orden. El próximo kilometraje y tipo de servicio se asignarán automáticamente según el intervalo configurado del vehículo."
-                               FontSize="13" TextColor="{StaticResource ColorInfo}" LineBreakMode="WordWrap"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="4,0">
+                        <Picker ItemsSource="{Binding Technicians}"
+                                SelectedItem="{Binding SelectedTechnician}"
+                                ItemDisplayBinding="{Binding .}"
+                                Title="Seleccionar técnico..."
+                                Style="{StaticResource FormPicker}"/>
                     </Border>
 
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="Notas sobre el servicio" Style="{StaticResource CaptionText}"/>
+                        <Label Text="Nota para el mecánico (opcional):" Style="{StaticResource CaptionText}"/>
                         <Border StrokeShape="RoundRectangle 8"
                                 Stroke="{StaticResource ColorBorder}"
                                 StrokeThickness="1" Padding="12,4">
-                            <Editor Text="{Binding DiagnosisDescription}"
-                                    Placeholder="Describe el trabajo realizado, observaciones o recomendaciones..."
+                            <Editor Text="{Binding MechanicNote}"
+                                    Placeholder="ej: Revisar también el aire acondicionado..."
                                     HeightRequest="100"
                                     TextColor="{StaticResource ColorTextPrimary}"
                                     PlaceholderColor="{StaticResource Gray500}"/>
@@ -212,8 +107,8 @@
                     </VerticalStackLayout>
                 </VerticalStackLayout>
 
-                <!-- Step 7: Confirmation -->
-                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=7}"
+                <!-- Step 4: Confirmation -->
+                <VerticalStackLayout IsVisible="{Binding CurrentStep, Converter={StaticResource IntToBoolConverter}, ConverterParameter=4}"
                                      Spacing="16">
                     <Label Text="Confirmar y Guardar" FontSize="20" FontAttributes="Bold"
                            TextColor="{StaticResource ColorTextPrimary}"/>
@@ -235,13 +130,13 @@
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                             <Label Text="{Binding SelectedServiceType, StringFormat='Servicio: {0}'}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-                            <Label Text="{Binding DiagnosisCode, StringFormat='Diagnóstico: {0}'}"
+                            <Label Text="{Binding SelectedTechnician, StringFormat='Técnico: {0}'}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
 
                             <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
 
-                            <Label Text="Próximo servicio: se recalculará automáticamente"
-                                   Style="{StaticResource CaptionText}"/>
+                            <Label Text="Los materiales, operaciones y diagnóstico se registrarán en la página de detalle después de crear la orden."
+                                   Style="{StaticResource CaptionText}" LineBreakMode="WordWrap"/>
                         </VerticalStackLayout>
                     </Border>
 

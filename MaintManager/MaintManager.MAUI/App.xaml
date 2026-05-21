@@ -14,6 +14,7 @@
 
             <!-- ═══════════ COLORES BASE ENTERPRISE ═══════════ -->
             <Color x:Key="ColorPrimary">#1565C0</Color>
+            <Color x:Key="ColorSecondary">#0D47A1</Color>
             <Color x:Key="ColorPrimaryDark">#0D47A1</Color>
             <Color x:Key="ColorInfo">#1976D2</Color>
             <Color x:Key="ColorInfoContainer">#E3F2FD</Color>

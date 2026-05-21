@@ -44,7 +44,8 @@ public static class MaintenanceMappings
             Note: m.Note,
             Status: m.Statid,
             ActionDetails: m.ActionDetails.Select(d => d.ToResponse()).ToList(),
-            Diagnosis: m.Diagnosis?.ToResponse()
+            Diagnosis: m.Diagnosis?.ToResponse(),
+            Components: m.InstalledComponents.Select(c => c.ToResponse()).ToList()
         );
 
     public static ActionDetailResponse ToResponse(this MaintenanceActionDetail d) =>
@@ -68,5 +69,17 @@ public static class MaintenanceMappings
             Observations: d.Observations,
             FutureRecommendations: d.FutureRecommendations,
             CreatedAt: d.CreatedAt
+        );
+
+    public static ComponentResponse ToResponse(this InstalledComponent c) =>
+        new(
+            Incoid: c.Incoid,
+            ComponentName: c.ActionCatalog?.Name ?? string.Empty,
+            Category: c.ActionCatalog?.Category,
+            InstallationDate: c.InstallationDate,
+            InstallationKm: c.InstallationKm,
+            ExpirationDate: c.ExpirationDate,
+            Active: c.Active,
+            UsefulLifeDays: c.ActionCatalog?.UsefulLifeDays
         );
 }

@@ -33,6 +33,7 @@ public sealed class MaintenanceService : IMaintenanceService
         int? kmSinceLast = lastMaintenance is not null
             ? mileage - lastMaintenance.Mileage
             : null;
+        if (kmSinceLast < 0) kmSinceLast = null;
 
         var maintenance = Maintenance.Create(
             prcoid, matyid, mileage, assignedTo, registeredBy,

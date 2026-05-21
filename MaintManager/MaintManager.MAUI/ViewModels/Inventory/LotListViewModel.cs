@@ -51,6 +51,36 @@ public partial class LotListViewModel : BaseViewModel, IQueryAttributable
         });
     }
 
+    [RelayCommand]
+    private async Task DiscardLot(LotItem lot)
+    {
+        var confirm = await Shell.Current.DisplayAlert("Descartar lote",
+            $"¿Descartar \"{lot.LotNumberDisplay}\"?\n" +
+            $"Cantidad: {lot.CurrentQuantity:N1}\n" +
+            "Se marcará como descartado y no se podrá consumir.",
+            "Sí, descartar", "Cancelar");
+        if (!confirm) return;
+
+        var reason = await Shell.Current.DisplayPromptAsync(
+            "Motivo del descarte",
+            "Indica por qué se descarta este lote:",
+            "Confirmar", "Cancelar",
+            placeholder: "ej: Vencido, dañado, contaminado...");
+        if (string.IsNullOrWhiteSpace(reason)) return;
+
+        await ExecuteAsync(async () =>
+        {
+            var endpoint = ApiRoutes.Inventory.DiscardLot.Replace("{lotId}", lot.Maloid.ToString());
+            await _apiService.PostAsync<object>(endpoint, new
+            {
+                Quantity = lot.CurrentQuantity,
+                Reason = reason,
+                Note = (string?)null
+            });
+            await Load();
+        });
+    }
+
     public class ApiResponse<T>
     {
         public bool Success { get; set; }
@@ -85,4 +115,5 @@ public class LotItem
     public string CostDisplay => $"S/ {UnitCost:N2}";
     public string QuantityDisplay => $"{CurrentQuantity:N1} / {InitialQuantity:N1}";
     public string LotNumberDisplay => string.IsNullOrEmpty(SupplierLotNumber) ? "S/N" : SupplierLotNumber;
+    public bool CanDiscard => LotStatus == "activo";
 }
