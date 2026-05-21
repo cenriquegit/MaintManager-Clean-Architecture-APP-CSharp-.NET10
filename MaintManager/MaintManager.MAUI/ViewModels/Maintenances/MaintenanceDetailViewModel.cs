@@ -4,6 +4,7 @@ using MaintManager.MAUI.Services;
 using MaintManager.Shared.Constants;
 using MaintManager.Shared.Models;
 using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace MaintManager.MAUI.ViewModels.Maintenances;
 
@@ -93,7 +94,8 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         await ExecuteAsync(async () =>
         {
             var endpoint = ApiRoutes.Maintenances.GetById.Replace("{id}", _mainid.ToString());
-            var detail = await _apiService.GetAsync<MaintenanceDetailResponse>(endpoint);
+            var raw = await _apiService.GetAsync<ApiResponse<MaintenanceDetailResponse>>(endpoint);
+            var detail = raw?.Data;
             if (detail is not null)
             {
                 MaintenanceDetail = detail;
@@ -335,7 +337,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         await ExecuteAsync(async () =>
         {
             var endpoint = ApiRoutes.Maintenances.Close.Replace("{id}", _mainid.ToString());
-            await _apiService.PutAsync<object>(endpoint);
+            await _apiService.PutAsync<object>(endpoint, new { });
             await Shell.Current.GoToAsync("..");
         });
     }
@@ -418,7 +420,10 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             "CA" => "Cancelado",
             _ => Status
         };
-        public OilInfo? OilInfo { get; set; }
+        public string? OilBrand { get; set; }
+        public string? OilViscositySae { get; set; }
+        public bool ShowOilInNextMaintenance { get; set; }
+        [JsonPropertyName("actionDetails")]
         public List<ActionDetailItem>? Actions { get; set; }
         public DiagnosisResponse? Diagnosis { get; set; }
         public List<ComponentItem>? Components { get; set; }
@@ -430,14 +435,6 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsCompleted { get; set; }
-    }
-
-    public class OilInfo
-    {
-        public string OilBrand { get; set; } = string.Empty;
-        public string OilViscosity { get; set; } = string.Empty;
-        public decimal OilQuantity { get; set; }
-        public int OilFilterChanged { get; set; }
     }
 
     public class ComponentItem

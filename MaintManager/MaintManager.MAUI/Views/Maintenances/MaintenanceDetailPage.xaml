@@ -166,13 +166,13 @@
 
                         <VerticalStackLayout IsVisible="{Binding IsOilInfoExpanded}" Spacing="8">
                             <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
-                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilBrand, StringFormat='Marca: {0}'}"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilViscosity, StringFormat='Viscosidad: {0}'}"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilQuantity, StringFormat='Cantidad: {0} L'}"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                            <Label Text="{Binding MaintenanceDetail.OilInfo.OilFilterChanged, StringFormat='Cambio de filtro: {0}'}"
+                            <Label Text="{Binding MaintenanceDetail.OilBrand, StringFormat='Marca: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"
+                                   IsVisible="{Binding MaintenanceDetail.OilBrand, Converter={StaticResource IsNotNullConverter}}"/>
+                            <Label Text="{Binding MaintenanceDetail.OilViscositySae, StringFormat='Viscosidad: {0}'}"
+                                   TextColor="{StaticResource ColorTextPrimary}"
+                                   IsVisible="{Binding MaintenanceDetail.OilViscositySae, Converter={StaticResource IsNotNullConverter}}"/>
+                            <Label Text="{Binding MaintenanceDetail.ShowOilInNextMaintenance, StringFormat='Mostrar en próximo mantenimiento: {0}'}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
