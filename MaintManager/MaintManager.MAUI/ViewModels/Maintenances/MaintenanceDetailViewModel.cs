@@ -22,6 +22,13 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [ObservableProperty]
     private MaintenanceDetailResponse? _maintenanceDetail;
 
+    partial void OnMaintenanceDetailChanged(MaintenanceDetailResponse? value)
+    {
+        OnPropertyChanged(nameof(IsReadOnly));
+    }
+
+    public bool IsReadOnly => MaintenanceDetail?.Status == "FI";
+
     [ObservableProperty]
     private ObservableCollection<ActionDetailItem> _actionDetails = new();
 
@@ -39,6 +46,50 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
 
     [ObservableProperty]
     private string _diagnosisObservations = string.Empty;
+
+    // ── Action catalog for Add Action picker ────────────────────
+    [ObservableProperty]
+    private ObservableCollection<ActionCatalogOption> _actionCatalogItems = new();
+
+    [ObservableProperty]
+    private ActionCatalogOption? _selectedActionCatalog;
+
+    [RelayCommand]
+    private void AddAction()
+    {
+        if (SelectedActionCatalog is null) return;
+        ActionDetails.Add(new ActionDetailItem
+        {
+            ActionId = SelectedActionCatalog.Acatid,
+            Name = SelectedActionCatalog.Name,
+            Description = SelectedActionCatalog.Category ?? string.Empty,
+            IsCompleted = false
+        });
+        SelectedActionCatalog = null;
+    }
+
+    [RelayCommand]
+    private void RemoveAction(ActionDetailItem action)
+    {
+        ActionDetails.Remove(action);
+    }
+
+    // ── Consumed materials local list ─────────────────────────
+    [ObservableProperty]
+    private ObservableCollection<ConsumedMaterialItem> _consumedMaterials = new();
+
+    [RelayCommand]
+    private void RemoveConsumedMaterial(ConsumedMaterialItem item)
+    {
+        ConsumedMaterials.Remove(item);
+    }
+
+    // ── Remove component locally ──────────────────────────────
+    [RelayCommand]
+    private void RemoveComponentLocal(ComponentItem component)
+    {
+        Components.Remove(component);
+    }
 
     [RelayCommand]
     private void ToggleOilInfo()
@@ -145,7 +196,12 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(
                 ApiRoutes.Maintenances.ActionCatalog);
             if (raw?.Success == true && raw.Data is not null)
-                ComponentActions = new ObservableCollection<ActionCatalogOption>(raw.Data);
+            {
+                ComponentActions = new ObservableCollection<ActionCatalogOption>(
+                    raw.Data.Where(a => a.Category is not null && a.Category.Contains("Componente")));
+                ActionCatalogItems = new ObservableCollection<ActionCatalogOption>(
+                    raw.Data.Where(a => a.Category is not null && a.Category.Contains("Acción")));
+            }
         }
         catch { }
     }
@@ -290,6 +346,14 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             var endpoint = ApiRoutes.Maintenances.ConsumeMaterial.Replace("{id}", _mainid.ToString());
             await _apiService.PostAsync<object>(endpoint, request);
 
+            ConsumedMaterials.Add(new ConsumedMaterialItem
+            {
+                MaterialName = nameConsumed,
+                LotNumber = LotNumberDisplay,
+                UnitCost = decimal.TryParse(LotCostDisplay.Replace("S/ ", ""), out var c) ? c : 0,
+                Quantity = qty
+            });
+
             ConsumeQuantity = string.Empty;
             SelectedMaterial = null;
             await Load();
@@ -412,6 +476,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public int Mileage { get; set; }
         public string AssignedToName { get; set; } = string.Empty;
         public string RegisteredByName { get; set; } = string.Empty;
+        public string OriginService { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
         public string StatusName => Status switch
         {
@@ -450,10 +515,11 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
 
     public class DiagnosisResponse
     {
-        public string Code { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string RecommendedAction { get; set; } = string.Empty;
-        public string Severity { get; set; } = string.Empty;
+        public string GeneralStatus { get; set; } = string.Empty;
+        public bool VehicleOperative { get; set; }
+        public string? Observations { get; set; }
+        public string? FutureRecommendations { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 
     public sealed class TechnicianOption
@@ -488,5 +554,16 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public string Name { get; set; } = string.Empty;
         public string? Category { get; set; }
         public override string ToString() => Name;
+    }
+
+    public class ConsumedMaterialItem
+    {
+        public string MaterialName { get; set; } = string.Empty;
+        public string LotNumber { get; set; } = string.Empty;
+        public decimal UnitCost { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal TotalCost => UnitCost * Quantity;
+        public int Rating { get; set; }
+        public override string ToString() => $"{MaterialName} ({LotNumber})";
     }
 }
