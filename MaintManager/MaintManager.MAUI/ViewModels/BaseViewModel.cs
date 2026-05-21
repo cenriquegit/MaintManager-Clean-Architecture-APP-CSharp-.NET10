@@ -11,6 +11,11 @@ public abstract partial class BaseViewModel : ObservableObject
     [ObservableProperty]
     private bool _isLoading;
 
+    partial void OnIsLoadingChanged(bool value)
+    {
+        OnPropertyChanged(nameof(IsInitialLoading));
+    }
+
     [ObservableProperty]
     private bool _hasError;
 
@@ -20,10 +25,18 @@ public abstract partial class BaseViewModel : ObservableObject
     [ObservableProperty]
     private bool _isEmpty = true;
 
+    partial void OnIsEmptyChanged(bool value)
+    {
+        OnPropertyChanged(nameof(IsInitialLoading));
+    }
+
     [ObservableProperty]
     private string _title = string.Empty;
 
     public bool IsSuccess => !IsBusy && !HasError && !IsEmpty;
+
+    /// <summary>Indica si es la carga inicial de la página (datos vacíos + cargando).</summary>
+    public bool IsInitialLoading => IsLoading && IsEmpty;
 
     protected async Task ExecuteAsync(Func<Task> operation)
     {
@@ -35,6 +48,9 @@ public abstract partial class BaseViewModel : ObservableObject
             HasError = false;
             IsEmpty = false;
             ErrorMessage = string.Empty;
+
+            // Notify IsInitialLoading changed
+            OnPropertyChanged(nameof(IsInitialLoading));
 
             var timeoutTask = Task.Delay(30000);
             var opTask = operation();

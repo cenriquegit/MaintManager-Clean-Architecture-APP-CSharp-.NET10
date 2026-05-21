@@ -106,6 +106,45 @@
                     </VerticalStackLayout>
                 </Border>
 
+                <!-- Sección: Parámetros del sistema -->
+                <Border Style="{StaticResource Card}"
+                        IsVisible="{Binding ConfigLoaded}">
+                    <VerticalStackLayout Spacing="12" Padding="16">
+
+                        <Label Text="Parámetros del Sistema"
+                               FontSize="18" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+
+                        <BoxView HeightRequest="1"
+                                 BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                        <Label Text="Intervalo entre mantenimientos (km)"
+                               Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,0">
+                            <Entry Text="{Binding IntervalKm}"
+                                   Keyboard="Numeric"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                        </Border>
+
+                        <Label Text="Umbral de alerta de km próximo"
+                               Style="{StaticResource CaptionText}"/>
+                        <Border StrokeShape="RoundRectangle 8"
+                                Stroke="{StaticResource ColorBorder}"
+                                StrokeThickness="1" Padding="12,0">
+                            <Entry Text="{Binding AlertKmThreshold}"
+                                   Keyboard="Numeric"
+                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                        </Border>
+
+                        <Button Text="Guardar parámetros"
+                                Command="{Binding SaveConfigCommand}"
+                                Style="{StaticResource AccentButton}"
+                                HorizontalOptions="Fill"/>
+                    </VerticalStackLayout>
+                </Border>
+
                 <!-- Sección: Tema (Placeholder) -->
                 <Border Style="{StaticResource Card}">
                     <VerticalStackLayout Spacing="12" Padding="16">

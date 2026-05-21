@@ -1,8 +1,8 @@
-<api type="release" assembly-name="MaintManager.MAUI" mvid="791b87f1c4034a0da5e94955708340a1">
-  <module assembly-name="MaintManager.MAUI" mvid="791b87f1c4034a0da5e94955708340a1" mvid-bytes="8YcbeQPEDUql6UlVcINAoQ==">
+<api type="release" assembly-name="MaintManager.MAUI" mvid="9cf9813b8e6f40af9e7dc63a079b982f">
+  <module assembly-name="MaintManager.MAUI" mvid="9cf9813b8e6f40af9e7dc63a079b982f" mvid-bytes="O4H5nG+Or0CefcY6B5uYLw==">
     <types-scratch>
-      <entry key="crc64204ed1a538c1176e/MainActivity" java-name="crc64204ed1a538c1176e/MainActivity" managed-type-name="MaintManager.MAUI.MainActivity" token="33554451" />
-      <entry key="crc64204ed1a538c1176e/MainApplication" java-name="crc64204ed1a538c1176e/MainApplication" managed-type-name="MaintManager.MAUI.MainApplication" token="33554452" />
+      <entry key="crc64204ed1a538c1176e/MainActivity" java-name="crc64204ed1a538c1176e/MainActivity" managed-type-name="MaintManager.MAUI.MainActivity" token="33554455" />
+      <entry key="crc64204ed1a538c1176e/MainApplication" java-name="crc64204ed1a538c1176e/MainApplication" managed-type-name="MaintManager.MAUI.MainApplication" token="33554456" />
     </types-scratch>
   </module>
 </api>

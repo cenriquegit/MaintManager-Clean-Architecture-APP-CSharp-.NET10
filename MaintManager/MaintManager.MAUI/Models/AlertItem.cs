@@ -9,5 +9,5 @@ public partial class AlertItem
     public string? LicensePlate { get; set; }
     public string? MaterialName { get; set; }
     public bool IsRead { get; set; }
-    public bool Resolved { get; set; }
+    public bool IsResolved { get; set; }
 }

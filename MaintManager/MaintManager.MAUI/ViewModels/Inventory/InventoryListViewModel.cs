@@ -72,6 +72,21 @@ public partial class InventoryListViewModel : BaseViewModel
         catch { try { await Shell.Current.GoToAsync("CreateLot"); } catch { } }
     }
 
+    [RelayCommand]
+    private async Task ViewLots(MaterialItem material)
+    {
+        if (material is null) return;
+        Shell.Current.FlyoutIsPresented = false;
+        await Task.Delay(200);
+
+        var parameters = new Dictionary<string, object>
+        {
+            { "mateid", material.Mateid },
+            { "name", material.Name }
+        };
+        await Shell.Current.GoToAsync("Inventory/LotList", parameters);
+    }
+
     public class ApiResponse<T>
     {
         public bool Success { get; set; }

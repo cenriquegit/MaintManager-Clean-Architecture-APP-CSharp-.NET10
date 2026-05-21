@@ -241,37 +241,37 @@
                           ColumnDefinitions="*,*"
                           RowSpacing="10">
                         <Label Grid.Row="0" Grid.Column="0"
-                               Text="Programados"
-                               Style="{StaticResource CaptionText}"/>
+                                Text="Programados"
+                                Style="{StaticResource CaptionText}"/>
                         <Label Grid.Row="0" Grid.Column="1"
-                               Text="0"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource ColorInfo}"
-                               HorizontalTextAlignment="End"/>
+                                Text="{Binding ScheduledCount}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource ColorInfo}"
+                                HorizontalTextAlignment="End"/>
                         <Label Grid.Row="1" Grid.Column="0"
-                               Text="En Progreso"
-                               Style="{StaticResource CaptionText}"/>
+                                Text="En Progreso"
+                                Style="{StaticResource CaptionText}"/>
                         <Label Grid.Row="1" Grid.Column="1"
-                               Text="0"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource ColorWarning}"
-                               HorizontalTextAlignment="End"/>
+                                Text="{Binding InProgressCount}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource ColorWarning}"
+                                HorizontalTextAlignment="End"/>
                         <Label Grid.Row="2" Grid.Column="0"
-                               Text="Completados (este mes)"
-                               Style="{StaticResource CaptionText}"/>
+                                Text="Completados (este mes)"
+                                Style="{StaticResource CaptionText}"/>
                         <Label Grid.Row="2" Grid.Column="1"
-                               Text="0"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource ColorSuccess}"
-                               HorizontalTextAlignment="End"/>
+                                Text="{Binding CompletedThisMonth}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource ColorSuccess}"
+                                HorizontalTextAlignment="End"/>
                         <Label Grid.Row="3" Grid.Column="0"
-                               Text="Emergencia"
-                               Style="{StaticResource CaptionText}"/>
+                                Text="Emergencia"
+                                Style="{StaticResource CaptionText}"/>
                         <Label Grid.Row="3" Grid.Column="1"
-                               Text="0"
-                               FontAttributes="Bold"
-                               TextColor="{StaticResource ColorError}"
-                               HorizontalTextAlignment="End"/>
+                                Text="{Binding EmergencyThisMonth}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource ColorError}"
+                                HorizontalTextAlignment="End"/>
                     </Grid>
                 </Border>
 

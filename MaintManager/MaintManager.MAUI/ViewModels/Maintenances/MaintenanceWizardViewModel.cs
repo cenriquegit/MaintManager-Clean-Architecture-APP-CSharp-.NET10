@@ -45,8 +45,56 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
     [ObservableProperty]
     private VehicleOption? _selectedVehicle;
 
+    partial void OnSelectedVehicleChanged(VehicleOption? value)
+    {
+        if (value is not null)
+        {
+            _ = LoadVehicleCurrentKmAsync(value);
+        }
+        else
+        {
+            VehicleLastKm = 0;
+            OnPropertyChanged(nameof(ShowMileageWarning));
+            OnPropertyChanged(nameof(MileageWarning));
+        }
+    }
+
+    private async Task LoadVehicleCurrentKmAsync(VehicleOption vehicle)
+    {
+        try
+        {
+            var endpoint = ApiRoutes.Vehicles.GetCurrentKm.Replace("{id}", vehicle.VehicleId.ToString());
+            var response = await _apiService.GetAsync<ApiResponse<int>>(endpoint);
+            VehicleLastKm = response?.Data ?? vehicle.CurrentKm;
+        }
+        catch
+        {
+            VehicleLastKm = vehicle.CurrentKm;
+        }
+        OnPropertyChanged(nameof(ShowMileageWarning));
+        OnPropertyChanged(nameof(MileageWarning));
+    }
+
     [ObservableProperty]
     private string _mileageText = string.Empty;
+
+    partial void OnMileageTextChanged(string value)
+    {
+        OnPropertyChanged(nameof(ShowMileageWarning));
+        OnPropertyChanged(nameof(MileageWarning));
+    }
+
+    public int VehicleLastKm { get; private set; }
+
+    public bool ShowMileageWarning =>
+        SelectedVehicle is not null
+        && int.TryParse(MileageText, out var km)
+        && km > 0
+        && km < VehicleLastKm;
+
+    public string MileageWarning => ShowMileageWarning
+        ? $"⚠ El kilometraje ingresado ({MileageText} km) es menor al último registrado ({VehicleLastKm} km). Verifica."
+        : string.Empty;
 
     // Step 2: Service type selection
     [ObservableProperty]
@@ -94,6 +142,13 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         public string? Message { get; set; }
     }
 
+    private sealed class ApiCreateResponse
+    {
+        public bool Success { get; set; }
+        public int Data { get; set; }
+        public string? Message { get; set; }
+    }
+
     [RelayCommand]
     private async Task LoadVehicles()
     {
@@ -108,6 +163,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
                         VehicleId = v.Prcoid,
                         LicensePlate = v.LicensePlate,
                         Name = v.VehicleName,
+                        CurrentKm = v.CurrentKm,
                     }));
             }
             else
@@ -176,8 +232,12 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
                 OriginService: "Taller propio"
             );
 
-            await _apiService.PostAsync<object>(ApiRoutes.Maintenances.Create, request);
-            await Shell.Current.GoToAsync("..");
+            var response = await _apiService.PostAsync<ApiCreateResponse>(ApiRoutes.Maintenances.Create, request);
+            var mainid = response?.Data ?? 0;
+            if (mainid > 0)
+                await Shell.Current.GoToAsync($"Maintenances/Detail?mainid={mainid}");
+            else
+                await Shell.Current.GoToAsync("..");
         }
         catch (Exception)
         {
@@ -195,6 +255,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         public int VehicleId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string LicensePlate { get; set; } = string.Empty;
+        public int CurrentKm { get; set; }
         public override string ToString() => $"{Name} - {LicensePlate}";
     }
 

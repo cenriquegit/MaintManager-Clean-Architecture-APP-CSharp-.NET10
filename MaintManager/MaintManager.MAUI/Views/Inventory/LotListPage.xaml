@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
+    x:Class="MaintManager.MAUI.Views.Inventory.LotListPage"
+    x:DataType="vm:LotListViewModel"
+    Title="Lotes"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <Grid>
+
+        <!-- LOADING -->
+        <VerticalStackLayout IsVisible="{Binding IsInitialLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+            <Label Text="Cargando lotes..." Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- ERROR -->
+        <VerticalStackLayout IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
+                   TextColor="{StaticResource ColorError}"/>
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
+                   HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+            <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                    Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- EMPTY -->
+        <VerticalStackLayout IsVisible="{Binding IsEmpty}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="📦" FontSize="48" HorizontalOptions="Center"/>
+            <Label Text="Este material no tiene lotes registrados."
+                   Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- SUCCESS -->
+        <ScrollView IsVisible="{Binding IsSuccess}">
+            <VerticalStackLayout Spacing="12" Padding="16,8,16,24">
+
+                <!-- Material name header -->
+                <Label Text="{Binding MaterialName}"
+                       FontSize="20" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorTextPrimary}"/>
+
+                <Label Text="Lotes en inventario (FIFO por vencimiento)"
+                       Style="{StaticResource CaptionText}" Margin="0,0,0,4"/>
+
+                <CollectionView ItemsSource="{Binding Lots}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:LotItem">
+                            <Border Style="{StaticResource Card}" Margin="0,0,0,8">
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                                      ColumnDefinitions="*,Auto" RowSpacing="6">
+
+                                    <!-- Header: lote + estado -->
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           FontSize="14" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Lote "/>
+                                                <Span Text="{Binding LotNumberDisplay}"
+                                                      FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding StatusDisplay}"
+                                           FontSize="12" FontAttributes="Bold"
+                                           VerticalOptions="Center"/>
+
+                                    <BoxView Grid.Row="1" Grid.ColumnSpan="2"
+                                             HeightRequest="1"
+                                             BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                                    <!-- Fechas -->
+                                    <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2"
+                                                            Spacing="20">
+                                        <VerticalStackLayout Spacing="0">
+                                            <Label Text="Ingreso" Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding EntryDateDisplay}"
+                                                   FontSize="14" TextColor="{StaticResource ColorTextPrimary}"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Spacing="0">
+                                            <Label Text="Vencimiento" Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding ExpirationDisplay}"
+                                                   FontSize="14" TextColor="{StaticResource ColorTextPrimary}"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Cantidad + costo -->
+                                    <HorizontalStackLayout Grid.Row="3" Grid.ColumnSpan="2"
+                                                            Spacing="20">
+                                        <VerticalStackLayout Spacing="0">
+                                            <Label Text="Cantidad" Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding QuantityDisplay}"
+                                                   FontSize="14" FontAttributes="Bold"
+                                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Spacing="0">
+                                            <Label Text="Costo unitario" Style="{StaticResource CaptionText}"/>
+                                            <Label Text="{Binding CostDisplay}"
+                                                   FontSize="14" FontAttributes="Bold"
+                                                   TextColor="{StaticResource ColorPrimary}"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

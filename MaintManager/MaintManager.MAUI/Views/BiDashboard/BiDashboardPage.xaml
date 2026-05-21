@@ -11,8 +11,8 @@
     <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsLoading}">
         <Grid>
 
-            <!-- LOADING -->
-            <VerticalStackLayout IsVisible="{Binding IsLoading}"
+            <!-- LOADING (primera carga) -->
+            <VerticalStackLayout IsVisible="{Binding IsInitialLoading}"
                                  HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
                 <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
                 <Label Text="Cargando dashboard..." Style="{StaticResource BodyText}"

@@ -36,9 +36,9 @@
                     WidthRequest="160"/>
         </HorizontalStackLayout>
 
-        <!-- Overlay: LOADING (fuera del RefreshView) -->
+        <!-- Overlay: LOADING (primera carga) -->
         <VerticalStackLayout Grid.Row="2"
-                             IsVisible="{Binding IsLoading}"
+                             IsVisible="{Binding IsInitialLoading}"
                              HorizontalOptions="Center" VerticalOptions="Center" Spacing="12"
                              BackgroundColor="{StaticResource ColorBackground}"
                              ZIndex="10">
@@ -122,7 +122,7 @@
                                             StrokeShape="RoundRectangle 99"
                                             Padding="8,3"
                                             BackgroundColor="{StaticResource ColorInfoContainer}">
-                                        <Label Text="{Binding Status}"
+                                        <Label Text="{Binding StatusName}"
                                                FontSize="11" FontAttributes="Bold"
                                                TextColor="{StaticResource ColorInfo}"/>
                                     </Border>

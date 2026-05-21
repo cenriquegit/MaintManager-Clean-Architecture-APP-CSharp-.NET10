@@ -48,6 +48,13 @@
                                    TextColor="{StaticResource ColorTextPrimary}"
                                    PlaceholderColor="{StaticResource Gray500}"/>
                         </Border>
+                        <Label Text="{Binding MileageWarning}"
+                               IsVisible="{Binding ShowMileageWarning}"
+                               FontSize="12" TextColor="{StaticResource ColorError}"
+                               Margin="0,4,0,0" LineBreakMode="WordWrap"/>
+                        <Label Text="{Binding VehicleLastKm, StringFormat='Último km registrado: {0} km'}"
+                               IsVisible="{Binding SelectedVehicle, Converter={StaticResource IsNotNullConverter}}"
+                               FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
                     </VerticalStackLayout>
                 </VerticalStackLayout>
 

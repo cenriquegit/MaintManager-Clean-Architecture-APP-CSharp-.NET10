@@ -40,7 +40,16 @@ public partial class MaintenanceListViewModel : BaseViewModel
     {
         await ExecuteAsync(async () =>
         {
-            var response = await _apiService.GetAsync<ApiResponse<PagedResult<MaintenanceListItemDto>>>(ApiRoutes.Maintenances.GetAll + "?page=1&pageSize=50");
+            var statusFilter = SelectedFilter switch
+            {
+                "Pendientes" => "AC",
+                "En progreso" => "AC",
+                "Completadas" => "FI",
+                "Canceladas" => "CA",
+                _ => ""
+            };
+            var url = $"{ApiRoutes.Maintenances.GetAll}?page=1&pageSize=50&status={statusFilter}";
+            var response = await _apiService.GetAsync<ApiResponse<PagedResult<MaintenanceListItemDto>>>(url);
             var items = response?.Data?.Items?.ToList() ?? new List<MaintenanceListItemDto>();
 
             if (!string.IsNullOrWhiteSpace(SearchText))
@@ -48,11 +57,6 @@ public partial class MaintenanceListViewModel : BaseViewModel
                 items = items.Where(m =>
                     (m.VehicleName?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false) ||
                     (m.LicensePlate?.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ?? false)).ToList();
-            }
-
-            if (!string.IsNullOrWhiteSpace(SelectedFilter) && SelectedFilter != "Todas")
-            {
-                items = items.Where(m => m.Status.Equals(SelectedFilter, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             Maintenances = new ObservableCollection<MaintenanceItem>(
@@ -104,5 +108,12 @@ public partial class MaintenanceListViewModel : BaseViewModel
         public int Mileage { get; set; }
         public string AssignedToName { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
+        public string StatusName => Status switch
+        {
+            "AC" => "Activo",
+            "FI" => "Finalizado",
+            "CA" => "Cancelado",
+            _ => Status
+        };
     }
 }

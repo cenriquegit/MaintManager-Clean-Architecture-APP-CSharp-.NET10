@@ -10,10 +10,12 @@ namespace MaintManager.MAUI.ViewModels.Alerts;
 public partial class AlertListViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private readonly AuthService _authService;
 
-    public AlertListViewModel(ApiService apiService)
+    public AlertListViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
+        _authService = authService;
         Title = "Alertas";
     }
 
@@ -21,13 +23,14 @@ public partial class AlertListViewModel : BaseViewModel
     private ObservableCollection<AlertItem> _alerts = new();
 
     [ObservableProperty]
-    private bool _isAdmin; // Se debe setear después del login según el rol
+    private bool _isAdmin;
 
     [RelayCommand]
     private async Task Load()
     {
         await ExecuteAsync(async () =>
         {
+            IsAdmin = _authService.IsAdmin();
             var response = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetUnresolved);
             if (response?.Success == true)
             {
@@ -52,10 +55,21 @@ public partial class AlertListViewModel : BaseViewModel
     [RelayCommand]
     private async Task Resolve(AlertItem alert)
     {
-        if (alert.Resolved) return;
+        if (alert.IsResolved) return;
         await _apiService.PutAsync<object>($"{ApiRoutes.Alerts.Resolve.Replace("{id}", alert.Alloid.ToString())}");
         Alerts.Remove(alert);
         IsEmpty = Alerts.Count == 0;
+    }
+
+    [RelayCommand]
+    private async Task CheckAlerts()
+    {
+        await ExecuteAsync(async () =>
+        {
+            await _apiService.PostAsync<object>(ApiRoutes.Alerts.Check);
+            IsEmpty = false;
+            await Load();
+        });
     }
 
     public class ApiResponse<T>

@@ -29,6 +29,18 @@ public partial class HomeViewModel : BaseViewModel
     ];
 
     [ObservableProperty]
+    private int _scheduledCount;
+
+    [ObservableProperty]
+    private int _inProgressCount;
+
+    [ObservableProperty]
+    private int _completedThisMonth;
+
+    [ObservableProperty]
+    private int _emergencyThisMonth;
+
+    [ObservableProperty]
     private ObservableCollection<QuickAction> _quickActions = new();
 
     [RelayCommand]
@@ -62,6 +74,18 @@ public partial class HomeViewModel : BaseViewModel
                 IsEmpty = false;
                 ErrorMessage = "No se pudieron cargar los datos del Dashboard.";
                 return;
+            }
+
+            // Cargar estadísticas de mantenimientos
+            var statsResponse = await _apiService.GetAsync<ApiResponse<MaintenanceStats>>(
+                $"{ApiRoutes.Maintenances.Base}/stats");
+            if (statsResponse?.Success == true && statsResponse.Data is not null)
+            {
+                var stats = statsResponse.Data;
+                ScheduledCount = stats.Scheduled;
+                InProgressCount = stats.InProgress;
+                CompletedThisMonth = stats.CompletedThisMonth;
+                EmergencyThisMonth = stats.EmergencyThisMonth;
             }
 
             Vehicles =
@@ -155,5 +179,13 @@ public partial class HomeViewModel : BaseViewModel
         public bool Success { get; set; }
         public T? Data { get; set; }
         public string? Message { get; set; }
+    }
+
+    public class MaintenanceStats
+    {
+        public int Scheduled { get; set; }
+        public int InProgress { get; set; }
+        public int CompletedThisMonth { get; set; }
+        public int EmergencyThisMonth { get; set; }
     }
 }

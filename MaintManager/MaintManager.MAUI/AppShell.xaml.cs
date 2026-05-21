@@ -9,6 +9,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("Maintenances/Detail", typeof(Views.Maintenances.MaintenanceDetailPage));
         Routing.RegisterRoute("Maintenances/Create", typeof(Views.Maintenances.MaintenanceWizardPage));
         Routing.RegisterRoute("Inventory/CreateLot", typeof(Views.Inventory.LotCreatePage));
+        Routing.RegisterRoute("Inventory/LotList", typeof(Views.Inventory.LotListPage));
     }
 
     private async void OnFlyoutItemTapped(object? sender, TappedEventArgs e)

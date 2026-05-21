@@ -115,10 +115,8 @@ public partial class CalendarViewModel : BaseViewModel
             {
                 var typeMap = FilterByType switch
                 {
-                    1 => "Preventivo",
-                    2 => "Correctivo",
-                    3 => "Emergencia",
-                    4 => "Programado",
+                    1 => "Calendarizado",
+                    2 => "Emergencia",
                     _ => null,
                 };
                 if (typeMap is not null)
@@ -126,7 +124,16 @@ public partial class CalendarViewModel : BaseViewModel
             }
 
             if (!string.IsNullOrWhiteSpace(FilterByStatus))
-                filtered = filtered.Where(m => m.Status == FilterByStatus);
+            {
+                var statusCode = FilterByStatus switch
+                {
+                    "Programado" or "En Progreso" or "Pendiente" => "AC",
+                    "Completado" => "FI",
+                    _ => null
+                };
+                if (statusCode is not null)
+                    filtered = filtered.Where(m => m.Status == statusCode);
+            }
 
             Maintenances = new ObservableCollection<MaintenanceCalendarItem>(filtered);
             IsEmpty = Maintenances.Count == 0;

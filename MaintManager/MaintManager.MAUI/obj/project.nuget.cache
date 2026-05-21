@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vJjU79qSSzc=",
+  "dgSpecHash": "RRgVBO7tO7w=",
   "success": true,
   "projectFilePath": "C:\\Users\\carlo\\Desktop\\proyect\\MaintManager\\MaintManager.MAUI\\MaintManager.MAUI.csproj",
   "expectedPackageFiles": [
@@ -152,10 +152,7 @@
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.netcore.app.ref\\10.0.6\\microsoft.netcore.app.ref.10.0.6.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.netcore.app.ref\\10.0.6\\microsoft.netcore.app.ref.10.0.6.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.netcore.app.ref\\10.0.6\\microsoft.netcore.app.ref.10.0.6.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\10.0.3\\microsoft.netcore.app.runtime.win-x64.10.0.3.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.netcore.app.runtime.android-arm64\\10.0.3\\microsoft.netcore.app.runtime.android-arm64.10.0.3.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\10.0.3\\microsoft.windowsdesktop.app.runtime.win-x64.10.0.3.nupkg.sha512",
-    "C:\\Users\\carlo\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\10.0.3\\microsoft.aspnetcore.app.runtime.win-x64.10.0.3.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\10.0.3\\microsoft.netcore.app.crossgen2.win-x64.10.0.3.nupkg.sha512",
     "C:\\Users\\carlo\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.57\\microsoft.windows.sdk.net.ref.10.0.19041.57.nupkg.sha512"
   ],

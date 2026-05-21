@@ -11,10 +11,20 @@
     BackgroundColor="{StaticResource ColorBackground}">
 
     <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsLoading}">
-        <Grid>
+        <Grid RowDefinitions="Auto,*">
 
-            <!-- LOADING -->
-            <VerticalStackLayout IsVisible="{Binding IsLoading}"
+            <!-- Check alerts button -->
+            <Button Grid.Row="0"
+                    Text="Verificar alertas ahora"
+                    Command="{Binding CheckAlertsCommand}"
+                    Style="{StaticResource AccentButton}"
+                    Margin="16,8" HeightRequest="40" FontSize="13"
+                    HorizontalOptions="Fill"/>
+
+            <Grid Grid.Row="1">
+
+            <!-- LOADING (first load only) -->
+            <VerticalStackLayout IsVisible="{Binding IsInitialLoading}"
                                  HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
                 <ActivityIndicator IsRunning="True"/>
                 <Label Text="Cargando alertas..." Style="{StaticResource BodyText}"
@@ -145,6 +155,7 @@
                 </CollectionView.Footer>
             </CollectionView>
 
-        </Grid>
+            </Grid>  <!-- /inner content Grid -->
+        </Grid>  <!-- /outer Grid with button -->
     </RefreshView>
 </ContentPage>

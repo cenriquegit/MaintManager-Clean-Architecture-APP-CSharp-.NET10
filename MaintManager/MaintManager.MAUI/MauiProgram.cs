@@ -49,6 +49,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AlertListViewModel>();
         builder.Services.AddTransient<InventoryListViewModel>();
         builder.Services.AddTransient<LotCreateViewModel>();
+        builder.Services.AddTransient<LotListViewModel>();
         builder.Services.AddTransient<MaintenanceListViewModel>();
         builder.Services.AddTransient<MaintenanceDetailViewModel>();
         builder.Services.AddTransient<MaintenanceWizardViewModel>();
@@ -63,6 +64,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AlertListPage>();
         builder.Services.AddTransient<InventoryListPage>();
         builder.Services.AddTransient<LotCreatePage>();
+        builder.Services.AddTransient<LotListPage>();
         builder.Services.AddTransient<MaintenanceListPage>();
         builder.Services.AddTransient<MaintenanceDetailPage>();
         builder.Services.AddTransient<MaintenanceWizardPage>();
