@@ -2,7 +2,7 @@
 
 > **Proyecto:** MaintManager — Sistema de Gestión de Mantenimiento Vehicular con Business Intelligence
 > **Fecha del análisis:** 2026-05-13
-> **Última actualización:** 2026-05-18 (continuación — 4 correcciones finales)
+> **Última actualización:** 2026-05-21 (refactor completo DetailPage)
 > **Analista:** Kilo (asistente IA)
 
 ---
@@ -21,29 +21,24 @@
 | 5 | **Ingreso lote: error con detalle** — Bug #66 | `LotCreateViewModel.cs` | ✅ |
 | 6 | **--urls con doble guion** | `README.md` | ✅ |
 
-### Sesión 2026-05-18 (continuación — 4 correcciones finales)
-| # | Corrección | Archivos | Estado |
-|---|-----------|----------|--------|
-| 7 | **BI Dashboard crash AOT** — Bug #67: series `[]` → `null` para evitar crash de LiveChartsCore en AOT Release | `BiDashboardViewModel.cs` | ✅ |
-| 8 | **Startup crash AOT** — Bug #68: `JsonSerializer.Serialize(data, data.GetType())` → `JsonContent.Create(data, options)` | `ApiService.cs` | ✅ |
-| 9 | **DTOs movidos a Shared/Models** — Bugs #69-#70: MaintenanceCreateRequest, LotCreateRequest, LoginResponse, VehicleListItemDto, MaterialItemDto movidos de Application a Shared; usings actualizados en controladores y validadores | `Shared/Models/*`, `MaintenancesController.cs`, `InventoryController.cs`, `AuthController.cs`, `MaintenanceCreateValidator.cs`, `LotCreateValidator.cs` | ✅ |
-| 10 | **Save() con tipos concretos** — Wizard y lote ahora usan `Shared.Models.MaintenanceCreateRequest`/`LotCreateRequest` en vez de tipos anónimos; serializables por AOT | `MaintenanceWizardViewModel.cs`, `LotCreateViewModel.cs`, `AuthService.cs` | ✅ |
-| Módulo | Archivos | Estado |
-|--------|----------|--------|
-| Reusable Controls | `StatusBadge`, `KpiCard`, `VehicleCard`, `EmptyStateView` + code-behinds | ✅ |
-| Design System | `Services/DesignSystem.cs` (AppColors, AppSpacing, AppRadius) | ✅ |
-| Home/Dashboard | `HomePage.xaml/.cs`, `HomeViewModel.cs` | ✅ |
-| Calendario | `CalendarPage.xaml/.cs`, `CalendarViewModel.cs` | ✅ |
-| Mantenimientos | `MaintenanceList/Detail/Wizard` pages + VMs (9 archivos) | ✅ |
-| BI Dashboard | `BiDashboardPage.xaml/.cs`, `BiDashboardViewModel.cs` | ✅ |
-| Reportes | `ReportsPage.xaml/.cs`, `ReportsViewModel.cs` | ✅ |
-| Configuración | `SettingsPage.xaml/.cs`, `SettingsViewModel.cs` | ✅ |
-| Navegación | `AppShell.xaml` (8 tabs), `AppShell.xaml.cs` (3 rutas), `MauiProgram.cs` (todos registrados) | ✅ |
+### Sesión 2026-05-21 (Refactor DetailPage — 8 fases)
+| # | Fase | Archivos | Estado |
+|---|------|----------|--------|
+| 1 | **Fix RateMaterial crash** — Bug #78: shadow FK MaterialMateid | `InventoryConfiguration.cs` | ✅ |
+| 2 | **Seed data** — Componentes vida útil + acciones checklist + materiales/lotes | `database/04_seed_*.sql` | ✅ |
+| 3 | **Rediseño layout DetailPage** — Cards secuenciales, input+lista, ✕, merge aceite | `DetailPage.xaml`, `DetailViewModel.cs` | ✅ |
+| 4 | **Solo lectura orden FI** — IsReadOnly, inputs disabled, botones condicionales | `DetailPage.xaml`, `DetailViewModel.cs` | ✅ |
+| 5 | **PDF con datos completos** — Vehículo, materiales, componentes, recomendaciones | `ReportsController.cs` | ✅ |
+| 6 | **Buffering acciones + POST /actions** — PendingActions persistidas al guardar | `MaintenancesController.cs`, `MaintenanceService.cs`, `DetailViewModel.cs` | ✅ |
+| 7 | **Endpoints DELETE** — 3 endpoints para eliminar items | `MaintenancesController.cs` | ✅ |
+| 8 | **Diagnóstico campos completos** — Picker, Switch, Editor, display completo | `DetailPage.xaml`, `DetailViewModel.cs` | ✅ |
 
 ### Build
 | Proyecto | Resultado |
 |----------|-----------|
-| `MaintManager.API` -c Release | ✅ Compilación exitosa (0 errores, 2 warnings de vulnerabilidad NuGet) |
+| `MaintManager.API` -c Release | ✅ Compilación exitosa (0 errores, 2 warnings NuGet) |
+| `MaintManager.MAUI` net10.0-android Debug | ✅ Compilación exitosa (0 errores) |
+| `MaintManager.Infrastructure` | ✅ Compilación exitosa (0 errores) |
 
 ---
 
@@ -498,6 +493,26 @@ FASE 5 — Estabilización AOT y Shared DTOs      [✅ COMPLETADA]
 ├── 5.3 DTOs movidos a Shared/Models             ✅
 ├── 5.4 Save() con tipos concretos (no anónimos) ✅
 └── 5.5 Namespace conflict ApiResponse<T>        ✅
+
+FASE 6 — Estabilización Final Dispositivo       [✅ COMPLETADA]
+├── 6.1 BI Dashboard CPURenderMode crash         ✅
+├── 6.2 Shell routing absoluto .NET 10           ✅
+├── 6.3 DetailPage wrapper deserialization       ✅
+├── 6.4 Actions property mapping                 ✅
+├── 6.5 OilInfo propiedades planas               ✅
+├── 6.6 CloseOrder con body                      ✅
+├── 6.7 Documentación actualizada                ✅
+└── 6.8 SwipeUpClean low-memory doc              ✅
+
+FASE 7 — Refactor DetailPage                    [✅ COMPLETADA]
+├── 7.1 Fix RateMaterial crash (shadow FK)       ✅
+├── 7.2 Seed data componentes + materiales       ✅
+├── 7.3 Rediseño layout cards + listas           ✅
+├── 7.4 Solo lectura orden FI                    ✅
+├── 7.5 PDF con datos completos                  ✅
+├── 7.6 Buffering acciones + POST /actions       ✅
+├── 7.7 Endpoints DELETE items                   ✅
+└── 7.8 Diagnóstico campos completos             ✅
 ```
 
 ---

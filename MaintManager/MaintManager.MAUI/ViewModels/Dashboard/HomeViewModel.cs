@@ -9,10 +9,12 @@ namespace MaintManager.MAUI.ViewModels.Dashboard;
 public partial class HomeViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private readonly AuthService _authService;
 
-    public HomeViewModel(ApiService apiService)
+    public HomeViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
+        _authService = authService;
         Title = "Panel Principal";
     }
 
@@ -102,7 +104,10 @@ public partial class HomeViewModel : BaseViewModel
     [RelayCommand]
     private async Task NavigateToMaintenance()
     {
-        await Shell.Current.GoToAsync("//Maintenances");
+        if (_authService.IsAdmin())
+            await Shell.Current.GoToAsync("///Maintenances/Create");
+        else
+            await Shell.Current.GoToAsync("//Maintenances");
     }
 
     [RelayCommand]
@@ -114,7 +119,10 @@ public partial class HomeViewModel : BaseViewModel
     [RelayCommand]
     private async Task NavigateToInventory()
     {
-        await Shell.Current.GoToAsync("//Inventory");
+        if (_authService.IsAdmin())
+            await Shell.Current.GoToAsync("///Inventory/CreateLot");
+        else
+            await Shell.Current.GoToAsync("//Inventory");
     }
 
     [RelayCommand]

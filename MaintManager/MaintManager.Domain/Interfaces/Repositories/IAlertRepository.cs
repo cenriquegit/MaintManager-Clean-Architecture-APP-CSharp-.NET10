@@ -6,6 +6,7 @@ namespace MaintManager.Domain.Interfaces.Repositories;
 public interface IAlertRepository
 {
     Task<IReadOnlyList<AlertLog>> GetUnresolvedAlertsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<AlertLog>> GetResolvedAlertsAsync(CancellationToken ct = default);
     Task<AlertLog?> GetByIdAsync(int alloid, CancellationToken ct = default);
     Task AddAsync(AlertLog alert, CancellationToken ct = default);
     void Update(AlertLog alert);

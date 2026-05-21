@@ -72,6 +72,16 @@ public sealed class MaintenanceService : IMaintenanceService
         await _maintenanceRepo.SaveChangesAsync(ct);
     }
 
+    public async Task<int> CreateActionAsync(int mainid, int acatid, CancellationToken ct = default)
+    {
+        var maintenance = await _maintenanceRepo.GetWithDetailsAsync(mainid, ct)
+            ?? throw new KeyNotFoundException(ErrorMessages.Maintenance.NotFound);
+        var detail = MaintenanceActionDetail.Create(mainid, acatid);
+        maintenance.ActionDetails.Add(detail);
+        await _maintenanceRepo.SaveChangesAsync(ct);
+        return detail.Madeid;
+    }
+
     public async Task SaveDiagnosisAsync(
         int mainid, string generalStatus, bool vehicleOperative,
         string? observations, string? futureRecommendations,

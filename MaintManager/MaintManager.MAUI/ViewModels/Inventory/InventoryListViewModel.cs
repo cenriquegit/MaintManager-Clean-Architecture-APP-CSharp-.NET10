@@ -68,8 +68,7 @@ public partial class InventoryListViewModel : BaseViewModel
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
 
-        try { await Shell.Current.GoToAsync("Inventory/CreateLot"); }
-        catch { try { await Shell.Current.GoToAsync("CreateLot"); } catch { } }
+        await Shell.Current.GoToAsync("///Inventory/CreateLot");
     }
 
     [RelayCommand]
@@ -78,8 +77,7 @@ public partial class InventoryListViewModel : BaseViewModel
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
 
-        try { await Shell.Current.GoToAsync("Inventory/CreateMaterial"); }
-        catch { try { await Shell.Current.GoToAsync("CreateMaterial"); } catch { } }
+        await Shell.Current.GoToAsync("///Inventory/CreateMaterial");
     }
 
     [RelayCommand]
@@ -94,7 +92,7 @@ public partial class InventoryListViewModel : BaseViewModel
             { "mateid", material.Mateid },
             { "name", material.Name }
         };
-        await Shell.Current.GoToAsync("Inventory/LotList", parameters);
+        await Shell.Current.GoToAsync("///Inventory/LotList", parameters);
     }
 
     public class ApiResponse<T>

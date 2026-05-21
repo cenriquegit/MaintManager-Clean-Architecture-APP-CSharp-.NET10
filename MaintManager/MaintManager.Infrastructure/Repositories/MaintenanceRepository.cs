@@ -14,7 +14,7 @@ public sealed class MaintenanceRepository : GenericRepository<Maintenance>, IMai
 
     public async Task<IReadOnlyList<Maintenance>> GetByVehicleAsync(int prcoid, CancellationToken ct = default) =>
         await _context.Maintenances.AsNoTracking()
-            .Where(m => m.Prcoid == prcoid && m.Statid == "AC")
+            .Where(m => m.Prcoid == prcoid)
             .Include(m => m.MaintenanceType)
             .Include(m => m.ServiceType)
             .OrderByDescending(m => m.MaintenanceDate)

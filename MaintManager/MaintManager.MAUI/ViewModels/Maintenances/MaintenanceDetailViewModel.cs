@@ -47,6 +47,22 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [ObservableProperty]
     private string _diagnosisObservations = string.Empty;
 
+    // ── Diagnosis form fields ──────────────────────────────────
+    [ObservableProperty]
+    private ObservableCollection<string> _generalStatusOptions = new()
+    {
+        "Excelente", "Bueno", "Regular", "Reparado", "Malo"
+    };
+
+    [ObservableProperty]
+    private string _selectedGeneralStatus = "Bueno";
+
+    [ObservableProperty]
+    private bool _isVehicleOperative = true;
+
+    [ObservableProperty]
+    private string _futureRecommendations = string.Empty;
+
     // ── Action catalog for Add Action picker ────────────────────
     [ObservableProperty]
     private ObservableCollection<ActionCatalogOption> _actionCatalogItems = new();
@@ -63,7 +79,8 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             ActionId = SelectedActionCatalog.Acatid,
             Name = SelectedActionCatalog.Name,
             Description = SelectedActionCatalog.Category ?? string.Empty,
-            IsCompleted = false
+            IsCompleted = false,
+            IsPending = true
         });
         SelectedActionCatalog = null;
     }
@@ -114,12 +131,17 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         await ExecuteAsync(async () =>
         {
+            // 1. Persist pending actions first
+            await PersistPendingActionsAsync();
+
+            // 2. Save diagnosis with all fields
             var request = new
             {
-                GeneralStatus = "Bueno",
-                VehicleOperative = true,
+                GeneralStatus = SelectedGeneralStatus,
+                VehicleOperative = IsVehicleOperative,
                 Observations = DiagnosisObservations,
-                FutureRecommendations = (string?)null
+                FutureRecommendations = string.IsNullOrWhiteSpace(FutureRecommendations)
+                    ? null : FutureRecommendations
             };
             var endpoint = ApiRoutes.Maintenances.SaveDiagnosis.Replace("{id}", _mainid.ToString());
             await _apiService.PostAsync<object>(endpoint, request);
@@ -127,6 +149,51 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             CanClose = true;
             await Load();
         });
+    }
+
+    private async Task PersistPendingActionsAsync()
+    {
+        var pending = ActionDetails.Where(a => a.IsPending).ToList();
+        foreach (var action in pending)
+        {
+            try
+            {
+                var actionsEndpoint = ApiRoutes.Maintenances.CreateAction
+                    .Replace("{id}", _mainid.ToString());
+                await _apiService.PostAsync<object>(actionsEndpoint, new
+                {
+                    ActionCatalogId = action.ActionId
+                });
+            }
+            catch
+            {
+            }
+        }
+
+        // Persist pending ratings (materials consumed with local ratings)
+        foreach (var item in ConsumedMaterials.Where(c => c.Rating > 0))
+        {
+            try
+            {
+                // Get the mateid from the current available materials
+                var material = AvailableMaterials.FirstOrDefault(m =>
+                    m.Name == item.MaterialName);
+                if (material is null) continue;
+
+                var rateEndpoint = ApiRoutes.Inventory.RateMaterial
+                    .Replace("{mateid}", material.Mateid.ToString());
+                await _apiService.PostAsync<object>(rateEndpoint, new
+                {
+                    Mateid = material.Mateid,
+                    Mainid = _mainid,
+                    Rating = (short)item.Rating,
+                    Observation = item.RatingObservation
+                });
+            }
+            catch
+            {
+            }
+        }
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -151,7 +218,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             {
                 MaintenanceDetail = detail;
                 ActionDetails = new ObservableCollection<ActionDetailItem>(
-                    detail.Actions ?? new List<ActionDetailItem>());
+                    detail.Actions?.Select(a => { a.IsPending = false; return a; }) ?? new List<ActionDetailItem>());
                 Diagnosis = detail.Diagnosis;
                 DiagnosisSaved = detail.Diagnosis is not null;
                 CanClose = detail.Status == "AC" && DiagnosisSaved;
@@ -362,36 +429,35 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             var rate = await Shell.Current.DisplayAlert("Calificar material",
                 $"¿Deseas calificar {nameConsumed}?", "Sí, calificar", "No, gracias");
 
-            if (rate)
-            {
-                var rating = await Shell.Current.DisplayActionSheet(
-                    $"Califica {nameConsumed} (1-5 estrellas)", "Cancelar", null,
-                    "⭐ 1 - Malo", "⭐⭐ 2 - Regular", "⭐⭐⭐ 3 - Bueno",
-                    "⭐⭐⭐⭐ 4 - Muy bueno", "⭐⭐⭐⭐⭐ 5 - Excelente");
-
-                if (rating is not null && rating != "Cancelar")
+                if (rate)
                 {
-                    var stars = rating.Count(c => c == '⭐');
-                    if (stars > 0)
-                    {
-                        var observation = await Shell.Current.DisplayPromptAsync(
-                            "Observación (opcional)",
-                            "Agrega un comentario sobre el material:",
-                            "Guardar", "Omitir",
-                            placeholder: "ej: Buen rendimiento, llegó en buen estado...");
+                    var rating = await Shell.Current.DisplayActionSheet(
+                        $"Califica {nameConsumed} (1-5 estrellas)", "Cancelar", null,
+                        "⭐ 1 - Malo", "⭐⭐ 2 - Regular", "⭐⭐⭐ 3 - Bueno",
+                        "⭐⭐⭐⭐ 4 - Muy bueno", "⭐⭐⭐⭐⭐ 5 - Excelente");
 
-                        var rateEndpoint = ApiRoutes.Inventory.RateMaterial
-                            .Replace("{mateid}", mateConsumed.ToString());
-                        await _apiService.PostAsync<object>(rateEndpoint, new
+                    if (rating is not null && rating != "Cancelar")
+                    {
+                        var stars = rating.Count(c => c == '⭐');
+                        if (stars > 0)
                         {
-                            Mateid = mateConsumed,
-                            Mainid = _mainid,
-                            Rating = stars,
-                            Observation = string.IsNullOrWhiteSpace(observation) ? null : observation
-                        });
+                            var observation = await Shell.Current.DisplayPromptAsync(
+                                "Observación (opcional)",
+                                "Agrega un comentario sobre el material:",
+                                "Guardar", "Omitir",
+                                placeholder: "ej: Buen rendimiento, llegó en buen estado...");
+
+                            // Guardar rating LOCALMENTE (no se envía al API hasta el batch final)
+                            var lastConsumed = ConsumedMaterials.LastOrDefault();
+                            if (lastConsumed is not null)
+                            {
+                                lastConsumed.Rating = stars;
+                                lastConsumed.RatingObservation = string.IsNullOrWhiteSpace(observation)
+                                    ? null : observation;
+                            }
+                        }
                     }
                 }
-            }
         });
     }
 
@@ -497,9 +563,12 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     public class ActionDetailItem
     {
         public int ActionId { get; set; }
+        [JsonPropertyName("actionName")]
         public string Name { get; set; } = string.Empty;
+        [JsonPropertyName("actionCategory")]
         public string Description { get; set; } = string.Empty;
         public bool IsCompleted { get; set; }
+        public bool IsPending { get; set; }
     }
 
     public class ComponentItem
@@ -564,6 +633,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public decimal Quantity { get; set; }
         public decimal TotalCost => UnitCost * Quantity;
         public int Rating { get; set; }
+        public string? RatingObservation { get; set; }
         public override string ToString() => $"{MaterialName} ({LotNumber})";
     }
 }

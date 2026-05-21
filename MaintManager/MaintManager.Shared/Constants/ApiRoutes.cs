@@ -29,6 +29,7 @@ public static class ApiRoutes
         public const string GetById = $"{Base}/{{id}}";
         public const string Create = Base;
         public const string CompleteAction = $"{Base}/{{id}}/actions/{{actionId}}/complete";
+        public const string CreateAction = $"{Base}/{{id}}/actions";
         public const string SaveDiagnosis = $"{Base}/{{id}}/diagnosis";
         public const string ConsumeMaterial = $"{Base}/{{id}}/consume";
         public const string InstallComponent = $"{Base}/{{id}}/components";
@@ -55,6 +56,7 @@ public static class ApiRoutes
     {
         public const string Base = $"{ApiRoutes.Base}/alerts";
         public const string GetUnresolved = Base;
+        public const string GetHistory = $"{Base}/history";
         public const string Check = $"{Base}/check";
         public const string MarkRead = $"{Base}/{{id}}/read";
         public const string Resolve = $"{Base}/{{id}}/resolve";

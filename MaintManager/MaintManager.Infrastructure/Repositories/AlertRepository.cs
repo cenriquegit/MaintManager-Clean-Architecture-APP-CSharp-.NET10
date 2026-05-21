@@ -18,6 +18,13 @@ public sealed class AlertRepository : IAlertRepository
             .OrderByDescending(al => al.AlertDate)
             .ToListAsync(ct);
 
+    public async Task<IReadOnlyList<AlertLog>> GetResolvedAlertsAsync(CancellationToken ct = default) =>
+        await _context.AlertLogs.AsNoTracking()
+            .Where(al => al.Resolved)
+            .Include(al => al.AlertConfig)
+            .OrderByDescending(al => al.ResolvedAt)
+            .ToListAsync(ct);
+
     public async Task<AlertLog?> GetByIdAsync(int alloid, CancellationToken ct = default) =>
         await _context.AlertLogs.Include(al => al.AlertConfig)
             .FirstOrDefaultAsync(al => al.Alloid == alloid, ct);

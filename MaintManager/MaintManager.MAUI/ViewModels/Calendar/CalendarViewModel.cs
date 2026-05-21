@@ -144,7 +144,7 @@ public partial class CalendarViewModel : BaseViewModel
     private async Task ViewDetail(MaintenanceCalendarItem? item)
     {
         if (item is null) return;
-        await Shell.Current.GoToAsync($"//Maintenances/Detail?id={item.Id}");
+        await Shell.Current.GoToAsync($"///Maintenances/Detail?mainid={item.Id}");
     }
 
     public class ApiResponse<T>

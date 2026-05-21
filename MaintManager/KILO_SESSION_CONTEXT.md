@@ -1,6 +1,6 @@
 # Contexto de Sesión — MaintManager
 
-> Última actualización: 2026-05-18
+> Última actualización: 2026-05-21
 > Cargar este archivo al iniciar una nueva sesión de Kilo para restaurar el contexto completo.
 
 ---
@@ -40,12 +40,12 @@ MaintManager.sln
 | .NET | 10.0 | target net10.0-android + net10.0-windows |
 | MAUI | 10.0.0 | Forzado en csproj |
 | CommunityToolkit.Mvvm | 8.4.0 | Source generators |
-| LiveChartsCore.SkiaSharpView.Maui | 2.0.2 | Gráficos BI Dashboard |
+| LiveChartsCore.SkiaSharpView.Maui | 2.1.0-dev-570 | Gráficos BI Dashboard + UseSkiaSharp() |
 | QuestPDF | Última | Exportación PDF |
 | EF Core | 10.x | Con PostgreSQL (Npgsql) |
 | PostgreSQL | 16+ | BD en localhost:5432, DB: neoplus_maintenance |
 
-## 3. Bugs Corregidos (70 total)
+## 3. Bugs Corregidos (78 total)
 
 Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 
@@ -67,6 +67,21 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 | 68 | Startup crash AOT (data.GetType) | `JsonSerializer.Serialize` → `JsonContent.Create` |
 | 69 | Namespace conflict ApiResponse<T> | Eliminado de Shared, eliminados duplicados de Application |
 | 70 | DTOs duplicados Application/MAUI | Movidos `MaintenanceCreateRequest`, `LotCreateRequest`, `LoginResponse` a Shared/Models |
+| 71 | BI Dashboard crash CPURenderMode | UseSkiaSharp() + LiveChartsCore 2.1.0-dev-570 |
+| 72 | Shell routing relativo en .NET 10 | Navegaciones `///` absolutas |
+| 73 | DetailPage no carga datos | GetAsync<ApiResponse<T>> wrapper |
+| 74 | Actions vs actionDetails mismatch | [JsonPropertyName("actionDetails")] |
+| 75 | OilInfo anidado vs API plana | Propiedades planas en lugar de OilInfo |
+| 76 | CloseOrder sin body (400) | PutAsync con new { } |
+| 77 | SwipeUpClean en dispositivo low-memory | Documentado, no requiere fix |
+| 78 | RateMaterial crash MaterialMateid | HasOne<Material>().WithMany() explícito |
+| F3 | Layout DetailPage rediseñado | Cards secuenciales + input/lista + ✕ |
+| F4 | Solo lectura orden FI | IsReadOnly bindeado a inputs/visibilidad |
+| F5 | PDF con datos completos | Vehicle, materials, components incluidos |
+| F6 | Buffering local acciones + POST /actions | Persiste acciones pendientes al guardar |
+| F7 | Endpoints DELETE items | 3 endpoints para acciones, materiales, componentes |
+| F8 | Diagnóstico campos completos | Picker GeneralStatus, Switch operative, Editor recommendations |
+| SD | Seed data componentes + materiales | action_catalog + material + lots nuevos |
 
 ## 4. Estado Actual del Proyecto
 
@@ -77,16 +92,28 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 - Calendario (vista mensual, filtros por vehículo/tipo/estado)
 - Mantenimientos (lista paginada con búsqueda + filtros)
 - Inventario (lista con búsqueda + stock bajo + ingreso lote con materiales reales)
-- BI Dashboard (5 gráficos con LiveChartsCore — estable en AOT Release)
+- BI Dashboard (5 gráficos con LiveChartsCore v2.1.0-dev-570 + UseSkiaSharp)
 - Reportes (exportar Excel costo/km con Share dialog)
 - Mi Perfil (info usuario + crear usuario si admin)
 - Configuración (URL API editable + PIN 1234)
-- Detalle de orden con exportación PDF vía Share
-- Wizard de nueva orden (7 pasos, todos funcionales con campos visibles)
+- Detalle de orden con exportación PDF vía Share (PDF con datos completos: vehículo, servicios, acciones, materiales, componentes, diagnóstico)
+- Cerrar orden (PUT con body, solo en estado AC)
+- Wizard de nueva orden (4 pasos, guardado con PostAndUnwrapAsync<int>)
 - POST/PUT con Content-Type correcto (JsonContent.Create, AOT-compatible)
 - Menú flyout con bordes inferiores limpios, sin duplicación
 - DTOs compartidos en `Shared/Models` para request/response concretos (AOT compatible)
 - Sesión con expiración calculada localmente (no depende del API)
+- Navegación Shell con rutas absolutas `///` (compatible .NET 10)
+- DetailPage con layout cards secuenciales (InfoGeneral → Acciones → Consumo → Componentes → Reasignar → Diagnóstico)
+- Botón ✕ para eliminar items de cada lista (acciones, materiales, componentes)
+- Acciones agregadas localmente y persistidas batch al guardar diagnóstico
+- Picker de acciones filtrado por categoría (Acción/Componente)
+- Cambio de aceite inline en header con fallback "No hay información"
+- Solo lectura para órdenes finalizadas (FI): inputs deshabilitados, botones ocultos
+- Exportar PDF visible solo en orden finalizada
+- Diagnóstico completo con Picker (GeneralStatus), Switch (VehicleOperative), Editor (Observations, FutureRecommendations)
+- Endpoints POST /actions y DELETE /actions, /materials, /components
+- Seed data: componentes con vida útil (Batería 1095d, Neumáticos 50000km, etc.), 10 acciones checklist, materiales nuevos con lotes
 
 ### ⚠️ En Progreso / Pendiente
 - Reportes "Órdenes de Mantenimiento" y "Alertas": muestran "no disponible" (no hay endpoint)
@@ -105,15 +132,17 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 //Alerts → Alertas
 //Calendar → Calendario
 //Maintenances → Lista de mantenimientos
-  /Detail?id={id} → Detalle de orden (sub-página)
-  /Create → Nueva orden (sub-página)
+  ///Detail?id={id} → Detalle de orden (sub-página, ruta absoluta)
+  ///Create → Nueva orden (sub-página, ruta absoluta)
 //Inventory → Inventario
-  /CreateLot → Ingresar lote (sub-página)
+  ///CreateLot → Ingresar lote (sub-página)
 //BiDashboard → Dashboard BI (gráficos)
 //Reports → Reportes
 //Profile → Mi Perfil
 //Settings → Configuración (PIN 1234)
 ```
+
+> **Importante:** En .NET 10, las sub-rutas de FlyoutItems SOLO funcionan con prefijo `///` (ruta absoluta). Las rutas relativas como `Maintenances/Detail` lanzan excepción.
 
 ## 6. Colores Corporativos
 
@@ -140,12 +169,17 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 - `GET /api/v1/vehicles/{id}/schedule` → Programación
 
 ### Mantenimientos (requieren JWT)
-- `GET /api/v1/maintenances?page=&pageSize=` → Lista paginada
-- `GET /api/v1/maintenances/{id}` → Detalle
+- `GET /api/v1/maintenances?page=&pageSize=&status=` → Lista paginada con filtro
+- `GET /api/v1/maintenances/{id}` → Detalle completo
 - `POST /api/v1/maintenances` → Crear (Admin/Técnico)
 - `PUT /api/v1/maintenances/{id}/actions/{actionId}/complete` → Completar acción
 - `POST /api/v1/maintenances/{id}/diagnosis` → Guardar diagnóstico
-- `PUT /api/v1/maintenances/{id}/close` → Cerrar orden
+- `PUT /api/v1/maintenances/{id}/assign` → Reasignar técnico
+- `POST /api/v1/maintenances/{id}/consume` → Consumir material
+- `POST /api/v1/maintenances/{id}/components` → Instalar componente
+- `PUT /api/v1/maintenances/{id}/close` → Cerrar orden (requiere body `{ isEmergencyComplete: bool? }`)
+- `GET /api/v1/maintenances/stats` → Estadísticas rápidas
+- `GET /api/v1/maintenances/actions/catalog` → Catálogo de acciones
 - `GET /api/v1/vehicles/{id}/maintenances` → Mantenimientos por vehículo
 
 ### Inventario (requieren JWT)
@@ -202,10 +236,23 @@ Tablas principales:
 | `ApiService.cs` | JsonContent.Create (AOT-compatible) + TryRestoreSessionAsync con expiración |
 | `AuthService.cs` | LoginResponse ahora desde Shared.Models; ExtractWorkidFromToken |
 | `BiDashboardViewModel.cs` | Series/Axis `[]` → `null` (crash AOT LiveChartsCore) |
-| `MaintenanceWizardViewModel.cs` | Save() usa MaintenanceCreateRequest concreto; ApiResponse privado restaurado |
+| `MaintenanceWizardViewModel.cs` | Save() usa PostAndUnwrapAsync<int> + ruta absoluta `///Maintenances/Detail` |
+| `MaintenanceListViewModel.cs` | Rutas absolutas `///Maintenances/Detail` y `///Maintenances/Create` |
+| `MaintenanceDetailViewModel.cs` | IsReadOnly, ConsumedMaterials, ActionCatalogItems, AddAction/RemoveAction, PersistPendingActionsAsync, GeneralStatus picker, VehicleOperative switch, FutureRecommendations |
+| `MaintenanceDetailPage.xaml` | Layout cards secuenciales, merge aceite en header, ✕ en listas, inputs deshabilitados en FI, diagnóstico completo |
+| `MaintenancesController.cs` | POST /{id}/actions, DELETE /{id}/actions/{madeid}, DELETE /{id}/materials/{macoid}, DELETE /{id}/components/{incoid} |
+| `ReportsController.cs` | PDF con datos de vehículo, materiales consumidos, componentes instalados |
+| `MaintenanceService.cs` | CreateActionAsync |
+| `IMaintenanceService.cs` | CreateActionAsync firma |
+| `AddActionRequest.cs` | Nuevo DTO |
+| `ApiRoutes.cs` | CreateAction route |
+| `InventoryConfiguration.cs` | Fix relación MaterialRating → Material (shadow FK) |
+| `database/04_seed_components_materials.sql` | Nuevo script seed (componentes vida útil + acciones + lotes) |
 | `LotCreateViewModel.cs` | Save() usa LotCreateRequest concreto; ApiResponse privado restaurado |
 | `MaintenanceWizardPage.xaml` | Step2: Picker; Steps3-4: BindableLayout |
 | `AppShell.xaml` | Flyout borders: BoxView BackgroundColor, StrokeThickness=0 |
+| `MauiProgram.cs` | UseSkiaSharp() + UseLiveCharts(); LiveChartsCore 2.1.0-dev-570 |
+| `MaintenanceDetailPage.xaml` | OilInfo bindings planos |
 | `MaintenancesController.cs` | `AssignedTo` fallback a `registeredBy`; using Shared.Models |
 | `InventoryController.cs` | using Shared.Models |
 | `AuthController.cs` | LoginResponse desde Shared.Models |
@@ -226,15 +273,17 @@ Lee el archivo KILO_SESSION_CONTEXT.md, BUGS_HISTORY.md y README.md para tener e
 Proyecto en: C:\Users\carlo\Desktop\proyect\MaintManager
 
 Estado actual:
-- 70 bugs corregidos (ver BUGS_HISTORY.md)
+- 77 bugs corregidos (ver BUGS_HISTORY.md)
 - Login, Dashboard, Alertas, Calendario, Mantenimientos, Inventario funcionales
-- BI Dashboard con 5 gráficos LiveChartsCore (estable en AOT Release)
-- Wizard multi-paso (7 pasos funcionales, guardado con tipos concretos)
+- BI Dashboard con 5 gráficos LiveChartsCore v2.1.0-dev-570 + UseSkiaSharp (estable en AOT)
+- Wizard multi-paso (4 pasos funcionales, guardado con PostAndUnwrapAsync<int>)
+- Detalle de orden con acciones, diagnóstico, componentes, consumo materiales, cierre
 - PDF y Excel export funcionando con Share dialog
 - Menú hamburguesa personalizado con iconos, bordes inferiores limpios
 - Sesión persistente vía SecureStorage con expiración a las 8h (calculada localmente)
 - Configuración protegida con PIN 1234
 - POST/PUT con JsonContent.Create (AOT-compatible)
+- Navegación Shell con rutas absolutas `///` (compatible .NET 10)
 - Ingreso lote con materiales reales + catch con mensaje real del servidor
 - DTOs compartidos en `Shared/Models` (request/response concretos, AOT compatibles)
 - API: fallback de AssignedTo cuando se envía 0
@@ -242,9 +291,9 @@ Estado actual:
 Para continuar trabajando, necesito:
 1. Leer el código actual
 2. Tener el contexto de la última sesión
-3. Continuar depurando los problemas pendientes 
+3. Continuar depurando los problemas pendientes
 ```
 
 ---
 
-*Documento generado al cierre de sesión el 2026-05-15. Actualizado el 2026-05-18.*
+*Documento generado al cierre de sesión el 2026-05-15. Actualizado el 2026-05-18 y 2026-05-21.*

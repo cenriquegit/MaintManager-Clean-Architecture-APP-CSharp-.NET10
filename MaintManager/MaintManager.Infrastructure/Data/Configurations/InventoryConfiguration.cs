@@ -132,6 +132,8 @@ internal sealed class MaterialRatingConfiguration : IEntityTypeConfiguration<Mat
                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         builder.HasIndex(mr => mr.Mateid).HasDatabaseName("idx_rating_mateid");
         builder.HasIndex(mr => mr.Mainid).HasDatabaseName("idx_rating_mainid");
+        builder.HasOne<Material>().WithMany().HasForeignKey(mr => mr.Mateid)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }
 

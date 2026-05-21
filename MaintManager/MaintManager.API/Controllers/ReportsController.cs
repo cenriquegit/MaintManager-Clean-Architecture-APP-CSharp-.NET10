@@ -86,12 +86,30 @@ public sealed class ReportsController : ControllerBase
             .Include(m => m.ServiceType)
             .Include(m => m.ActionDetails).ThenInclude(d => d.ActionCatalog)
             .Include(m => m.Diagnosis)
+            .Include(m => m.MaterialConsumptions)
+            .Include(m => m.InstalledComponents).ThenInclude(c => c.ActionCatalog)
             .FirstOrDefaultAsync(m => m.Mainid == id, ct);
 
         if (maintenance is null)
             return NotFound(ApiResponse<object>.Fail("Orden de mantenimiento no encontrada."));
 
-            var pdf = Document.Create(container =>
+        var vehicle = await _context.Vehicles
+            .Include(v => v.Product)
+            .FirstOrDefaultAsync(v => v.Prcoid == maintenance.Prcoid, ct);
+
+        var vehicleLine = vehicle is not null
+            ? $"{vehicle.Product?.Name ?? "?"} — {vehicle.LicensePlateNumber ?? "?"}"
+            : "Vehículo no encontrado";
+
+        var statusLabel = maintenance.Statid switch
+        {
+            "AC" => "Activo",
+            "FI" => "Finalizado",
+            "CA" => "Cancelado",
+            _ => maintenance.Statid
+        };
+
+        var pdf = Document.Create(container =>
         {
             container.Page(page =>
             {
@@ -102,12 +120,23 @@ public sealed class ReportsController : ControllerBase
                 {
                     col.Item().Text("Neo Plus Business S.A.C.").Bold().FontSize(16).FontColor("#1565C0");
                     col.Item().Text("Orden de Mantenimiento Vehicular").FontSize(13).FontColor("#546E8A");
-                    col.Item().Text($"N° {maintenance.OrderNumber ?? id.ToString()}").FontSize(11);
+                    col.Item().Text($"N° {maintenance.OrderNumber ?? id.ToString()}  |  {statusLabel}").FontSize(11);
                     col.Item().LineHorizontal(1).LineColor("#CBD5E1");
                 });
                 page.Content().Column(col =>
                 {
                     col.Spacing(10);
+                    col.Item().Text("Datos del Vehículo").Bold().FontSize(13);
+                    col.Item().Table(table =>
+                    {
+                        table.ColumnsDefinition(c => { c.RelativeColumn(); c.RelativeColumn(); });
+                        table.Cell().Text("Vehículo:"); table.Cell().Text(vehicleLine);
+                        if (vehicle is not null)
+                        {
+                            table.Cell().Text("Km actuales:"); table.Cell().Text($"{vehicle.Mileage:N0} km");
+                        }
+                    });
+
                     col.Item().Text("Datos del Servicio").Bold().FontSize(13);
                     col.Item().Table(table =>
                     {
@@ -117,6 +146,7 @@ public sealed class ReportsController : ControllerBase
                         table.Cell().Text("Fecha:"); table.Cell().Text(maintenance.MaintenanceDate.ToString("dd/MM/yyyy HH:mm"));
                         table.Cell().Text("Km:"); table.Cell().Text($"{maintenance.Mileage:N0} km");
                         table.Cell().Text("Origen:"); table.Cell().Text(maintenance.OriginService);
+                        table.Cell().Text("Nota:"); table.Cell().Text(maintenance.Note ?? "-");
                     });
                     if (maintenance.ActionDetails.Any())
                     {
@@ -127,14 +157,54 @@ public sealed class ReportsController : ControllerBase
                             table.Header(h =>
                             {
                                 h.Cell().Background("#1565C0").Text("Acción").FontColor("#FFFFFF").Bold();
-                                h.Cell().Background("#1565C0").Text("Código").FontColor("#FFFFFF").Bold();
+                                h.Cell().Background("#1565C0").Text("Completado").FontColor("#FFFFFF").Bold();
                                 h.Cell().Background("#1565C0").Text("Producto").FontColor("#FFFFFF").Bold();
                             });
                             foreach (var detail in maintenance.ActionDetails)
                             {
                                 table.Cell().Text(detail.ActionCatalog?.Name ?? "-");
-                                table.Cell().Text(detail.ActionPerformed?.ToString() ?? "-");
+                                table.Cell().Text(detail.Completed ? "Sí" : "No");
                                 table.Cell().Text(detail.ProductUsed ?? "-");
+                            }
+                        });
+                    }
+                    if (maintenance.MaterialConsumptions.Any())
+                    {
+                        col.Item().Text("Materiales Consumidos").Bold().FontSize(13);
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(c => { c.RelativeColumn(); c.RelativeColumn(); c.RelativeColumn(); });
+                            table.Header(h =>
+                            {
+                                h.Cell().Background("#1565C0").Text("Material (ID)").FontColor("#FFFFFF").Bold();
+                                h.Cell().Background("#1565C0").Text("Cantidad").FontColor("#FFFFFF").Bold();
+                                h.Cell().Background("#1565C0").Text("Origen").FontColor("#FFFFFF").Bold();
+                            });
+                            foreach (var c in maintenance.MaterialConsumptions)
+                            {
+                                table.Cell().Text($"#{c.Mateid}");
+                                table.Cell().Text($"{c.Quantity}");
+                                table.Cell().Text(c.Origin ?? "-");
+                            }
+                        });
+                    }
+                    if (maintenance.InstalledComponents.Any())
+                    {
+                        col.Item().Text("Componentes Instalados").Bold().FontSize(13);
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(c => { c.RelativeColumn(3); c.RelativeColumn(); c.RelativeColumn(); });
+                            table.Header(h =>
+                            {
+                                h.Cell().Background("#1565C0").Text("Componente").FontColor("#FFFFFF").Bold();
+                                h.Cell().Background("#1565C0").Text("Km instalación").FontColor("#FFFFFF").Bold();
+                                h.Cell().Background("#1565C0").Text("Vence").FontColor("#FFFFFF").Bold();
+                            });
+                            foreach (var c in maintenance.InstalledComponents.Where(c => c.Active))
+                            {
+                                table.Cell().Text(c.ActionCatalog?.Name ?? "-");
+                                table.Cell().Text($"{c.InstallationKm:N0}");
+                                table.Cell().Text(c.ExpirationDate?.ToString("dd/MM/yyyy") ?? "N/A");
                             }
                         });
                     }
@@ -145,6 +215,8 @@ public sealed class ReportsController : ControllerBase
                         col.Item().Text($"Operativo: {(maintenance.Diagnosis.VehicleOperative ? "Sí" : "No")}");
                         if (maintenance.Diagnosis.Observations is not null)
                             col.Item().Text($"Observaciones: {maintenance.Diagnosis.Observations}");
+                        if (maintenance.Diagnosis.FutureRecommendations is not null)
+                            col.Item().Text($"Recomendaciones: {maintenance.Diagnosis.FutureRecommendations}");
                     }
                     if (maintenance.Note is not null)
                     {

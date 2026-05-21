@@ -36,6 +36,16 @@ public sealed class AlertsController : ControllerBase
             alerts.Select(a => a.ToAlertResponse()).ToList()));
     }
 
+    /// <summary>Obtener historial de alertas resueltas.</summary>
+    [HttpGet("history")]
+    [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<AlertResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetHistory(CancellationToken ct)
+    {
+        var alerts = await _alertRepo.GetResolvedAlertsAsync(ct);
+        return Ok(ApiResponse<IReadOnlyList<AlertResponse>>.Ok(
+            alerts.Select(a => a.ToAlertResponse()).ToList()));
+    }
+
     /// <summary>Marcar alerta como leída.</summary>
     [HttpPut("{id:int}/read")]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]

@@ -13,6 +13,7 @@ public interface IMaintenanceService
     Task<IReadOnlyList<Maintenance>> GetByVehicleAsync(int prcoid, CancellationToken ct = default);
     Task CompleteActionAsync(int madeid, char actionCode, string? productUsed,
         string? quantity, string? origin, string? observation, int? maloid, CancellationToken ct = default);
+    Task<int> CreateActionAsync(int mainid, int actionCatalogId, CancellationToken ct = default);
     Task SaveDiagnosisAsync(int mainid, string generalStatus, bool vehicleOperative,
         string? observations, string? futureRecommendations, CancellationToken ct = default);
     Task CloseMaintenanceAsync(int mainid, bool? isEmergencyComplete, CancellationToken ct = default);

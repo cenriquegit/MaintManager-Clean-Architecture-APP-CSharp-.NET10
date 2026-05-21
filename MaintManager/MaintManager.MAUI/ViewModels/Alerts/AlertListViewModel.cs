@@ -11,6 +11,8 @@ public partial class AlertListViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
     private readonly AuthService _authService;
+    private List<AlertItem> _allUnresolved = [];
+    private List<AlertItem> _allResolved = [];
 
     public AlertListViewModel(ApiService apiService, AuthService authService)
     {
@@ -25,22 +27,42 @@ public partial class AlertListViewModel : BaseViewModel
     [ObservableProperty]
     private bool _isAdmin;
 
+    [ObservableProperty]
+    private bool _showResolved;
+
+    partial void OnShowResolvedChanged(bool value)
+    {
+        if (value)
+            LoadCommand.Execute(null);
+    }
+
     [RelayCommand]
     private async Task Load()
     {
         await ExecuteAsync(async () =>
         {
             IsAdmin = _authService.IsAdmin();
-            var response = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetUnresolved);
-            if (response?.Success == true)
+
+            // Always load unresolved
+            var unresolved = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetUnresolved);
+            if (unresolved?.Success == true)
+                _allUnresolved = unresolved.Data ?? [];
+
+            if (ShowResolved)
             {
-                Alerts = new ObservableCollection<AlertItem>(response.Data ?? new List<AlertItem>());
-                IsEmpty = Alerts.Count == 0;
+                // Load resolved history
+                var resolved = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetHistory);
+                if (resolved?.Success == true)
+                    _allResolved = resolved.Data ?? [];
+
+                Alerts = new ObservableCollection<AlertItem>(
+                    _allUnresolved.Concat(_allResolved));
             }
             else
             {
-                throw new Exception(response?.Message ?? "Error al cargar alertas");
+                Alerts = new ObservableCollection<AlertItem>(_allUnresolved);
             }
+            IsEmpty = Alerts.Count == 0;
         });
     }
 

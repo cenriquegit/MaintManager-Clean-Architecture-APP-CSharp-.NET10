@@ -134,6 +134,24 @@ public sealed class MaintenancesController : ControllerBase
     }
 
     /// <summary>Completar una acción del checklist de la orden.</summary>
+    [HttpPost("{id:int}/actions")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<int>), StatusCodes.Status201Created)]
+    public async Task<IActionResult> AddAction(
+        int id, [FromBody] AddActionRequest request,
+        CancellationToken ct)
+    {
+        try
+        {
+            var madeid = await _maintenanceService.CreateActionAsync(id, request.ActionCatalogId, ct);
+            return CreatedAtAction(nameof(GetById), new { id }, ApiResponse<int>.Ok(madeid));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
     [HttpPut("{id:int}/actions/{actionId:int}/complete")]
     [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
@@ -221,6 +239,87 @@ public sealed class MaintenancesController : ControllerBase
             await _context.SaveChangesAsync(ct);
 
             return Ok(ApiResponse<object>.Ok(new { message = "Componente instalado correctamente." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
+    [HttpDelete("{id:int}/actions/{madeid:int}")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteAction(int id, int madeid, CancellationToken ct)
+    {
+        try
+        {
+            var maintenance = await _context.Maintenances
+                .Include(m => m.ActionDetails)
+                .FirstOrDefaultAsync(m => m.Mainid == id, ct);
+            if (maintenance is null)
+                return NotFound(ApiResponse<object>.Fail("Orden no encontrada."));
+            if (maintenance.Statid == "FI")
+                return BadRequest(ApiResponse<object>.Fail("No se puede modificar una orden finalizada."));
+
+            var detail = maintenance.ActionDetails.FirstOrDefault(d => d.Madeid == madeid);
+            if (detail is null)
+                return NotFound(ApiResponse<object>.Fail("Acción no encontrada."));
+
+            _context.Remove(detail);
+            await _context.SaveChangesAsync(ct);
+            return Ok(ApiResponse<object>.Ok(new { message = "Acción eliminada." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
+    [HttpDelete("{id:int}/materials/{macoid:int}")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteMaterialConsumption(int id, int macoid, CancellationToken ct)
+    {
+        try
+        {
+            var consumption = await _context.MaterialConsumptions
+                .FirstOrDefaultAsync(c => c.Macoid == macoid && c.Mainid == id, ct);
+            if (consumption is null)
+                return NotFound(ApiResponse<object>.Fail("Consumo no encontrado."));
+
+            var maintenance = await _context.Maintenances.FindAsync(new object[] { id }, ct);
+            if (maintenance?.Statid == "FI")
+                return BadRequest(ApiResponse<object>.Fail("No se puede modificar una orden finalizada."));
+
+            _context.Remove(consumption);
+            await _context.SaveChangesAsync(ct);
+            return Ok(ApiResponse<object>.Ok(new { message = "Consumo eliminado." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
+    [HttpDelete("{id:int}/components/{incoid:int}")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteComponent(int id, int incoid, CancellationToken ct)
+    {
+        try
+        {
+            var component = await _context.InstalledComponents
+                .FirstOrDefaultAsync(c => c.Incoid == incoid && c.Mainid == id, ct);
+            if (component is null)
+                return NotFound(ApiResponse<object>.Fail("Componente no encontrado."));
+
+            var maintenance = await _context.Maintenances.FindAsync(new object[] { id }, ct);
+            if (maintenance?.Statid == "FI")
+                return BadRequest(ApiResponse<object>.Fail("No se puede modificar una orden finalizada."));
+
+            _context.Remove(component);
+            await _context.SaveChangesAsync(ct);
+            return Ok(ApiResponse<object>.Ok(new { message = "Componente eliminado." }));
         }
         catch (Exception ex)
         {

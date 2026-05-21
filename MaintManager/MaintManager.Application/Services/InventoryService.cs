@@ -3,6 +3,7 @@ using MaintManager.Domain.Entities;
 using MaintManager.Domain.Interfaces.Repositories;
 using MaintManager.Domain.Interfaces.Services;
 using MaintManager.Shared.Constants;
+using System.Diagnostics;
 
 namespace MaintManager.Application.Services;
 
@@ -99,21 +100,22 @@ public sealed class InventoryService : IInventoryService
         int mateid, int mainid, short rating, int ratedBy,
         string? observation, CancellationToken ct = default)
     {
-        var material = await _inventoryRepo.GetMaterialByIdAsync(mateid, ct)
-            ?? throw new KeyNotFoundException(ErrorMessages.Inventory.MaterialNotFound);
+        try
+        {
+            var material = await _inventoryRepo.GetMaterialByIdAsync(mateid, ct)
+                ?? throw new KeyNotFoundException(ErrorMessages.Inventory.MaterialNotFound);
 
-        var materialRating = MaterialRating.Create(mateid, mainid, rating, ratedBy, observation);
-        
-        // 🔴 CORRECCIÓN: Agregar la entidad al contexto
-        // Se necesita un método en el repositorio para agregar ratings
-        // Asumiendo que existe AddRatingAsync o se puede usar el DbSet directamente.
-        // Como IInventoryRepository no tiene AddRatingAsync, usamos una alternativa:
-        // Inyectar un IGenericRepository<MaterialRating> o agregar método.
-        // Por simplicidad y porque el DbContext está disponible en el repositorio,
-        // agregamos un método en IInventoryRepository.
-        
-        // Añadimos la calificación a través del repositorio (asumiendo que agregamos el método)
-        await _inventoryRepo.AddRatingAsync(materialRating, ct);
-        await _inventoryRepo.SaveChangesAsync(ct);
+            var materialRating = MaterialRating.Create(mateid, mainid, rating, ratedBy, observation);
+
+            await _inventoryRepo.AddRatingAsync(materialRating, ct);
+            await _inventoryRepo.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[RateMaterial ERROR] {ex.GetType().Name}: {ex.Message}");
+            if (ex.InnerException is not null)
+                Debug.WriteLine($"[RateMaterial INNER] {ex.InnerException.GetType().Name}: {ex.InnerException.Message}");
+            throw;
+        }
     }
 }

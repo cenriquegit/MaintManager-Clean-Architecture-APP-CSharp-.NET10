@@ -1441,16 +1441,285 @@ Los validadores y controladores de Application/API ahora usan los tipos de Share
 | Tiempo de depuración | ~6 sesiones continuas |
 
 ---
-*Documentación generada automáticamente por Kilo Agent.*
+## Bug #71 — BI Dashboard crash por CPURenderMode en .NET 10 AOT
+
+### Síntoma
+La app craseaba al navegar al BI Dashboard (o cualquier página con LiveCharts) en Release AOT con el error:
+```
+HandlerNotFoundException: Unable to find a IElementHandler corresponding to LiveChartsCore.SkiaSharpView.Maui.Rendering.CPURenderMode
+```
+
+### Causa raíz
+LiveChartsCore.SkiaSharpView.Maui v2.0.4 introdujo `CPURenderMode` para renderizado por CPU. `UseLiveCharts()` no registraba correctamente el handler para este tipo en .NET 10 AOT.
+
+### Solución final
+1. Se actualizó de v2.0.4 a v2.1.0-dev-570 (prerelease)
+2. Se agregó `.UseSkiaSharp()` explícitamente antes de `.UseLiveCharts()` en MauiProgram.cs
+
+### Archivos modificados
+- `MaintManager.MAUI/MauiProgram.cs`
+- NuGet: LiveChartsCore.SkiaSharpView.Maui 2.0.4 → 2.1.0-dev-570
+
+---
+
+## Bug #72 — Shell routing relativo no soportado en .NET 10
+
+### Síntoma
+Al guardar un mantenimiento nuevo se mostraba "Error al guardar" aunque la API respondía 201 Created. También al navegar a detalle desde la lista.
+
+### Causa raíz
+En .NET 10 MAUI Shell, las navegaciones relativas a sub-rutas de FlyoutItems (`Maintenances/Detail`, `Maintenances/Create`, `Maintenances/VehicleHistory`) ya no funcionan. Lanzan:
+```
+Relative routing to shell elements is currently not supported. Try prefixing your uri with ///
+```
+El catch en Save() atrapaba esta excepción y mostraba el error genérico.
+
+### Solución final
+Cambiar todas las navegaciones relativas a absolutas con prefijo `///`:
+- `Maintenances/Detail?mainid=` → `///Maintenances/Detail?mainid=`
+- `Maintenances/Create` → `///Maintenances/Create`
+- `Maintenances/VehicleHistory` → `///Maintenances/VehicleHistory`
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceWizardViewModel.cs` (1 cambio)
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceListViewModel.cs` (3 cambios)
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceDetailViewModel.cs` (1 cambio)
+
+---
+
+## Bug #73 — DetailPage no carga datos (deserialización sin wrapper ApiResponse)
+
+### Síntoma
+La página de detalle de mantenimiento mostraba todos los campos vacíos (placa, vehículo, tipo, fecha, km, técnico) a pesar de que la API respondía correctamente.
+
+### Causa raíz
+`GetAsync<MaintenanceDetailResponse>` deserializaba TODO el body del API (incluyendo el wrapper `success`, `data`, `message`, `errors`) como si fuera `MaintenanceDetailResponse`. Como el modelo no tiene propiedades que coincidan con los campos del wrapper, todas las propiedades quedaban en default (0, null).
+
+### Solución final
+Cambiar a `GetAsync<ApiResponse<MaintenanceDetailResponse>>` y extraer `.Data`.
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceDetailViewModel.cs`
+
+---
+
+## Bug #74 — PropertyName mismatch Actions vs actionDetails
+
+### Síntoma
+Aún con el wrapper corregido, las acciones del checklist no se mostraban. La propiedad `Actions` en MAUI no coincidía con `actionDetails` que devuelve la API.
+
+### Causa raíz
+La API serializa como `actionDetails` (camelCase) pero el modelo MAUI esperaba `Actions`. No solo es diferencia de casing, son nombres distintos.
+
+### Solución final
+Agregar `[JsonPropertyName("actionDetails")]` a la propiedad `Actions` en `MaintenanceDetailResponse`.
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceDetailViewModel.cs`
+
+---
+
+## Bug #75 — OilInfo anidado incompatible con API plana
+
+### Síntoma
+La sección de información de aceite no se mostraba porque el modelo MAUI esperaba un objeto `OilInfo` anidado mientras la API devuelve propiedades planas (`oilBrand`, `oilViscositySae`, `showOilInNextMaintenance`).
+
+### Causa raíz
+El modelo `MaintenanceDetailResponse` tenía `OilInfo? OilInfo` (objeto anidado con OilBrand, OilViscosity, OilQuantity, OilFilterChanged) pero la API DTO `MaintenanceResponse` retorna campos planos. No coincidían ni en estructura ni en nombres.
+
+### Solución final
+1. Reemplazar `OilInfo` anidado por propiedades planas: `OilBrand`, `OilViscositySae`, `ShowOilInNextMaintenance`
+2. Eliminar clase `OilInfo` del ViewModel
+3. Actualizar bindings XAML para apuntar a las propiedades planas
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceDetailViewModel.cs`
+- `MaintManager.MAUI/Views/Maintenances/MaintenanceDetailPage.xaml`
+
+---
+
+## Bug #76 — CloseOrder sin body causa 400 Bad Request
+
+### Síntoma
+Al presionar "Cerrar Orden" aparecía "Error de conexión con el servidor" aunque la API estuviera funcionando.
+
+### Causa raíz
+El endpoint `PUT /api/v1/maintenances/{id}/close` espera un body `MaintenanceCloseRequest { IsEmergencyComplete: bool? }` con atributo `[FromBody]`. El MAUI llamaba `PutAsync<object>(endpoint)` sin enviar body, causando 400 Bad Request.
+
+### Solución final
+Enviar body vacío: `PutAsync<object>(endpoint, new { })`.
+
+### Archivos modificados
+- `MaintManager.MAUI/ViewModels/Maintenances/MaintenanceDetailViewModel.cs`
+
+---
+
+## Bug #77 — Inicio app tras SwipeUpClean se regenera
+
+### Síntoma
+Al cerrar la app con swipe (SwipeUpClean), el sistema Android forzaba recreación completa del proceso en vez de mantenerlo en caché. Causaba lentitud en inicio.
+
+### Causa raíz
+El LogCat mostraba `ProcessManager: skip restart com.companyname.maintmanager.maui because this device is a lowmemory device!`. El dispositivo (Xiaomi con MIUI) estaba matando procesos en segundo plano agresivamente.
+
+### Solución
+No requiere fix de código. El comportamiento es esperado en dispositivos con poca memoria. La app se reconstruye correctamente al abrirse de nuevo.
+
+---
+
+## Bug #78 — RateMaterial crash: shadow FK MaterialMateid no existe en BD
+
+### Síntoma
+Al calificar un material (POST /api/v1/inventory/materials/{id}/ratings), la API respondía 400 Bad Request con:
+```
+no existe la columna «MaterialMateid» en la relación «material_rating»
+```
+
+### Causa raíz
+EF Core detectaba por convención la relación entre `MaterialRating.Mateid` y `Material.Mateid`, pero como no había configuración explícita, creaba una shadow FK adicional llamada `MaterialMateid`. La tabla `material_rating` no tiene esa columna, por lo que el INSERT fallaba.
+
+### Solución final
+Agregar configuración explícita de la relación en `InventoryConfiguration.cs`:
+```csharp
+builder.HasOne<Material>().WithMany().HasForeignKey(mr => mr.Mateid)
+       .OnDelete(DeleteBehavior.Restrict);
+```
+
+### Archivos modificados
+- `MaintManager.Infrastructure/Data/Configurations/InventoryConfiguration.cs`
+
+---
+
+## FASE 3 — Rediseño layout DetailPage (cards + listas + ✕)
+
+### Cambios
+- Reorden de secciones: InfoGeneral → Acciones → Consumo → Componentes → Reasignar → Diagnóstico
+- Merge de info de aceite dentro del header
+- Cada card con input arriba + lista debajo
+- Botón ✕ para eliminar items de cada lista
+- Picker de acciones (filtrado por categoría "Acción")
+- Lista local de materiales consumidos con costo total (cant × unitario)
+- `ConsumedMaterialItem` modelo local
+- `DiagnosisResponse` actualizado a campos reales de BD
+
+### Archivos modificados
+- `MaintenanceDetailPage.xaml`
+- `MaintenanceDetailViewModel.cs`
+
+---
+
+## FASE 4 — Solo lectura para órdenes finalizadas (Status = "FI")
+
+### Cambios
+- Propiedad `IsReadOnly` computada desde `MaintenanceDetail.Status`
+- Inputs deshabilitados cuando FI
+- Botón "Cerrar Orden" oculto en FI
+- Botón "Exportar PDF" visible solo en FI
+- `OriginService` agregado a `MaintenanceDetailResponse`
+
+### Archivos modificados
+- `MaintenanceDetailViewModel.cs`
+- `MaintenanceDetailPage.xaml`
+
+---
+
+## FASE 5 — Mejora exportación PDF con datos completos
+
+### Cambios
+- PDF ahora incluye: datos del vehículo, materiales consumidos, componentes instalados, recomendaciones futuras, estado
+- Query actualizada para incluir `MaterialConsumptions` e `InstalledComponents`
+
+### Archivos modificados
+- `ReportsController.cs`
+
+---
+
+## FASE 6 — Buffering local de acciones + endpoint POST /actions
+
+### Cambios
+- Nuevo endpoint `POST /api/v1/maintenances/{id}/actions` para crear acciones
+- `IMaintenanceService.CreateActionAsync()`
+- `AddActionRequest` DTO
+- `ApiRoutes.Maintenances.CreateAction`
+- `ActionDetailItem.IsPending` para acciones locales no persistidas
+- `SaveDiagnosis()` ahora persiste acciones pendientes antes de guardar diagnóstico
+- `PersistPendingActionsAsync()` método batch
+
+### Archivos modificados
+- `IMaintenanceService.cs`
+- `MaintenanceService.cs`
+- `MaintenancesController.cs`
+- `AddActionRequest.cs` (nuevo)
+- `ApiRoutes.cs`
+- `MaintenanceDetailViewModel.cs`
+
+---
+
+## FASE 7 — Endpoints DELETE para acciones, materiales y componentes
+
+### Cambios
+- `DELETE /api/v1/maintenances/{id}/actions/{madeid}`
+- `DELETE /api/v1/maintenances/{id}/materials/{macoid}`
+- `DELETE /api/v1/maintenances/{id}/components/{incoid}`
+- Todos verifican que la orden no esté finalizada (FI)
+
+### Archivos modificados
+- `MaintenancesController.cs`
+
+---
+
+## FASE 8 — Diagnóstico: todos los campos del formulario
+
+### Cambios
+- Picker para `GeneralStatus` (Excelente, Bueno, Regular, Reparado, Malo)
+- Switch para `VehicleOperative`
+- Editor para `FutureRecommendations`
+- Display de diagnóstico con todos los campos + fecha
+- `SaveDiagnosis()` ahora envía todos los campos
+
+### Archivos modificados
+- `MaintenanceDetailViewModel.cs`
+- `MaintenanceDetailPage.xaml`
+
+---
+
+## Seed data (FASE 2)
+
+### Cambios
+- Nuevo script `database/04_seed_components_materials.sql`
+- Componentes con vida útil (Batería 1095d, Neumáticos 50000km, Filtro Aire 365d/20000km, etc.)
+- Acciones para checklist (10 items: Revisión general, Cambio aceite, Alineación, etc.)
+- Materiales nuevos (Batería, Neumático, Kit Distribución, Correa Alternador) con lotes
+- Lotes adicionales para materiales existentes (Aceite 5W-30, Filtro Premium)
+
+### Archivos modificados
+- `database/04_seed_components_materials.sql` (nuevo)
+
+---
+
+## Recomendaciones técnicas
+
+### Configurar RatedBy → Worker en MaterialRatingConfiguration
+Para consistencia y evitar futuros shadow FKs, agregar en `InventoryConfiguration.cs`:
+```csharp
+builder.HasOne<Worker>().WithMany().HasForeignKey(mr => mr.RatedBy)
+       .OnDelete(DeleteBehavior.NoAction);
+```
+No es urgente porque EF Core NO detecta `RatedBy` como FK por convención (no coincide con `WorkerId`). Es solo para documentación explícita.
+
+---
+
+## Estadísticas (actualizado)
 
 | Métrica | Valor |
 |---------|-------|
-| Bugs encontrados | 66 |
-| Bugs corregidos | 66 |
+| Bugs encontrados | 78 |
+| Bugs corregidos | 78 |
 | Bugs reintroducidos | 1 (Bug #5) |
-| Archivos modificados | ~100+ |
-| Líneas de código revisadas | ~18000+ |
-| Tiempo de depuración | ~5 sesiones continuas |
+| Archivos modificados | ~150+ |
+| Líneas de código revisadas | ~30000+ |
+| Tiempo de depuración | ~8 sesiones continuas |
 
 ---
+
 *Documentación generada automáticamente por Kilo Agent.*

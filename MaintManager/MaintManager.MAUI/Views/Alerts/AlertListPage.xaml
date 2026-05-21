@@ -61,9 +61,20 @@
                             ItemsSource="{Binding Alerts}"
                             Margin="16,8">
                 <CollectionView.Header>
-                    <Label Text="Alertas sin resolver"
-                           Style="{StaticResource TitleMedium}"
-                           Margin="0,8,0,4"/>
+                    <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,4">
+                        <Label Text="Alertas sin resolver"
+                               Style="{StaticResource TitleMedium}"
+                               VerticalOptions="Center"/>
+                        <HorizontalStackLayout Grid.Column="1" Spacing="4"
+                                               VerticalOptions="Center">
+                            <Label Text="Mostrar resueltas"
+                                   Style="{StaticResource CaptionText}"
+                                   VerticalOptions="Center"/>
+                            <Switch IsToggled="{Binding ShowResolved}"
+                                    OnColor="{StaticResource ColorPrimary}"
+                                    ThumbColor="{StaticResource ColorInfo}"/>
+                        </HorizontalStackLayout>
+                    </Grid>
                 </CollectionView.Header>
 
                 <CollectionView.ItemTemplate>

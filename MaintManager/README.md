@@ -126,6 +126,11 @@ Crear `MaintManager.API/appsettings.Development.json`:
 
 `ApiService.cs` usa `JsonContent.Create(data, options)` para serializar requests POST/PUT. Esto evita el bug de MAUI 10.0.0 donde `StringContent(..., "application/json")` no transmite correctamente el header `Content-Type` (415), y es compatible con AOT en Release. Los DTOs de request/response residen en `MaintManager.Shared.Models` como tipos concretos para que AOT genere serializadores.
 
+### 5. LiveChartsCore en .NET 10 AOT
+Para evitar el crash `HandlerNotFoundException` de `CPURenderMode`:
+- `MauiProgram.cs` debe llamar `.UseSkiaSharp()` explícitamente antes de `.UseLiveCharts()`
+- Versión actual: `LiveChartsCore.SkiaSharpView.Maui 2.1.0-dev-570`
+
 ---
 
 ## Compilación, ejecución e instalación
@@ -948,7 +953,8 @@ El objetivo final es que el sistema se perciba como:
 
 ---
 # Tema consistente (Colores)
-* Azul oscuro enterprise
+* Azul oscuro enterprise — Primary `#1565C0`
+* Azul secundario — Secondary `#0D47A1`
 * Gris neutro
 * Verde éxito
 * Naranja warning
