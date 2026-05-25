@@ -114,6 +114,10 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 - Diagnóstico completo con Picker (GeneralStatus), Switch (VehicleOperative), Editor (Observations, FutureRecommendations)
 - Endpoints POST /actions y DELETE /actions, /materials, /components
 - Seed data: componentes con vida útil (Batería 1095d, Neumáticos 50000km, etc.), 10 acciones checklist, materiales nuevos con lotes
+- Rating de materiales guardado localmente, enviado batch al guardar diagnóstico
+- Acciones rápidas role-based (Admin → Create/Lot directo, Mecánico → lista)
+- Alertas: historial de resueltas con Switch "Mostrar resueltas"
+- Dashboard BI poblado con datos reales (124 órdenes, 16 vehículos con costos)
 
 ### ⚠️ En Progreso / Pendiente
 - Reportes "Órdenes de Mantenimiento" y "Alertas": muestran "no disponible" (no hay endpoint)
@@ -123,6 +127,8 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 
 ### 🔴 Problemas Conocidos que Requieren Debug en Dispositivo
 1. Si `Materials` retorna vacío desde la API, el paso 3 se ve sin items — depende de que existan materiales en BD
+2. RateMaterial puede devolver 400 por shadow FK (fijo en código, requiere rebuild APK)
+3. Sesión 8h: verificar en dispositivo que no pida login antes de tiempo
 
 ## 5. Flujo de Navegación (Shell)
 
@@ -232,35 +238,36 @@ Tablas principales:
 
 | Archivo | Último Cambio |
 |---------|---------------|
-| `Shared/Models/*` | 6 nuevos DTOs compartidos (MaintenanceCreateRequest, LotCreateRequest, LoginResponse, VehicleListItemDto, MaterialItemDto, ApiResponse eliminado por conflicto) |
-| `ApiService.cs` | JsonContent.Create (AOT-compatible) + TryRestoreSessionAsync con expiración |
-| `AuthService.cs` | LoginResponse ahora desde Shared.Models; ExtractWorkidFromToken |
-| `BiDashboardViewModel.cs` | Series/Axis `[]` → `null` (crash AOT LiveChartsCore) |
-| `MaintenanceWizardViewModel.cs` | Save() usa PostAndUnwrapAsync<int> + ruta absoluta `///Maintenances/Detail` |
-| `MaintenanceListViewModel.cs` | Rutas absolutas `///Maintenances/Detail` y `///Maintenances/Create` |
-| `MaintenanceDetailViewModel.cs` | IsReadOnly, ConsumedMaterials, ActionCatalogItems, AddAction/RemoveAction, PersistPendingActionsAsync, GeneralStatus picker, VehicleOperative switch, FutureRecommendations |
-| `MaintenanceDetailPage.xaml` | Layout cards secuenciales, merge aceite en header, ✕ en listas, inputs deshabilitados en FI, diagnóstico completo |
-| `MaintenancesController.cs` | POST /{id}/actions, DELETE /{id}/actions/{madeid}, DELETE /{id}/materials/{macoid}, DELETE /{id}/components/{incoid} |
-| `ReportsController.cs` | PDF con datos de vehículo, materiales consumidos, componentes instalados |
+| `Shared/Models/*` | 6 nuevos DTOs compartidos |
+| `ApiService.cs` | JsonContent.Create (AOT) + TryRestoreSessionAsync |
+| `AuthService.cs` | LoginResponse desde Shared.Models |
+| `BiDashboardViewModel.cs` | Series/Axis `[]` → `null` |
+| `MaintenanceWizardViewModel.cs` | PostAndUnwrapAsync + ruta `///` |
+| `MaintenanceListViewModel.cs` | Rutas `///` |
+| `MaintenanceDetailViewModel.cs` | IsReadOnly, ConsumedMaterials, ActionCatalogItems, AddAction/RemoveAction, PersistPendingActionsAsync, GeneralStatus picker, VehicleOperative switch, FutureRecommendations, ActionDetailItem `[JsonPropertyName]`, Rating local |
+| `MaintenanceDetailPage.xaml` | Layout cards, merge aceite, ✕ oculto en FI, checkbox oculto en FI, `x:DataType` |
+| `MaintenancesController.cs` | POST /actions, DELETE /actions, /materials, /components |
+| `ReportsController.cs` | PDF con datos completos de vehículo/materiales/componentes |
 | `MaintenanceService.cs` | CreateActionAsync |
-| `IMaintenanceService.cs` | CreateActionAsync firma |
+| `IMaintenanceService.cs` | CreateActionAsync |
 | `AddActionRequest.cs` | Nuevo DTO |
-| `ApiRoutes.cs` | CreateAction route |
-| `InventoryConfiguration.cs` | Fix relación MaterialRating → Material (shadow FK) |
-| `database/04_seed_components_materials.sql` | Nuevo script seed (componentes vida útil + acciones + lotes) |
-| `LotCreateViewModel.cs` | Save() usa LotCreateRequest concreto; ApiResponse privado restaurado |
-| `MaintenanceWizardPage.xaml` | Step2: Picker; Steps3-4: BindableLayout |
-| `AppShell.xaml` | Flyout borders: BoxView BackgroundColor, StrokeThickness=0 |
-| `MauiProgram.cs` | UseSkiaSharp() + UseLiveCharts(); LiveChartsCore 2.1.0-dev-570 |
-| `MaintenanceDetailPage.xaml` | OilInfo bindings planos |
-| `MaintenancesController.cs` | `AssignedTo` fallback a `registeredBy`; using Shared.Models |
-| `InventoryController.cs` | using Shared.Models |
-| `AuthController.cs` | LoginResponse desde Shared.Models |
-| `MaintenanceCreateValidator.cs` | AssignedTo >= 0; using Shared.Models |
-| `LotCreateValidator.cs` | using Shared.Models |
-| `Application/DTOs/Maintenance/MaintenanceCreateRequest.cs` | Eliminado (movido a Shared) |
-| `Application/DTOs/Inventory/LotCreateRequest.cs` | Eliminado (movido a Shared) |
-| `Application/DTOs/Auth/LoginResponse.cs` | Eliminado (movido a Shared) |
+| `ApiRoutes.cs` | CreateAction, Alerts.GetHistory |
+| `InventoryConfiguration.cs` | Fix relación MaterialRating→Material |
+| `InventoryService.cs` | Debug logging RateMaterial |
+| `MaintenanceRepository.cs` | GetByVehicleAsync sin filtro Statid |
+| `IAlertRepository.cs` | GetResolvedAlertsAsync |
+| `AlertRepository.cs` | GetResolvedAlertsAsync |
+| `AlertsController.cs` | GET /alerts/history endpoint |
+| `AlertListViewModel.cs` | ShowResolved Switch, merge de alertas |
+| `AlertListPage.xaml` | Switch "Mostrar resueltas" en header |
+| `HomeViewModel.cs` | AuthService inyectado, quick actions role-based |
+| `CalendarViewModel.cs` | Fix ruta + parámetro mainid |
+| `InventoryListViewModel.cs` | 3 rutas `///` sin try-catch |
+| `database/04_seed_components_materials.sql` | Componentes vida útil + acciones + lotes |
+| `database/05_seed_dashboard_data.sql` | Dashboard seed (consumos, emergencia, lotes) |
+| `database/06_seed_massive_data.sql` | Mega seed (124 órdenes, 119 consumos, etc.) |
+| `AppShell.xaml` | Flyout borders limpios |
+| `MauiProgram.cs` | UseSkiaSharp() + UseLiveCharts() |
 
 ## 10. Cómo Continuar — Prompt para Nueva Sesión
 

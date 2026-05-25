@@ -513,13 +513,46 @@ FASE 7 — Refactor DetailPage                    [✅ COMPLETADA]
 ├── 7.6 Buffering acciones + POST /actions       ✅
 ├── 7.7 Endpoints DELETE items                   ✅
 └── 7.8 Diagnóstico campos completos             ✅
+
+FASE 8 — Correcciones post-estabilización        [✅ COMPLETADA]
+├── 8.1 RateMaterial debug log                   ✅
+├── 8.2 Rating local (batch al guardar)          ✅
+├── 8.3 VehicleHistory sin filtro Statid         ✅
+├── 8.4 Quick actions role-based (Admin vs Tec)  ✅
+├── 8.5 Alertas: historial resueltas (Switch)    ✅
+├── 8.6 6 rutas Shell rotas corregidas           ✅
+├── 8.7 CreateMaterial sequence reset            ✅
+├── 8.8 DetailPage: Actions JsonPropertyName     ✅
+├── 8.9 DetailPage: FI checkbox/✕ ocultos       ✅
+├── 8.10 Dashboard seeds (124 órdenes, datos)    ✅
+└── 8.11 Documentación actualizada               ✅
 ```
 
----
+## DATABASE — Estado actual
+
+- **Órdenes:** 124 (18 activas, 105 finalizadas, 1 cancelada)
+- **Consumos:** 119 registros con costos reales
+- **Componentes instalados:** 40
+- **Diagnósticos:** 93
+- **Acciones realizadas:** 200
+- **Calificaciones materiales:** 74
+- **Lotes activos:** 24 (4 por vencer próximos 30 días)
+- **Alertas no resueltas:** 8
+- **Vehículos con schedule:** 16/16
+- **Técnicos activos:** 3
+
+### Scripts SQL de seed
+| Script | Descripción |
+|--------|-------------|
+| `04_seed_components_materials.sql` | Componentes vida útil + acciones checklist + materiales/lotes |
+| `05_seed_dashboard_data.sql` | Consumos para órdenes activas, emergencia, lotes por vencer |
+| `06_seed_massive_data.sql` | 124 órdenes masivas con consumos, componentes, diagnósticos, etc. |
 
 ## NOTAS ADICIONALES
 
-- **Chain of thought:** Se encontraron 3 bugs críticos que impiden login y persistencia de diagnosis. El frontend MAUI actual solo tiene 4 páginas de las ~15 requeridas.
-- **Rol de cada capa:** El análisis confirma que la arquitectura Clean Architecture es correcta. Las violaciones (ReportsController con DbContext directo) deben corregirse.
-- **Seed data:** Los scripts SQL existen en BD según README.md (3 scripts). No se encontraron archivos SQL en el repositorio.
-- **Serilog:** Configurado en appsettings.Development.json pero no en Program.cs. Se registra en Program.cs que usa `builder.Logging.ClearProviders();` y `AddConsole()`, pero no configura Serilog. Esto es un bug de configuración de logging.
+- **Dashboard BI:** Las vistas `vw_*` usan `statid='AC'` para filtrar datos activos. Seed data asegura órdenes activas con consumos.
+- **Role-based quick actions:** Admin → Create/Lot directo. Mecánico → lista normal.
+- **Rating:** Local, batch al guardar diagnóstico (`PersistPendingActionsAsync`).
+- **Alertas históricas:** Switch "Mostrar resueltas" en UI, carga `GET /api/v1/alerts/history`.
+- **Serilog:** Configurado en appsettings.Development.json pero no en Program.cs. Bug de configuración.
+- **Secuencias BD:** Reseteadas todas las secuencias del esquema `maintenance` tras seed data explícita.

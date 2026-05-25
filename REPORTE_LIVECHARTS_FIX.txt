@@ -1,0 +1,60 @@
+INSTRUCCIONES: RESTAURAR GRAFICOS BI DASHBOARD (LiveChartsCore v2.0.4)
+
+El paquete NuGet ya esta actualizado. Solo falta reemplazar los BoxView en el XAML.
+
+ABRIR: MaintManager.MAUI\Views\BiDashboard\BiDashboardPage.xaml
+
+═══════════════════════════════════════════
+CHART 1: Costo por Km  (Buscar BoxView HeightRequest=220)
+═══════════════════════════════════════════
+REEMPLAZAR:
+<BoxView HeightRequest=220 Color={StaticResource ColorBackground} IsVisible=False/>
+
+POR:
+<lvc:CartesianChart Series={Binding CostPerKmSeries} XAxes={Binding CostPerKmXAxes} YAxes={Binding CostPerKmYAxes} HeightRequest=220 ZoomMode=None TooltipPosition=Top/>
+
+═══════════════════════════════════════════
+CHART 2: Tasa de Emergencia  (Buscar BoxView HeightRequest=200)
+═══════════════════════════════════════════
+REEMPLAZAR:
+<BoxView HeightRequest=200 Color={StaticResource ColorBackground} IsVisible=False/>
+
+POR:
+<lvc:CartesianChart Series={Binding EmergencyRateSeries} XAxes={Binding EmergencyRateXAxes} YAxes={Binding EmergencyRateYAxes} HeightRequest=200 ZoomMode=None TooltipPosition=Top/>
+
+═══════════════════════════════════════════
+CHART 3: Costos Mensuales  (Buscar BoxView HeightRequest=220)
+═══════════════════════════════════════════
+REEMPLAZAR:
+<BoxView HeightRequest=220 Color={StaticResource ColorBackground} IsVisible=False/>
+
+POR:
+<lvc:CartesianChart Series={Binding MonthlyCostSeries} XAxes={Binding MonthlyCostXAxes} YAxes={Binding MonthlyCostYAxes} HeightRequest=220 ZoomMode=None TooltipPosition=Top/>
+
+═══════════════════════════════════════════
+CHART 4: Lotes a Vencer  (Buscar BoxView HeightRequest=220)
+═══════════════════════════════════════════
+REEMPLAZAR:
+<BoxView HeightRequest=220 Color={StaticResource ColorBackground} IsVisible=False/>
+
+POR:
+<lvc:PieChart Series={Binding ExpiringLotsSeries} HeightRequest=220 TooltipPosition=Top/>
+
+═══════════════════════════════════════════
+CHART 5: Desviacion Calendario  (Buscar BoxView HeightRequest=220)
+═══════════════════════════════════════════
+REEMPLAZAR:
+<BoxView HeightRequest=220 Color={StaticResource ColorBackground} IsVisible=False/>
+
+POR:
+<lvc:CartesianChart Series={Binding ComplianceSeries} XAxes={Binding ComplianceXAxes} YAxes={Binding ComplianceYAxes} HeightRequest=220 ZoomMode=None TooltipPosition=Top/>
+
+═══════════════════════════════════════════
+NOTA: Los 5 BoxView son IDENTICOS (<BoxView HeightRequest=... Color=... IsVisible=False/>).
+Para evitar confusion: reemplaza UNO A UNO empezando por el primero.
+Cada chart tiene su altura: Chart 2 usa HeightRequest=200, los demas HeightRequest=220.
+═══════════════════════════════════════════
+
+PASO FINAL: Recompilar
+dotnet build -f net10.0-android -c Release
+dotnet publish -f net10.0-android -c Release -p:AndroidPackageFormats=apk

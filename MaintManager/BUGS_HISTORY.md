@@ -1697,6 +1697,72 @@ builder.HasOne<Material>().WithMany().HasForeignKey(mr => mr.Mateid)
 
 ---
 
+## FIX_RATING_UI — Correcciones post-Dashboard
+
+### Issue #1 — Debug RateMaterial 400
+- Agregado `Debug.WriteLine` en catch de `RateMaterialAsync` para diagnosticar el error 400
+- **Archivo:** `InventoryService.cs`
+
+### Issue #2 — Rating local (no enviar al API hasta batch final)
+- El rating se guarda en `ConsumedMaterialItem.Rating` y `RatingObservation`
+- NO se envía al API inmediatamente
+- `PersistPendingActionsAsync()` envía TODOS los ratings batch al guardar diagnóstico
+- `ConsumedMaterialItem` clase actualizada
+- **Archivos:** `MaintenanceDetailViewModel.cs`
+
+### Issue #3 — VehicleHistory filtraba solo Statid="AC"
+- `GetByVehicleAsync` en `MaintenanceRepository.cs` filtraba `m.Statid == "AC"`, ocultando órdenes finalizadas
+- Fix: eliminar el filtro `Statid`
+- **Archivo:** `MaintenanceRepository.cs`
+
+### Issue #4 — Acciones rápidas role-based (Admin vs Mecánico)
+- Admin: "Nuevo Mantenimiento" → `///Maintenances/Create`, "Inventario" → `///Inventory/CreateLot`
+- Mecánico: navegación normal (lista)
+- Se inyectó `AuthService` en `HomeViewModel`
+- **Archivos:** `HomeViewModel.cs`
+
+### Issue #5 — Alertas: historial resueltas (Switch en UI)
+- Nuevo endpoint `GET /api/v1/alerts/history`
+- `GetResolvedAlertsAsync()` en repositorio (ordenado por `ResolvedAt`)
+- `ApiRoutes.Alerts.GetHistory` ruta nueva
+- Switch "Mostrar resueltas" en `AlertListPage.xaml`
+- `AlertListViewModel.ShowResolved` alterna entre no resueltas y todas
+- **Archivos:** `IAlertRepository.cs`, `AlertRepository.cs`, `AlertsController.cs`, `ApiRoutes.cs`, `AlertListViewModel.cs`, `AlertListPage.xaml`
+
+### Issue #6 — 6 rutas Shell relativas rotas (navegación .NET 10)
+- `CalendarViewModel.cs:147` — parámetro `id` → `mainid`, ruta `//` → `///`
+- `InventoryListViewModel.cs:71` — `"Inventory/CreateLot"` → `"///Inventory/CreateLot"`
+- `InventoryListViewModel.cs:81` — `"Inventory/CreateMaterial"` → `"///Inventory/CreateMaterial"`
+- `InventoryListViewModel.cs:97` — `"Inventory/LotList"` → `"///Inventory/LotList"`
+- Eliminados try-catch redundantes en CreateLot/CreateMaterial
+- **Archivos:** `CalendarViewModel.cs`, `InventoryListViewModel.cs`
+
+### Issue #7 — CreateMaterial: material_pkey duplicado
+- La secuencia `material_mateid_seq` estaba desincronizada por INSERTs explícitos en seed data
+- Reseteadas TODAS las secuencias clave del esquema `maintenance`
+- **Archivo:** `06_seed_massive_data.sql`
+
+### Issue #8 — DetailPage: texto de acciones no visible en listas
+- `ActionDetailItem.Name` y `.Description` no coincidían con `actionName`/`actionCategory` del API
+- Agregados `[JsonPropertyName("actionName")]` y `[JsonPropertyName("actionCategory")]`
+- **Archivo:** `MaintenanceDetailViewModel.cs`
+
+### Issue #9 — DetailPage en FI: checkbox y ✕ visibles
+- Cuando `IsReadOnly == true` (Status = "FI"):
+  - Checkbox y ✕ se ocultan (`IsVisible = false`)
+  - Agregado `x:DataType` a los 3 DataTemplates
+- **Archivos:** `MaintenanceDetailPage.xaml`
+
+### Issue #10 — Dashboard BI sin datos (todo en 0)
+- `vw_bi_dashboard_summary`, `vw_cost_per_km`, `vw_emergency_rate`, `vw_monthly_cost` mostraban 0 porque las órdenes activas no tenían consumos de materiales
+- Creados scripts de seed:
+  - `05_seed_dashboard_data.sql`: consumos para órdenes activas, emergencia, lotes por vencer, componentes
+  - `06_seed_massive_data.sql`: 124 órdenes, 119 consumos, 40 componentes, 93 diagnósticos, 200 acciones, 74 calificaciones, 24 lotes activos
+- Dashboard ahora muestra datos reales dinámicos
+- **Archivos:** `database/05_seed_dashboard_data.sql`, `database/06_seed_massive_data.sql`
+
+---
+
 ## Recomendaciones técnicas
 
 ### Configurar RatedBy → Worker en MaterialRatingConfiguration
@@ -1715,10 +1781,13 @@ No es urgente porque EF Core NO detecta `RatedBy` como FK por convención (no co
 |---------|-------|
 | Bugs encontrados | 78 |
 | Bugs corregidos | 78 |
-| Bugs reintroducidos | 1 (Bug #5) |
-| Archivos modificados | ~150+ |
-| Líneas de código revisadas | ~30000+ |
-| Tiempo de depuración | ~8 sesiones continuas |
+| Issues/mejoras resueltos | 16 (FIX_RATING_UI #1-#10 + FASE 3-8) |
+| Archivos modificados | ~180+ |
+| Líneas de código revisadas | ~35000+ |
+| Tiempo de depuración | ~9 sesiones continuas |
+| Scripts SQL de seed | 3 (04, 05, 06) |
+| Órdenes en BD | 124 |
+| Dashboard funcional | ✅ KPIs, 5 gráficos con datos reales |
 
 ---
 
