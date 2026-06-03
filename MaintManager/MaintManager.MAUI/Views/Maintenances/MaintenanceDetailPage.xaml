@@ -35,38 +35,38 @@
                 <!-- Header: order number, vehicle, plate, status -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="16"
+                        StrokeThickness="1" Padding="12"
                         BackgroundColor="{StaticResource ColorSurface}">
-                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="2">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="1">
 
                         <Label Grid.Row="0" Grid.Column="0"
                                Text="{Binding MaintenanceDetail.OrderNumber}"
-                               FontSize="20" FontAttributes="Bold"
+                               FontSize="18" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
                         <Border Grid.Row="0" Grid.Column="1"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 99"
-                                Padding="10,4"
+                                Padding="8,3"
                                 BackgroundColor="{StaticResource ColorInfoContainer}">
                             <Label Text="{Binding MaintenanceDetail.StatusName}"
-                                   FontSize="12" FontAttributes="Bold"
+                                   FontSize="11" FontAttributes="Bold"
                                    TextColor="{StaticResource ColorInfo}"/>
                         </Border>
 
                         <Label Grid.Row="1" Grid.ColumnSpan="2"
                                Text="{Binding MaintenanceDetail.VehicleName}"
-                               FontSize="18" FontAttributes="Bold"
+                               FontSize="16" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
                         <Label Grid.Row="2" Grid.ColumnSpan="2"
                                Text="{Binding MaintenanceDetail.LicensePlate, StringFormat='Placa: {0}'}"
-                               FontSize="14"
+                               FontSize="13"
                                TextColor="{StaticResource ColorTextSecondary}"/>
 
-                        <!-- Oil info inline in header -->
+                        <!-- Oil info inline -->
                         <Label Grid.Row="3" Grid.ColumnSpan="2"
-                               FontSize="12" Margin="0,4,0,0"
+                               FontSize="11" Margin="0,2,0,0"
                                TextColor="{StaticResource ColorTextSecondary}">
                             <Label.FormattedText>
                                 <FormattedString>
@@ -80,7 +80,7 @@
                                 <DataTrigger TargetType="Label"
                                              Binding="{Binding MaintenanceDetail.OilBrand}"
                                              Value="{x:Null}">
-                                    <Setter Property="Text" Value="No hay información de aceite"/>
+                                    <Setter Property="Text" Value="Sin información de aceite"/>
                                 </DataTrigger>
                             </Label.Triggers>
                         </Label>
@@ -90,30 +90,39 @@
                 <!-- Info General -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="16"
+                        StrokeThickness="1" Padding="12"
                         BackgroundColor="{StaticResource ColorSurface}">
-                    <VerticalStackLayout Spacing="10">
+                    <VerticalStackLayout Spacing="8">
                         <Label Text="Información General"
-                               FontSize="16" FontAttributes="Bold"
+                               FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
                         <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
                               ColumnDefinitions="Auto,*"
-                              RowSpacing="8" ColumnSpacing="12">
-                            <Label Grid.Row="0" Grid.Column="0" Text="Tipo:" Style="{StaticResource CaptionText}"/>
+                              RowSpacing="6" ColumnSpacing="10"
+                              HorizontalOptions="Start">
+                            <Label Grid.Row="0" Grid.Column="0" Text="Tipo de Servicio:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="0" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.MaintenanceType}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
 
-                            <Label Grid.Row="1" Grid.Column="0" Text="Servicio:" Style="{StaticResource CaptionText}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Text="Tipo de Mantenimiento:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="1" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.ServiceType}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
 
                             <Label Grid.Row="2" Grid.Column="0" Text="Fecha:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="2" Grid.Column="1"
-                                   Text="{Binding MaintenanceDetail.MaintenanceDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
+                                   TextColor="{StaticResource ColorTextPrimary}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding MaintenanceDetail.MaintenanceDate, StringFormat='{0:dd/MM/yyyy}'}"/>
+                                        <Span Text="  "/>
+                                        <Span Text="Hora: "/>
+                                        <Span Text="{Binding MaintenanceDetail.MaintenanceDate, StringFormat='{0:HH:mm}'}" FontAttributes="Bold"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Label Grid.Row="3" Grid.Column="0" Text="Kilometraje:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="3" Grid.Column="1"
@@ -143,33 +152,33 @@
                 <!-- Acciones Realizadas: Picker + add button + list -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="16"
+                        StrokeThickness="1" Padding="12"
                         BackgroundColor="{StaticResource ColorSurface}">
-                    <VerticalStackLayout Spacing="8">
+                    <VerticalStackLayout Spacing="6">
                         <Label Text="Acciones Realizadas"
-                               FontSize="16" FontAttributes="Bold"
+                               FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
                         <!-- Input: visible solo en orden activa -->
-                        <HorizontalStackLayout Spacing="6"
-                                               IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6"
+                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
                             <Border StrokeShape="RoundRectangle 8"
                                     Stroke="{StaticResource ColorBorder}"
-                                    StrokeThickness="1" Padding="4,0"
-                                    HorizontalOptions="FillAndExpand">
+                                    StrokeThickness="1" Padding="4,0">
                                 <Picker ItemsSource="{Binding ActionCatalogItems}"
                                         SelectedItem="{Binding SelectedActionCatalog}"
                                         ItemDisplayBinding="{Binding .}"
                                         Title="Seleccionar acción..."
-                                        Style="{StaticResource FormPicker}"/>
+                                        Style="{StaticResource FormPicker}"
+                                        HorizontalOptions="FillAndExpand"/>
                             </Border>
-                            <Button Text="+"
+                            <Button Grid.Column="1" Text="+"
                                     Command="{Binding AddActionCommand}"
                                     Style="{StaticResource AccentButton}"
                                     FontSize="20" FontAttributes="Bold"
                                     HeightRequest="44" WidthRequest="44"
                                     CornerRadius="22" Padding="0"/>
-                        </HorizontalStackLayout>
+                        </Grid>
 
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
 
@@ -213,17 +222,16 @@
                 <!-- Consumir Material: picker + quantity + list -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="16"
+                        StrokeThickness="1" Padding="12"
                         BackgroundColor="{StaticResource ColorSurface}">
-                    <VerticalStackLayout Spacing="10">
-                        <Label Text="Consumir Material (FIFO)"
-                               FontSize="16" FontAttributes="Bold"
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Consumir Material"
+                               FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
                         <!-- Input: visible solo en orden activa -->
                         <VerticalStackLayout Spacing="8"
                                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
-                            <Label Text="Material:" Style="{StaticResource CaptionText}"/>
                             <Border StrokeShape="RoundRectangle 8"
                                     Stroke="{StaticResource ColorBorder}"
                                     StrokeThickness="1" Padding="4,0">
@@ -238,54 +246,39 @@
                             <Border IsVisible="{Binding ShowLotInfo}"
                                     StrokeShape="RoundRectangle 8"
                                     BackgroundColor="{StaticResource ColorInfoContainer}"
-                                    StrokeThickness="0" Padding="12,8">
-                                <VerticalStackLayout Spacing="4">
-                                    <Label Text="Lote a consumir (FIFO):"
+                                    StrokeThickness="0" Padding="12,6">
+                                <HorizontalStackLayout Spacing="12">
+                                    <Label Text="{Binding LotNumberDisplay, StringFormat='Lote: {0}'}"
                                            FontSize="12" FontAttributes="Bold"
                                            TextColor="{StaticResource ColorTextPrimary}"/>
-                                    <HorizontalStackLayout Spacing="16">
-                                        <VerticalStackLayout Spacing="0">
-                                            <Label Text="Lote" Style="{StaticResource CaptionText}"/>
-                                            <Label Text="{Binding LotNumberDisplay}"
-                                                   FontSize="13" FontAttributes="Bold"
-                                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Spacing="0">
-                                            <Label Text="Vence" Style="{StaticResource CaptionText}"/>
-                                            <Label Text="{Binding LotExpiryDisplay}"
-                                                   FontSize="13"
-                                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Spacing="0">
-                                            <Label Text="Costo unit." Style="{StaticResource CaptionText}"/>
-                                            <Label Text="{Binding LotCostDisplay}"
-                                                   FontSize="13" FontAttributes="Bold"
-                                                   TextColor="{StaticResource ColorPrimary}"/>
-                                        </VerticalStackLayout>
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
+                                    <Label Text="{Binding LotCostDisplay, StringFormat='Costo: {0}'}"
+                                           FontSize="12"
+                                           TextColor="{StaticResource ColorPrimary}"/>
+                                    <Label Text="{Binding LotExpiryDisplay, StringFormat='Vence: {0}'}"
+                                           FontSize="12"
+                                           TextColor="{StaticResource ColorTextSecondary}"/>
+                                </HorizontalStackLayout>
                             </Border>
 
-                            <HorizontalStackLayout Spacing="6">
-                                <VerticalStackLayout HorizontalOptions="FillAndExpand">
-                                    <Label Text="Cantidad:" Style="{StaticResource CaptionText}"/>
-                                    <Border StrokeShape="RoundRectangle 8"
-                                            Stroke="{StaticResource ColorBorder}"
-                                            StrokeThickness="1" Padding="12,0"
-                                            HeightRequest="44">
-                                        <Entry Text="{Binding ConsumeQuantity}"
-                                               Keyboard="Numeric"
-                                               Placeholder="ej: 4.5"
-                                               TextColor="{StaticResource ColorTextPrimary}"
-                                               PlaceholderColor="{StaticResource Gray500}"/>
-                                    </Border>
-                                </VerticalStackLayout>
-                                <Button Text="Consumir"
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                <Border StrokeShape="RoundRectangle 8"
+                                        Stroke="{StaticResource ColorBorder}"
+                                        StrokeThickness="1" Padding="12,0"
+                                        HeightRequest="44">
+                                    <Entry Text="{Binding ConsumeQuantity}"
+                                           Keyboard="Numeric"
+                                           Placeholder="ej: 4.5"
+                                           TextColor="{StaticResource ColorTextPrimary}"
+                                           PlaceholderColor="{StaticResource Gray500}"/>
+                                </Border>
+                                <Button Grid.Column="1" Text="+"
                                         Command="{Binding ConsumeMaterialCommand}"
                                         Style="{StaticResource AccentButton}"
-                                        HeightRequest="44" WidthRequest="80"
+                                        FontSize="20" FontAttributes="Bold"
+                                        HeightRequest="44" WidthRequest="44"
+                                        CornerRadius="22" Padding="0"
                                         VerticalOptions="End"/>
-                            </HorizontalStackLayout>
+                            </Grid>
                         </VerticalStackLayout>
 
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
@@ -341,33 +334,39 @@
                 <!-- Instalar Componente: picker + install + list -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="16"
+                        StrokeThickness="1" Padding="12"
                         BackgroundColor="{StaticResource ColorSurface}">
-                    <VerticalStackLayout Spacing="8">
+                    <VerticalStackLayout Spacing="6">
                         <Label Text="Componentes Instalados"
-                               FontSize="16" FontAttributes="Bold"
+                               FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
                         <!-- Input: visible solo en orden activa -->
-                        <HorizontalStackLayout Spacing="6"
-                                               IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6"
+                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
                             <Border StrokeShape="RoundRectangle 8"
                                     Stroke="{StaticResource ColorBorder}"
-                                    StrokeThickness="1" Padding="4,0"
-                                    HorizontalOptions="FillAndExpand">
+                                    StrokeThickness="1" Padding="4,0">
                                 <Picker ItemsSource="{Binding ComponentActions}"
                                         SelectedItem="{Binding SelectedComponent}"
                                         ItemDisplayBinding="{Binding .}"
                                         Title="Seleccionar componente..."
                                         Style="{StaticResource FormPicker}"/>
                             </Border>
-                            <Button Text="+"
+                            <Button Grid.Column="1" Text="+"
                                     Command="{Binding InstallComponentCommand}"
                                     Style="{StaticResource AccentButton}"
                                     FontSize="20" FontAttributes="Bold"
                                     HeightRequest="44" WidthRequest="44"
                                     CornerRadius="22" Padding="0"/>
-                        </HorizontalStackLayout>
+                        </Grid>
+
+                        <Label Text="{Binding ComponentHelpText}"
+                               IsVisible="{Binding SelectedComponent, Converter={StaticResource IsNotNullConverter}}"
+                               FontSize="12"
+                               TextColor="{StaticResource ColorTextSecondary}"
+                               LineBreakMode="WordWrap"
+                               Margin="0,-4,0,0"/>
 
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
 

@@ -73,6 +73,13 @@
                                 Title="Seleccionar tipo de servicio..."
                                 Style="{StaticResource FormPicker}"/>
                     </Border>
+
+                    <Label Text="{Binding ServiceTypeDescription}"
+                           IsVisible="{Binding SelectedServiceType, Converter={StaticResource IsNotNullConverter}}"
+                           FontSize="12"
+                           TextColor="{StaticResource ColorTextSecondary}"
+                           LineBreakMode="WordWrap"
+                           Margin="0,-8,0,0"/>
                 </VerticalStackLayout>
 
                 <!-- Step 3: Technician assignment -->

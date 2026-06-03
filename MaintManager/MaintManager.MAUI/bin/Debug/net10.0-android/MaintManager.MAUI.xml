@@ -634,6 +634,11 @@
             <param name="value">The new property value that was set.</param>
             <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.SelectedMaterial"/> is changed.</remarks>
         </member>
+        <member name="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.OnSelectedComponentChanged(MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.ActionCatalogOption)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.SelectedComponent"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.SelectedComponent"/> is changed.</remarks>
+        </member>
         <member name="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.addActionCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.AddActionCommand"/>.</summary>
         </member>
@@ -809,6 +814,11 @@
             <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.MileageText"/> just changed.</summary>
             <param name="value">The new property value that was set.</param>
             <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.MileageText"/> is changed.</remarks>
+        </member>
+        <member name="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.OnSelectedServiceTypeChanged(System.String)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.SelectedServiceType"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.SelectedServiceType"/> is changed.</remarks>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.nextStepCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceWizardViewModel.NextStepCommand"/>.</summary>

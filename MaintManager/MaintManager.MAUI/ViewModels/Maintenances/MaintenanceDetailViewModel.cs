@@ -147,8 +147,8 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             await _apiService.PostAsync<object>(endpoint, request);
             DiagnosisSaved = true;
             CanClose = true;
-            await Load();
         });
+        if (!HasError) await Load();
     }
 
     private async Task PersistPendingActionsAsync()
@@ -300,8 +300,8 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             var request = new { Workid = SelectedTechnician.Workid };
             var endpoint = ApiRoutes.Maintenances.AssignTechnician.Replace("{id}", _mainid.ToString());
             await _apiService.PutAsync<object>(endpoint, request);
-            await Load();
         });
+        if (!HasError) await Load();
     }
 
     public sealed class ApiResponse<T>
@@ -397,18 +397,18 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [RelayCommand]
     private async Task ConsumeMaterial()
     {
+        if (SelectedMaterial is null || !decimal.TryParse(ConsumeQuantity, out var qty) || qty <= 0)
+        {
+            ErrorMessage = "Selecciona un material y una cantidad válida.";
+            HasError = true;
+            return;
+        }
+
+        var mateConsumed = SelectedMaterial.Mateid;
+        var nameConsumed = SelectedMaterial.Name;
+
         await ExecuteAsync(async () =>
         {
-            if (SelectedMaterial is null || !decimal.TryParse(ConsumeQuantity, out var qty) || qty <= 0)
-            {
-                ErrorMessage = "Selecciona un material y una cantidad válida.";
-                HasError = true;
-                return;
-            }
-
-            var mateConsumed = SelectedMaterial.Mateid;
-            var nameConsumed = SelectedMaterial.Name;
-
             var request = new { Mateid = mateConsumed, Quantity = qty };
             var endpoint = ApiRoutes.Maintenances.ConsumeMaterial.Replace("{id}", _mainid.ToString());
             await _apiService.PostAsync<object>(endpoint, request);
@@ -423,42 +423,42 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
 
             ConsumeQuantity = string.Empty;
             SelectedMaterial = null;
-            await Load();
+        });
+        if (!HasError) await Load();
 
-            // Preguntar si quiere calificar el material recién consumido
-            var rate = await Shell.Current.DisplayAlert("Calificar material",
-                $"¿Deseas calificar {nameConsumed}?", "Sí, calificar", "No, gracias");
+        // Preguntar si quiere calificar el material recién consumido
+        var rate = await Shell.Current.DisplayAlert("Calificar material",
+            $"¿Deseas calificar {nameConsumed}?", "Sí, calificar", "No, gracias");
 
-                if (rate)
+        if (rate)
+        {
+            var rating = await Shell.Current.DisplayActionSheet(
+                $"Califica {nameConsumed} (1-5 estrellas)", "Cancelar", null,
+                "⭐ 1 - Malo", "⭐⭐ 2 - Regular", "⭐⭐⭐ 3 - Bueno",
+                "⭐⭐⭐⭐ 4 - Muy bueno", "⭐⭐⭐⭐⭐ 5 - Excelente");
+
+            if (rating is not null && rating != "Cancelar")
+            {
+                var stars = rating.Count(c => c == '⭐');
+                if (stars > 0)
                 {
-                    var rating = await Shell.Current.DisplayActionSheet(
-                        $"Califica {nameConsumed} (1-5 estrellas)", "Cancelar", null,
-                        "⭐ 1 - Malo", "⭐⭐ 2 - Regular", "⭐⭐⭐ 3 - Bueno",
-                        "⭐⭐⭐⭐ 4 - Muy bueno", "⭐⭐⭐⭐⭐ 5 - Excelente");
+                    var observation = await Shell.Current.DisplayPromptAsync(
+                        "Observación (opcional)",
+                        "Agrega un comentario sobre el material:",
+                        "Guardar", "Omitir",
+                        placeholder: "ej: Buen rendimiento, llegó en buen estado...");
 
-                    if (rating is not null && rating != "Cancelar")
+                    // Guardar rating LOCALMENTE
+                    var lastConsumed = ConsumedMaterials.LastOrDefault();
+                    if (lastConsumed is not null)
                     {
-                        var stars = rating.Count(c => c == '⭐');
-                        if (stars > 0)
-                        {
-                            var observation = await Shell.Current.DisplayPromptAsync(
-                                "Observación (opcional)",
-                                "Agrega un comentario sobre el material:",
-                                "Guardar", "Omitir",
-                                placeholder: "ej: Buen rendimiento, llegó en buen estado...");
-
-                            // Guardar rating LOCALMENTE (no se envía al API hasta el batch final)
-                            var lastConsumed = ConsumedMaterials.LastOrDefault();
-                            if (lastConsumed is not null)
-                            {
-                                lastConsumed.Rating = stars;
-                                lastConsumed.RatingObservation = string.IsNullOrWhiteSpace(observation)
-                                    ? null : observation;
-                            }
-                        }
+                        lastConsumed.Rating = stars;
+                        lastConsumed.RatingObservation = string.IsNullOrWhiteSpace(observation)
+                            ? null : observation;
                     }
                 }
-        });
+            }
+        }
     }
 
     [RelayCommand]
@@ -467,7 +467,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         await ExecuteAsync(async () =>
         {
             var endpoint = ApiRoutes.Maintenances.Close.Replace("{id}", _mainid.ToString());
-            await _apiService.PutAsync<object>(endpoint, new { });
+            await _apiService.PutAsync<object>(endpoint, new { IsEmergencyComplete = false });
             await Shell.Current.GoToAsync("..");
         });
     }
@@ -485,6 +485,18 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [ObservableProperty]
     private ActionCatalogOption? _selectedComponent;
 
+    partial void OnSelectedComponentChanged(ActionCatalogOption? value)
+    {
+        OnPropertyChanged(nameof(ComponentHelpText));
+    }
+
+    public string? ComponentHelpText => SelectedComponent switch
+    {
+        { } c when c.Name is not null && c.Category is not null =>
+            $"📌 {c.Name} ({c.Category}). Al instalarlo se registrará su vida útil para generar alertas de caducidad.",
+        _ => null
+    };
+
     [RelayCommand]
     private async Task InstallComponent()
     {
@@ -499,8 +511,8 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                 UsefulLifeDays = (int?)null
             });
             SelectedComponent = null;
-            await Load();
         });
+        if (!HasError) await Load();
     }
 
     [RelayCommand]

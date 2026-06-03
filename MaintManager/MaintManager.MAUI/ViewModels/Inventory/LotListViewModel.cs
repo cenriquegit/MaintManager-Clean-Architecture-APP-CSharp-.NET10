@@ -61,12 +61,11 @@ public partial class LotListViewModel : BaseViewModel, IQueryAttributable
             "Sí, descartar", "Cancelar");
         if (!confirm) return;
 
-        var reason = await Shell.Current.DisplayPromptAsync(
+        var reason = await Shell.Current.DisplayActionSheet(
             "Motivo del descarte",
-            "Indica por qué se descarta este lote:",
-            "Confirmar", "Cancelar",
-            placeholder: "ej: Vencido, dañado, contaminado...");
-        if (string.IsNullOrWhiteSpace(reason)) return;
+            "Cancelar", null,
+            "Vencimiento", "Daño", "Otro");
+        if (string.IsNullOrWhiteSpace(reason) || reason == "Cancelar") return;
 
         await ExecuteAsync(async () =>
         {

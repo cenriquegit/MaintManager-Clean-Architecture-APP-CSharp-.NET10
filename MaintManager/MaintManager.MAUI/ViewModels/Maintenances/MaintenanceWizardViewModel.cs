@@ -95,10 +95,23 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
         : string.Empty;
 
     // Step 2: Service type selection
-    [ObservableProperty]
-    private string _selectedServiceType = string.Empty;
-
     public List<string> ServiceTypes { get; } = new() { "Servicio A", "Servicio B", "Emergencia" };
+
+    [ObservableProperty]
+    private string? _selectedServiceType;
+
+    partial void OnSelectedServiceTypeChanged(string? value)
+    {
+        OnPropertyChanged(nameof(ServiceTypeDescription));
+    }
+
+    public string? ServiceTypeDescription => SelectedServiceType switch
+    {
+        "Servicio A" => "🔹 Mantenimiento liviano cada 5,000 km. Incluye cambio de aceite, filtros y revisión general.",
+        "Servicio B" => "🔹 Mantenimiento completo cada 10,000 km. Incluye lo del Servicio A más revisión de frenos, suspensión y rotación de neumáticos.",
+        "Emergencia" => "🔸 Servicio no programado por falla inesperada. Si es parcial (solo lo urgente), no recalendariza.",
+        _ => null
+    };
 
     // Step 3: Technician assignment
     [ObservableProperty]

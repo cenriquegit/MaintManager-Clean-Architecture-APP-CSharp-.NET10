@@ -123,8 +123,8 @@
                         <HorizontalStackLayout Spacing="12">
                             <Switch IsToggled="{Binding HasExpiration}"
                                     OnColor="{StaticResource ColorPrimary}"
-                                    ThumbColor="White"/>
-                            <Label Text="Este material tiene fecha de vencimiento"
+                                    ThumbColor="{StaticResource Gray400}"/>
+                            <Label Text="Este material tiene fecha de vencimiento?"
                                    Style="{StaticResource BodyText}"
                                    VerticalOptions="Center"/>
                         </HorizontalStackLayout>

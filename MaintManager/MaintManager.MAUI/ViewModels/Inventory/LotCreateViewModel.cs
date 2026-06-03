@@ -43,7 +43,7 @@ public partial class LotCreateViewModel : BaseViewModel
     private decimal _unitCost;
 
     [ObservableProperty]
-    private string _supplierLotNumber = string.Empty;
+    private string _supplierLotNumber = "LOT-" + DateTime.Now.ToString("yyyy-MM-dd");
 
     [ObservableProperty]
     private bool _hasExpiration;
