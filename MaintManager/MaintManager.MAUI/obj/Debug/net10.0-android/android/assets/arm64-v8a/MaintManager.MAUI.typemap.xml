@@ -1,10 +1,10 @@
-<api type="debug" assembly-name="MaintManager.MAUI" mvid="406d454063b34ef08bc9aa779c7db697">
+<api type="debug" assembly-name="MaintManager.MAUI" mvid="15843ca13ead4c0598ddc2282b4cffe9">
   <java-to-managed>
-    <entry java-name="crc64204ed1a538c1176e/MainActivity" managed-name="MaintManager.MAUI.MainActivity, MaintManager.MAUI" managed-type-token-id="33554457" />
-    <entry java-name="crc64204ed1a538c1176e/MainApplication" managed-name="MaintManager.MAUI.MainApplication, MaintManager.MAUI" managed-type-token-id="33554458" />
+    <entry java-name="crc64204ed1a538c1176e/MainActivity" managed-name="MaintManager.MAUI.MainActivity, MaintManager.MAUI" managed-type-token-id="33554458" />
+    <entry java-name="crc64204ed1a538c1176e/MainApplication" managed-name="MaintManager.MAUI.MainApplication, MaintManager.MAUI" managed-type-token-id="33554459" />
   </java-to-managed>
   <managed-to-java>
-    <entry java-name="crc64204ed1a538c1176e/MainActivity" managed-name="MaintManager.MAUI.MainActivity, MaintManager.MAUI" managed-type-token-id="33554457" />
-    <entry java-name="crc64204ed1a538c1176e/MainApplication" managed-name="MaintManager.MAUI.MainApplication, MaintManager.MAUI" managed-type-token-id="33554458" />
+    <entry java-name="crc64204ed1a538c1176e/MainActivity" managed-name="MaintManager.MAUI.MainActivity, MaintManager.MAUI" managed-type-token-id="33554458" />
+    <entry java-name="crc64204ed1a538c1176e/MainApplication" managed-name="MaintManager.MAUI.MainApplication, MaintManager.MAUI" managed-type-token-id="33554459" />
   </managed-to-java>
 </api>
