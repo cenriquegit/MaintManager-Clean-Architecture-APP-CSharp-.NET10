@@ -66,6 +66,12 @@ public abstract partial class BaseViewModel : ObservableObject
                 await opTask;
             }
         }
+        catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.Forbidden)
+        {
+            HasError = true;
+            IsEmpty = false;
+            ErrorMessage = "No tienes permisos para realizar esta acción. Solo el Jefe de Mantenimiento puede acceder aquí.";
+        }
         catch (HttpRequestException)
         {
             HasError = true;

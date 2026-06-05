@@ -105,6 +105,25 @@ public class ApiService
         throw new HttpRequestException($"Error {response.StatusCode}: {error}");
     }
 
+    public async Task<byte[]?> PostByteArrayAsync(string endpoint, object? data = null)
+    {
+        Debug.WriteLine($"[MaintManager] POST (bytes) {endpoint}");
+        var content = data is not null
+            ? JsonContent.Create(data, options: _jsonOptions)
+            : null;
+        var response = await _httpClient.PostAsync(endpoint, content);
+        if (response.IsSuccessStatusCode)
+        {
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            Debug.WriteLine($"[MaintManager] POST OK ({bytes.Length} bytes)");
+            return bytes;
+        }
+
+        var error = await response.Content.ReadAsStringAsync();
+        Debug.WriteLine($"[MaintManager] POST ERROR {response.StatusCode}: {Truncate(error)}");
+        throw new HttpRequestException($"Error {response.StatusCode}: {error}");
+    }
+
     public async Task<T?> PostAsync<T>(string endpoint, object? data = null)
     {
         HttpContent? content = null;

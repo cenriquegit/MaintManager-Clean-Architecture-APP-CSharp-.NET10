@@ -47,7 +47,7 @@
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ReportsViewModel}}, Path=GenerateReportCommand}"
-                                        CommandParameter="{Binding Route}"/>
+                                        CommandParameter="{Binding Type}"/>
                                 </Border.GestureRecognizers>
 
                                 <Grid ColumnDefinitions="Auto,*,Auto" Padding="12">

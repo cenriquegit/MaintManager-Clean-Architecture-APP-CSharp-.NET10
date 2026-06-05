@@ -78,6 +78,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CalendarPage>();
         builder.Services.AddTransient<BiDashboardPage>();
         builder.Services.AddTransient<ReportsPage>();
+        builder.Services.AddTransient<ReportFilterPage>();
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddTransient<UserProfilePage>();
 

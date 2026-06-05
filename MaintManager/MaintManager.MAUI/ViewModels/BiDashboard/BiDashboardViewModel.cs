@@ -163,7 +163,7 @@ public partial class BiDashboardViewModel : BaseViewModel
     {
         var ordered = data.OrderByDescending(d => d.CostPerKm).Take(10).ToList();
         var labels = ordered.Select(d => d.LicensePlate).ToArray();
-        var values = ordered.Select(d => (double)d.CostPerKm).ToArray();
+        var values = ordered.Select(d => (double)(d.CostPerKm * 1000m)).ToArray();
 
         CostPerKmSeries =
         [
@@ -182,9 +182,8 @@ public partial class BiDashboardViewModel : BaseViewModel
             new Axis
             {
                 Labels = labels,
-                LabelsRotation = -35,
-                TextSize = 9,
-                LabelsPaint = new SolidColorPaint(SKColors.Black),
+                LabelsRotation = -20,
+                TextSize = 10,
             }
         ];
 
@@ -192,10 +191,9 @@ public partial class BiDashboardViewModel : BaseViewModel
         [
             new Axis
             {
-                Name = "$/km",
-                TextSize = 10,
-                Labeler = v => $"${v:F4}",
-                LabelsPaint = new SolidColorPaint(SKColors.Black),
+                Name = "$/1000km",
+                TextSize = 11,
+                Labeler = v => $"${v:F2}",
             }
         ];
     }
@@ -215,10 +213,6 @@ public partial class BiDashboardViewModel : BaseViewModel
                 Stroke = new SolidColorPaint(Orange),
                 Fill = new SolidColorPaint(Orange),
                 MaxBarWidth = 20,
-                DataLabelsPosition = LiveChartsCore.Measure.DataLabelsPosition.Right,
-                DataLabelsFormatter = point =>
-                    $"{point.Coordinate.PrimaryValue:F0}%",
-                DataLabelsPaint = new SolidColorPaint(SKColors.White),
             }
         ];
 
@@ -237,20 +231,16 @@ public partial class BiDashboardViewModel : BaseViewModel
             new Axis
             {
                 Labels = labels,
-                TextSize = 9,
-                LabelsPaint = new SolidColorPaint(SKColors.Black),
+                TextSize = 10,
             }
         ];
     }
 
     private void BuildMonthlyCostChart(List<MonthlyCostDto> data)
     {
-        var grouped = data.GroupBy(d => d.Month.ToString("MMM yy"))
-            .Select(g => new { Month = g.Key, Total = g.Sum(d => d.MonthlyCost) })
-            .OrderBy(g => g.Month)
-            .ToList();
-        var labels = grouped.Select(d => d.Month).ToArray();
-        var values = grouped.Select(d => (double)d.Total).ToArray();
+        var ordered = data.OrderBy(d => d.Month).ToList();
+        var labels = ordered.Select(d => d.Month.ToString("MMM yy")).ToArray();
+        var values = ordered.Select(d => (double)d.MonthlyCost).ToArray();
 
         MonthlyCostSeries =
         [
@@ -271,8 +261,7 @@ public partial class BiDashboardViewModel : BaseViewModel
             {
                 Labels = labels,
                 LabelsRotation = -15,
-                TextSize = 10,
-                LabelsPaint = new SolidColorPaint(SKColors.Black),
+                TextSize = 11,
             }
         ];
 
@@ -291,7 +280,7 @@ public partial class BiDashboardViewModel : BaseViewModel
     {
         var critical = data.Where(l => l.DaysUntilExpiry <= 7).Sum(l => (double)l.CurrentQuantity);
         var warning = data.Where(l => l.DaysUntilExpiry > 7 && l.DaysUntilExpiry <= 30).Sum(l => (double)l.CurrentQuantity);
-        var normal = data.Where(l => l.DaysUntilExpiry > 30 || l.DaysUntilExpiry == null).Sum(l => (double)l.CurrentQuantity);
+        var normal = data.Where(l => l.DaysUntilExpiry > 30).Sum(l => (double)l.CurrentQuantity);
 
         ExpiringLotsSeries =
         [

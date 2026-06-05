@@ -917,6 +917,61 @@
         <member name="P:MaintManager.MAUI.ViewModels.Profile.UserProfileViewModel.LogoutCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Profile.UserProfileViewModel.Logout"/>.</summary>
         </member>
+        <member name="T:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.ShowVehiclePicker">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._showVehiclePicker"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.ShowStatusPicker">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._showStatusPicker"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.ShowTypePicker">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._showTypePicker"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.VehicleRequired">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._vehicleRequired"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.Vehicles">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._vehicles"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.SelectedVehicle">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._selectedVehicle"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.StatusOptions">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._statusOptions"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.SelectedStatus">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._selectedStatus"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.MaintenanceTypeOptions">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._maintenanceTypeOptions"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.SelectedMaintenanceType">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._selectedMaintenanceType"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.AlertStatusOptions">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._alertStatusOptions"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.SelectedAlertStatus">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._selectedAlertStatus"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.DateFrom">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._dateFrom"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.DateTo">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._dateTo"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.ActionButtonText">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel._actionButtonText"/>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.generateCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.GenerateCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.GenerateCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Reports.ReportFilterViewModel.Generate"/>.</summary>
+        </member>
         <member name="T:MaintManager.MAUI.ViewModels.Reports.ReportsViewModel">
             <inheritdoc/>
             <inheritdoc/>
@@ -1312,6 +1367,45 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.NewRole">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "NewRole" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShowVehiclePicker">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShowVehiclePicker" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShowStatusPicker">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShowStatusPicker" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShowTypePicker">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShowTypePicker" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.VehicleRequired">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "VehicleRequired" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.StatusOptions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "StatusOptions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MaintenanceTypeOptions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MaintenanceTypeOptions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedMaintenanceType">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedMaintenanceType" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AlertStatusOptions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AlertStatusOptions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedAlertStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedAlertStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DateFrom">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DateFrom" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DateTo">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DateTo" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ActionButtonText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ActionButtonText" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AvailableReports">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AvailableReports" generated properties.</summary>
         </member>
@@ -1659,6 +1753,45 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.NewRole">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "NewRole" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShowVehiclePicker">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ShowVehiclePicker" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShowStatusPicker">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ShowStatusPicker" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShowTypePicker">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ShowTypePicker" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.VehicleRequired">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "VehicleRequired" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.StatusOptions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "StatusOptions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MaintenanceTypeOptions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MaintenanceTypeOptions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedMaintenanceType">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedMaintenanceType" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AlertStatusOptions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AlertStatusOptions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedAlertStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedAlertStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DateFrom">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DateFrom" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DateTo">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DateTo" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ActionButtonText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ActionButtonText" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AvailableReports">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AvailableReports" generated properties.</summary>

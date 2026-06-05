@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Reports"
+             x:Class="MaintManager.MAUI.Views.Reports.ReportFilterPage"
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource ColorBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Configurar filtros" FontSize="20" FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTextPrimary}" Margin="0,8,0,0"/>
+
+            <!-- Vehicle picker (for orders and history) -->
+            <VerticalStackLayout Spacing="4" IsVisible="{Binding ShowVehiclePicker}">
+                <Label Text="Vehículo" Style="{StaticResource CaptionText}"/>
+                <Border StrokeShape="RoundRectangle 8"
+                        Stroke="{StaticResource ColorBorder}"
+                        StrokeThickness="1" Padding="4,0">
+                    <Picker ItemsSource="{Binding Vehicles}"
+                            SelectedItem="{Binding SelectedVehicle}"
+                            ItemDisplayBinding="{Binding .}"
+                            Title="Seleccionar vehículo..."
+                            Style="{StaticResource FormPicker}"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Status picker (for orders) -->
+            <VerticalStackLayout Spacing="4" IsVisible="{Binding ShowStatusPicker}">
+                <Label Text="Estado" Style="{StaticResource CaptionText}"/>
+                <Border StrokeShape="RoundRectangle 8"
+                        Stroke="{StaticResource ColorBorder}"
+                        StrokeThickness="1" Padding="4,0">
+                    <Picker ItemsSource="{Binding StatusOptions}"
+                            SelectedItem="{Binding SelectedStatus}"
+                            Style="{StaticResource FormPicker}"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Maintenance type picker (for orders) -->
+            <VerticalStackLayout Spacing="4" IsVisible="{Binding ShowTypePicker}">
+                <Label Text="Tipo de mantenimiento" Style="{StaticResource CaptionText}"/>
+                <Border StrokeShape="RoundRectangle 8"
+                        Stroke="{StaticResource ColorBorder}"
+                        StrokeThickness="1" Padding="4,0">
+                    <Picker ItemsSource="{Binding MaintenanceTypeOptions}"
+                            SelectedItem="{Binding SelectedMaintenanceType}"
+                            Style="{StaticResource FormPicker}"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Alert status (for alerts) -->
+            <VerticalStackLayout Spacing="4" IsVisible="{Binding ShowStatusPicker}"
+                                 IsEnabled="{Binding ShowStatusPicker}">
+                <!-- Already handled above with same picker -->
+            </VerticalStackLayout>
+
+            <!-- Date range -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Fecha desde" Style="{StaticResource CaptionText}"/>
+                <DatePicker Date="{Binding DateFrom}"
+                            TextColor="{StaticResource ColorTextPrimary}"
+                            BackgroundColor="{StaticResource ColorSurface}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Fecha hasta" Style="{StaticResource CaptionText}"/>
+                <DatePicker Date="{Binding DateTo}"
+                            TextColor="{StaticResource ColorTextPrimary}"
+                            BackgroundColor="{StaticResource ColorSurface}"/>
+            </VerticalStackLayout>
+
+            <!-- Error -->
+            <Border IsVisible="{Binding HasError}"
+                    BackgroundColor="{StaticResource ColorErrorContainer}"
+                    StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="12,8">
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="{StaticResource ColorError}" FontSize="13"/>
+            </Border>
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,32">
+                <Button Grid.Column="0" Text="Cancelar"
+                        Clicked="OnCancelClicked"
+                        Style="{StaticResource SecondaryButton}"/>
+                <Button Grid.Column="1" Text="{Binding ActionButtonText}"
+                        Command="{Binding GenerateCommand}"
+                        Style="{StaticResource PrimaryButton}"
+                        IsEnabled="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"/>
+            </Grid>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
