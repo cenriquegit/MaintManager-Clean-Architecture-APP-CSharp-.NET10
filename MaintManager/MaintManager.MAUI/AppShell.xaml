@@ -13,6 +13,8 @@
     xmlns:reports="clr-namespace:MaintManager.MAUI.Views.Reports"
     xmlns:profile="clr-namespace:MaintManager.MAUI.Views.Profile"
     xmlns:settings="clr-namespace:MaintManager.MAUI.Views.Settings"
+    xmlns:vehicleconfig="clr-namespace:MaintManager.MAUI.Views.VehicleConfig"
+    xmlns:vehiclemanagement="clr-namespace:MaintManager.MAUI.Views.VehicleManagement"
     Title="MaintManager"
     FlyoutBehavior="Flyout"
     FlyoutBackgroundColor="#F8F9FA"
@@ -47,6 +49,12 @@
     </FlyoutItem>
     <FlyoutItem Title="Configuración" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate settings:SettingsPage}" Route="Settings" />
+    </FlyoutItem>
+    <FlyoutItem Title="Vehículos" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate vehiclemanagement:VehicleManagementPage}" Route="Vehicles" />
+    </FlyoutItem>
+    <FlyoutItem Title="Config Vehículo" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate vehicleconfig:VehicleConfigPage}" Route="ConfigVehicle" />
     </FlyoutItem>
 
     <Shell.FlyoutContentTemplate>
@@ -122,6 +130,17 @@
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="📦" FontSize="18" VerticalOptions="Center"/>
                                 <Label Text="Inventario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Border>
+                        <BoxView HeightRequest="1" BackgroundColor="#E8E8E8" Margin="20,0"/>
+
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Vehicles">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
+                            </Border.GestureRecognizers>
+                            <HorizontalStackLayout Spacing="14">
+                                <Label Text="🚗" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="Vehículos" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
                         <BoxView HeightRequest="1" BackgroundColor="#E8E8E8" Margin="20,0"/>

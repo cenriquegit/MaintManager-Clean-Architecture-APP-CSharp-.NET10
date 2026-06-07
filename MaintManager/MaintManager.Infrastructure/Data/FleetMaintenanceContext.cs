@@ -57,6 +57,12 @@ public sealed class FleetMaintenanceContext : DbContext
     public DbSet<ConfigSystem>            ConfigSystems           { get; init; }
     public DbSet<TechnicianAssignment>    TechnicianAssignments   { get; init; }
 
+    // ── Tablas de configuración por vehículo ──────────────────────
+    public DbSet<VehicleAllowedAction>    VehicleAllowedActions    { get; init; }
+    public DbSet<VehicleAllowedMaterial>  VehicleAllowedMaterials  { get; init; }
+    public DbSet<VehicleAllowedComponent> VehicleAllowedComponents { get; init; }
+    public DbSet<ManagedVehicle>          ManagedVehicles          { get; init; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

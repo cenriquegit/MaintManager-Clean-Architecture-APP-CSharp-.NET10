@@ -11,6 +11,10 @@ using MaintManager.MAUI.ViewModels.Maintenances;
 using MaintManager.MAUI.ViewModels.Profile;
 using MaintManager.MAUI.ViewModels.Reports;
 using MaintManager.MAUI.ViewModels.Settings;
+using MaintManager.MAUI.ViewModels.VehicleConfig;
+using MaintManager.MAUI.ViewModels.VehicleManagement;
+using MaintManager.MAUI.Views.VehicleConfig;
+using MaintManager.MAUI.Views.VehicleManagement;
 using MaintManager.MAUI.Views.Alerts;
 using MaintManager.MAUI.Views.Auth;
 using MaintManager.MAUI.Views.BiDashboard;
@@ -63,6 +67,11 @@ public static class MauiProgram
         builder.Services.AddTransient<VehicleHistoryViewModel>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<UserProfileViewModel>();
+        builder.Services.AddTransient<VehicleConfigViewModel>();
+        builder.Services.AddTransient<CreateActionViewModel>();
+        builder.Services.AddTransient<CreateComponentViewModel>();
+        builder.Services.AddTransient<VehicleManagementViewModel>();
+        builder.Services.AddTransient<CreateVehicleViewModel>();
 
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<AlertListPage>();
@@ -81,6 +90,11 @@ public static class MauiProgram
         builder.Services.AddTransient<ReportFilterPage>();
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddTransient<UserProfilePage>();
+        builder.Services.AddTransient<VehicleConfigPage>();
+        builder.Services.AddTransient<CreateActionPage>();
+        builder.Services.AddTransient<CreateComponentPage>();
+        builder.Services.AddTransient<VehicleManagementPage>();
+        builder.Services.AddTransient<CreateVehiclePage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

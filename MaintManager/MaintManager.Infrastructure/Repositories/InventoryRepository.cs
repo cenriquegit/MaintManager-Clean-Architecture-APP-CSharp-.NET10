@@ -53,8 +53,7 @@ public sealed class InventoryRepository : IInventoryRepository
 
     public async Task<IReadOnlyList<MaterialLot>> GetExpiringLotsAsync(DateOnly limitDate, CancellationToken ct = default) =>
         await _context.MaterialLots.AsNoTracking()
-            .Where(ml => ml.LotStatus == "activo" && ml.ExpirationDate.HasValue
-                && ml.ExpirationDate.Value <= limitDate)
+            .Where(ml => ml.LotStatus == "activo" && (!ml.ExpirationDate.HasValue || ml.ExpirationDate.Value <= limitDate))
             .Include(ml => ml.Material).ThenInclude(m => m!.Category)
             .OrderBy(ml => ml.ExpirationDate)
             .ToListAsync(ct);

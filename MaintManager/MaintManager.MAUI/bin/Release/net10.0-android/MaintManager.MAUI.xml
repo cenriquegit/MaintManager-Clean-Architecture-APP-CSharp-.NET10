@@ -1025,6 +1025,322 @@
         <member name="P:MaintManager.MAUI.ViewModels.Settings.SettingsViewModel.LogoutCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Settings.SettingsViewModel.Logout"/>.</summary>
         </member>
+        <member name="T:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.ActionName">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel._actionName"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.SelectedCategory">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel._selectedCategory"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.Description">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel._description"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.UsefulLifeDays">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel._usefulLifeDays"/>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.saveCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.SaveCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.SaveCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.CreateActionViewModel.Save"/>.</summary>
+        </member>
+        <member name="T:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.ComponentName">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel._componentName"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.Description">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel._description"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.UsefulLifeDays">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel._usefulLifeDays"/>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.saveCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.SaveCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.SaveCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.CreateComponentViewModel.Save"/>.</summary>
+        </member>
+        <member name="T:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.Vehicles">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._vehicles"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.SelectedVehicle">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._selectedVehicle"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AvailableActions">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._availableActions"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.SelectedAction">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._selectedAction"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AllowedActions">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._allowedActions"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AvailableMaterials">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._availableMaterials"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.SelectedMaterial">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._selectedMaterial"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AllowedMaterials">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._allowedMaterials"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AvailableComponents">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._availableComponents"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.SelectedComponent">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._selectedComponent"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AllowedComponents">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel._allowedComponents"/>
+        </member>
+        <member name="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.OnSelectedVehicleChanged(MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.VehicleOption)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.SelectedVehicle"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.SelectedVehicle"/> is changed.</remarks>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.loadVehiclesCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.LoadVehiclesCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.LoadVehiclesCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.LoadVehicles"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.loadConfigCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.LoadConfigCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.LoadConfigCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.LoadConfig"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.addActionCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddActionCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddActionCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddAction"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.removeActionCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveActionCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveActionCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveAction(MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.ActionOption)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.addMaterialCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddMaterialCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddMaterialCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddMaterial"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.removeMaterialCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveMaterialCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveMaterialCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveMaterial(MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.MaterialOptionItem)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.addComponentCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddComponentCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddComponentCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.AddComponent"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.removeComponentCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveComponentCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveComponentCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.RemoveComponent(MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.ActionOption)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.backToVehiclesCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.BackToVehiclesCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.BackToVehiclesCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.BackToVehicles"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.createActionCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateActionCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateActionCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateAction"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.createMaterialCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateMaterialCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateMaterialCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateMaterial"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.createComponentCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateComponentCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateComponentCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleConfig.VehicleConfigViewModel.CreateComponent"/>.</summary>
+        </member>
+        <member name="T:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.LicensePlate">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._licensePlate"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.VehicleName">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._vehicleName"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.Brand">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._brand"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.Model">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._model"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.Year">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._year"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.Color">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._color"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.Vin">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._vin"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.EngineNumber">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._engineNumber"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SaveButtonText">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._saveButtonText"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SunarpFieldsLocked">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._sunarpFieldsLocked"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.LockToggleText">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._lockToggleText"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ShowCaptcha">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._showCaptcha"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.CaptchaImageSource">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._captchaImageSource"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.CaptchaCode">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._captchaCode"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SunarpMessage">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._sunarpMessage"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.HasSunarpMessage">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel._hasSunarpMessage"/>
+        </member>
+        <member name="M:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.OnSunarpFieldsLockedChanged(System.Boolean)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SunarpFieldsLocked"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SunarpFieldsLocked"/> is changed.</remarks>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.getCaptchaCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.GetCaptchaCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.GetCaptchaCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.GetCaptcha"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.consultSunarpCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ConsultSunarpCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ConsultSunarpCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ConsultSunarp"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.toggleSunarpLockCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ToggleSunarpLockCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ToggleSunarpLockCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.ToggleSunarpLock"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.loadVehicleCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.LoadVehicleCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.LoadVehicleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.LoadVehicle(System.Int32)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.saveCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SaveCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.SaveCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.CreateVehicleViewModel.Save"/>.</summary>
+        </member>
+        <member name="T:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.Vehicles">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel._vehicles"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.SearchText">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel._searchText"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.SelectedSource">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel._selectedSource"/>
+        </member>
+        <member name="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.OnSelectedSourceChanged(System.String)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.SelectedSource"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.SelectedSource"/> is changed.</remarks>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.loadVehiclesCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.LoadVehiclesCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.LoadVehiclesCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.LoadVehicles"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.searchCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.SearchCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.SearchCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.Search"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.applyFilterCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.ApplyFilterCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.ApplyFilterCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.ApplyFilter"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.createVehicleCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.CreateVehicleCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.CreateVehicleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.CreateVehicle"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.configVehicleCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.ConfigVehicleCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.ConfigVehicleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.ConfigVehicle(MaintManager.MAUI.ViewModels.VehicleManagement.ManagedVehicleItem)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.editVehicleCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.EditVehicleCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.EditVehicleCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.EditVehicle(MaintManager.MAUI.ViewModels.VehicleManagement.ManagedVehicleItem)"/>.</summary>
+        </member>
         <member name="T:MaintManager.MAUI.Resource">
             <summary>
             Android Resource Designer class.
@@ -1418,6 +1734,84 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ConfigLoaded">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ConfigLoaded" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ActionName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ActionName" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.UsefulLifeDays">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "UsefulLifeDays" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ComponentName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ComponentName" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AvailableActions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AvailableActions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedAction">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedAction" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AllowedActions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AllowedActions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AllowedMaterials">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AllowedMaterials" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AvailableComponents">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AvailableComponents" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AllowedComponents">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AllowedComponents" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LicensePlate">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LicensePlate" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.VehicleName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "VehicleName" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Brand">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Brand" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Model">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Model" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Year">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Year" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Color">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Color" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Vin">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Vin" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EngineNumber">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "EngineNumber" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SaveButtonText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SaveButtonText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SunarpFieldsLocked">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SunarpFieldsLocked" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LockToggleText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LockToggleText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShowCaptcha">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShowCaptcha" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CaptchaImageSource">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CaptchaImageSource" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CaptchaCode">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CaptchaCode" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SunarpMessage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SunarpMessage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.HasSunarpMessage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "HasSunarpMessage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedSource">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedSource" generated properties.</summary>
+        </member>
         <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
             <summary>
             A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
@@ -1804,6 +2198,84 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ConfigLoaded">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ConfigLoaded" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ActionName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ActionName" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.UsefulLifeDays">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "UsefulLifeDays" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ComponentName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ComponentName" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AvailableActions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AvailableActions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedAction">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedAction" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AllowedActions">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AllowedActions" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AllowedMaterials">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AllowedMaterials" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AvailableComponents">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AvailableComponents" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AllowedComponents">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AllowedComponents" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LicensePlate">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "LicensePlate" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.VehicleName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "VehicleName" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Brand">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Brand" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Model">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Model" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Year">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Year" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Color">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Color" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Vin">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Vin" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EngineNumber">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "EngineNumber" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SaveButtonText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SaveButtonText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SunarpFieldsLocked">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SunarpFieldsLocked" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LockToggleText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "LockToggleText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShowCaptcha">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ShowCaptcha" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CaptchaImageSource">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CaptchaImageSource" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CaptchaCode">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CaptchaCode" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SunarpMessage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SunarpMessage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.HasSunarpMessage">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "HasSunarpMessage" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedSource">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedSource" generated properties.</summary>
         </member>
     </members>
 </doc>

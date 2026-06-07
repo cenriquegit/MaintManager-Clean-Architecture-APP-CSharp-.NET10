@@ -25,6 +25,18 @@ public sealed class ActionCatalog
 
     // Navegación
     public ActionListType? ActionListType { get; init; }
+
+    public static ActionCatalog Create(string name, string category, string? description,
+        int? usefulLifeDays, short altoid = 1) => new()
+    {
+        Altoid = altoid,
+        Name = name,
+        Category = category,
+        Description = description,
+        UsefulLifeDays = usefulLifeDays,
+        ExpiresByTime = usefulLifeDays.HasValue,
+        Status = true
+    };
 }
 
 

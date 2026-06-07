@@ -2,7 +2,7 @@
 
 > **Proyecto:** MaintManager — Sistema de Gestión de Mantenimiento Vehicular con Business Intelligence
 > **Fecha del análisis:** 2026-05-13
-> **Última actualización:** 2026-05-21 (refactor completo DetailPage)
+> **Última actualización:** 2026-06-05 (dashboard fix + reports directo)
 > **Analista:** Kilo (asistente IA)
 
 ---
@@ -526,12 +526,33 @@ FASE 8 — Correcciones post-estabilización        [✅ COMPLETADA]
 ├── 8.9 DetailPage: FI checkbox/✕ ocultos       ✅
 ├── 8.10 Dashboard seeds (124 órdenes, datos)    ✅
 └── 8.11 Documentación actualizada               ✅
+
+FASE 9 — Balance dashboard + fixes finales        [✅ COMPLETADA]
+├── 9.1 Emergency rates variadas (convertir 2+1)  ✅
+├── 9.2 Lotes "Normal" con null-expiry            ✅
+├── 9.3 Servicios este mes en junio               ✅
+├── 9.4 LOT auto-generado                         ✅
+├── 9.5 DiscardLot con opciones fijas             ✅
+├── 9.6 Low-stock route corregido                 ✅
+├── 9.7 CloseOrder 400 fix (IsEmergencyComplete)  ✅
+├── 9.8 Consumos para 6 vehículos sin costo       ✅
+├── 9.9 Switch vencimiento visible                ✅
+└── 9.10 Documentación actualizada                ✅
+
+FASE 10 — Dashboard restore + Reports directo     [✅ COMPLETADA]
+├── 10.1 Dashboard restaurado a commit c95af1c     ✅
+├── 10.2 x1000 fix para barras visibles            ✅
+├── 10.3 Sin LabelsPaint/DataLabels conflictivos   ✅
+├── 10.4 Reports CommandParameter Route→Type fix   ✅
+├── 10.5 Reports generación directa (sin filters)  ✅
+├── 10.6 Historial vehículo con prompt             ✅
+└── 10.7 Documentación actualizada                 ✅
 ```
 
 ## DATABASE — Estado actual
 
-- **Órdenes:** 124 (18 activas, 105 finalizadas, 1 cancelada)
-- **Consumos:** 119 registros con costos reales
+- **Órdenes:** 127 (20 activas, 107 finalizadas)
+- **Consumos:** 137 registros con costos reales
 - **Componentes instalados:** 40
 - **Diagnósticos:** 93
 - **Acciones realizadas:** 200

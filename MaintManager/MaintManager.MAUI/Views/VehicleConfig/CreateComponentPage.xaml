@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.VehicleConfig"
+    x:Class="MaintManager.MAUI.Views.VehicleConfig.CreateComponentPage"
+    Title="Nuevo Componente"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+
+            <Label Text="Crear nuevo componente" FontSize="22" FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTextPrimary}"/>
+            <Label Text="El componente se creará en el catálogo general (categoría Componente) y se asociará automáticamente al vehículo."
+                   Style="{StaticResource BodyText}" LineBreakMode="WordWrap"/>
+
+            <Label Text="Nombre del componente:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding ComponentName}" Placeholder="ej: Batería 12V 55Ah"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Descripción (opcional):" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,4">
+                <Editor Text="{Binding Description}" HeightRequest="80"
+                        Placeholder="ej: Batería de plomo-ácido para vehículos gasolineros"
+                        TextColor="{StaticResource ColorTextPrimary}"
+                        PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Días de vida útil:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding UsefulLifeDays}" Keyboard="Numeric" Placeholder="ej: 1095"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}"
+                   FontSize="13" TextColor="{StaticResource ColorError}" HorizontalTextAlignment="Center"/>
+
+            <Button Text="Guardar Componente" Command="{Binding SaveCommand}"
+                    Style="{StaticResource PrimaryButton}" HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

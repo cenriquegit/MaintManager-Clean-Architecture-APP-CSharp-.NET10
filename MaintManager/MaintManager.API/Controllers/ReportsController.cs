@@ -290,4 +290,272 @@ public sealed class ReportsController : ControllerBase
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             $"reporte_costos_{DateTime.Now:yyyyMMdd}.xlsx");
     }
+
+    [HttpPost("maintenance-orders")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ExportMaintenanceOrders(
+        [FromBody] MaintenanceOrdersFilter filter, CancellationToken ct)
+    {
+        var query = _context.Maintenances
+            .Include(m => m.MaintenanceType)
+            .Include(m => m.ServiceType)
+            .AsNoTracking();
+
+        if (filter.DateFrom.HasValue)
+            query = query.Where(m => m.MaintenanceDate >= filter.DateFrom.Value.ToDateTime(TimeOnly.MinValue));
+        if (filter.DateTo.HasValue)
+            query = query.Where(m => m.MaintenanceDate <= filter.DateTo.Value.ToDateTime(TimeOnly.MaxValue));
+        if (filter.Prcoid.HasValue)
+            query = query.Where(m => m.Prcoid == filter.Prcoid.Value);
+        if (!string.IsNullOrWhiteSpace(filter.Status))
+            query = query.Where(m => m.Statid == filter.Status);
+        if (filter.Matyid.HasValue)
+            query = query.Where(m => m.Matyid == filter.Matyid.Value);
+
+        var list = await query.OrderByDescending(m => m.MaintenanceDate).ToListAsync(ct);
+        var workers = await _context.Workers.Include(w => w.Person).ToDictionaryAsync(w => w.Workid, w => w.Person?.Name ?? "?", ct);
+
+        var pdf = Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4.Landscape());
+                page.Margin(1.5f, Unit.Centimetre);
+                page.DefaultTextStyle(x => x.FontSize(9));
+                page.Header().Column(col =>
+                {
+                    col.Item().Text("Neo Plus Business S.A.C.").Bold().FontSize(14).FontColor("#1565C0");
+                    col.Item().Text("Reporte de Órdenes de Mantenimiento").FontSize(12).FontColor("#546E8A");
+                    col.Item().LineHorizontal(1).LineColor("#CBD5E1");
+                });
+                page.Content().Table(table =>
+                {
+                    table.ColumnsDefinition(c =>
+                    {
+                        c.RelativeColumn(2); c.RelativeColumn(3); c.RelativeColumn();
+                        c.RelativeColumn(2); c.RelativeColumn(); c.RelativeColumn(2);
+                        c.RelativeColumn(2); c.RelativeColumn();
+                    });
+                    table.Header(h =>
+                    {
+                        h.Cell().Background("#1565C0").Padding(4).Text("Placa").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Vehículo").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Tipo").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Servicio").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Fecha").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Km").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Técnico").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Estado").FontColor("#FFFFFF").Bold();
+                    });
+                    foreach (var m in list)
+                    {
+                        var vehicle = _context.Vehicles.Include(v => v.Product)
+                            .FirstOrDefault(v => v.Prcoid == m.Prcoid);
+                        table.Cell().Padding(2).Text(vehicle?.LicensePlateNumber ?? "-");
+                        table.Cell().Padding(2).Text(vehicle?.Product?.Name ?? "-");
+                        table.Cell().Padding(2).Text(m.MaintenanceType?.Name ?? "-");
+                        table.Cell().Padding(2).Text(m.ServiceType?.Name ?? "N/A");
+                        table.Cell().Padding(2).Text(m.MaintenanceDate.ToString("dd/MM/yy"));
+                        table.Cell().Padding(2).Text($"{m.Mileage:N0}");
+                        table.Cell().Padding(2).Text(m.AssignedTo > 0 ? workers.GetValueOrDefault(m.AssignedTo, "?") : "Sin asignar");
+                        table.Cell().Padding(2).Text(m.Statid switch { "AC" => "Activo", "FI" => "Finalizado", "CA" => "Cancelado", _ => m.Statid });
+                    }
+                });
+                page.Footer().Row(row =>
+                {
+                    row.RelativeItem().Text(t => { t.Span("Total: ").Bold(); t.Span($"{list.Count} órdenes"); });
+                    row.RelativeItem().AlignRight().Text(t => { t.Span("Página "); t.CurrentPageNumber(); t.Span(" de "); t.TotalPages(); });
+                });
+            });
+        }).GeneratePdf();
+
+        return File(pdf, "application/pdf", $"ordenes_mantenimiento_{DateTime.Now:yyyyMMdd}.pdf");
+    }
+
+    [HttpPost("alerts")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ExportAlerts(
+        [FromBody] AlertsFilter filter, CancellationToken ct)
+    {
+        var query = _context.AlertLogs
+            .Include(a => a.AlertConfig)
+            .AsNoTracking();
+
+        if (filter.DateFrom.HasValue)
+            query = query.Where(a => a.AlertDate >= filter.DateFrom.Value.ToDateTime(TimeOnly.MinValue));
+        if (filter.DateTo.HasValue)
+            query = query.Where(a => a.AlertDate <= filter.DateTo.Value.ToDateTime(TimeOnly.MaxValue));
+        if (filter.Resolved.HasValue)
+            query = query.Where(a => a.Resolved == filter.Resolved.Value);
+        if (!string.IsNullOrWhiteSpace(filter.AlertType))
+            query = query.Where(a => a.AlertConfig!.AlertType == filter.AlertType);
+
+        var list = await query.OrderByDescending(a => a.AlertDate).ToListAsync(ct);
+
+        var pdf = Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4.Landscape());
+                page.Margin(1.5f, Unit.Centimetre);
+                page.DefaultTextStyle(x => x.FontSize(9));
+                page.Header().Column(col =>
+                {
+                    col.Item().Text("Neo Plus Business S.A.C.").Bold().FontSize(14).FontColor("#1565C0");
+                    col.Item().Text("Reporte de Alertas del Sistema").FontSize(12).FontColor("#546E8A");
+                    col.Item().LineHorizontal(1).LineColor("#CBD5E1");
+                });
+                page.Content().Table(table =>
+                {
+                    table.ColumnsDefinition(c =>
+                    {
+                        c.RelativeColumn(); c.RelativeColumn(2); c.RelativeColumn(3);
+                        c.RelativeColumn(2); c.RelativeColumn(); c.RelativeColumn();
+                    });
+                    table.Header(h =>
+                    {
+                        h.Cell().Background("#1565C0").Padding(4).Text("Fecha").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Tipo").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Mensaje").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Vehículo/Material").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Leída").FontColor("#FFFFFF").Bold();
+                        h.Cell().Background("#1565C0").Padding(4).Text("Resuelta").FontColor("#FFFFFF").Bold();
+                    });
+                    foreach (var a in list)
+                    {
+                        var refText = a.Prcoid.HasValue ? $"Vehículo #{a.Prcoid}" : a.Mateid.HasValue ? $"Material #{a.Mateid}" : "-";
+                        table.Cell().Padding(2).Text(a.AlertDate.ToString("dd/MM/yy HH:mm"));
+                        table.Cell().Padding(2).Text(a.AlertConfig?.Description ?? a.AlertConfig?.AlertType ?? "-");
+                        table.Cell().Padding(2).Text(a.Message ?? "-");
+                        table.Cell().Padding(2).Text(refText);
+                        table.Cell().Padding(2).Text(a.Read ? "Sí" : "No");
+                        table.Cell().Padding(2).Text(a.Resolved ? "Sí" : "No");
+                    }
+                });
+                page.Footer().Row(row =>
+                {
+                    row.RelativeItem().Text(t => { t.Span("Total: ").Bold(); t.Span($"{list.Count} alertas"); });
+                    row.RelativeItem().AlignRight().Text(t => { t.Span("Página "); t.CurrentPageNumber(); t.Span(" de "); t.TotalPages(); });
+                });
+            });
+        }).GeneratePdf();
+
+        return File(pdf, "application/pdf", $"alertas_{DateTime.Now:yyyyMMdd}.pdf");
+    }
+
+    [HttpPost("vehicle-history")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(FileResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ExportVehicleHistory(
+        [FromBody] VehicleHistoryFilter filter, CancellationToken ct)
+    {
+        var vehicle = await _context.Vehicles
+            .Include(v => v.Product)
+            .FirstOrDefaultAsync(v => v.Prcoid == filter.Prcoid, ct);
+        if (vehicle is null)
+            return NotFound(ApiResponse<object>.Fail("Vehículo no encontrado."));
+
+        var query = _context.Maintenances
+            .Include(m => m.MaintenanceType)
+            .Include(m => m.ServiceType)
+            .Include(m => m.ActionDetails).ThenInclude(d => d.ActionCatalog)
+            .Include(m => m.MaterialConsumptions)
+            .Include(m => m.InstalledComponents).ThenInclude(c => c.ActionCatalog)
+            .Include(m => m.Diagnosis)
+            .Where(m => m.Prcoid == filter.Prcoid);
+
+        if (filter.DateFrom.HasValue)
+            query = query.Where(m => m.MaintenanceDate >= filter.DateFrom.Value.ToDateTime(TimeOnly.MinValue));
+        if (filter.DateTo.HasValue)
+            query = query.Where(m => m.MaintenanceDate <= filter.DateTo.Value.ToDateTime(TimeOnly.MaxValue));
+
+        var orders = await query.OrderByDescending(m => m.MaintenanceDate).ToListAsync(ct);
+        var workersVH = await _context.Workers.Include(w => w.Person).ToDictionaryAsync(w => w.Workid, w => w.Person?.Name ?? "?", ct);
+
+        var vehicleLine = $"{vehicle.Product?.Name ?? "?"} — {vehicle.LicensePlateNumber ?? "?"}";
+
+        var pdf = Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A4);
+                page.Margin(2, Unit.Centimetre);
+                page.DefaultTextStyle(x => x.FontSize(10));
+                page.Header().Column(col =>
+                {
+                    col.Item().Text("Neo Plus Business S.A.C.").Bold().FontSize(14).FontColor("#1565C0");
+                    col.Item().Text("Historial de Mantenimiento por Unidad").FontSize(12).FontColor("#546E8A");
+                    col.Item().LineHorizontal(1).LineColor("#CBD5E1");
+                });
+                page.Content().Column(col =>
+                {
+                    col.Spacing(8);
+                    col.Item().Text($"Vehículo: {vehicleLine}").Bold().FontSize(12);
+                    col.Item().Text($"Período: {filter.DateFrom?.ToString("dd/MM/yyyy") ?? "Inicio"} - {filter.DateTo?.ToString("dd/MM/yyyy") ?? "Actual"}").FontSize(10).FontColor("#546E8A");
+                    col.Item().LineHorizontal(1).LineColor("#CBD5E1");
+
+                    if (orders.Count == 0)
+                    {
+                        col.Item().Text("No se encontraron órdenes para este vehículo en el período seleccionado.").FontSize(10).FontColor("#C62828");
+                    }
+
+                    foreach (var m in orders)
+                    {
+                        col.Item().PaddingVertical(4).LineHorizontal(1).LineColor("#1565C0");
+
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem().Text($"Orden del {m.MaintenanceDate:dd/MM/yyyy} — {m.MaintenanceType?.Name ?? "-"}").Bold().FontSize(11);
+                            row.ConstantItem(100).Text(m.Statid switch { "AC" => "ACTIVO", "FI" => "FINALIZADO", "CA" => "CANCELADO", _ => m.Statid }).FontSize(10).FontColor("#1565C0").Bold().AlignRight();
+                        });
+                        col.Item().Text($"Km: {m.Mileage:N0}  |  Técnico: {(m.AssignedTo > 0 ? workersVH.GetValueOrDefault(m.AssignedTo, "?") : "Sin asignar")}  |  Servicio: {m.ServiceType?.Name ?? "N/A"}").FontSize(9).FontColor("#546E8A");
+
+                        if (m.ActionDetails.Any())
+                        {
+                            col.Item().Text("Acciones realizadas:").Bold().FontSize(9);
+                            foreach (var d in m.ActionDetails)
+                                col.Item().Row(row =>
+                                {
+                                    row.ConstantItem(15).Text(d.Completed ? "☑" : "☐").FontSize(9);
+                                    row.AutoItem().Text(d.ActionCatalog?.Name ?? "-").FontSize(9);
+                                });
+                        }
+
+                        if (m.MaterialConsumptions.Any())
+                        {
+                            col.Item().Text("Materiales consumidos:").Bold().FontSize(9);
+                            foreach (var mc in m.MaterialConsumptions)
+                            {
+                                var mate = _context.Materials.Find(mc.Mateid);
+                                col.Item().Text($"  • {mate?.Name ?? $"ID {mc.Mateid}"}: {mc.Quantity} {mate?.UnitOfMeasure ?? ""}").FontSize(9);
+                            }
+                        }
+
+                        if (m.InstalledComponents.Any(c => c.Active))
+                        {
+                            col.Item().Text("Componentes instalados:").Bold().FontSize(9);
+                            foreach (var ic in m.InstalledComponents.Where(c => c.Active))
+                                col.Item().Text($"  • {ic.ActionCatalog?.Name ?? "-"} (km: {ic.InstallationKm:N0})").FontSize(9);
+                        }
+
+                        if (m.Diagnosis is not null)
+                        {
+                            col.Item().Text($"Diagnóstico: {m.Diagnosis.GeneralStatus} — Operativo: {(m.Diagnosis.VehicleOperative ? "Sí" : "No")}").FontSize(9);
+                            if (m.Diagnosis.Observations is not null)
+                                col.Item().Text($"Obs: {m.Diagnosis.Observations}").FontSize(9);
+                        }
+                    }
+                });
+                page.Footer().Row(row =>
+                {
+                    row.RelativeItem().Text(t => { t.Span("Total: ").Bold(); t.Span($"{orders.Count} órdenes"); });
+                    row.RelativeItem().AlignRight().Text(t => { t.Span("Página "); t.CurrentPageNumber(); t.Span(" de "); t.TotalPages(); });
+                });
+            });
+        }).GeneratePdf();
+
+        return File(pdf, "application/pdf", $"historial_{vehicle.LicensePlateNumber ?? filter.Prcoid.ToString()}_{DateTime.Now:yyyyMMdd}.pdf");
+    }
 }

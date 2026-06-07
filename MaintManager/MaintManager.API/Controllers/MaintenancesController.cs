@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MaintManager.Domain.Entities;
 using System.Security.Claims;
+
 namespace MaintManager.API.Controllers;
 
 /// <summary>Gestión de órdenes de mantenimiento vehicular.</summary>
@@ -27,6 +28,7 @@ public sealed class MaintenancesController : ControllerBase
     private readonly IInventoryService _inventoryService;
     private readonly FleetMaintenanceContext _context;
     private readonly IValidator<MaintenanceCreateRequest> _createValidator;
+    private readonly IVehicleConfigRepository _vehicleConfigRepository;
 
     public MaintenancesController(
         IMaintenanceService maintenanceService,
@@ -34,7 +36,8 @@ public sealed class MaintenancesController : ControllerBase
         IVehicleRepository vehicleRepo,
         IInventoryService inventoryService,
         FleetMaintenanceContext context,
-        IValidator<MaintenanceCreateRequest> createValidator)
+        IValidator<MaintenanceCreateRequest> createValidator,
+        IVehicleConfigRepository vehicleConfigRepository)
     {
         _maintenanceService = maintenanceService;
         _maintenanceRepo = maintenanceRepo;
@@ -42,6 +45,7 @@ public sealed class MaintenancesController : ControllerBase
         _inventoryService = inventoryService;
         _context = context;
         _createValidator = createValidator;
+        _vehicleConfigRepository = vehicleConfigRepository;
     }
 
     /// <summary>Obtener lista paginada de mantenimientos (optimizado sin N+1).</summary>
@@ -409,13 +413,35 @@ public sealed class MaintenancesController : ControllerBase
             new MaintenanceStatsResponse(totalAc, totalAc, completedThisMonth, emergencyThisMonth)));
     }
 
-    /// <summary>Catálogo de acciones disponibles para instalar componentes.</summary>
+    /// <summary>Catálogo de acciones disponibles. Opcionalmente filtrado por vehículo.</summary>
     [HttpGet("actions/catalog")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<ActionCatalogItem>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActionCatalog(CancellationToken ct)
+    public async Task<IActionResult> GetActionCatalog([FromQuery] int? vehicleId = null, CancellationToken ct = default)
     {
-        var items = await _context.ActionCatalogs
-            .Where(a => a.Status)
+        if (vehicleId.HasValue && vehicleId.Value > 0)
+        {
+            var allowedActions = await _vehicleConfigRepository.GetAllowedActionsAsync(vehicleId.Value, ct);
+            var allowedComponents = await _vehicleConfigRepository.GetAllowedComponentsAsync(vehicleId.Value, ct);
+
+            if (allowedActions.Count > 0 || allowedComponents.Count > 0)
+            {
+                var allowedActionIds = allowedActions.Select(a => a.Acatid).ToHashSet();
+                var allowedComponentIds = allowedComponents.Select(c => c.Acatid).ToHashSet();
+
+                var all = await _context.ActionCatalogs.Where(a => a.Status)
+                    .OrderBy(a => a.Category).ThenBy(a => a.Name)
+                    .Select(a => new ActionCatalogItem(a.Acatid, a.Name, a.Category))
+                    .ToListAsync(ct);
+
+                var filtered = all.Where(a =>
+                    (a.Category == null || !a.Category.Contains("Componente") ? allowedActionIds.Contains(a.Acatid) : allowedComponentIds.Contains(a.Acatid))
+                ).ToList();
+
+                return Ok(ApiResponse<IReadOnlyList<ActionCatalogItem>>.Ok(filtered));
+            }
+        }
+
+        var items = await _context.ActionCatalogs.Where(a => a.Status)
             .OrderBy(a => a.Category).ThenBy(a => a.Name)
             .Select(a => new ActionCatalogItem(a.Acatid, a.Name, a.Category))
             .ToListAsync(ct);

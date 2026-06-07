@@ -241,17 +241,25 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         try
         {
-            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(ApiRoutes.Inventory.GetMaterials);
-            if (raw?.Success == true && raw.Data is not null)
+            var prcoid = MaintenanceDetail?.Prcoid ?? 0;
+            var allowedIds = new HashSet<int>();
+
+            if (prcoid > 0)
             {
-                AvailableMaterials = new ObservableCollection<MaterialOption>(
-                    raw.Data.Select(m => new MaterialOption
-                    {
-                        Mateid = m.Mateid,
-                        Name = m.Name,
-                        UnitOfMeasure = m.UnitOfMeasure,
-                    }));
+                var configUrl = $"{ApiRoutes.Vehicles.Base}/{prcoid}/config";
+                var config = await _apiService.GetAsync<ApiResponse<VehicleConfigRaw>>(configUrl);
+                if (config?.Success == true && config.Data?.AllowedMaterials != null)
+                    allowedIds = config.Data.AllowedMaterials.Select(m => m.Mateid).ToHashSet();
             }
+
+            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(ApiRoutes.Inventory.GetMaterials);
+            var materials = raw?.Data ?? new List<MaterialItemDto>();
+
+            if (allowedIds.Count > 0)
+                materials = materials.Where(m => allowedIds.Contains(m.Mateid)).ToList();
+
+            AvailableMaterials = new ObservableCollection<MaterialOption>(
+                materials.Select(m => new MaterialOption { Mateid = m.Mateid, Name = m.Name, UnitOfMeasure = m.UnitOfMeasure }));
         }
         catch { }
     }
@@ -260,15 +268,39 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         try
         {
-            var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(
-                ApiRoutes.Maintenances.ActionCatalog);
-            if (raw?.Success == true && raw.Data is not null)
+            var prcoid = MaintenanceDetail?.Prcoid ?? 0;
+            var allowedActionIds = new HashSet<int>();
+            var allowedComponentIds = new HashSet<int>();
+
+            if (prcoid > 0)
             {
-                ComponentActions = new ObservableCollection<ActionCatalogOption>(
-                    raw.Data.Where(a => a.Category is not null && a.Category.Contains("Componente")));
-                ActionCatalogItems = new ObservableCollection<ActionCatalogOption>(
-                    raw.Data.Where(a => a.Category is not null && a.Category.Contains("Acción")));
+                var configUrl = $"{ApiRoutes.Vehicles.Base}/{prcoid}/config";
+                var config = await _apiService.GetAsync<ApiResponse<VehicleConfigRaw>>(configUrl);
+                if (config?.Success == true && config.Data != null)
+                {
+                    if (config.Data.AllowedActions != null)
+                        allowedActionIds = config.Data.AllowedActions.Select(a => a.Acatid).ToHashSet();
+                    if (config.Data.AllowedComponents != null)
+                        allowedComponentIds = config.Data.AllowedComponents.Select(c => c.Acatid).ToHashSet();
+                }
             }
+
+            var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(ApiRoutes.Maintenances.ActionCatalog);
+            var all = raw?.Data ?? new List<ActionCatalogOption>();
+
+            if (allowedActionIds.Count > 0 || allowedComponentIds.Count > 0)
+            {
+                all = all.Where(a =>
+                {
+                    var isComp = a.Category is not null && a.Category.Contains("Componente");
+                    return isComp ? allowedComponentIds.Contains(a.Acatid) : allowedActionIds.Contains(a.Acatid);
+                }).ToList();
+            }
+
+            ComponentActions = new ObservableCollection<ActionCatalogOption>(
+                all.Where(a => a.Category is not null && a.Category.Contains("Componente")));
+            ActionCatalogItems = new ObservableCollection<ActionCatalogOption>(
+                all.Where(a => a.Category is not null && a.Category.Contains("Acción")));
         }
         catch { }
     }
@@ -647,5 +679,27 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public int Rating { get; set; }
         public string? RatingObservation { get; set; }
         public override string ToString() => $"{MaterialName} ({LotNumber})";
+    }
+
+    public class VehicleConfigRaw
+    {
+        public int Prcoid { get; set; }
+        public List<ActionConfigRaw>? AllowedActions { get; set; }
+        public List<MaterialConfigRaw>? AllowedMaterials { get; set; }
+        public List<ActionConfigRaw>? AllowedComponents { get; set; }
+    }
+
+    public class ActionConfigRaw
+    {
+        public int Acatid { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Category { get; set; }
+    }
+
+    public class MaterialConfigRaw
+    {
+        public int Mateid { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? UnitOfMeasure { get; set; }
     }
 }

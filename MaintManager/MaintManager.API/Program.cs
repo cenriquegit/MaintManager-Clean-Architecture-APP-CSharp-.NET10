@@ -69,10 +69,19 @@ builder.Services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+builder.Services.AddScoped<IVehicleConfigRepository, VehicleConfigRepository>();
+builder.Services.AddScoped<IManagedVehicleRepository, ManagedVehicleRepository>();
 Console.WriteLine(">>> Repositorios registrados");
 
 // ── Servicios de aplicación ──────────────────────────────────────
 builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
+builder.Services.AddScoped<ISchedulingService, SchedulingService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IAlertService, AlertService>();
+builder.Services.AddScoped<IBiReportService, BiReportService>();
+builder.Services.AddScoped<IVehicleConfigService, VehicleConfigService>();
+builder.Services.AddScoped<ISunarpService, SunarpService>();
+builder.Services.AddSingleton<HttpClient>();
 builder.Services.AddScoped<ISchedulingService, SchedulingService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IAlertService, AlertService>();

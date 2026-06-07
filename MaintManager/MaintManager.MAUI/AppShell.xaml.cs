@@ -18,15 +18,18 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("Inventory/LotList", typeof(Views.Inventory.LotListPage));
         Routing.RegisterRoute("Maintenances/VehicleHistory", typeof(Views.Maintenances.VehicleHistoryPage));
         Routing.RegisterRoute("Reports/Filter", typeof(Views.Reports.ReportFilterPage));
+        Routing.RegisterRoute("Vehicles/CreateVehicle", typeof(Views.VehicleManagement.CreateVehiclePage));
+        Routing.RegisterRoute("ConfigVehicle/CreateAction", typeof(Views.VehicleConfig.CreateActionPage));
+        Routing.RegisterRoute("ConfigVehicle/CreateComponent", typeof(Views.VehicleConfig.CreateComponentPage));
+        Routing.RegisterRoute("ConfigVehicle/CreateMaterial", typeof(Views.Inventory.CreateMaterialPage));
     }
 
     private async void OnFlyoutItemTapped(object? sender, TappedEventArgs e)
     {
         if (sender is Microsoft.Maui.Controls.Border border && border.ClassId is string route)
         {
-            // Verificar permisos para páginas Admin-only
             var isAdmin = _authService?.IsAdmin() ?? false;
-            if (!isAdmin && (route == "//BiDashboard" || route == "//Settings"))
+            if (!isAdmin && (route == "//BiDashboard" || route == "//Settings" || route == "//Vehicles"))
             {
                 Shell.Current.FlyoutIsPresented = false;
                 await Task.Delay(100);

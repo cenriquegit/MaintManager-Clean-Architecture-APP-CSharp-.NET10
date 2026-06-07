@@ -158,6 +158,20 @@ public class ApiService
         return await HandleWrappedResponse<T>(response, endpoint);
     }
 
+    public async Task<bool> DeleteAsync(string endpoint)
+    {
+        Debug.WriteLine($"[MaintManager] DELETE {endpoint}");
+        var response = await _httpClient.DeleteAsync(endpoint);
+        if (response.IsSuccessStatusCode)
+        {
+            Debug.WriteLine($"[MaintManager] DELETE OK {endpoint}");
+            return true;
+        }
+        var error = await response.Content.ReadAsStringAsync();
+        Debug.WriteLine($"[MaintManager] DELETE ERROR {response.StatusCode}: {Truncate(error)}");
+        throw new HttpRequestException($"Error {response.StatusCode}: {error}");
+    }
+
     public async Task<T?> PutAsync<T>(string endpoint, object? data = null)
     {
         HttpContent? content = null;

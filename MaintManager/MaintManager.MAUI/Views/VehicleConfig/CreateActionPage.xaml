@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.VehicleConfig"
+    x:Class="MaintManager.MAUI.Views.VehicleConfig.CreateActionPage"
+    Title="Nueva Acción"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+
+            <Label Text="Crear nueva acción" FontSize="22" FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTextPrimary}"/>
+            <Label Text="La acción se creará en el catálogo general y se asociará automáticamente al vehículo."
+                   Style="{StaticResource BodyText}" LineBreakMode="WordWrap"/>
+
+            <Label Text="Nombre de la acción:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding ActionName}" Placeholder="ej: Revisión de frenos"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Categoría:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="4,0">
+                <Picker ItemsSource="{Binding CategoryOptions}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        Style="{StaticResource FormPicker}"/>
+            </Border>
+
+            <Label Text="Descripción (opcional):" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,4">
+                <Editor Text="{Binding Description}" HeightRequest="80"
+                        Placeholder="Describe brevemente la acción..."
+                        TextColor="{StaticResource ColorTextPrimary}"
+                        PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Días de vida útil (solo para componentes):" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding UsefulLifeDays}" Keyboard="Numeric" Placeholder="ej: 365"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}"
+                   FontSize="13" TextColor="{StaticResource ColorError}" HorizontalTextAlignment="Center"/>
+
+            <Button Text="Guardar Acción" Command="{Binding SaveCommand}"
+                    Style="{StaticResource PrimaryButton}" HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

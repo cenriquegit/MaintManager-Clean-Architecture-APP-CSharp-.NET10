@@ -69,7 +69,7 @@ public sealed class AlertsController : ControllerBase
 
     /// <summary>Ejecutar verificación de alertas manualmente.</summary>
     [HttpPost("check")]
-    [Authorize(Roles = RoleNames.Admin)]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> CheckAlerts(CancellationToken ct)
     {

@@ -96,11 +96,56 @@ dotnet restore MaintManager.sln
 
 ### 2. Crear la base de datos
 
-Ejecutar en orden los siguientes scripts (carpeta `database/` o `sql/`):
+Existen **dos formas** de crear la base de datos completa:
 
-1. `BD-FINAL-COMPLETAMENTE-CORREGIDA.sql` — Script principal (esquemas, tablas, vistas)
-2. `02_ajustes_fase1.sql` — Campos adicionales (`assigned_to`, `next_service_type_code`, `updated_at`, `technician_assignment`)
-3. `03_seed_data.sql` — Datos de prueba (12 vehículos, 3 usuarios, 5 mantenimientos históricos, lotes, etc.)
+#### Opción A: Script único (recomendado)
+
+Un solo archivo con toda la estructura (esquemas, tablas, vistas, constraints) y datos semilla.
+**Requiere recrear la BD desde cero** (el script no usa `IF NOT EXISTS`):
+
+```bash
+cd database
+set PGPASSWORD=postgres
+psql -U postgres -h localhost -p 5432 -d postgres -c "DROP DATABASE IF EXISTS neoplus_maintenance;"
+psql -U postgres -h localhost -p 5432 -d postgres -c "CREATE DATABASE neoplus_maintenance;"
+psql -U postgres -h localhost -p 5432 -d neoplus_maintenance -f 00_master_complete.sql
+```
+
+> El archivo `database/00_master_complete.sql` fue generado desde la BD en producción.
+> Contiene TODAS las tablas de los esquemas `maintenance`, `product` y `public`,
+> incluyendo datos semilla de acciones, materiales, lotes, componentes, vehículos y órdenes.
+
+#### Opción B: Scripts individuales (por etapas)
+
+Ejecutar en orden los siguientes scripts sobre una BD con esquema existente (los scripts usan `IF NOT EXISTS` / `CREATE TABLE IF NOT EXISTS` y son idempotentes):
+
+| Orden | Archivo | Contenido | ¿Requiere BD existente? |
+|-------|---------|-----------|-------------------------|
+| 1 | `04_seed_components_materials.sql` | Componentes con vida útil, acciones checklist, materiales nuevos con lotes | Sí |
+| 2 | `05_seed_dashboard_data.sql` | Datos para dashboard BI (consumos, emergencia, lotes) | Sí |
+| 3 | `07_vehicle_config.sql` | Tablas de configuración por vehículo (`CREATE TABLE IF NOT EXISTS`) | Sí |
+| 4 | `08_managed_vehicle.sql` | Tabla `managed_vehicle` + sync legacy + alter config tables | Sí |
+
+```bash
+cd database
+set PGPASSWORD=postgres
+psql -U postgres -h localhost -p 5432 -d neoplus_maintenance -f 04_seed_components_materials.sql
+psql -U postgres -h localhost -p 5432 -d neoplus_maintenance -f 05_seed_dashboard_data.sql
+psql -U postgres -h localhost -p 5432 -d neoplus_maintenance -f 07_vehicle_config.sql
+psql -U postgres -h localhost -p 5432 -d neoplus_maintenance -f 08_managed_vehicle.sql
+```
+
+> Nota: Esta opción asume que ya existe una BD con el esquema base (tablas de `maintenance`, `product`, `public`).
+> Si no existe, usar la **Opción A** primero.
+
+#### Esquemas y tablas incluidos
+
+| Esquema | Tablas/Vistas |
+|---------|---------------|
+| `maintenance` | `action_catalog`, `action_list_type`, `alert_config`, `alert_log`, `config_system`, `diagnosis`, `installed_component`, `maintenance`, `maintenance_action_detail`, `maintenance_type`, `managed_vehicle`, `material`, `material_category`, `material_consumption`, `material_discard`, `material_lot`, `material_rating`, `schedule_action`, `service_type`, `technician_assignment`, `vehicle_allowed_action`, `vehicle_allowed_component`, `vehicle_allowed_material`, `vehicle_schedule` |
+| `product` | `company`, `productbrand`, `productcategory`, `productmerchandise`, `productmodel`, `vehicle` |
+| `public` | `accountingplan`, `agency`, `bankaccounts`, `client`, `company`, `costcenter`, `country`, `department`, `district`, `job`, `jobarea`, `payments`, `person`, `product`, `provider`, `province`, `residence`, `sale`, `saleitems`, `salepayments`, `voucher`, `voucheritems`, `voucherpayments`, `windows`, `worker`, `zone` |
+| `maintenance` (vistas) | `vw_bi_dashboard_summary`, `vw_cost_per_km`, `vw_emergency_rate`, `vw_monthly_cost`, `vw_calendar_compliance` |
 
 ### 3. Configurar variables de entorno
 

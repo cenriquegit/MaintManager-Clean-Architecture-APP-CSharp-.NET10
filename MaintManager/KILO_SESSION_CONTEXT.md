@@ -1,7 +1,18 @@
 # Contexto de Sesión — MaintManager
 
-> Última actualización: 2026-05-21
+> Última actualización: 2026-06-07
 > Cargar este archivo al iniciar una nueva sesión de Kilo para restaurar el contexto completo.
+
+---
+
+## 0. Estado Rápido — Inicio de Sesión
+
+```
+API:   cd MaintManager.API && dotnet run --urls "http://0.0.0.0:5056"
+MAUI:  cd MaintManager.MAUI && dotnet publish -f net10.0-android -c Release -p:AndroidPackageFormats=apk
+       adb install -r bin\Release\net10.0-android\publish\*-Signed.apk
+Login: herror.ortiz / Admin2026! (Admin) | juan.quispe / Tecnico2026! (Técnico)
+```
 
 ---
 
@@ -118,6 +129,15 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 - Acciones rápidas role-based (Admin → Create/Lot directo, Mecánico → lista)
 - Alertas: historial de resueltas con Switch "Mostrar resueltas"
 - Dashboard BI poblado con datos reales (124 órdenes, 16 vehículos con costos)
+- Dashboard BI balanceado: emergencias variadas (20% global), lotes categorizados (crítico/próximo/normal), 7 servicios este mes
+- Dashboard BI con x1000 fix (barras visibles en Costo/km)
+- Dashboard BI restaurado a versión estable (LabelsRotation -20, sin LabelsPaint, sin DataLabels conflictivos)
+- Reportes generados directamente (sin filter page), incluye Historial por Vehículo con prompt
+- LOT auto-generado con formato "LOT-YYYY-MM-DD"
+- Discard lot con opciones predefinidas (Vencimiento/Daño/Otro)
+- Estado de Switch de vencimiento visible (ThumbColor gris)
+- Low-stock endpoint reparado (`/materials/low-stock`)
+- CloseOrder con `IsEmergencyComplete = false` para evitar 400
 
 ### ⚠️ En Progreso / Pendiente
 - Reportes "Órdenes de Mantenimiento" y "Alertas": muestran "no disponible" (no hay endpoint)
@@ -242,6 +262,9 @@ Tablas principales:
 | `ApiService.cs` | JsonContent.Create (AOT) + TryRestoreSessionAsync |
 | `AuthService.cs` | LoginResponse desde Shared.Models |
 | `BiDashboardViewModel.cs` | Series/Axis `[]` → `null` |
+| `BiDashboardViewModel.cs` | Restaurado a versión estable c95af1c (LabelsRotation -20, sin LabelsPaint, x1000) |
+| `ReportsViewModel.cs` | Reportes directos sin filter page, Historial con prompt vehicular |
+| `ReportsPage.xaml` | CommandParameter Route→Type fix |
 | `MaintenanceWizardViewModel.cs` | PostAndUnwrapAsync + ruta `///` |
 | `MaintenanceListViewModel.cs` | Rutas `///` |
 | `MaintenanceDetailViewModel.cs` | IsReadOnly, ConsumedMaterials, ActionCatalogItems, AddAction/RemoveAction, PersistPendingActionsAsync, GeneralStatus picker, VehicleOperative switch, FutureRecommendations, ActionDetailItem `[JsonPropertyName]`, Rating local |
@@ -303,4 +326,59 @@ Para continuar trabajando, necesito:
 
 ---
 
-*Documento generado al cierre de sesión el 2026-05-15. Actualizado el 2026-05-18 y 2026-05-21.*
+*Documento generado al cierre de sesión el 2026-05-15. Actualizado el 2026-05-18, 2026-05-21, y 2026-06-07 (VehicleConfig + VehicleManagement).*
+
+## 11. Sesión 2026-06-07 — VehicleConfig + VehicleManagement
+
+### Módulos nuevos
+- **VehicleConfig**: CRUD de config por vehículo (acciones, materiales, componentes permitidos)
+- **VehicleManagement**: Cards de vehículos, crear/editar con SUNARP opcional
+- **DB**: `managed_vehicle`, `vehicle_allowed_action/material/component` (con mv_id + prcoid)
+- **Scripts**: `07_vehicle_config.sql`, `08_managed_vehicle.sql`
+
+### Bugs de esta sesión (79-91)
+| # | Bug | Causa | Fix |
+|---|-----|-------|-----|
+| 79 | Crash al entrar Config | Faltaba FlyoutItem + xmlns | Agregado |
+| 80 | Componentes no aparecen | `== "Componente"` vs "Componente Eléctrico" | `.Contains()` |
+| 81 | Nav perdida Crear Material | Stack Inventory vs ConfigVehicle | Ruta `ConfigVehicle/CreateMaterial` |
+| 82 | Datos crudos Picker | Record sin ToString() | Wrapper VehicleOption |
+| 83 | Icono duplicado ⚙ | Dos páginas mismo ícono | 🚗 |
+| 84 | Lista no refresca | IsBusy nesting ExecuteAsync | API manual + finally |
+| 85 | Crash ColorAccent | StaticResource no existe | → ColorAccentDark |
+| 86 | SUNARP no funcional | Anti-bot/reCAPTCHA | Documentado |
+| 87 | Listas no cargan | SelectedVehicle dentro ExecuteAsync | Fuera |
+| 88 | Sin botón volver | FlyoutItem separado | BackToVehicles |
+| 89 | Editar campos vacíos | IQueryAttributable en VM no en Page | Page lo implementa |
+| 90 | Filtros no funcionan | OnSelectedSourceChanged ausente | Agregado |
+| 91 | UI cards feas | Badge padding, poca info | Mejorado |
+
+### Bug pendiente (#92)
+Filtro en MaintenanceDetail — los selects de acciones/materiales siguen mostrando TODO aunque el vehículo tenga config. 7 intentos fallidos (server-side LINQ, client-side filter, debug logs). El handler `LoadComponentActionsAsync` parece no ejecutar correctamente el flujo de datos.
+
+### Lecciones críticas
+1. **DataTemplates**: NO `AncestorType`, usar TapGestureRecognizer + code-behind
+2. **ExecuteAsync**: NUNCA anidar, el `if(IsBusy)return` bloquea todo
+3. **Shell rutas**: Máximo 2 niveles (FlyoutItem/SubRoute)
+4. **IQueryAttributable**: Va en ContentPage, no en ViewModel
+5. **StaticResources**: Verificar existencia antes de usar en XAML
+6. **SUNARP**: Scraper HTTP no viable, requiere navegador real
+7. **Config tables**: Backfill mv_id crea dual IDs, mejor unificar
+
+### Navegación actualizada
+```
+//Vehicles → VehicleManagementPage (Admin only)
+  ///CreateVehicle → Crear/Editar
+//ConfigVehicle → VehicleConfigPage (FlyoutItem oculto)
+  ///CreateAction → Nueva acción
+  ///CreateComponent → Nuevo componente
+  ///CreateMaterial → Nuevo material
+```
+
+### Archivos nuevos (42)
+Domain: ManagedVehicle, VehicleAllowedAction/Material/Component (mod), ISunarpService, IManagedVehicleRepository, IVehicleConfigRepository (mod)
+Infra: ManagedVehicleConfig/Repo, SunarpService, 3 config EF (mod), VehicleConfigRepo (mod), FleetMaintenanceContext (mod)
+App: VehicleConfigService (mod), VehicleConfigResponse
+API: VehicleConfigController, VehicleManagementController, Program.cs (mod), MaintenancesController (mod), InventoryController (mod)
+MAUI: VehicleConfigPage/VM, VehicleManagementPage/VM, CreateVehiclePage/VM, CreateActionPage/VM, CreateComponentPage/VM, AppShell (mod), MauiProgram (mod)
+DB: 07_vehicle_config.sql, 08_managed_vehicle.sql

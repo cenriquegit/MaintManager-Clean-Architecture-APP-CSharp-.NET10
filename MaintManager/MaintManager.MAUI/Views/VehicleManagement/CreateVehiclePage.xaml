@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MaintManager.MAUI.Views.VehicleManagement.CreateVehiclePage"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+
+            <Label Text="{Binding Title}" FontSize="22" FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTextPrimary}"/>
+
+            <!-- License Plate + SUNARP Button -->
+            <Label Text="Placa:" Style="{StaticResource CaptionText}"/>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                        StrokeThickness="1" Padding="12,0">
+                    <Entry Text="{Binding LicensePlate}" CharacterSpacing="2"
+                           Placeholder="ABC-123"
+                           TextTransform="Uppercase"
+                           TextColor="{StaticResource ColorTextPrimary}"
+                           PlaceholderColor="{StaticResource Gray500}"/>
+                </Border>
+                <Button Grid.Column="1" Text="🔍 SUNARP"
+                        Command="{Binding GetCaptchaCommand}"
+                        Style="{StaticResource SecondaryButton}" FontSize="13"
+                        WidthRequest="100"/>
+            </Grid>
+
+            <!-- SUNARP Captcha Section -->
+            <Border IsVisible="{Binding ShowCaptcha}" StrokeShape="RoundRectangle 12"
+                    Stroke="{StaticResource ColorBorder}" StrokeThickness="1"
+                    Padding="12" BackgroundColor="#F5F5F5">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="🔐 Verificación SUNARP" FontSize="14" FontAttributes="Bold"
+                           TextColor="{StaticResource ColorTextPrimary}"/>
+
+                    <Image Source="{Binding CaptchaImageSource}"
+                           Aspect="AspectFit" HeightRequest="60"
+                           HorizontalOptions="Center"/>
+
+                    <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding CaptchaCode}" Placeholder="Código del captcha..."
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               PlaceholderColor="{StaticResource Gray500}"/>
+                    </Border>
+
+                    <Button Text="Consultar SUNARP"
+                            Command="{Binding ConsultSunarpCommand}"
+                            Style="{StaticResource PrimaryButton}" FontSize="14"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Text="{Binding SunarpMessage}" IsVisible="{Binding HasSunarpMessage}"
+                   FontSize="13" TextColor="{StaticResource ColorInfo}"
+                   HorizontalTextAlignment="Center"/>
+
+            <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}" Margin="0,4"/>
+
+            <!-- Vehicle Name -->
+            <Label Text="Nombre del vehículo:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding VehicleName}" Placeholder="ej: Toyota Hilux 4x4"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <!-- SUNARP auto-filled fields (locked by default, with unlock toggle) -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Datos SUNARP:" Style="{StaticResource CaptionText}" VerticalOptions="Center"/>
+                <Button Grid.Column="1" Text="{Binding LockToggleText}"
+                        Command="{Binding ToggleSunarpLockCommand}"
+                        FontSize="12"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource ColorAccentDark}"/>
+            </Grid>
+
+            <Label Text="Marca:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding Brand}" Placeholder="ej: Toyota"
+                       IsEnabled="{Binding SunarpFieldsLocked, Converter={StaticResource InvertedBoolConverter}}"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Modelo:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding Model}" Placeholder="ej: Hilux"
+                       IsEnabled="{Binding SunarpFieldsLocked, Converter={StaticResource InvertedBoolConverter}}"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Año:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding Year}" Placeholder="ej: 2024" Keyboard="Numeric"
+                       IsEnabled="{Binding SunarpFieldsLocked, Converter={StaticResource InvertedBoolConverter}}"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="Color:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding Color}" Placeholder="ej: Blanco"
+                       IsEnabled="{Binding SunarpFieldsLocked, Converter={StaticResource InvertedBoolConverter}}"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="VIN / N° Serie:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding Vin}" Placeholder="ej: JTDBR22E500000000"
+                       CharacterSpacing="1"
+                       IsEnabled="{Binding SunarpFieldsLocked, Converter={StaticResource InvertedBoolConverter}}"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <Label Text="N° Motor:" Style="{StaticResource CaptionText}"/>
+            <Border StrokeShape="RoundRectangle 8" Stroke="{StaticResource ColorBorder}"
+                    StrokeThickness="1" Padding="12,0">
+                <Entry Text="{Binding EngineNumber}" Placeholder="ej: 2TR-1234567"
+                       IsEnabled="{Binding SunarpFieldsLocked, Converter={StaticResource InvertedBoolConverter}}"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"/>
+            </Border>
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}" IsVisible="{Binding HasError}"
+                   FontSize="13" TextColor="{StaticResource ColorError}" HorizontalTextAlignment="Center"/>
+
+            <!-- Save Button -->
+            <Button Text="{Binding SaveButtonText}" 
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

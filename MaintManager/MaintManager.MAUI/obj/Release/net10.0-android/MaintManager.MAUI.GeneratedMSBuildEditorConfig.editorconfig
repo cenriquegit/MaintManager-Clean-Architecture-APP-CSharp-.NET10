@@ -320,3 +320,53 @@ build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/VehicleConfig/CreateActionPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.VehicleConfig.CreateActionPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\VehicleConfig\CreateActionPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\VehicleConfig\CreateActionPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/VehicleConfig/CreateComponentPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.VehicleConfig.CreateComponentPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\VehicleConfig\CreateComponentPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\VehicleConfig\CreateComponentPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/VehicleConfig/VehicleConfigPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.VehicleConfig.VehicleConfigPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\VehicleConfig\VehicleConfigPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\VehicleConfig\VehicleConfigPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/VehicleManagement/CreateVehiclePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.VehicleManagement.CreateVehiclePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\VehicleManagement\CreateVehiclePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\VehicleManagement\CreateVehiclePage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/VehicleManagement/VehicleManagementPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.VehicleManagement.VehicleManagementPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\VehicleManagement\VehicleManagementPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\VehicleManagement\VehicleManagementPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using MaintManager.Domain.Entities;
 
 namespace MaintManager.API.Controllers;
 
@@ -27,26 +28,53 @@ public sealed class InventoryController : ControllerBase
     private readonly IValidator<LotCreateRequest> _lotValidator;
     private readonly FleetMaintenanceContext _context;
 
+    private readonly IVehicleConfigRepository _vehicleConfigRepo;
+
     public InventoryController(
         IInventoryService inventoryService,
         IInventoryRepository inventoryRepo,
         IValidator<MaterialCreateRequest> materialValidator,
         IValidator<LotCreateRequest> lotValidator,
-        FleetMaintenanceContext context)
+        FleetMaintenanceContext context,
+        IVehicleConfigRepository vehicleConfigRepo)
     {
         _inventoryService = inventoryService;
         _inventoryRepo = inventoryRepo;
         _materialValidator = materialValidator;
         _lotValidator = lotValidator;
         _context = context;
+        _vehicleConfigRepo = vehicleConfigRepo;
     }
 
-    /// <summary>Obtener todos los materiales del inventario.</summary>
+    /// <summary>Obtener todos los materiales del inventario. Opcionalmente filtrado por vehículo.</summary>
     [HttpGet("materials")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<MaterialListItem>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetMaterials(CancellationToken ct)
+    public async Task<IActionResult> GetMaterials([FromQuery] int? vehicleId = null, CancellationToken ct = default)
     {
-        var materials = await _inventoryRepo.GetMaterialsAsync(ct);
+        IReadOnlyList<Material> materials;
+
+        if (vehicleId.HasValue)
+        {
+            var allowed = await _vehicleConfigRepo.GetAllowedMaterialsAsync(vehicleId.Value, ct);
+            if (allowed.Count > 0)
+            {
+                var allowedIds = allowed.Select(m => m.Mateid).ToHashSet();
+                materials = await _context.Materials.AsNoTracking()
+                    .Where(m => m.Status && allowedIds.Contains(m.Mateid))
+                    .Include(m => m.Category)
+                    .OrderBy(m => m.Category!.Name).ThenBy(m => m.Name)
+                    .ToListAsync(ct);
+            }
+            else
+            {
+                materials = await _inventoryRepo.GetMaterialsAsync(ct);
+            }
+        }
+        else
+        {
+            materials = await _inventoryRepo.GetMaterialsAsync(ct);
+        }
+
         return Ok(ApiResponse<IReadOnlyList<MaterialListItem>>.Ok(
             materials.Select(m => m.ToListItem()).ToList()));
     }
@@ -151,7 +179,7 @@ public sealed class InventoryController : ControllerBase
     }
 
     /// <summary>Materiales con stock por debajo del mínimo.</summary>
-    [HttpGet("low-stock")]
+    [HttpGet("materials/low-stock")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<MaterialListItem>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetLowStock(CancellationToken ct)
     {
@@ -174,7 +202,7 @@ public sealed class InventoryController : ControllerBase
 
     /// <summary>Calificar un material usado en un mantenimiento.</summary>
     [HttpPost("materials/{mateid:int}/ratings")]
-    [Authorize(Roles = RoleNames.Admin)]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RateMaterial(
         int mateid, [FromBody] MaterialRatingRequest request, CancellationToken ct)

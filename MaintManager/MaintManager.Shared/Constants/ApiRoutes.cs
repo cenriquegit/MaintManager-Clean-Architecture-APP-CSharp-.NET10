@@ -78,6 +78,9 @@ public static class ApiRoutes
         public const string CalendarCompliance = $"{Base}/calendar-compliance";
         public const string ExportMaintenancePdf = $"{Base}/maintenances/{{id}}/pdf";
         public const string ExportCostExcel = $"{Base}/cost-excel";
+        public const string MaintenanceOrders = $"{Base}/maintenance-orders";
+        public const string Alerts = $"{Base}/alerts";
+        public const string VehicleHistory = $"{Base}/vehicle-history";
     }
 }
 

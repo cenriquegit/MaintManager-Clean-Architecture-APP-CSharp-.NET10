@@ -1763,6 +1763,84 @@ builder.HasOne<Material>().WithMany().HasForeignKey(mr => mr.Mateid)
 
 ---
 
+### Issue #11 — Dashboard balance: 5 vehículos 100% emergencia
+- La vista `vw_emergency_rate` filtra solo órdenes activas (AC). Seed data creó 5 vehículos solo con emergencias activas → 100% rate
+- Fix: convertir 2 emergencias activas a Calendarizado (Chevrolet Joy, Mitsubishi L200) y agregar 1 Calendarizado nuevo a Toyota Land Cruiser
+- Ahora: Mercedes C230 100%, VW Passat 100%, Toyota 50%, resto 0%
+- **Archivos:** BD (UPDATE + INSERT directos)
+
+### Issue #12 — Lotes próximos a vencer: categoría "Normal" siempre 0
+- El endpoint `GET /api/v1/inventory/expiring-lots?days=60` solo retornaba lotes CON fecha de vencimiento dentro de 60 días
+- Los lotes sin fecha de vencimiento (25 de 25) nunca se incluían
+- Fix en `InventoryRepository.cs:56`: agregar `|| !ml.ExpirationDate.HasValue` al WHERE
+- Fix en `BiDashboardViewModel.cs:283`: agregar `|| l.DaysUntilExpiry == null` al filtro Normal
+- Ahora: 4 críticos, 2 próximos, 19 normales
+- **Archivos:** `InventoryRepository.cs`, `BiDashboardViewModel.cs`
+
+### Issue #13 — Dashboard "servicios este mes" = 0 en junio
+- Las órdenes activas tenían fechas de mayo (seed). `services_this_month` consulta el mes actual.
+- Fix: actualizar `maintenance_date` de 14 órdenes activas a la primera semana de junio 2026
+- Ahora: 7 servicios este mes
+- **Archivos:** BD (UPDATE directo)
+
+### Issue #14 — CloseOrder 400 para emergencias
+- `CloseOrder` enviaba `new { }` (body vacío) pero el API requiere `IsEmergencyComplete` para órdenes Emergencia
+- Fix: cambiar a `new { IsEmergencyComplete = false }`
+- **Archivos:** `MaintenanceDetailViewModel.cs`
+
+### Issue #15 — Low-stock 404
+- API tenía `[HttpGet("low-stock")]` mapeando a `api/v1/inventory/low-stock`
+- MAUI llamaba `api/v1/inventory/materials/low-stock`
+- Fix: cambiar a `[HttpGet("materials/low-stock")]`
+- **Archivos:** `InventoryController.cs`
+
+### Issue #16 — LOT auto-generado
+- `SupplierLotNumber` requería escritura manual. Ahora inicia con `"LOT-" + DateTime.Now.ToString("yyyy-MM-dd")`
+- **Archivos:** `LotCreateViewModel.cs`
+
+### Issue #17 — DiscardLot violaba constraint `md_reason_check`
+- El prompt libre permitía valores como "fue devuelto" que no están en la lista permitida (`Vencimiento`, `Daño`, `Otro`)
+- Fix: cambiar `DisplayPromptAsync` por `DisplayActionSheet` con opciones fijas
+- **Archivos:** `LotListViewModel.cs`
+
+### Issue #18 — Switch vencimiento invisible (ThumbColor blanco sobre fondo blanco)
+- Cambiar `ThumbColor="White"` a `ThumbColor="{StaticResource Gray400}"`
+- Texto "vencimiento" → "vencimiento?"
+- **Archivos:** `LotCreatePage.xaml`
+
+---
+
+### Issue #19 — Dashboard: barras de Costo/km no visibles
+- Los valores de `CostPerKm` eran decimales muy pequeños (0.0002 a 0.0455). LiveChartsCore no renderizaba barras visibles.
+- Fix: multiplicar valores por 1000 → `(double)(d.CostPerKm * 1000m)`, eje Y ahora en "$/1000km" con formato F2
+- **Archivos:** `BiDashboardViewModel.cs`
+
+### Issue #20 — Dashboard: LabelsRotation -90° comprimía el área del chart
+- `LabelsRotation = -90` con 10 vehículos ocupaba demasiado espacio vertical, comprimiendo el área de trazado.
+- Se restauró a `-20` (valor original que funcionaba) más el fix x1000
+- **Archivos:** `BiDashboardViewModel.cs`
+
+### Issue #21 — Dashboard: LabelsPaint + DataLabels añadidos rompían el chart
+- La adición de `LabelsPaint = new SolidColorPaint(SKColors.Black)` y `DataLabelsPosition`/`DataLabelsFormatter` al `RowSeries` causaba conflictos de renderizado en LiveChartsCore prerelease.
+- Se restauró el archivo a la versión del commit `c95af1c` (que funcionaba) con solo el fix x1000
+- **Archivos:** `BiDashboardViewModel.cs`
+
+### Issue #22 — Reportes no funcionaban (CommandParameter Route vs Type)
+- `ReportsViewModel` fue reescrito cambiando `Route` → `Type` en `ReportItem`, pero la XAML seguía bindeando a `CommandParameter="{Binding Route}"`.
+- El valor llegaba null → el comando no se ejecutaba.
+- Fix: cambiar `{Binding Route}` → `{Binding Type}` en `ReportsPage.xaml`
+- **Archivos:** `ReportsPage.xaml`, `ReportsViewModel.cs`
+
+### Issue #23 — Reportes: navegación a FilterPage causaba crash
+- `Shell.Current.GoToAsync($"///Reports/Filter?type=...")` crasheaba por problemas de resolución de ruta en .NET 10.
+- Fix: eliminar navegación a FilterPage. Los reportes ahora se generan DIRECTAMENTE:
+  - Costo/km → Excel directo
+  - Órdenes, Alertas → POST con body vacío (todas)
+  - Historial por Vehículo → prompt para seleccionar vehículo + POST
+- **Archivos:** `ReportsViewModel.cs`
+
+---
+
 ## Recomendaciones técnicas
 
 ### Configurar RatedBy → Worker en MaterialRatingConfiguration
@@ -1792,3 +1870,47 @@ No es urgente porque EF Core NO detecta `RatedBy` como FK por convención (no co
 ---
 
 *Documentación generada automáticamente por Kilo Agent.*
+
+## Sesión 2026-06-07: Módulo de Configuración por Vehículo
+
+### Bugs Corregidos
+
+| # | Bug | Severidad | Estado | Descripción | Fix |
+|---|-----|-----------|--------|-------------|-----|
+| 79 | Crash al entrar a "Config. Vehículos" en menú flyout | CRÍTICO | ✅ Resuelto | Faltaba `<FlyoutItem Route="VehicleConfig">` y `xmlns:vehicleconfig` en AppShell.xaml. Shell no podía resolver la ruta. | Agregado FlyoutItem + namespace |
+| 80 | Componentes no aparecen en catálogo de acciones | CRÍTICO | ✅ Resuelto | Categorías en BD son "Componente Eléctrico/Rodaje/Motor". El código filtraba con `== "Componente"` (exacto). 0 match. | Cambiado a `.Contains("Componente")` en 3 lugares |
+| 81 | Navegación perdida al crear material desde Config | ALTO | ✅ Resuelto | `///Inventory/CreateMaterial` ponía CreateMaterialPage en stack de Inventory. `GoToAsync("..")` volvía a Inventory. | Nueva ruta `ConfigVehicle/CreateMaterial` apuntando al mismo CreateMaterialPage pero stack correcto |
+| 82 | Datos crudos en Picker de vehículos | MEDIO | ✅ Resuelto | `VehicleListItemDto` es record sin `ToString()` override. Picker con `ItemDisplayBinding="{Binding .}"` mostraba tipo crudo. | Wrapper `VehicleOption` con `ToString() => $"{VehicleName} — {LicensePlate}"` |
+| 83 | Icono duplicado ⚙ entre Settings y Vehículos | BAJO | ✅ Resuelto | Ambas páginas usaban mismo ícono en flyout | Vehículos cambiado a 🚗 |
+| 84 | AddAction/AddMaterial/AddComponent no refrescaban lista | CRÍTICO | ✅ Resuelto | `LoadConfig()` llamada desde dentro de `ExecuteAsync` de `AddAction`. `IsBusy` bloqueaba el `ExecuteAsync` anidado de `LoadConfig`. | Reescrito: API call manual con try/finally, `LoadConfig()` llamada después de `IsBusy=false` |
+| 85 | Crash al navegar a CreateVehiclePage (Error: StaticResource ColorAccent) | CRÍTICO | ✅ Resuelto | `{StaticResource ColorAccent}` no existe. Recurso correcto es `ColorAccentDark`. | Cambiado a ColorAccentDark |
+| 86 | SUNARP scraper no encuentra captcha | ALTO | ⚠️ Documentado | SUNARP usa reCAPTCHA/anti-bot. El scraper por HTTP no puede obtenerlo. | Mejorados 5 patrones regex de búsqueda. Mensaje de error descriptivo. SUNARP requiere navegador real o API de terceros. |
+| 87 | Listas de Config no cargan al entrar a VehicleConfigPage | CRÍTICO | ✅ Resuelto | `LoadVehicles` seteaba `SelectedVehicle` dentro de `ExecuteAsync` (IsBusy=true). `OnSelectedVehicleChanged` → `LoadConfig` → `ExecuteAsync` anidado → `if(IsBusy) return;` bloqueado. | `SelectedVehicle` asignado FUERA de `ExecuteAsync`. |
+| 88 | Botón "← Volver" no existe en VehicleConfig | ALTO | ✅ Resuelto | Al ser FlyoutItem separado, `GoToAsync("..")` no volvía a Vehículos. | Botón `BackToVehiclesCommand → "///Vehicles"` |
+| 89 | Editar vehículo muestra campos vacíos | CRÍTICO | ✅ Resuelto | Shell llama `IQueryAttributable.ApplyQueryAttributes` en la PÁGINA, no en el ViewModel. `CreateVehiclePage` y `VehicleConfigPage` no implementaban la interfaz. | Ambas pages ahora implementan `IQueryAttributable` y delegan al ViewModel. |
+| 90 | Filtros de source/search en VehicleManagement no funcionan | MEDIO | ✅ Resuelto | `OnSelectedSourceChanged` no estaba definido. Cambiar el Picker no disparaba recarga. | Agregado `partial void OnSelectedSourceChanged` → `LoadVehiclesCommand.Execute()` |
+| 91 | Cards de vehículos con diseño deficiente (badge padding, poca info) | BAJO | ✅ Resuelto | Badge con `Padding="6,2"` creaba mucho espacio. Solo 3 líneas de info. | Reducido padding a `5,1`, agregada línea extra con marca/modelo, nombre en bold, botones 28x28 |
+
+### Bugs NO resueltos (pendientes)
+
+| # | Bug | Descripción | Intentos fallidos |
+|---|-----|-------------|-------------------|
+| 92 | Filtro en detalle de mantenimiento no funciona | Los selects de acciones/materiales/componentes en MaintenanceDetailPage muestran TODOS los items, no solo los configurados para el vehículo. | 7 intentos: (1) API-side IQueryable.Where, (2) Console.WriteLine debugging, (3) API-side LINQ en memoria, (4) MAUI-side Debug.WriteLine, (5) Cliente-side fetch config + filter local. Ninguno funcionó. El flujo de datos parece no ejecutarse correctamente. |
+
+### Planes implementados
+
+| Plan | Fecha | Archivos creados | Archivos modificados |
+|------|-------|-----------------|---------------------|
+| VehicleConfig Module | 2026-06-07 | 22 | 9 |
+| VehicleManagement Module | 2026-06-07 | 20 | 10 |
+
+### Lecciones aprendidas
+
+1. **Bindings en DataTemplates de Shell NO funcionan con `RelativeSource AncestorType`** — los ViewModels no son elementos visuales. Usar siempre `TapGestureRecognizer` + code-behind handlers.
+2. **`ExecuteAsync` anidado (IsBusy)** — Nunca llamar un comando que usa `ExecuteAsync` desde dentro de otro `ExecuteAsync`. El `if(IsBusy)return;` bloquea silenciosamente.
+3. **Shell 3-level routes no resuelven** — MAUI Shell solo soporta rutas de 2 niveles: `FlyoutItem/SubRoute`. `A/B/C` no funciona.
+4. **`IQueryAttributable` en PÁGINAS no en ViewModels** — Shell llama `ApplyQueryAttributes` en el ContentPage, no en su BindingContext. La página debe implementarlo y delegar.
+5. **SUNARP scrapping no es viable** — El sitio usa medidas anti-bot que requieren navegador real.
+6. **`StaticResource` inexistentes crashean en runtime** — Siempre verificar que los recursos usados en XAML existan en App.xaml o Resources.
+7. **Registros de config con mv_id + prcoid** — El backfill de mv_id en tablas existentes crea dual IDs que complican las queries. Idealmente usar solo mv_id en todas las tablas de config.
+8. **Filtros server-side vs client-side** — Si el filtro server-side falla por razones desconocidas, el client-side debería funcionar. Pero si ni el client-side funciona, el problema es más fundamental (probablemente en el flujo de carga de datos).
