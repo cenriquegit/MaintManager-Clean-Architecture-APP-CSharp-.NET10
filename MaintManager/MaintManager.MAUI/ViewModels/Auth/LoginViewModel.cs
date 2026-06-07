@@ -58,6 +58,7 @@ public partial class LoginViewModel : BaseViewModel
     [RelayCommand]
     private async Task Login()
     {
+        if (IsBusy) return;
         ErrorMessage = string.Empty;
         if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
         {
@@ -70,7 +71,7 @@ public partial class LoginViewModel : BaseViewModel
             var success = await _authService.LoginAsync(Username, Password);
             if (success)
             {
-                await Shell.Current.GoToAsync("//Dashboard");
+                await Shell.Current.GoToAsync("///Dashboard");
             }
             else
             {
