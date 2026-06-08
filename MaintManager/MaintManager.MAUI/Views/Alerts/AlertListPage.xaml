@@ -1,172 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- MaintManager.MAUI/Views/Alerts/AlertListPage.xaml -->
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Alerts"
-    xmlns:models="clr-namespace:MaintManager.MAUI.Models"
     x:Class="MaintManager.MAUI.Views.Alerts.AlertListPage"
-    x:DataType="vm:AlertListViewModel"
     Title="Alertas"
     BackgroundColor="{StaticResource ColorBackground}">
 
-    <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsLoading}">
-        <Grid RowDefinitions="Auto,*">
+    <RefreshView Command="{Binding LoadCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-            <!-- Check alerts button -->
-            <Button Grid.Row="0"
-                    Text="Verificar alertas ahora"
-                    Command="{Binding CheckAlertsCommand}"
-                    Style="{StaticResource AccentButton}"
-                    Margin="16,8" HeightRequest="40" FontSize="13"
-                    HorizontalOptions="Fill"/>
+            <Border Grid.Row="0" Margin="16,8,16,0" StrokeShape="RoundRectangle 8"
+                    Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1"
+                    BackgroundColor="{StaticResource ColorSurface}" Padding="4,0">
+            <SearchBar Text="{Binding SearchText}"
+                        Placeholder="Buscar alerta..."
+                        SearchCommand="{Binding SearchCommand}"
+                        BackgroundColor="Transparent"
+                           TextColor="{StaticResource ColorTextPrimary}"
+                           PlaceholderColor="{StaticResource Gray500}"
+                           CancelButtonColor="{StaticResource ColorPrimary}"
+                           SearchIconColor="{StaticResource ColorTextSecondary}"/>
+            </Border>
 
-            <Grid Grid.Row="1">
+            <HorizontalStackLayout Grid.Row="1" Margin="16,8" Spacing="12">
+                <Label Text="Filtrar:" Style="{StaticResource CaptionText}" VerticalOptions="Center"/>
+                <Picker ItemsSource="{Binding FilterOptions}"
+                        SelectedItem="{Binding SelectedFilter}"
+                        Title="No Resueltas"
+                        Style="{StaticResource FormPicker}" WidthRequest="160"/>
+            </HorizontalStackLayout>
 
-            <!-- LOADING (first load only) -->
-            <VerticalStackLayout IsVisible="{Binding IsInitialLoading}"
-                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
-                <ActivityIndicator IsRunning="True"/>
-                <Label Text="Cargando alertas..." Style="{StaticResource BodyText}"
-                       HorizontalOptions="Center"/>
-            </VerticalStackLayout>
+            <Grid Grid.Row="2">
 
-            <!-- ERROR -->
-            <VerticalStackLayout IsVisible="{Binding HasError}"
-                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
-                <Label Text="⚠" FontSize="40" HorizontalOptions="Center"
-                       TextColor="{StaticResource ColorError}"/>
-                <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}"
-                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Button Text="Reintentar" Command="{Binding LoadCommand}"
-                        Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
-            </VerticalStackLayout>
+                <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+                    <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+                    <Label Text="Cargando alertas..." Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
 
-            <!-- EMPTY — sin alertas pendientes: estado positivo -->
-            <VerticalStackLayout IsVisible="{Binding IsEmpty}"
-                                 HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
-                <Label Text="✅" FontSize="56" HorizontalOptions="Center"/>
-                <Label Text="Sin alertas pendientes"
-                       FontSize="18" FontAttributes="Bold"
-                       TextColor="{StaticResource ColorAccentDark}"
-                       HorizontalOptions="Center"/>
-                <Label Text="Todo está en orden. No hay alertas sin resolver."
-                       Style="{StaticResource BodyText}"
-                       HorizontalOptions="Center"
-                       HorizontalTextAlignment="Center"/>
-            </VerticalStackLayout>
+                <VerticalStackLayout IsVisible="{Binding HasError}"
+                                     HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+                    <Label Text="⚠" FontSize="40" HorizontalOptions="Center" TextColor="{StaticResource ColorError}"/>
+                    <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+                    <Button Text="Reintentar" Command="{Binding LoadCommand}" Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+                </VerticalStackLayout>
 
-            <!-- SUCCESS -->
-            <CollectionView IsVisible="{Binding IsSuccess}"
-                            ItemsSource="{Binding Alerts}"
-                            Margin="16,8">
-                <CollectionView.Header>
-                    <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,4">
-                        <Label Text="Alertas sin resolver"
-                               Style="{StaticResource TitleMedium}"
-                               VerticalOptions="Center"/>
-                        <HorizontalStackLayout Grid.Column="1" Spacing="4"
-                                               VerticalOptions="Center">
-                            <Label Text="Mostrar resueltas"
-                                   Style="{StaticResource CaptionText}"
-                                   VerticalOptions="Center"/>
-                            <Switch IsToggled="{Binding ShowResolved}"
-                                    OnColor="{StaticResource ColorPrimary}"
-                                    ThumbColor="{StaticResource ColorInfo}"/>
-                        </HorizontalStackLayout>
-                    </Grid>
-                </CollectionView.Header>
+                <CollectionView ItemsSource="{Binding Alerts}" IsVisible="{Binding IsSuccess}" Margin="8,0,8,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="14" Margin="4,4" BackgroundColor="{StaticResource ColorSurface}"
+                                    StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+                                <VerticalStackLayout Spacing="6">
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Border StrokeShape="RoundRectangle 4" StrokeThickness="0" Padding="5,2"
+                                                BackgroundColor="{Binding LevelColor}" VerticalOptions="Center">
+                                            <Label Text="{Binding LevelLabel}" FontSize="9" TextColor="White" FontAttributes="Bold"/>
+                                        </Border>
+                                        <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorTextPrimary}" LineBreakMode="TailTruncation"/>
+                                    </HorizontalStackLayout>
+                                    <Label Text="{Binding Message}" Style="{StaticResource CaptionText}" LineBreakMode="WordWrap" MaxLines="3"/>
+                                    <Label Text="{Binding CreatedAtFormatted}" FontSize="11" TextColor="{StaticResource Gray500}"/>
+                                    <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                                        <Button Grid.Column="0" Text="✓ Marcar leída" FontSize="12" HeightRequest="30" Padding="4,0"
+                                                BackgroundColor="{StaticResource ColorSuccess}" TextColor="White" CornerRadius="6"
+                                                HorizontalOptions="Fill"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarkReadCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        <Button Grid.Column="1" Text="Resuelta" FontSize="12" HeightRequest="30" Padding="4,0"
+                                                BackgroundColor="{StaticResource ColorInfo}" TextColor="White" CornerRadius="6"
+                                                HorizontalOptions="Fill"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarkResolvedCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Grid>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="12" Padding="20">
+                            <Label Text="🔔" FontSize="48" HorizontalOptions="Center"/>
+                            <Label Text="No hay alertas pendientes" Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:AlertItem">
-                        <Border Style="{StaticResource Card}">
-                            <!-- Borde izquierdo coloreado por tipo de alerta -->
-                            <Border.StrokeShape>RoundRectangle 12</Border.StrokeShape>
+            </Grid>
 
-                            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
-                                  ColumnDefinitions="4,*">
-
-                                <!-- Barra lateral de color según tipo -->
-                                <BoxView Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
-                                         Color="{Binding AlertType,
-                                             Converter={StaticResource AlertTypeToColorConverter}}"
-                                         CornerRadius="4,0,0,4"/>
-
-                                <!-- Contenido -->
-                                <Grid Grid.Row="0" Grid.Column="1"
-                                      ColumnDefinitions="*,Auto"
-                                      Margin="10,0,0,0">
-
-                                    <!-- Tipo legible -->
-                                    <Border Grid.Column="0" HorizontalOptions="Start"
-                                            StrokeThickness="0" StrokeShape="RoundRectangle 99"
-                                            Padding="8,3"
-                                            BackgroundColor="{Binding AlertType,
-                                                Converter={StaticResource AlertTypeToColorConverter}}">
-                                        <Label Text="{Binding AlertType,
-                                                   Converter={StaticResource AlertTypeToLabelConverter}}"
-                                               FontSize="11" FontAttributes="Bold"
-                                                TextColor="{StaticResource ColorTextPrimary}"/>
-                                    </Border>
-
-                                    <!-- Fecha -->
-                                    <Label Grid.Column="1"
-                                           Text="{Binding AlertDate, StringFormat='{0:dd/MM HH:mm}'}"
-                                           Style="{StaticResource CaptionText}"
-                                           VerticalOptions="Center"/>
-                                </Grid>
-
-                                <!-- Mensaje de la alerta -->
-                                <Label Grid.Row="1" Grid.Column="1"
-                                       Text="{Binding Message}"
-                                       Style="{StaticResource BodyText}"
-                                       Margin="10,6,0,0"
-                                       LineBreakMode="WordWrap"/>
-
-                                <!-- Contexto: vehículo o material afectado -->
-                                <HorizontalStackLayout Grid.Row="2" Grid.Column="1"
-                                                       Margin="10,4,0,0" Spacing="8">
-                                    <Label IsVisible="{Binding LicensePlate,
-                                               Converter={StaticResource IsNotNullConverter}}"
-                                           Text="{Binding LicensePlate, StringFormat='🚗 {0}'}"
-                                           Style="{StaticResource CaptionText}"/>
-                                    <Label IsVisible="{Binding MaterialName,
-                                               Converter={StaticResource IsNotNullConverter}}"
-                                           Text="{Binding MaterialName, StringFormat='📦 {0}'}"
-                                           Style="{StaticResource CaptionText}"/>
-                                </HorizontalStackLayout>
-
-                                <!-- Acciones: Marcar leída / Resolver -->
-                                <HorizontalStackLayout Grid.Row="3" Grid.Column="1"
-                                                       Margin="10,8,0,0" Spacing="8">
-
-                                    <Button Text="Leída"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertListViewModel}}, Path=MarkReadCommand}"
-                                            CommandParameter="{Binding .}"
-                                            IsVisible="{Binding IsRead,
-                                                Converter={StaticResource InvertedBoolConverter}}"
-                                            Style="{StaticResource SecondaryButton}"
-                                            FontSize="12" HeightRequest="34" Padding="10,0"/>
-
-                                    <Button Text="Resolver"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertListViewModel}}, Path=ResolveCommand}"
-                                            CommandParameter="{Binding .}"
-                                            IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:AlertListViewModel}}, Path=IsAdmin}"
-                                            Style="{StaticResource AccentButton}"
-                                            FontSize="12" HeightRequest="34" Padding="10,0"/>
-
-                                </HorizontalStackLayout>
-
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-
-                <CollectionView.Footer>
-                </CollectionView.Footer>
-            </CollectionView>
-
-            </Grid>  <!-- /inner content Grid -->
-        </Grid>  <!-- /outer Grid with button -->
+            <Border Grid.Row="3" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+                <Button Text="🔍 Verificar alertas ahora" Command="{Binding CheckAlertsCommand}"
+                        BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"
+                        HeightRequest="46" CornerRadius="10" HorizontalOptions="Fill"/>
+            </Border>
+        </Grid>
     </RefreshView>
 </ContentPage>

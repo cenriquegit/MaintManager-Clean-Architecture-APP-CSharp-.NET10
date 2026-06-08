@@ -210,7 +210,7 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
 
             var mainid = await _apiService.PostAndUnwrapAsync<int>(ApiRoutes.Maintenances.Create, request);
             if (mainid > 0)
-                await Shell.Current.GoToAsync($"///Maintenances/Detail?mainid={mainid}");
+                await Shell.Current.GoToAsync("..");
             else
                 await Shell.Current.GoToAsync("..");
         }

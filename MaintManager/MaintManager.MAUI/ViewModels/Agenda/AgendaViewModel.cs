@@ -27,6 +27,16 @@ public partial class AgendaViewModel : BaseViewModel
     [ObservableProperty]
     private ObservableCollection<AgendaItem> _ok = new();
 
+    [ObservableProperty]
+    private string _searchText = string.Empty;
+
+    [ObservableProperty]
+    private string _selectedFilter = "Todas";
+
+    public List<string> FilterOptions { get; } = new() { "Todas", "Críticos", "Próximos", "En Servicio", "Al día" };
+
+    public void OnAppearing() => LoadCommand.Execute(null);
+
     [RelayCommand]
     private async Task Load()
     {

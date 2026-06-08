@@ -3,116 +3,75 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MaintManager.MAUI.Views.VehicleManagement.VehicleManagementPage"
+    x:Name="Page"
     Title="Vehículos"
     BackgroundColor="{StaticResource ColorBackground}">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
 
-        <VerticalStackLayout Grid.Row="0" Padding="16,16,16,8" Spacing="8">
-            <Label Text="🚗 Gestión de Vehículos"
-                   FontSize="22" FontAttributes="Bold"
-                   TextColor="{StaticResource ColorTextPrimary}"/>
+        <Border Grid.Row="0" Margin="16,8,16,0" StrokeShape="RoundRectangle 8"
+                Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1"
+                BackgroundColor="{StaticResource ColorSurface}" Padding="4,0">
+            <SearchBar Text="{Binding SearchText}"
+                       Placeholder="Buscar vehículo o placa..."
+                       BackgroundColor="Transparent"
+                       TextColor="{StaticResource ColorTextPrimary}"
+                       PlaceholderColor="{StaticResource Gray500}"
+                       CancelButtonColor="{StaticResource ColorPrimary}"
+                       SearchIconColor="{StaticResource ColorTextSecondary}"/>
+        </Border>
 
-            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
-                <Border StrokeShape="RoundRectangle 8"
-                        Stroke="{StaticResource ColorBorder}"
-                        StrokeThickness="1" Padding="12,0">
-                    <Entry Text="{Binding SearchText}"
-                           Placeholder="🔍 Buscar por placa o nombre..."
-                           ReturnType="Search"
-                           ReturnCommand="{Binding SearchCommand}"
-                           TextColor="{StaticResource ColorTextPrimary}"
-                           PlaceholderColor="{StaticResource Gray500}"/>
-                </Border>
-                <Button Grid.Column="1" Text="+"
-                        Command="{Binding CreateVehicleCommand}"
-                        Style="{StaticResource AccentButton}"
-                        FontSize="22" FontAttributes="Bold"
-                        HeightRequest="44" WidthRequest="44"
-                        CornerRadius="22" Padding="0"/>
-            </Grid>
+        <HorizontalStackLayout Grid.Row="1" Margin="16,8" Spacing="12">
+            <Label Text="Filtrar:" Style="{StaticResource CaptionText}" VerticalOptions="Center"/>
+            <Picker ItemsSource="{Binding SourceFilterOptions}"
+                    SelectedItem="{Binding SelectedSource}"
+                    Title="Todos"
+                    Style="{StaticResource FormPicker}" WidthRequest="160"/>
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Spacing="8">
-                <Label Text="Filtro:" Style="{StaticResource CaptionText}" VerticalOptions="Center"/>
-                <Border StrokeShape="RoundRectangle 8"
-                        Stroke="{StaticResource ColorBorder}"
-                        StrokeThickness="1" Padding="4,0">
-                    <Picker ItemsSource="{Binding SourceFilterOptions}"
-                            SelectedItem="{Binding SelectedSource}"
-                            Title=""
-                            Style="{StaticResource FormPicker}"/>
-                </Border>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-
-        <VerticalStackLayout Grid.Row="1" IsVisible="{Binding IsLoading}"
-                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+        <VerticalStackLayout Grid.Row="2" IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12" ZIndex="10">
             <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
             <Label Text="Cargando vehículos..." Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
         </VerticalStackLayout>
 
-        <VerticalStackLayout Grid.Row="1" IsVisible="{Binding HasError}"
-                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+        <VerticalStackLayout Grid.Row="2" IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16" ZIndex="10">
+            <Label Text="⚠" FontSize="40" HorizontalOptions="Center" TextColor="{StaticResource ColorError}"/>
             <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
-            <Button Text="Reintentar" Command="{Binding LoadVehiclesCommand}"
-                    Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+            <Button Text="Reintentar" Command="{Binding LoadVehiclesCommand}" Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
         </VerticalStackLayout>
 
-        <CollectionView Grid.Row="1" ItemsSource="{Binding Vehicles}"
-                        IsVisible="{Binding IsSuccess}" Margin="8,0,8,8">
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Vehicles}" IsVisible="{Binding IsSuccess}" Margin="8,0,8,0">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border StrokeShape="RoundRectangle 12"
                             Stroke="{StaticResource ColorBorderLight}"
                             StrokeThickness="1" Padding="16,12"
                             Margin="4,4" BackgroundColor="{StaticResource ColorSurface}">
-                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="4">
+                        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="4">
                             <HorizontalStackLayout Spacing="6">
-                                <Label Text="{Binding LicensePlate}"
-                                       FontSize="18" FontAttributes="Bold"
-                                       TextColor="{StaticResource ColorTextPrimary}"
-                                       VerticalOptions="Center"/>
-                                <Border StrokeShape="RoundRectangle 4"
-                                        StrokeThickness="0" Padding="5,1"
-                                        BackgroundColor="{Binding SourceColor}"
-                                        VerticalOptions="Center">
-                                    <Label Text="{Binding SourceLabel}"
-                                           FontSize="10" TextColor="White"
-                                           FontAttributes="Bold"/>
+                                <Label Text="{Binding LicensePlate}" FontSize="16" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
+                                <Border StrokeShape="RoundRectangle 4" StrokeThickness="0" Padding="5,1"
+                                        BackgroundColor="{Binding SourceColor}" VerticalOptions="Center">
+                                    <Label Text="{Binding SourceLabel}" FontSize="10" TextColor="White" FontAttributes="Bold"/>
                                 </Border>
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Column="1" Spacing="6">
-                                <Border StrokeShape="RoundRectangle 14" HeightRequest="28" WidthRequest="28"
-                                        StrokeThickness="0" BackgroundColor="{StaticResource ColorInfoContainer}">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnEditTapped"/>
-                                    </Border.GestureRecognizers>
-                                    <Label Text="✏️" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"
-                                           TextColor="{StaticResource ColorInfo}"/>
+                                <Border StrokeShape="RoundRectangle 14" HeightRequest="28" WidthRequest="28" StrokeThickness="0" BackgroundColor="{StaticResource ColorInfoContainer}">
+                                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnEditTapped"/></Border.GestureRecognizers>
+                                    <Label Text="✏️" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ColorInfo}"/>
                                 </Border>
-                                <Border StrokeShape="RoundRectangle 14" HeightRequest="28" WidthRequest="28"
-                                        StrokeThickness="0" BackgroundColor="{StaticResource ColorSurfaceVariant}">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnConfigTapped"/>
-                                    </Border.GestureRecognizers>
-                                    <Label Text="⚙" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center"
-                                           TextColor="{StaticResource ColorTextPrimary}"/>
+                                <Border StrokeShape="RoundRectangle 14" HeightRequest="28" WidthRequest="28" StrokeThickness="0" BackgroundColor="{StaticResource ColorSurfaceVariant}">
+                                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnConfigTapped"/></Border.GestureRecognizers>
+                                    <Label Text="⚙" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ColorTextPrimary}"/>
                                 </Border>
                             </HorizontalStackLayout>
 
-                            <Label Grid.Row="1" Grid.ColumnSpan="2"
-                                   Text="{Binding VehicleName}"
-                                   FontSize="15" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorTextPrimary}"/>
-
-                            <Label Grid.Row="2" Grid.ColumnSpan="2"
-                                   Text="{Binding DetailLine}"
-                                   FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
-
-                            <Label Grid.Row="3" Grid.ColumnSpan="2"
-                                   Text="{Binding BrandModelDetail}"
-                                   FontSize="11" TextColor="{StaticResource Gray500}"/>
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding VehicleName}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource ColorTextPrimary}"/>
+                            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding DetailLine}" FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -124,5 +83,11 @@
                 </VerticalStackLayout>
             </CollectionView.EmptyView>
         </CollectionView>
+
+        <Border Grid.Row="3" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+            <Button Text="+ Nuevo vehículo" Command="{Binding CreateVehicleCommand}"
+                    BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"
+                    HeightRequest="46" CornerRadius="10" HorizontalOptions="Fill"/>
+        </Border>
     </Grid>
 </ContentPage>

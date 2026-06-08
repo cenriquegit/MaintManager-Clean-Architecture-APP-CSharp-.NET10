@@ -62,6 +62,8 @@ public static class InventoryMappings
             LicensePlate: null,
             MaterialName: null,
             IsRead: al.Read,
-            IsResolved: al.Resolved
+            IsResolved: al.Resolved,
+            ReadAt: al.ReadAt,
+            Title: al.Message.Length > 60 ? al.Message[..57] + "..." : al.Message
         );
 }

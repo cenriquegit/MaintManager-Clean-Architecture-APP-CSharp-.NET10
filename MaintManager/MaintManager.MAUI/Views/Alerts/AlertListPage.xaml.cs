@@ -1,15 +1,17 @@
-// MaintManager.MAUI/Views/Alerts/AlertListPage.xaml.cs
-namespace MaintManager.MAUI.Views.Alerts;
 using MaintManager.MAUI.ViewModels.Alerts;
+
+namespace MaintManager.MAUI.Views.Alerts;
 
 public partial class AlertListPage : ContentPage
 {
+    private readonly AlertListViewModel _viewModel;
+
     public AlertListPage(AlertListViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = viewModel;
+        BindingContext = _viewModel = viewModel;
     }
 
     protected override void OnAppearing() =>
-        (BindingContext as AlertListViewModel)?.LoadCommand.Execute(null);
+        _viewModel.LoadCommand.Execute(null);
 }

@@ -11,8 +11,6 @@ public partial class AlertListViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
     private readonly AuthService _authService;
-    private List<AlertItem> _allUnresolved = [];
-    private List<AlertItem> _allResolved = [];
 
     public AlertListViewModel(ApiService apiService, AuthService authService)
     {
@@ -28,13 +26,17 @@ public partial class AlertListViewModel : BaseViewModel
     private bool _isAdmin;
 
     [ObservableProperty]
-    private bool _showResolved;
+    private string _searchText = string.Empty;
 
-    partial void OnShowResolvedChanged(bool value)
-    {
-        if (value)
-            LoadCommand.Execute(null);
-    }
+    [ObservableProperty]
+    private string _selectedFilter = "No Resueltas";
+
+    public List<string> FilterOptions { get; } = new() { "No Resueltas", "Leídas", "No Leídas", "Resueltas", "Todas" };
+
+    partial void OnSelectedFilterChanged(string value) => SearchCommand.Execute(null);
+
+    [RelayCommand]
+    private void Search() => LoadCommand.Execute(null);
 
     [RelayCommand]
     private async Task Load()
@@ -43,24 +45,22 @@ public partial class AlertListViewModel : BaseViewModel
         {
             IsAdmin = _authService.IsAdmin();
 
-            // Always load unresolved
-            var unresolved = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetUnresolved);
-            if (unresolved?.Success == true)
-                _allUnresolved = unresolved.Data ?? [];
-
-            if (ShowResolved)
+            var filter = SelectedFilter switch
             {
-                // Load resolved history
-                var resolved = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>(ApiRoutes.Alerts.GetHistory);
-                if (resolved?.Success == true)
-                    _allResolved = resolved.Data ?? [];
+                "Leídas" => "read",
+                "No Leídas" => "unread",
+                "Resueltas" => "resolved",
+                "Todas" => "all",
+                _ => "unresolved"
+            };
 
-                Alerts = new ObservableCollection<AlertItem>(
-                    _allUnresolved.Concat(_allResolved));
-            }
-            else
+            var raw = await _apiService.GetAsync<ApiResponse<List<AlertItem>>>($"{ApiRoutes.Alerts.GetUnresolved}?filter={filter}");
+            if (raw?.Success == true && raw.Data is not null)
             {
-                Alerts = new ObservableCollection<AlertItem>(_allUnresolved);
+                var alerts = raw.Data;
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                    alerts = alerts.Where(a => a.Message.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+                Alerts = new ObservableCollection<AlertItem>(alerts);
             }
             IsEmpty = Alerts.Count == 0;
         });
@@ -72,6 +72,7 @@ public partial class AlertListViewModel : BaseViewModel
         if (alert.IsRead) return;
         await _apiService.PutAsync<object>($"{ApiRoutes.Alerts.MarkRead.Replace("{id}", alert.Alloid.ToString())}");
         alert.IsRead = true;
+        alert.IsResolved = false;
     }
 
     [RelayCommand]
@@ -89,7 +90,6 @@ public partial class AlertListViewModel : BaseViewModel
         await ExecuteAsync(async () =>
         {
             await _apiService.PostAsync<object>(ApiRoutes.Alerts.Check);
-            IsEmpty = false;
             await Load();
         });
     }

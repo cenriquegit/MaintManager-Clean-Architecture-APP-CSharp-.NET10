@@ -8,5 +8,7 @@ public sealed record AlertResponse(
     string? LicensePlate,
     string? MaterialName,
     bool IsRead,
-    bool IsResolved
+    bool IsResolved,
+    DateTime? ReadAt,
+    string? Title
 );

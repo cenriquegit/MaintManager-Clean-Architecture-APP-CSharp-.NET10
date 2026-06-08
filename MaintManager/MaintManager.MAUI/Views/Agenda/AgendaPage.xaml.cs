@@ -15,8 +15,12 @@ public partial class AgendaPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if (_viewModel.Overdue.Count == 0 && _viewModel.Upcoming.Count == 0 &&
-            _viewModel.InService.Count == 0 && _viewModel.Ok.Count == 0)
-            _viewModel.LoadCommand.Execute(null);
+        _viewModel.LoadCommand.Execute(null);
+    }
+
+    private void OnItemTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is BindableObject bo && bo.BindingContext is AgendaViewModel.AgendaItem item)
+            _viewModel.OpenItemCommand.Execute(item);
     }
 }

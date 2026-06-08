@@ -7,6 +7,9 @@ public interface IAlertRepository
 {
     Task<IReadOnlyList<AlertLog>> GetUnresolvedAlertsAsync(CancellationToken ct = default);
     Task<IReadOnlyList<AlertLog>> GetResolvedAlertsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<AlertLog>> GetReadAlertsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<AlertLog>> GetUnreadAlertsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<AlertLog>> GetAllAlertsAsync(CancellationToken ct = default);
     Task<AlertLog?> GetByIdAsync(int alloid, CancellationToken ct = default);
     Task AddAsync(AlertLog alert, CancellationToken ct = default);
     void Update(AlertLog alert);

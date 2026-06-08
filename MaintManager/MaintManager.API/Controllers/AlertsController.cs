@@ -26,12 +26,19 @@ public sealed class AlertsController : ControllerBase
         _alertService = alertService;
     }
 
-    /// <summary>Obtener alertas no resueltas.</summary>
+    /// <summary>Obtener alertas con filtro.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<AlertResponse>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUnresolved(CancellationToken ct)
+    public async Task<IActionResult> GetAlerts([FromQuery] string? filter = "unresolved", CancellationToken ct = default)
     {
-        var alerts = await _alertRepo.GetUnresolvedAlertsAsync(ct);
+        var alerts = filter switch
+        {
+            "read" => await _alertRepo.GetReadAlertsAsync(ct),
+            "unread" => await _alertRepo.GetUnreadAlertsAsync(ct),
+            "resolved" => await _alertRepo.GetResolvedAlertsAsync(ct),
+            "all" => await _alertRepo.GetAllAlertsAsync(ct),
+            _ => await _alertRepo.GetUnresolvedAlertsAsync(ct)
+        };
         return Ok(ApiResponse<IReadOnlyList<AlertResponse>>.Ok(
             alerts.Select(a => a.ToAlertResponse()).ToList()));
     }

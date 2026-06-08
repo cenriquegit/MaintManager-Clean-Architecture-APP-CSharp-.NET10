@@ -80,6 +80,12 @@
         <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Ok">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._ok"/>
         </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SearchText">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._searchText"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SelectedFilter">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._selectedFilter"/>
+        </member>
         <member name="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.loadCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.LoadCommand"/>.</summary>
         </member>
@@ -104,6 +110,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.Alerts">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel._alerts"/>
@@ -111,13 +118,22 @@
         <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.IsAdmin">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel._isAdmin"/>
         </member>
-        <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.ShowResolved">
-            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel._showResolved"/>
+        <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SearchText">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel._searchText"/>
         </member>
-        <member name="M:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.OnShowResolvedChanged(System.Boolean)">
-            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.ShowResolved"/> just changed.</summary>
+        <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SelectedFilter">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel._selectedFilter"/>
+        </member>
+        <member name="M:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.OnSelectedFilterChanged(System.String)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SelectedFilter"/> just changed.</summary>
             <param name="value">The new property value that was set.</param>
-            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.ShowResolved"/> is changed.</remarks>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SelectedFilter"/> is changed.</remarks>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.searchCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SearchCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SearchCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.Search"/>.</summary>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.loadCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.LoadCommand"/>.</summary>
@@ -1408,14 +1424,17 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Ok">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Ok" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SearchText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SearchText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedFilter">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedFilter" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Alerts">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Alerts" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsAdmin">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsAdmin" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShowResolved">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShowResolved" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Username">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Username" generated properties.</summary>
@@ -1564,9 +1583,6 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Description">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Description" generated properties.</summary>
         </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SearchText">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SearchText" generated properties.</summary>
-        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShowOnlyLowStock">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShowOnlyLowStock" generated properties.</summary>
         </member>
@@ -1689,9 +1705,6 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedComponent">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedComponent" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedFilter">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedFilter" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentStep">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentStep" generated properties.</summary>
@@ -1888,14 +1901,17 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Ok">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Ok" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SearchText">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SearchText" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedFilter">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedFilter" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Alerts">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Alerts" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsAdmin">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsAdmin" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShowResolved">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ShowResolved" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Username">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Username" generated properties.</summary>
@@ -2044,9 +2060,6 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Description">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Description" generated properties.</summary>
         </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SearchText">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SearchText" generated properties.</summary>
-        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShowOnlyLowStock">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ShowOnlyLowStock" generated properties.</summary>
         </member>
@@ -2169,9 +2182,6 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedComponent">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedComponent" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedFilter">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedFilter" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentStep">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentStep" generated properties.</summary>
