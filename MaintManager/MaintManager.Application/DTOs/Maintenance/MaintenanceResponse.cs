@@ -23,7 +23,10 @@ public sealed record MaintenanceResponse(
     string Status,
     IReadOnlyList<ActionDetailResponse> ActionDetails,
     DiagnosisResponse? Diagnosis,
-    IReadOnlyList<ComponentResponse> Components
+    IReadOnlyList<ComponentResponse> Components,
+    IReadOnlyList<int> AllowedActionIds,
+    IReadOnlyList<int> AllowedMaterialIds,
+    IReadOnlyList<int> AllowedComponentIds
 );
 
 /// <summary>Elemento de lista de mantenimientos.</summary>

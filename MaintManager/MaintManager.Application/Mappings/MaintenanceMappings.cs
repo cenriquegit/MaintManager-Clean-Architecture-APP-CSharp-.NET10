@@ -21,7 +21,10 @@ public static class MaintenanceMappings
 
     public static MaintenanceResponse ToResponse(this Maintenance m,
         string licensePlate, string vehicleName,
-        string assignedToName, string registeredByName) =>
+        string assignedToName, string registeredByName,
+        IReadOnlyList<int> allowedActionIds,
+        IReadOnlyList<int> allowedMaterialIds,
+        IReadOnlyList<int> allowedComponentIds) =>
         new(
             Mainid: m.Mainid,
             Prcoid: m.Prcoid,
@@ -45,7 +48,10 @@ public static class MaintenanceMappings
             Status: m.Statid,
             ActionDetails: m.ActionDetails.Select(d => d.ToResponse()).ToList(),
             Diagnosis: m.Diagnosis?.ToResponse(),
-            Components: m.InstalledComponents.Select(c => c.ToResponse()).ToList()
+            Components: m.InstalledComponents.Select(c => c.ToResponse()).ToList(),
+            AllowedActionIds: allowedActionIds,
+            AllowedMaterialIds: allowedMaterialIds,
+            AllowedComponentIds: allowedComponentIds
         );
 
     public static ActionDetailResponse ToResponse(this MaintenanceActionDetail d) =>

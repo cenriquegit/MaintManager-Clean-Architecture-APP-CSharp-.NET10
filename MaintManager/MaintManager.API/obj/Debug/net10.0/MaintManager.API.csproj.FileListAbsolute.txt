@@ -1,11 +1,3 @@
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.csproj.AssemblyReference.cache
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\rpswa.dswa.cache.json
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.AssemblyInfoInputs.cache
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.AssemblyInfo.cs
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.csproj.CoreCompileInputs.cache
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\BuildHost-net472\Microsoft.Build.Locator.dll
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
@@ -155,6 +147,15 @@ C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\M
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\MaintManager.Infrastructure.pdb
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\MaintManager.Shared.pdb
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\bin\Debug\net10.0\MaintManager.Domain.pdb
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.csproj.AssemblyReference.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.AssemblyInfoInputs.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.AssemblyInfo.cs
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.csproj.CoreCompileInputs.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.sourcelink.json
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -170,4 +171,3 @@ C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\r
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.pdb
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.genruntimeconfig.cache
 C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\ref\MaintManager.API.dll
-C:\Users\carlo\Desktop\proyect\MaintManager\MaintManager.API\obj\Debug\net10.0\MaintManager.API.sourcelink.json

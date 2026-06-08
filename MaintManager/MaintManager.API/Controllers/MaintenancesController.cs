@@ -87,6 +87,32 @@ public sealed class MaintenancesController : ControllerBase
             var maintenance = await _maintenanceService.GetWithDetailsAsync(id, ct);
             var vehicle = await _vehicleRepo.GetByIdAsync(maintenance.Prcoid, ct);
 
+            var mv = await _context.ManagedVehicles.AsNoTracking()
+                .FirstOrDefaultAsync(mv => mv.Prcoid == maintenance.Prcoid, ct);
+            var mvId = mv?.MvId;
+            var prcoid = maintenance.Prcoid;
+
+            var actionsByPrcoid = await _vehicleConfigRepository.GetAllowedActionsAsync(prcoid, ct);
+            var actionsByMvId = mvId.HasValue ? await _vehicleConfigRepository.GetAllowedActionsByMvIdAsync(mvId.Value, ct) : new List<Domain.Entities.VehicleAllowedAction>();
+            var materialsByPrcoid = await _vehicleConfigRepository.GetAllowedMaterialsAsync(prcoid, ct);
+            var materialsByMvId = mvId.HasValue ? await _vehicleConfigRepository.GetAllowedMaterialsByMvIdAsync(mvId.Value, ct) : new List<Domain.Entities.VehicleAllowedMaterial>();
+            var componentsByPrcoid = await _vehicleConfigRepository.GetAllowedComponentsAsync(prcoid, ct);
+            var componentsByMvId = mvId.HasValue ? await _vehicleConfigRepository.GetAllowedComponentsByMvIdAsync(mvId.Value, ct) : new List<Domain.Entities.VehicleAllowedComponent>();
+
+            var allActionIds = actionsByPrcoid.Select(a => a.Acatid)
+                .Union(actionsByMvId.Select(a => a.Acatid)).Distinct().ToList();
+            var allMaterialIds = materialsByPrcoid.Select(m => m.Mateid)
+                .Union(materialsByMvId.Select(m => m.Mateid)).Distinct().ToList();
+            var allComponentIds = componentsByPrcoid.Select(c => c.Acatid)
+                .Union(componentsByMvId.Select(c => c.Acatid)).Distinct().ToList();
+
+            var mergedActionIds = actionsByPrcoid.Select(a => a.Acatid)
+                .Union(actionsByMvId.Select(a => a.Acatid)).Distinct().ToList();
+            var mergedMaterialIds = materialsByPrcoid.Select(m => m.Mateid)
+                .Union(materialsByMvId.Select(m => m.Mateid)).Distinct().ToList();
+            var mergedComponentIds = componentsByPrcoid.Select(c => c.Acatid)
+                .Union(componentsByMvId.Select(c => c.Acatid)).Distinct().ToList();
+
             var assignedWorker = await _context.Workers.Include(w => w.Person)
                 .FirstOrDefaultAsync(w => w.Workid == maintenance.AssignedTo, ct);
             var registeredWorker = await _context.Workers.Include(w => w.Person)
@@ -96,7 +122,10 @@ public sealed class MaintenancesController : ControllerBase
                 vehicle?.LicensePlateNumber ?? string.Empty,
                 vehicle?.Product?.Name ?? string.Empty,
                 assignedWorker?.Person?.Name ?? string.Empty,
-                registeredWorker?.Person?.Name ?? string.Empty)));
+                registeredWorker?.Person?.Name ?? string.Empty,
+                mergedActionIds,
+                mergedMaterialIds,
+                mergedComponentIds)));
         }
         catch (KeyNotFoundException ex)
         {

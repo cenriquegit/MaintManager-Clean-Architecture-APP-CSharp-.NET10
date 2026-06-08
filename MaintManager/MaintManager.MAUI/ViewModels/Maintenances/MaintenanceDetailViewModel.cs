@@ -245,56 +245,25 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         try
         {
-            var prcoid = MaintenanceDetail?.Prcoid ?? 0;
-            var allowedIds = new HashSet<int>();
-
-            if (prcoid > 0)
-            {
-                var configUrl = $"{ApiRoutes.Vehicles.Base}/{prcoid}/config";
-                var config = await _apiService.GetAsync<ApiResponse<VehicleConfigRaw>>(configUrl);
-                if (config?.Success == true && config.Data?.AllowedMaterials != null)
-                    allowedIds = config.Data.AllowedMaterials.Select(m => m.Mateid).ToHashSet();
-            }
-
+            var allowedIds = new HashSet<int>(MaintenanceDetail?.AllowedMaterialIds ?? new List<int>());
             var raw = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(ApiRoutes.Inventory.GetMaterials);
             var materials = raw?.Data ?? new List<MaterialItemDto>();
-
             if (allowedIds.Count > 0)
                 materials = materials.Where(m => allowedIds.Contains(m.Mateid)).ToList();
-
             AvailableMaterials = new ObservableCollection<MaterialOption>(
                 materials.Select(m => new MaterialOption { Mateid = m.Mateid, Name = m.Name, UnitOfMeasure = m.UnitOfMeasure }));
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"[FILTER-MM] LoadMaterialsAsync: prcoid={MaintenanceDetail?.Prcoid ?? 0} error={ex.Message}");
-        }
+        catch { }
     }
 
     private async Task LoadComponentActionsAsync()
     {
         try
         {
-            var prcoid = MaintenanceDetail?.Prcoid ?? 0;
-            var allowedActionIds = new HashSet<int>();
-            var allowedComponentIds = new HashSet<int>();
-
-            if (prcoid > 0)
-            {
-                var configUrl = $"{ApiRoutes.Vehicles.Base}/{prcoid}/config";
-                var config = await _apiService.GetAsync<ApiResponse<VehicleConfigRaw>>(configUrl);
-                if (config?.Success == true && config.Data != null)
-                {
-                    if (config.Data.AllowedActions != null)
-                        allowedActionIds = config.Data.AllowedActions.Select(a => a.Acatid).ToHashSet();
-                    if (config.Data.AllowedComponents != null)
-                        allowedComponentIds = config.Data.AllowedComponents.Select(c => c.Acatid).ToHashSet();
-                }
-            }
-
+            var allowedActionIds = new HashSet<int>(MaintenanceDetail?.AllowedActionIds ?? new List<int>());
+            var allowedComponentIds = new HashSet<int>(MaintenanceDetail?.AllowedComponentIds ?? new List<int>());
             var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(ApiRoutes.Maintenances.ActionCatalog);
             var all = raw?.Data ?? new List<ActionCatalogOption>();
-
             if (allowedActionIds.Count > 0 || allowedComponentIds.Count > 0)
             {
                 all = all.Where(a =>
@@ -303,16 +272,12 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                     return isComp ? allowedComponentIds.Contains(a.Acatid) : allowedActionIds.Contains(a.Acatid);
                 }).ToList();
             }
-
             ComponentActions = new ObservableCollection<ActionCatalogOption>(
                 all.Where(a => a.Category is not null && a.Category.Contains("Componente")));
             ActionCatalogItems = new ObservableCollection<ActionCatalogOption>(
                 all.Where(a => a.Category is not null && a.Category.Contains("Acción")));
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"[FILTER-MA] LoadComponentActions: prcoid={MaintenanceDetail?.Prcoid ?? 0} error={ex.Message}");
-        }
+        catch { }
     }
 
     private async Task LoadTechniciansAsync()
@@ -627,6 +592,9 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public List<ActionDetailItem>? Actions { get; set; }
         public DiagnosisResponse? Diagnosis { get; set; }
         public List<ComponentItem>? Components { get; set; }
+        public List<int>? AllowedActionIds { get; set; }
+        public List<int>? AllowedMaterialIds { get; set; }
+        public List<int>? AllowedComponentIds { get; set; }
     }
 
     public class ActionDetailItem
