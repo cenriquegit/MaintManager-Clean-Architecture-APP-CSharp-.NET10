@@ -42,6 +42,9 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     private bool _canClose;
 
     [ObservableProperty]
+    private bool _canCancel;
+
+    [ObservableProperty]
     private bool _isOilInfoExpanded;
 
     [ObservableProperty]
@@ -222,6 +225,7 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                 Diagnosis = detail.Diagnosis;
                 DiagnosisSaved = detail.Diagnosis is not null;
                 CanClose = detail.Status == "AC" && DiagnosisSaved;
+                CanCancel = detail.Status == "AC";
                 Components = new ObservableCollection<ComponentItem>(
                     detail.Components ?? new List<ComponentItem>());
                 IsEmpty = false;
@@ -261,7 +265,10 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             AvailableMaterials = new ObservableCollection<MaterialOption>(
                 materials.Select(m => new MaterialOption { Mateid = m.Mateid, Name = m.Name, UnitOfMeasure = m.UnitOfMeasure }));
         }
-        catch { }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[FILTER-MM] LoadMaterialsAsync: prcoid={MaintenanceDetail?.Prcoid ?? 0} error={ex.Message}");
+        }
     }
 
     private async Task LoadComponentActionsAsync()
@@ -302,7 +309,10 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             ActionCatalogItems = new ObservableCollection<ActionCatalogOption>(
                 all.Where(a => a.Category is not null && a.Category.Contains("Acción")));
         }
-        catch { }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"[FILTER-MA] LoadComponentActions: prcoid={MaintenanceDetail?.Prcoid ?? 0} error={ex.Message}");
+        }
     }
 
     private async Task LoadTechniciansAsync()
@@ -500,6 +510,21 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         {
             var endpoint = ApiRoutes.Maintenances.Close.Replace("{id}", _mainid.ToString());
             await _apiService.PutAsync<object>(endpoint, new { IsEmergencyComplete = false });
+            await Shell.Current.GoToAsync("..");
+        });
+    }
+
+    [RelayCommand]
+    private async Task CancelOrder()
+    {
+        var confirm = await Shell.Current.DisplayAlert("Cancelar orden",
+            "¿Estás seguro de cancelar esta orden? Los datos registrados se conservarán con estado Cancelado.", "Sí, cancelar", "No");
+        if (!confirm) return;
+
+        await ExecuteAsync(async () =>
+        {
+            var endpoint = $"{ApiRoutes.Maintenances.Base}/{_mainid}/cancel";
+            await _apiService.PutAsync<object>(endpoint);
             await Shell.Current.GoToAsync("..");
         });
     }

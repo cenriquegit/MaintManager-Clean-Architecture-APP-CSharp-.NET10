@@ -12,7 +12,7 @@ namespace MaintManager.API.Controllers;
 
 [ApiController]
 [Route("api/v1/vehicles/{vehicleId:int}/config")]
-[Authorize(Roles = RoleNames.Admin)]
+[Authorize]
 [Produces("application/json")]
 public sealed class VehicleConfigController : ControllerBase
 {
@@ -85,6 +85,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpPost("actions")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddAction(int vehicleId, [FromQuery] int? mvId, [FromBody] AddActionConfigRequest request, CancellationToken ct)
     {
@@ -106,6 +107,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpDelete("actions/{acatid:int}")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RemoveAction(int vehicleId, int acatid, [FromQuery] int? mvId, CancellationToken ct)
     {
@@ -116,6 +118,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpPost("materials")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddMaterial(int vehicleId, [FromQuery] int? mvId, [FromBody] AddMaterialConfigRequest request, CancellationToken ct)
     {
@@ -137,6 +140,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpDelete("materials/{mateid:int}")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RemoveMaterial(int vehicleId, int mateid, [FromQuery] int? mvId, CancellationToken ct)
     {
@@ -147,6 +151,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpPost("components")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddComponent(int vehicleId, [FromQuery] int? mvId, [FromBody] AddActionConfigRequest request, CancellationToken ct)
     {
@@ -168,6 +173,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpDelete("components/{acatid:int}")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
     public async Task<IActionResult> RemoveComponent(int vehicleId, int acatid, [FromQuery] int? mvId, CancellationToken ct)
     {
@@ -178,6 +184,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpPost("actions/create")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<ActionConfigItem>), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateActionAndAdd(int vehicleId, [FromQuery] int? mvId, [FromBody] CreateActionConfigRequest request, CancellationToken ct)
     {
@@ -196,6 +203,7 @@ public sealed class VehicleConfigController : ControllerBase
     }
 
     [HttpPost("components/create")]
+    [Authorize(Roles = RoleNames.Admin)]
     [ProducesResponseType(typeof(ApiResponse<ActionConfigItem>), StatusCodes.Status201Created)]
     public async Task<IActionResult> CreateComponentAndAdd(int vehicleId, [FromQuery] int? mvId, [FromBody] CreateActionConfigRequest request, CancellationToken ct)
     {

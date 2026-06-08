@@ -137,6 +137,14 @@ public sealed class Maintenance
         UpdatedAt = DateTime.UtcNow;
     }
 
+    public void MarkAsCancelled()
+    {
+        if (Statid != "AC")
+            throw new InvalidOperationException("Solo se pueden cancelar órdenes activas.");
+        Statid = "CA";
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     public void SetOilInfo(string brand, string viscositySae, string? climateSeason, bool showInNext)
     {
         OilBrand = brand;

@@ -151,6 +151,16 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/Agenda/AgendaPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.Agenda.AgendaPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Agenda\AgendaPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Agenda\AgendaPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/Users/carlo/Desktop/proyect/MaintManager/MaintManager.MAUI/Views/Alerts/AlertListPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MaintManager.MAUI.Views.Alerts.AlertListPage.xaml

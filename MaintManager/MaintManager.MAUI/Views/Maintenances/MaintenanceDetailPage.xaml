@@ -310,7 +310,17 @@
                                                    TextColor="{StaticResource ColorPrimary}"
                                                    IsVisible="{Binding Rating, Converter={StaticResource IntToBoolConverter}}"/>
                                         </VerticalStackLayout>
-                                        <Button Grid.Column="1"
+            <Button Grid.Column="0"
+                    Text="Cancelar Orden"
+                    Command="{Binding CancelOrderCommand}"
+                                                    IsVisible="{Binding CanCancel}"
+                    BackgroundColor="{StaticResource ColorError}"
+                    TextColor="White"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    HorizontalOptions="Fill"/>
+
+            <Button Grid.Column="1"
                                                 Text="✕"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=RemoveConsumedMaterialCommand}"
                                                 CommandParameter="{Binding .}"
@@ -542,13 +552,13 @@
         </ScrollView>
 
         <!-- Bottom actions -->
-        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="8" Margin="16,8,16,16">
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="8" Margin="16,8,16,16">
 
             <Button Grid.Column="0"
-                    Text=" Exportar PDF"
-                    Command="{Binding ExportPdfCommand}"
-                    IsVisible="{Binding IsReadOnly}"
-                    BackgroundColor="#1565C0"
+                    Text="Cancelar"
+                    Command="{Binding CancelOrderCommand}"
+                                                    IsVisible="{Binding CanCancel}"
+                    BackgroundColor="{StaticResource ColorError}"
                     TextColor="White"
                     FontAttributes="Bold"
                     HeightRequest="50"
@@ -558,8 +568,19 @@
             <Button Grid.Column="1"
                     Text="Cerrar Orden"
                     Command="{Binding CloseOrderCommand}"
-                    IsVisible="{Binding CanClose}"
+                                                    IsVisible="{Binding CanClose}"
                     Style="{StaticResource PrimaryButton}"
+                    HorizontalOptions="Fill"/>
+
+            <Button Grid.Column="2"
+                    Text=" Exportar PDF"
+                    Command="{Binding ExportPdfCommand}"
+                    IsVisible="{Binding IsReadOnly}"
+                    BackgroundColor="#1565C0"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    HeightRequest="50"
+                    CornerRadius="12"
                     HorizontalOptions="Fill"/>
 
         </Grid>

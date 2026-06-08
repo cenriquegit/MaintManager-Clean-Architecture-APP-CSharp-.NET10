@@ -13,8 +13,10 @@ using MaintManager.MAUI.ViewModels.Reports;
 using MaintManager.MAUI.ViewModels.Settings;
 using MaintManager.MAUI.ViewModels.VehicleConfig;
 using MaintManager.MAUI.ViewModels.VehicleManagement;
+using MaintManager.MAUI.ViewModels.Agenda;
 using MaintManager.MAUI.Views.VehicleConfig;
 using MaintManager.MAUI.Views.VehicleManagement;
+using MaintManager.MAUI.Views.Agenda;
 using MaintManager.MAUI.Views.Alerts;
 using MaintManager.MAUI.Views.Auth;
 using MaintManager.MAUI.Views.BiDashboard;
@@ -72,6 +74,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CreateComponentViewModel>();
         builder.Services.AddTransient<VehicleManagementViewModel>();
         builder.Services.AddTransient<CreateVehicleViewModel>();
+        builder.Services.AddTransient<AgendaViewModel>();
 
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<AlertListPage>();
@@ -95,6 +98,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CreateComponentPage>();
         builder.Services.AddTransient<VehicleManagementPage>();
         builder.Services.AddTransient<CreateVehiclePage>();
+        builder.Services.AddTransient<AgendaPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();

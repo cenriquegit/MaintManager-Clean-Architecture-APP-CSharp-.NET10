@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MaintManager.MAUI.Views.Agenda.AgendaPage"
+    Title="Agenda"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <HorizontalStackLayout Grid.Row="0" Padding="16,12" Spacing="8">
+            <Label Text="📅 Agenda de Servicios" FontSize="20" FontAttributes="Bold"
+                   TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
+            <Button Text="+ Nueva" Command="{Binding CreateNewCommand}"
+                    Style="{StaticResource AccentButton}" FontSize="13"
+                    HeightRequest="36" CornerRadius="18"/>
+        </HorizontalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+            <Label Text="Cargando agenda..." Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" IsVisible="{Binding HasError}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="16">
+            <Label Text="{Binding ErrorMessage}" Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+            <Button Text="Reintentar" Command="{Binding LoadCommand}"
+                    Style="{StaticResource SecondaryButton}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1" IsVisible="{Binding IsSuccess}">
+            <VerticalStackLayout Spacing="16" Padding="16,0,16,24">
+
+                <CollectionView ItemsSource="{Binding Overdue}" IsVisible="{Binding Overdue.Count}">
+                    <CollectionView.Header>
+                        <Label Text="🔴 CRÍTICO — KM vencido" FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorError}" Margin="0,0,0,4"/>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="14" Margin="0,0,0,8" BackgroundColor="{StaticResource ColorSurface}"
+                                    StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenItemCommand}" CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Plate}" FontSize="16" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}"/>
+                                    <Label Text="{Binding VehicleName}" FontSize="14"
+                                           TextColor="{StaticResource ColorTextSecondary}"/>
+                                    <Label Text="{Binding KmLine}" Style="{StaticResource CaptionText}"/>
+                                    <Label Text="{Binding StatusLabel}" FontSize="12" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorError}"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <CollectionView ItemsSource="{Binding Upcoming}" IsVisible="{Binding Upcoming.Count}">
+                    <CollectionView.Header>
+                        <Label Text="🟡 PRÓXIMO — Zona de alerta" FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorWarning}" Margin="0,0,0,4"/>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="14" Margin="0,0,0,8" BackgroundColor="{StaticResource ColorSurface}"
+                                    StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenItemCommand}" CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Plate}" FontSize="16" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}"/>
+                                    <Label Text="{Binding VehicleName}" FontSize="14"
+                                           TextColor="{StaticResource ColorTextSecondary}"/>
+                                    <Label Text="{Binding KmLine}" Style="{StaticResource CaptionText}"/>
+                                    <Label Text="{Binding StatusLabel}" FontSize="12"
+                                           TextColor="{StaticResource ColorWarning}"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <CollectionView ItemsSource="{Binding InService}" IsVisible="{Binding InService.Count}">
+                    <CollectionView.Header>
+                        <Label Text="🟢 EN SERVICIO" FontSize="16" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorSuccess}" Margin="0,0,0,4"/>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="14" Margin="0,0,0,8" BackgroundColor="{StaticResource ColorSurface}"
+                                    StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.OpenItemCommand}" CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Plate}" FontSize="16" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}"/>
+                                    <Label Text="{Binding VehicleName}" FontSize="14"
+                                           TextColor="{StaticResource ColorTextSecondary}"/>
+                                    <Label Text="{Binding StatusLabel}" FontSize="12"
+                                           TextColor="{StaticResource ColorSuccess}"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <CollectionView ItemsSource="{Binding Ok}" IsVisible="{Binding Ok.Count}">
+                    <CollectionView.Header>
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="⚪ AL DÍA" FontSize="14" TextColor="{StaticResource ColorTextSecondary}"
+                                   VerticalOptions="Center"/>
+                            <Label Text="{Binding Ok.Count, StringFormat='({0})'}" FontSize="12"
+                                   TextColor="{StaticResource Gray500}" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="8,4" ColumnDefinitions="*,Auto">
+                                <Label Text="{Binding Plate}" FontSize="14" TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
+                                <Label Grid.Column="1" Text="{Binding KmLine}" FontSize="12"
+                                       TextColor="{StaticResource Gray500}" VerticalOptions="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

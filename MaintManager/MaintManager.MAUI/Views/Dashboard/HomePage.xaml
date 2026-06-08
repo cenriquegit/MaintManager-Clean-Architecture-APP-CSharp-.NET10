@@ -51,58 +51,70 @@
                        TextColor="{StaticResource ColorTextPrimary}"
                        Margin="0,8,0,0"/>
 
-                <!-- KPI Cards Row (2 columns) -->
+                <!-- KPI Cards Row (2 columns) - Compact -->
                 <Grid ColumnDefinitions="*,*"
                       RowDefinitions="Auto,Auto"
                       ColumnSpacing="12" RowSpacing="12">
                     <Border Grid.Row="0" Grid.Column="0"
                             Style="{StaticResource Card}"
-                            Padding="14">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding KpiItems[0].Icon}"
-                                   FontSize="28"/>
-                            <Label Text="{Binding KpiItems[0].Value}"
-                                   FontSize="24" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorPrimary}"/>
+                            Padding="12,10">
+                        <VerticalStackLayout Spacing="2">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="{Binding KpiItems[0].Value}"
+                                       FontSize="26" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorPrimary}"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding KpiItems[0].Icon}"
+                                       FontSize="22" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
                             <Label Text="{Binding KpiItems[0].Label}"
                                    Style="{StaticResource CaptionText}"/>
                         </VerticalStackLayout>
                     </Border>
                     <Border Grid.Row="0" Grid.Column="1"
                             Style="{StaticResource Card}"
-                            Padding="14">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding KpiItems[1].Icon}"
-                                   FontSize="28"/>
-                            <Label Text="{Binding KpiItems[1].Value}"
-                                   FontSize="24" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorWarning}"/>
+                            Padding="12,10">
+                        <VerticalStackLayout Spacing="2">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="{Binding KpiItems[1].Value}"
+                                       FontSize="26" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorPrimary}"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding KpiItems[1].Icon}"
+                                       FontSize="22" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
                             <Label Text="{Binding KpiItems[1].Label}"
                                    Style="{StaticResource CaptionText}"/>
                         </VerticalStackLayout>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="0"
                             Style="{StaticResource Card}"
-                            Padding="14">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding KpiItems[2].Icon}"
-                                   FontSize="28"/>
-                            <Label Text="{Binding KpiItems[2].Value}"
-                                   FontSize="24" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorError}"/>
+                            Padding="12,10">
+                        <VerticalStackLayout Spacing="2">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="{Binding KpiItems[2].Value}"
+                                       FontSize="26" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorError}"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding KpiItems[2].Icon}"
+                                       FontSize="22" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
                             <Label Text="{Binding KpiItems[2].Label}"
                                    Style="{StaticResource CaptionText}"/>
                         </VerticalStackLayout>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="1"
                             Style="{StaticResource Card}"
-                            Padding="14">
-                        <VerticalStackLayout Spacing="4">
-                            <Label Text="{Binding KpiItems[3].Icon}"
-                                   FontSize="28"/>
-                            <Label Text="{Binding KpiItems[3].Value}"
-                                   FontSize="24" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorInfo}"/>
+                            Padding="12,10">
+                        <VerticalStackLayout Spacing="2">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="{Binding KpiItems[3].Value}"
+                                       FontSize="26" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorInfo}"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding KpiItems[3].Icon}"
+                                       FontSize="22" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
                             <Label Text="{Binding KpiItems[3].Label}"
                                    Style="{StaticResource CaptionText}"/>
                         </VerticalStackLayout>

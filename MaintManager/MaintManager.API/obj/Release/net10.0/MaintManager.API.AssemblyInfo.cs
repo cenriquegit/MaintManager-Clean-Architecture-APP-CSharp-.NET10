@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MaintManager.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a5c019d9595b2c01d64fcd478e9287bc65431bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17c917b648de7e2d668134de03d1a4c1606ccb5e")]
 [assembly: System.Reflection.AssemblyProductAttribute("MaintManager.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MaintManager.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

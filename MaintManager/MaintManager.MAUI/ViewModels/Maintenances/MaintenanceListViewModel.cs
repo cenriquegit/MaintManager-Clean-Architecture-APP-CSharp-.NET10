@@ -33,7 +33,7 @@ public partial class MaintenanceListViewModel : BaseViewModel
     [ObservableProperty]
     private string _selectedFilter = string.Empty;
 
-    public List<string> FilterOptions { get; } = new() { "Todas", "Pendientes", "En progreso", "Completadas", "Canceladas" };
+    public List<string> FilterOptions { get; } = new() { "Todas", "Activas", "Finalizadas", "Canceladas" };
 
     [RelayCommand]
     private async Task Load()
@@ -42,9 +42,8 @@ public partial class MaintenanceListViewModel : BaseViewModel
         {
             var statusFilter = SelectedFilter switch
             {
-                "Pendientes" => "AC",
-                "En progreso" => "AC",
-                "Completadas" => "FI",
+                "Activas" => "AC",
+                "Finalizadas" => "FI",
                 "Canceladas" => "CA",
                 _ => ""
             };

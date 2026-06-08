@@ -12,6 +12,7 @@
     xmlns:bidashboard="clr-namespace:MaintManager.MAUI.Views.BiDashboard"
     xmlns:reports="clr-namespace:MaintManager.MAUI.Views.Reports"
     xmlns:profile="clr-namespace:MaintManager.MAUI.Views.Profile"
+    xmlns:agenda="clr-namespace:MaintManager.MAUI.Views.Agenda"
     xmlns:settings="clr-namespace:MaintManager.MAUI.Views.Settings"
     xmlns:vehicleconfig="clr-namespace:MaintManager.MAUI.Views.VehicleConfig"
     xmlns:vehiclemanagement="clr-namespace:MaintManager.MAUI.Views.VehicleManagement"
@@ -29,8 +30,8 @@
     <FlyoutItem Title="Alertas" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate alerts:AlertListPage}" Route="Alerts" />
     </FlyoutItem>
-    <FlyoutItem Title="Calendario" FlyoutItemIsVisible="False">
-        <ShellContent ContentTemplate="{DataTemplate calendar:CalendarPage}" Route="Calendar" />
+    <FlyoutItem Title="Agenda" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate agenda:AgendaPage}" Route="Agenda" />
     </FlyoutItem>
     <FlyoutItem Title="Mantenimientos" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate maintenances:MaintenanceListPage}" Route="Maintenances" />
@@ -95,19 +96,19 @@
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
-                                <Label Text="⚠" FontSize="18" VerticalOptions="Center"/>
+                                <Label Text="⚠️" FontSize="18" VerticalOptions="Center" WidthRequest="24"/>
                                 <Label Text="Alertas" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
                         <BoxView HeightRequest="1" BackgroundColor="#E8E8E8" Margin="20,0"/>
 
-                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Calendar">
+                        <Border Padding="20,12" BackgroundColor="Transparent" StrokeThickness="0" ClassId="//Agenda">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFlyoutItemTapped"/>
                             </Border.GestureRecognizers>
                             <HorizontalStackLayout Spacing="14">
                                 <Label Text="📅" FontSize="18" VerticalOptions="Center"/>
-                                <Label Text="Calendario" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
+                                <Label Text="Agenda" FontSize="16" TextColor="#212121" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Border>
                         <BoxView HeightRequest="1" BackgroundColor="#E8E8E8" Margin="20,0"/>

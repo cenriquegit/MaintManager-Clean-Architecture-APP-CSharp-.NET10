@@ -62,6 +62,42 @@
             Rojo si ≤ 7 días, naranja si ≤ 30, verde si más.
             </summary>
         </member>
+        <member name="T:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Overdue">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._overdue"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Upcoming">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._upcoming"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.InService">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._inService"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Ok">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._ok"/>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.loadCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.LoadCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.LoadCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Load"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.openItemCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.OpenItemCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.OpenItemCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.OpenItem(MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.AgendaItem)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.createNewCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.CreateNewCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.CreateNewCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.CreateNew"/>.</summary>
+        </member>
         <member name="T:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel">
             <inheritdoc/>
             <inheritdoc/>
@@ -416,9 +452,6 @@
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.InventoryListViewModel.LowStockCount">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.InventoryListViewModel._lowStockCount"/>
         </member>
-        <member name="P:MaintManager.MAUI.ViewModels.Inventory.InventoryListViewModel.IsAdmin">
-            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.InventoryListViewModel._isAdmin"/>
-        </member>
         <member name="M:MaintManager.MAUI.ViewModels.Inventory.InventoryListViewModel.OnSearchTextChanged(System.String)">
             <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Inventory.InventoryListViewModel.SearchText"/> just changed.</summary>
             <param name="value">The new property value that was set.</param>
@@ -545,6 +578,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.MaintenanceDetail">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel._maintenanceDetail"/>
@@ -560,6 +594,9 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CanClose">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel._canClose"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CanCancel">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel._canCancel"/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.IsOilInfoExpanded">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel._isOilInfoExpanded"/>
@@ -710,6 +747,12 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CloseOrderCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CloseOrder"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.cancelOrderCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CancelOrderCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CancelOrderCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.CancelOrder"/>.</summary>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.installComponentCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel.InstallComponentCommand"/>.</summary>
@@ -1353,6 +1396,18 @@
             for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
             </summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Overdue">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Overdue" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Upcoming">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Upcoming" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.InService">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "InService" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Ok">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Ok" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Alerts">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Alerts" generated properties.</summary>
         </member>
@@ -1571,6 +1626,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CanClose">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CanClose" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CanCancel">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CanCancel" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsOilInfoExpanded">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsOilInfoExpanded" generated properties.</summary>
@@ -1818,6 +1876,18 @@
             for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
             </summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Overdue">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Overdue" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Upcoming">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Upcoming" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.InService">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "InService" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Ok">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Ok" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Alerts">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Alerts" generated properties.</summary>
         </member>
@@ -2036,6 +2106,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CanClose">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CanClose" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CanCancel">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CanCancel" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsOilInfoExpanded">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsOilInfoExpanded" generated properties.</summary>

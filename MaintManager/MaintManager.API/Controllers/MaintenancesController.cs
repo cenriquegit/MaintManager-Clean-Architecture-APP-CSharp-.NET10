@@ -377,6 +377,31 @@ public sealed class MaintenancesController : ControllerBase
         }
     }
 
+    /// <summary>Cancelar una orden de mantenimiento activa.</summary>
+    [HttpPut("{id:int}/cancel")]
+    [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]
+    [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Cancel(int id, CancellationToken ct)
+    {
+        try
+        {
+            var maintenance = await _context.Maintenances.FindAsync(new object[] { id }, ct);
+            if (maintenance is null)
+                return NotFound(ApiResponse<object>.Fail("Orden no encontrada."));
+
+            if (maintenance.Statid != "AC")
+                return BadRequest(ApiResponse<object>.Fail("Solo se pueden cancelar órdenes activas."));
+
+            maintenance.MarkAsCancelled();
+            await _context.SaveChangesAsync(ct);
+            return Ok(ApiResponse<object>.Ok(new { message = "Orden cancelada correctamente." }));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ApiResponse<object>.Fail(ex.Message));
+        }
+    }
+
     /// <summary>Obtener todos los mantenimientos de un vehículo.</summary>
     [HttpGet("~/api/v1/vehicles/{vehicleId:int}/maintenances")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<MaintenanceListItem>>), StatusCodes.Status200OK)]
@@ -410,7 +435,7 @@ public sealed class MaintenancesController : ControllerBase
                 && m.MaintenanceDate >= monthStart, ct);
 
         return Ok(ApiResponse<MaintenanceStatsResponse>.Ok(
-            new MaintenanceStatsResponse(totalAc, totalAc, completedThisMonth, emergencyThisMonth)));
+            new MaintenanceStatsResponse(totalFi, totalAc, completedThisMonth, emergencyThisMonth)));
     }
 
     /// <summary>Catálogo de acciones disponibles. Opcionalmente filtrado por vehículo.</summary>

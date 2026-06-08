@@ -90,12 +90,28 @@ public partial class HomeViewModel : BaseViewModel
                 EmergencyThisMonth = stats.EmergencyThisMonth;
             }
 
-            Vehicles =
-            [
-                new VehicleCard { LicensePlate = "ABC-123", Brand = "Toyota", Model = "Hilux", Year = 2020, CurrentKm = 45000, NextServiceKm = 50000, Status = "Operativo" },
-                new VehicleCard { LicensePlate = "DEF-456", Brand = "Ford", Model = "Ranger", Year = 2021, CurrentKm = 32000, NextServiceKm = 40000, Status = "En Mantención" },
-                new VehicleCard { LicensePlate = "GHI-789", Brand = "Nissan", Model = "Navara", Year = 2019, CurrentKm = 68000, NextServiceKm = 70000, Status = "Operativo" },
-            ];
+            try
+            {
+                var mvResponse = await _apiService.GetAsync<ApiResponse<List<ManagedVehicleDto>>>("api/v1/vehicles/managed?source=legacy");
+                if (mvResponse?.Success == true && mvResponse.Data is not null)
+                {
+                    var vehicles = mvResponse.Data
+                        .Where(v => v.Source == "legacy")
+                        .Select(v => new VehicleCard
+                        {
+                            LicensePlate = v.LicensePlate,
+                            Brand = v.Brand ?? "-",
+                            Model = v.Model ?? "-",
+                            Year = v.Year ?? 0,
+                            CurrentKm = v.CurrentKm ?? 0,
+                            NextServiceKm = v.NextServiceKm ?? 0,
+                            Status = v.HasActiveOrder ? "En Mantenimiento" : "Operativo"
+                        })
+                        .ToList();
+                    Vehicles = new ObservableCollection<VehicleCard>(vehicles);
+                }
+            }
+            catch { Vehicles = new ObservableCollection<VehicleCard>(); }
 
             IsEmpty = false;
         });
@@ -171,6 +187,21 @@ public partial class HomeViewModel : BaseViewModel
         public string CommandName { get; set; } = string.Empty;
     }
 
+    public class ManagedVehicleDto
+    {
+        public int MvId { get; set; }
+        public int? Prcoid { get; set; }
+        public string LicensePlate { get; set; } = string.Empty;
+        public string VehicleName { get; set; } = string.Empty;
+        public string? Brand { get; set; }
+        public string? Model { get; set; }
+        public short? Year { get; set; }
+        public string Source { get; set; } = string.Empty;
+        public int? CurrentKm { get; set; }
+        public int? NextServiceKm { get; set; }
+        public bool HasActiveOrder { get; set; }
+    }
+
     public class DashboardData
     {
         public int TotalVehicles { get; set; }
@@ -195,5 +226,15 @@ public partial class HomeViewModel : BaseViewModel
         public int InProgress { get; set; }
         public int CompletedThisMonth { get; set; }
         public int EmergencyThisMonth { get; set; }
+    }
+
+    public class AgendaData
+    {
+        public List<AgendaInServiceItem>? InService { get; set; }
+    }
+
+    public class AgendaInServiceItem
+    {
+        public int Prcoid { get; set; }
     }
 }

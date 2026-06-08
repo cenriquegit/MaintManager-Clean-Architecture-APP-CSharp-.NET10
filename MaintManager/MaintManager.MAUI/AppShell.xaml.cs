@@ -29,7 +29,7 @@ public partial class AppShell : Shell
         if (sender is Microsoft.Maui.Controls.Border border && border.ClassId is string route)
         {
             var isAdmin = _authService?.IsAdmin() ?? false;
-            if (!isAdmin && (route == "//BiDashboard" || route == "//Settings" || route == "//Vehicles"))
+            if (!isAdmin && (route == "//Agenda" || route == "//BiDashboard" || route == "//Settings" || route == "//Vehicles"))
             {
                 Shell.Current.FlyoutIsPresented = false;
                 await Task.Delay(100);

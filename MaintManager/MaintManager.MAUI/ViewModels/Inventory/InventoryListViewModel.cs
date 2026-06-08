@@ -10,10 +10,12 @@ namespace MaintManager.MAUI.ViewModels.Inventory;
 public partial class InventoryListViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private readonly AuthService _authService;
 
-    public InventoryListViewModel(ApiService apiService)
+    public InventoryListViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
+        _authService = authService;
         Title = "Inventario";
     }
 
@@ -29,8 +31,7 @@ public partial class InventoryListViewModel : BaseViewModel
     [ObservableProperty]
     private int? _lowStockCount;
 
-    [ObservableProperty]
-    private bool _isAdmin = true; // Ajustar según rol real
+    public bool IsAdmin => _authService?.IsAdmin() ?? false;
 
     [RelayCommand]
     private async Task Load()

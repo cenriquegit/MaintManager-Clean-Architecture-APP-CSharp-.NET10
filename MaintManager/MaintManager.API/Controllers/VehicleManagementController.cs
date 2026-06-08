@@ -32,8 +32,33 @@ public sealed class VehicleManagementController : ControllerBase
     public async Task<IActionResult> GetAll([FromQuery] string? search, [FromQuery] string? source, CancellationToken ct)
     {
         var vehicles = await _mvRepo.GetAllAsync(search, source, ct);
-        return Ok(ApiResponse<IReadOnlyList<ManagedVehicleDto>>.Ok(
-            vehicles.Select(ToDto).ToList()));
+        var prcoids = vehicles.Where(v => v.Prcoid.HasValue).Select(v => v.Prcoid!.Value).ToHashSet();
+
+        var mileages = await _context.Vehicles.AsNoTracking()
+            .Where(pv => prcoids.Contains(pv.Prcoid))
+            .ToDictionaryAsync(pv => pv.Prcoid, pv => pv.Mileage, ct);
+
+        var schedules = await _context.VehicleSchedules.AsNoTracking()
+            .Where(s => prcoids.Contains(s.Prcoid) && s.Status)
+            .ToDictionaryAsync(s => s.Prcoid, s => s.NextKm, ct);
+
+        var activePrcoids = await _context.Maintenances.AsNoTracking()
+            .Where(m => m.Statid == "AC" && prcoids.Contains(m.Prcoid))
+            .Select(m => m.Prcoid).Distinct().ToHashSetAsync(ct);
+
+        var dtos = vehicles.Select(v =>
+        {
+            var prcoid = v.Prcoid ?? 0;
+            int? currentKm = prcoid > 0 && mileages.TryGetValue(prcoid, out var mk) ? mk : null;
+            int? nextKm = prcoid > 0 && schedules.TryGetValue(prcoid, out var sk) ? sk : null;
+            bool hasActive = prcoid > 0 && activePrcoids.Contains(prcoid);
+            return new ManagedVehicleDto(v.MvId, v.Prcoid, v.LicensePlate, v.VehicleName,
+                v.Brand, v.Model, v.Year, v.Color, v.Vin, v.EngineNumber,
+                v.Source, v.Status, v.CreatedAt, v.UpdatedAt,
+                currentKm, nextKm, hasActive);
+        }).ToList();
+
+        return Ok(ApiResponse<IReadOnlyList<ManagedVehicleDto>>.Ok(dtos));
     }
 
     [HttpGet("{id:int}")]
@@ -118,12 +143,14 @@ public sealed class VehicleManagementController : ControllerBase
     private static ManagedVehicleDto ToDto(ManagedVehicle v) => new(
         v.MvId, v.Prcoid, v.LicensePlate, v.VehicleName,
         v.Brand, v.Model, v.Year, v.Color, v.Vin, v.EngineNumber,
-        v.Source, v.Status, v.CreatedAt, v.UpdatedAt);
+        v.Source, v.Status, v.CreatedAt, v.UpdatedAt,
+        null, null, false);
 }
 
 public sealed record ManagedVehicleDto(int MvId, int? Prcoid, string LicensePlate, string VehicleName,
     string? Brand, string? Model, short? Year, string? Color, string? Vin, string? EngineNumber,
-    string Source, bool Status, DateTime CreatedAt, DateTime? UpdatedAt);
+    string Source, bool Status, DateTime CreatedAt, DateTime? UpdatedAt,
+    int? CurrentKm, int? NextServiceKm, bool HasActiveOrder);
 
 public sealed record CreateManagedVehicleRequest(string LicensePlate, string VehicleName, string? Brand,
     string? Model, short? Year, string? Color, string? Vin, string? EngineNumber);
