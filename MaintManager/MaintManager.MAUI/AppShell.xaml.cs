@@ -16,6 +16,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("Inventory/CreateMaterial", typeof(Views.Inventory.CreateMaterialPage));
         Routing.RegisterRoute("Inventory/CreateLot", typeof(Views.Inventory.LotCreatePage));
         Routing.RegisterRoute("Inventory/LotList", typeof(Views.Inventory.LotListPage));
+        Routing.RegisterRoute("Inventory/MaterialDetail", typeof(Views.Inventory.MaterialDetailPage));
         Routing.RegisterRoute("Maintenances/VehicleHistory", typeof(Views.Maintenances.VehicleHistoryPage));
         Routing.RegisterRoute("Reports/Filter", typeof(Views.Reports.ReportFilterPage));
         Routing.RegisterRoute("Vehicles/CreateVehicle", typeof(Views.VehicleManagement.CreateVehiclePage));

@@ -1,0 +1,94 @@
+•	Requerimientos Funcionales:
+Código	Nombre	Descripción	Criterio de aceptación / Restricciones	Prioridad
+RF-01	Autenticación	El sistema debe permitir la autentificacion de usuarios con nombre de usuario y contraseña, generando un token JWT de 8 horas con rol asignado (Admin o Tecnico) según el puesto del trabajador.	Actor: Jefe de Mantenimiento, Mecánico. El sistema autentica contra public.worker + public.job. Rol 'Tecnico' si job contiene 'Mecánico'; resto → 'Admin'.	Alta
+RF-02	Gestión de vehículos	El sistema debe mostrar la lista de vehículos activos de la flota con su km actual (obtenido de service.rentexecute), próximo km de servicio y alerta de servicio próximo.	El km actual se calcula leyendo el último kilometer_end de rentexecute donde statid ≠ 'CA'. Solo lectura desde BD existente.	Alta
+RF-03	Registro de órdenes de mantenimiento	El sistema debe permitir crear órdenes de mantenimiento calendarizado (tipo A o B) o de emergencia, registrando el vehículo, km actual, mecánico asignado y origen del servicio.	Calendarizado requiere setyid (A/B); emergencia no acepta setyid. Se calcula km_since_last automáticamente.	Alta
+RF-04	Checklist de acciones y materiales 	El sistema debe mostrar las acciones del manual del vehículo para cada orden y permitir al mecánico completarlas marcando o seleccionando las acciones y los materiales utilizado.	Acciones predefinidas en action_catalog. Al completar una acción se puede vincular el maloid del lote consumido.	Alta
+RF-05	Diagnóstico y cierre de orden	El sistema debe permitir registrar el diagnóstico final del mecánico (estado general, operatividad, observaciones) y cerrar la orden, cambiando su estado a 'FI'.	El diagnóstico es obligatorio antes del cierre. Solo puede registrarse un diagnóstico por orden.	Alta
+RF-06	Recalendarización automática	Al cerrar una orden calendarizada (o emergencia completa), el sistema debe recalcular automáticamente el próximo km de servicio (km_servicio + intervalo configurado).	SchedulingService.RescheduleAsync. Emergencia parcial NO recalendariza.	Alta
+RF-07	Historial de mantenimientos por vehículo	El sistema debe mostrar el historial completo de mantenimientos de cada vehículo con detalle de acciones, materiales usados, componentes usados y diagnóstico.	GET /api/v1/vehicles/{id}/maintenances con todos los includes (acciones, diagnóstico, consumos).	Alta
+RF-08	Gestión de inventario de materiales	El sistema debe permitir registrar materiales con categoría, unidad de medida y stock mínimo, y visualizar el estado actual del inventario con indicador de stock bajo.	Solo rol Admin puede crear materiales y registrar lotes. Ambos roles pueden consultar.	Alta
+RF-09	Ingreso de lotes con trazabilidad	El sistema debe permitir ingresar lotes de material con cantidad, costo unitario, proveedor, número de lote y fecha de vencimiento opcional, actualizando automáticamente el stock total.	Trazabilidad completa: qué lote, de qué proveedor, en qué fecha ingresó.	Alta
+RF-10	Consumo FIFO por vencimiento	Al registrar el consumo de material en un mantenimiento, el sistema debe consumir primero el lote más próximo a vencer, generando registros de consumo por cada lote utilizado.	InventoryService.ConsumeStockFifoAsync. Si el consumo abarca 2 lotes → 2 registros en material_consumption.
+ Si hay algún lote sin fecha se trata como vencimiento infinito(eje Sistema de frenos ABS. )	Alta
+RF-11	Descarte de lotes	El sistema debe permitir descartar cantidades de un lote registrando el motivo y cantidad, actualizando el stock y generando un registro en “material _discard” para el cálculo de pérdidas en el BI.	Solo rol Admin. Lotes con estado 'vencido' o 'descartado' no pueden descartarse nuevamente.	Media
+RF-12	Componentes instalados con caducidad	El sistema debe registrar los componentes instalados en cada vehículo durante un mantenimiento, calculando automáticamente su fecha de caducidad según los días de vida útil del catálogo.	InstalledComponent.Create calcula ExpirationDate = UtcNow + usefulLifeDays si ExpiresByTime=true.	Media
+RF-13	Sistema de alertas automáticas	El sistema debe generar alertas automáticas de 4 tipos: (1) mantenimiento próximo por km, (2) componente por caducar, (3) lote por vencer, (4) stock bajo, evitando duplicados de alertas no resueltas.	AlertService.CheckAndGenerateAlertsAsync. Se activa por POST /api/v1/alerts/check (Admin).	Alta
+RF-14	Gestión de alertas	El sistema debe permitir marcar alertas como leídas (cualquier rol) y resolverlas (solo Admin), con historial completo de quién y cuándo.	AlertLog.MarkAsRead y AlertLog.Resolve registran workid y timestamp.	Alta
+RF-15	Dashboard BI — KPIs en tiempo real	El sistema debe mostrar un dashboard con los siguientes KPIs calculados dinámicamente: total de vehículos activos, servicios del mes, tasa global de emergencias (%), numero de materiales con stock bajo , numero de alertas sin resolver, lotes por vencer y costo promedio por km de la flota.	ReportsController consulta vw_bi_dashboard_summary directamente en PostgreSQL. Solo Admin.	Alta
+RF-16	Reporte de costo por kilómetro	El sistema debe mostrar el costo de materiales por kilómetro de cada vehículo (total_material_cost / current_km) para comparar eficiencia entre unidades.	vw_cost_per_km. Datos para gráfico de barras en la app con LiveChartsCore.	Alta
+RF-17	Reporte de tasa de emergencias	El sistema debe calcular y mostrar la proporción de mantenimientos de emergencia vs. calendarizados por vehículo.	vw_emergency_rate. Datos para gráfico de dona/Pareto.	Alta
+RF-18	Reporte de costo mensual	El sistema debe mostrar el costo mensual de materiales por vehículo de los últimos N meses (configurable, default 6).	vw_monthly_cost con filtro por mes. Datos para gráfico de líneas/barras apiladas.	Media
+RF-19	Reporte de cumplimiento del calendario	El sistema debe mostrar la desviación en km entre el servicio realizado y el servicio programado, con estado de cumplimiento (puntual/tardío/anticipado).	vw_calendar_compliance. Tabla en la app con indicador visual de cumplimiento.	Media
+RF-20	Exportación de reportes	El sistema debe permitir exportar la orden de mantenimiento a PDF y el reporte de costos a Excel, con formato de marca Neo Plus Business S.A.C.	ReportsController: QuestPDF para PDF, ClosedXML para Excel. Accesible desde la API.	Media
+RF-21	Configuración del sistema	El sistema debe permitir configurar parámetros operativos: intervalo de km entre mantenimientos (default 5000 km) y umbral de alerta de km próximo (default 800 km).	config_system con claves 'intervalo_km' y 'alerta_km_umbral'. SchedulingService lee estos valores.	Baja
+
+Cuadro N° 7 – Requerimientos Funcionales de la gestión del mantenimiento vehicular
+
+ 
+•	Requerimientos No Funcionales:
+Código	Nombre	Descripción	Criterio de verificación	Prioridad
+RNF-01	Seguridad — Autenticación y autorización	El sistema debe implementar autenticación basada en tokens JWT (HMAC-SHA256) con expiración de 8 horas. El control de acceso debe ser por roles: Admin (acceso completo) y Tecnico (solo módulos operativos, sin acceso a reportes BI ni eliminación de datos).	ClockSkew = Zero para mayor seguridad. Contraseñas en MD5 por compatibilidad con BD existente; se recomienda migrar a bcrypt/PBKDF2 en producción.	Alta
+RNF-02	Seguridad — Protección de datos sensibles	Las credenciales y claves JWT nunca deben hardcodearse en el código fuente. Deben estar en variables de entorno (appsettings.Development.json excluido del repositorio Git).	appsettings.Development.json en .gitignore. JWT Key mínimo 32 caracteres.	Alta
+RNF-03	Rendimiento — Tiempo de respuesta de la API	Los endpoints de consulta de mantenimientos (paginados) y dashboard BI deben responder en menos de 3 segundos bajo carga normal de la flota de Neo Plus (≤ 20 vehículos).	Uso de AsNoTracking en consultas de solo lectura. Consultas BI directas a vistas PostgreSQL optimizadas. JOIN en GetPagedListItemsAsync para evitar N+1.	Alta
+RNF-04	Rendimiento — Paginación de listados	Los listados de mantenimientos deben implementar paginación (page + pageSize) para evitar cargas masivas de datos en la app MAUI.	PagedRequest con default page=1, pageSize=20. GetPagedListItemsAsync con Skip/Take.	Medita
+RNF-05	Disponibilidad	El sistema debe estar disponible al menos el 95% del tiempo en horario laboral (lunes a sábado, 8am-6pm). El Servidor VM (Linux) debe tener reinicio automático del servicio ante fallos.	Logs de disponibilidad con Serilog (archivos diarios, retención 30 días). Configurar systemd/supervisor en el servidor Linux.	Alta
+RNF-06	Mantenibilidad — Arquitectura limpia	El sistema debe seguir el patrón Clean Architecture (Domain → Application → Infrastructure → API) con separación clara de responsabilidades. Las entidades de dominio no deben depender de EF Core ni de la API.	MaintManager.Domain no tiene referencias a EF Core ni ASP.NET. Entidades con constructores privados y factory methods. Interfaces definidas en Domain, implementadas en Infrastructure.	Alta
+RNF-07	Mantenibilidad — Patrón MVVM en MAUI	El frontend MAUI debe seguir el patrón MVVM usando CommunityToolkit.Mvvm, con separación entre vistas (XAML), ViewModels y servicios.	ViewModels heredan de BaseViewModel con IsBusy, HasError, IsEmpty. Commands con [RelayCommand]. Bindings tipados con x:DataType.	Alta
+RNF-08	Escalabilidad — Extensibilidad del sistema	El sistema debe estar diseñado para escalar: agregar nuevos roles (jobid → rol JWT), múltiples técnicos por orden (technician_assignment ya existe), más sucursales (campo agency_id) sin modificar la arquitectura.	Documentado en README.md (Notas de escalabilidad futura). Configuración de roles en AuthController.DetermineRoleAsync.	Media
+RNF-09	Compatibilidad — Integración con BD existente	El sistema debe integrarse con la base de datos PostgreSQL existente de la empresa sin modificar las tablas de los esquemas list, public, product, company ni service.	Tablas existentes con ExcludeFromMigrations() en EF Core. Solo lectura con AsNoTracking. Las migraciones EF Core solo afectan el esquema maintenance.*.	Alta
+RNF-10	Portabilidad — Multiplataforma MAUI	La aplicación cliente debe ejecutarse en Android (mínimo API 21) y Windows 10 desde un único código fuente .NET MAUI.	TargetFrameworks: net10.0-android, net10.0-windows10.0.19041.0. RuntimeIdentifiers: android-arm, android-arm64.	Alta
+RNF-11	Usabilidad	La interfaz de usuario debe ser intuitiva para el personal de mantenimiento sin formación técnica avanzada. Los estados de carga, error y vacío deben comunicarse claramente con el control StateView.	Control StateView (Loading /Error / Empty /Success) en todas las páginas de datos. Mensajes de error en español comprensibles y Colores semánticos_(rojo=error,verde=ok,naranja=advertencia).	Alta
+RNF-12	Trazabilidad y auditoría	El sistema debe registrar en los logs de Serilog todas las operaciones críticas (creación de órdenes, consumo de stock, resolución de alertas). Los campos created_at, updated_at deben poblarse automáticamente.	Serilog.AspNetCore con sink a consola y archivo diario. GlobalExceptionMiddleware registra todos los errores con su stack trace.	Media
+RNF-13	Validación de datos	Todos los endpoints de la API que reciban datos del usuario deben validarse con FluentValidation antes de procesarse. Los errores de validación deben retornar HTTP 400 con detalle de los campos inválidos.	Validadores: LoginRequestValidator, MaintenanceCreateValidator, MaterialCreateValidator, LotCreateValidator, DiagnosisRequestValidator, MaterialRatingValidator.	Alta
+RNF-14	Interoperabilidad — API REST estándar	La API debe seguir convenciones REST estándar con respuestas envueltas en ApiResponse<T> con campos success, data, message y errors. Los códigos HTTP deben ser semánticamente correctos (200, 201, 400, 401, 403, 404, 500).	GlobalExceptionMiddleware mapea excepciones de dominio a códigos HTTP. Swagger/OpenAPI documentado en http://servidor:5056.	Alta
+RNF-15	Gestión de errores	El sistema debe manejar excepciones globalmente sin exponer detalles técnicos al usuario. KeyNotFoundException→404;InvalidOperationException → 400; UnauthorizedAccessException → 403; Exception → 500.	GlobalExceptionMiddleware en la pipeline de ASP.NET. Mensajes de error definidos en ErrorMessages (Shared).	Alta
+
+Cuadro N° 8 – Requerimientos No Funcionales de la gestión del mantenimiento vehicular
+
+Errores por requerimiento:
+
+rf1 - cumplida
+rf2 - cumplida   --> por que hay un dato en kilometraje de 26000km cuando es cada 5km que paso?,por que hay un proximo servicio de 25000km y otro de 15100km cuando es cada 5000, puede mostrar mas de 5000 claro si se hace antes el mantenimeinto pero tanto no , no se realiza 3 manteniemintos a la vez por adelelantado, creoq eu solo se queda siempre con el kilometraje de rentas y no toma el kilometraje que se guarda en el manteniemitno, lo que debes hacer es que si un km es mayor o el de rentas o de mantenimeinto entonces selecionalo y el otro déjalo, por que uno de ellos puede estar mas avanzado y que paresca datos actualizados en el maui dodne salen los datos del km
+
+rf3 - cumplida a un 80% --> falta algo donde pregunte si recalendarizar o no si es emergencia
+
+rf4 - cumplidas parcialmente --> falta convetir el select en puras líneas con checbox, si se usa o no, enseñando todo lo que se podrá hacer y el mecanico marcara según su parecer
+
+rf5 -  cumplido
+rf6 - cumplido parcialmente por que no alterna el tipo de mantenimiento que sera el proximo que es cada 10000 debe cambiar o mencionar que el proximo seria b y ya no A.
+rf7 - falta --> no cumple que "El sistema debe mostrar el historial completo de mantenimientos de cada vehículo con detalle de acciones, materiales usados, componentes usados y diagnóstico." me falta por que eso debe poder mostrarse desde el panel principal, al aplastar un vehiculo me mande a esa pestaña ,creo que tenemos uno pero muy pequeño,eso tendrimaos que mejorarlo ,esta en detalle de orden, de ahi no le quites, sino que mejoraremos la pagina para que cumpla lo que se solicita y se debe hacer la lógica de conexión que al aplastar un vehiculo en el panel principal me pueda salir todo eso , por cada vehchiculo si hago click encima
+
+rf8 - cumplido
+rf9 - cumplido parcial debido a que no se ingresa nombre del proveedor ya sea empresa o persona, solo ingresamos numero de lote del proveedor, pero seria mejor que ese numero de lote no se muestre y que se genere solo, pero que aparezca un campo de proveedor para poner el nombre de la persona o organización,solo eso faltaria
+
+rf10 - cumplido
+rf11 - cumplido parcialmente, por que cuando guardo lotes , en la pestaña del producto deberian aparecer cards con cada uno su lote e infromacion de ello , pero solo me aprece un card con elstock junto e ambos y los botnes editar e elimianr, osea todo se junta y no esta separado, tambien otra cosa, es que cuando s selecione un nuevo lote en esa pestaña entonces que el campo de material de ingresar lote se llene solo ,sin tenr que volver a seleeccionar material
+
+rf12 - cumplida, aunque tengo una duda es que no se si ahora tiene fecha de vencimiento los compnentes instalados, y no se si lanza alerta del componetes instalado tambien, otra duda es que como se define que un material es un componente? es una duda que tengo 
+
+ref13 - cumplida de manera parcial pro que no se si lanza la alerta de componete por caducar?
+
+ref14 - cumplidad de manera parcial, falta una pestaña con historial completa de las alertas pero detallado incluso con los datos de quienes leyeron, quien resolvio, en que mosmneto de cad uno,etc
+
+ref15 -  cumplido de manera parcial, falta el kpi de numero de lotes por vencer con un poco de información de que lotes son.
+
+rf16 - cumplida pacialente ya uqe no muestra de todos lso vehiculso eso es un error de estos dashboards
+
+rf17 - falla no muestra los siguiente:El sistema debe calcular y mostrar la proporción de mantenimientos de emergencia vs. calendarizados por vehículo.
+
+rf18 - no se ,estoy en uda si esto muestra mi dahboar "El sistema debe mostrar el costo mensual de materiales por vehículo de los últimos N meses (configurable, default 6)."
+
+rf19 - cumple de manera parcial los sigueinete "El sistema debe mostrar la desviación en km entre el servicio realizado y el servicio programado, con estado de cumplimiento (puntual/tardío/anticipado)." por que no hay diferencias entre puntual ,tardío y anticipado, que deberían ser cada uno de ellas con un color diferente que represente que estado es, también deber haber una mini decrivcion explicando los colores,eso se tendría qu emejorar peor que si funciona el grafico
+
+rf20 -  cumple totalmente
+rf21 - cumple, pero nunca lo probe, seria que tu lo simulase y si todo bien déjalo ahi
+
+
+rnf4 -- Falta y no cumple, pro que no hay paginación en el listaado de manteniemintos, verifica y analisa pro que no hay paginación y si es bueno o amlo para dejarlo tal y coomn estas
+
+rnf8 -- falla por no cumple nada de lo siguiente "El sistema debe estar diseñado para escalar: agregar nuevos roles (jobid → rol JWT), múltiples técnicos por orden (technician_assignment ya existe), más sucursales (campo agency_id) sin modificar la arquitectura."
+
+
+Erorres de cambios anteriores:
+un bug que malograste la orden de mantenieminto cuando te dije que pongas el botom de cancelar te lo decía arriba en el el header negro que se hace dpnde están las letras "Orden #" a la parte derecha ceberias haberlo colocado, en consumir material cuando agrege uno me sale un botom de "Cancelar Orden" por que me sale eso? no debe existire eso ahi ? eso estaba funcionando bien ahora no , que hiciste? , aaprece cuando doy agregar en cada fila de la lista aparece , eso esta muy mal déjalo como estaba funcional,aparecen 2 botnos cerrar orden mas cuando termino de diagnosticar ,abajo me salen dos botnoes mas de cerrar orden, que estas haciendo eso estaba bien, por qiue lo tocaste caudno te dieje específicamente no toques otras cosas innecesarias

@@ -44,15 +44,22 @@
                                FontSize="18" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
-                        <Border Grid.Row="0" Grid.Column="1"
-                                StrokeThickness="0"
-                                StrokeShape="RoundRectangle 99"
-                                Padding="8,3"
-                                BackgroundColor="{StaticResource ColorInfoContainer}">
-                            <Label Text="{Binding MaintenanceDetail.StatusName}"
-                                   FontSize="11" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorInfo}"/>
-                        </Border>
+                        <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="6">
+                            <Button Text="✕ Cancelar"
+                                    Command="{Binding CancelOrderCommand}"
+                                    IsVisible="{Binding CanCancel}"
+                                    BackgroundColor="{StaticResource ColorError}"
+                                    TextColor="White" FontSize="12" FontAttributes="Bold"
+                                    HeightRequest="30" CornerRadius="6" Padding="8,0"/>
+                            <Border StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 99"
+                                    Padding="8,3"
+                                    BackgroundColor="{StaticResource ColorInfoContainer}">
+                                <Label Text="{Binding MaintenanceDetail.StatusName}"
+                                       FontSize="11" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorInfo}"/>
+                            </Border>
+                        </HorizontalStackLayout>
 
                         <Label Grid.Row="1" Grid.ColumnSpan="2"
                                Text="{Binding MaintenanceDetail.VehicleName}"
@@ -552,17 +559,13 @@
         </ScrollView>
 
         <!-- Bottom actions -->
-        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="8" Margin="16,8,16,16">
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="8" Margin="16,8,16,16">
 
             <Button Grid.Column="0"
-                    Text="Cancelar"
-                    Command="{Binding CancelOrderCommand}"
-                                                    IsVisible="{Binding CanCancel}"
-                    BackgroundColor="{StaticResource ColorError}"
-                    TextColor="White"
-                    FontAttributes="Bold"
-                    HeightRequest="50"
-                    CornerRadius="12"
+                    Text="Cerrar Orden"
+                    Command="{Binding CloseOrderCommand}"
+                                                    IsVisible="{Binding CanClose}"
+                    Style="{StaticResource PrimaryButton}"
                     HorizontalOptions="Fill"/>
 
             <Button Grid.Column="1"

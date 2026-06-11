@@ -152,8 +152,9 @@
                                                TextColor="{StaticResource ColorInfo}"/>
                                     </Border>
                                     <Label Grid.Row="1" Grid.ColumnSpan="2"
-                                           Text="{Binding Brand, StringFormat='{0} {1}'}"
-                                           Style="{StaticResource CaptionText}"
+                                           Text="{Binding VehicleName}"
+                                           FontSize="14" FontAttributes="Bold"
+                                           TextColor="{StaticResource ColorTextPrimary}"
                                            Margin="0,2,0,0"/>
                                     <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2"
                                                            Spacing="16" Margin="0,6,0,0">

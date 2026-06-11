@@ -8,14 +8,24 @@ using System.Collections.ObjectModel;
 
 namespace MaintManager.MAUI.ViewModels.Inventory;
 
-public partial class LotCreateViewModel : BaseViewModel
+public partial class LotCreateViewModel : BaseViewModel, IQueryAttributable
 {
     private readonly ApiService _apiService;
+    private int _presetMateid;
 
     public LotCreateViewModel(ApiService apiService)
     {
         _apiService = apiService;
         Title = "Ingresar Lote";
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("mateid", out var id) && id is string idStr && int.TryParse(idStr, out var mateid))
+        {
+            _presetMateid = mateid;
+            Title = "Ingresar Lote";
+        }
     }
 
     [ObservableProperty]

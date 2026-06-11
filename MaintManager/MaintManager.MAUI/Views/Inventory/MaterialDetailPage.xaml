@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MaintManager.MAUI.Views.Inventory.MaterialDetailPage"
+    Title="{Binding Title}"
+    BackgroundColor="{StaticResource ColorBackground}">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <Border Grid.Row="0" Margin="16,12,16,0" Padding="14" BackgroundColor="{StaticResource ColorSurface}"
+                StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="{Binding MaterialName}" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource ColorTextPrimary}"/>
+                <Label Text="{Binding UnitOfMeasure, StringFormat='Unidad: {0}'}" FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="{Binding StockTotal, StringFormat='Stock: {0:N2}'}" FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
+                    <Label Text="{Binding StockMinimum, StringFormat='Mínimo: {0:N2}'}" FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                    <Button Text="✏️ Editar" Command="{Binding EditMaterialCommand}" FontSize="12" HeightRequest="30"
+                            BackgroundColor="{StaticResource ColorInfo}" TextColor="White" CornerRadius="6" Padding="8,0"/>
+                    <Button Text="🗑 Eliminar" Command="{Binding DeleteMaterialCommand}" FontSize="12" HeightRequest="30"
+                            BackgroundColor="{StaticResource ColorError}" TextColor="White" CornerRadius="6" Padding="8,0"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <VerticalStackLayout Grid.Row="1" IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center" VerticalOptions="Center" Spacing="12" ZIndex="10">
+            <ActivityIndicator IsRunning="True" Color="{StaticResource ColorPrimary}"/>
+            <Label Text="Cargando..." Style="{StaticResource BodyText}" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Lots}" IsVisible="{Binding IsSuccess}" Margin="16,8,16,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="14" Margin="0,0,0,8" BackgroundColor="{StaticResource ColorSurface}"
+                            StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <Label Text="{Binding LotNumber}" FontSize="14" FontAttributes="Bold" TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
+                            <Label Grid.Column="1" Text="{Binding Quantity, StringFormat='{0:N2}'}" FontSize="14" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorPrimary}" VerticalOptions="Center"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.EmptyView>
+                <Label Text="Este material no tiene lotes" Style="{StaticResource CaptionText}" HorizontalOptions="Center" Margin="0,20"/>
+            </CollectionView.EmptyView>
+        </CollectionView>
+
+        <Border Grid.Row="2" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+            <Button Text="Nuevo lote" Command="{Binding NewLotCommand}"
+                    BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"
+                    HeightRequest="46" CornerRadius="10" HorizontalOptions="Fill"/>
+        </Border>
+    </Grid>
+</ContentPage>

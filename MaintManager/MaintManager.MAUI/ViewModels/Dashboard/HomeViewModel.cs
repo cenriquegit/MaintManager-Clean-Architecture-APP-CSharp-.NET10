@@ -100,6 +100,7 @@ public partial class HomeViewModel : BaseViewModel
                         .Select(v => new VehicleCard
                         {
                             LicensePlate = v.LicensePlate,
+                            VehicleName = v.VehicleName,
                             Brand = v.Brand ?? "-",
                             Model = v.Model ?? "-",
                             Year = v.Year ?? 0,
@@ -150,6 +151,7 @@ public partial class HomeViewModel : BaseViewModel
     public partial class VehicleCard
     {
         public string LicensePlate { get; set; } = string.Empty;
+        public string VehicleName { get; set; } = string.Empty;
         public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
         public int Year { get; set; }

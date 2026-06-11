@@ -200,6 +200,30 @@ public sealed class InventoryController : ControllerBase
             lots.Select(l => l.ToResponse()).ToList()));
     }
 
+    /// <summary>Actualizar material. Solo Admin.</summary>
+    [HttpPut("materials/{id:int}")]
+    [Authorize(Roles = RoleNames.Admin)]
+    public async Task<IActionResult> UpdateMaterial(int id, [FromBody] MaterialCreateRequest request, CancellationToken ct)
+    {
+        var material = await _context.Materials.FirstOrDefaultAsync(m => m.Mateid == id, ct);
+        if (material is null) return NotFound(ApiResponse<object>.Fail("Material no encontrado."));
+        material.Update(request.Macaid, request.Name, request.UnitOfMeasure, request.StockMinimum);
+        await _context.SaveChangesAsync(ct);
+        return Ok(ApiResponse<object>.Ok(new { message = "Material actualizado." }));
+    }
+
+    /// <summary>Desactivar material. Solo Admin.</summary>
+    [HttpDelete("materials/{id:int}")]
+    [Authorize(Roles = RoleNames.Admin)]
+    public async Task<IActionResult> DeleteMaterial(int id, CancellationToken ct)
+    {
+        var material = await _context.Materials.FirstOrDefaultAsync(m => m.Mateid == id, ct);
+        if (material is null) return NotFound(ApiResponse<object>.Fail("Material no encontrado."));
+        material.Disable();
+        await _context.SaveChangesAsync(ct);
+        return Ok(ApiResponse<object>.Ok(new { message = "Material desactivado." }));
+    }
+
     /// <summary>Calificar un material usado en un mantenimiento.</summary>
     [HttpPost("materials/{mateid:int}/ratings")]
     [Authorize(Roles = $"{RoleNames.Admin},{RoleNames.Tecnico}")]

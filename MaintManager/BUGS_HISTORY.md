@@ -1909,8 +1909,7 @@ No es urgente porque EF Core NO detecta `RatedBy` como FK por convención (no co
 1. **Bindings en DataTemplates de Shell NO funcionan con `RelativeSource AncestorType`** — los ViewModels no son elementos visuales. Usar siempre `TapGestureRecognizer` + code-behind handlers.
 2. **`ExecuteAsync` anidado (IsBusy)** — Nunca llamar un comando que usa `ExecuteAsync` desde dentro de otro `ExecuteAsync`. El `if(IsBusy)return;` bloquea silenciosamente.
 3. **Shell 3-level routes no resuelven** — MAUI Shell solo soporta rutas de 2 niveles: `FlyoutItem/SubRoute`. `A/B/C` no funciona.
-4. **`IQueryAttributable` en PÁGINAS no en ViewModels** — Shell llama `ApplyQueryAttributes` en el ContentPage, no en su BindingContext. La página debe implementarlo y delegar.
-5. **SUNARP scrapping no es viable** — El sitio usa medidas anti-bot que requieren navegador real.
+4. **`IQueryAttributable` en PÁGINAS no en ViewModels** — Shell llama `ApplyQueryAttributes` en el ContentPage, no en suy
 6. **`StaticResource` inexistentes crashean en runtime** — Siempre verificar que los recursos usados en XAML existan en App.xaml o Resources.
 7. **Registros de config con mv_id + prcoid** — El backfill de mv_id en tablas existentes crea dual IDs que complican las queries. Idealmente usar solo mv_id en todas las tablas de config.
 8. **Filtros server-side vs client-side** — Si el filtro server-side falla por razones desconocidas, el client-side debería funcionar. Pero si ni el client-side funciona, el problema es más fundamental (probablemente en el flujo de carga de datos).

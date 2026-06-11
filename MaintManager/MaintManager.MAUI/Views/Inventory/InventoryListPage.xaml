@@ -167,29 +167,10 @@
         </RefreshView>
 
         <!-- Bottom sticky bar -->
-        <Border Grid.Row="3"
-                BackgroundColor="#1A1A2E"
-                StrokeThickness="0"
-                Padding="16,10"
-                IsVisible="{Binding IsAdmin}">
-            <HorizontalStackLayout Spacing="8" HorizontalOptions="Fill">
-                <Button Text="+ Nuevo material"
-                        Command="{Binding CreateMaterialCommand}"
-                        BackgroundColor="{StaticResource ColorSecondary}"
-                        TextColor="White"
-                        FontAttributes="Bold"
-                        HeightRequest="46"
-                        CornerRadius="10"
-                        HorizontalOptions="FillAndExpand"/>
-                <Button Text="+ Ingresar lote"
-                        Command="{Binding AddLotCommand}"
-                        BackgroundColor="#1565C0"
-                        TextColor="White"
-                        FontAttributes="Bold"
-                        HeightRequest="46"
-                        CornerRadius="10"
-                        HorizontalOptions="FillAndExpand"/>
-            </HorizontalStackLayout>
+        <Border Grid.Row="3" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+            <Button Text="Nuevo material" Command="{Binding CreateMaterialCommand}"
+                    BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"
+                    HeightRequest="46" CornerRadius="10" HorizontalOptions="Fill"/>
         </Border>
 
     </Grid>

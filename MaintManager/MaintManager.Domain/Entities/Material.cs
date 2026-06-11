@@ -75,6 +75,21 @@ public sealed class Material
 
     /// <summary>Indica si el stock está por debajo del mínimo configurado.</summary>
     public bool IsBelowMinimum() => StockTotal < StockMinimum;
+
+    public void Update(short macaid, string name, string unitOfMeasure, decimal stockMinimum)
+    {
+        Macaid = macaid;
+        Name = name;
+        UnitOfMeasure = unitOfMeasure;
+        StockMinimum = stockMinimum;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void Disable()
+    {
+        Status = false;
+        UpdatedAt = DateTime.UtcNow;
+    }
 }
 
 

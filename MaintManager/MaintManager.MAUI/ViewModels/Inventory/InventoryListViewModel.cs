@@ -87,13 +87,7 @@ public partial class InventoryListViewModel : BaseViewModel
         if (material is null) return;
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
-
-        var parameters = new Dictionary<string, object>
-        {
-            { "mateid", material.Mateid },
-            { "name", material.Name }
-        };
-        await Shell.Current.GoToAsync("///Inventory/LotList", parameters);
+        await Shell.Current.GoToAsync($"///Inventory/MaterialDetail?mateid={material.Mateid}");
     }
 
     public class ApiResponse<T>

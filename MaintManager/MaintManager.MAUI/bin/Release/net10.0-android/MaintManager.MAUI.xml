@@ -67,6 +67,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Overdue">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._overdue"/>
@@ -85,6 +86,17 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SelectedFilter">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel._selectedFilter"/>
+        </member>
+        <member name="M:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.OnSelectedFilterChanged(System.String)">
+            <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SelectedFilter"/> just changed.</summary>
+            <param name="value">The new property value that was set.</param>
+            <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SelectedFilter"/> is changed.</remarks>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.searchCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SearchCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.SearchCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.Search"/>.</summary>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.loadCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Agenda.AgendaViewModel.LoadCommand"/>.</summary>
@@ -110,6 +122,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.Alerts">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel._alerts"/>
@@ -127,6 +140,12 @@
             <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SelectedFilter"/> just changed.</summary>
             <param name="value">The new property value that was set.</param>
             <remarks>This method is invoked right after the value of <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SelectedFilter"/> is changed.</remarks>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.searchCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SearchCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.SearchCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.Search"/>.</summary>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.loadCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Alerts.AlertListViewModel.LoadCommand"/>.</summary>
@@ -411,6 +430,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.Categories">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel._categories"/>
@@ -435,6 +455,12 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.LoadCategoriesCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.LoadCategories"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.loadMaterialCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.LoadMaterialCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.LoadMaterialCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.LoadMaterial(System.Int32)"/>.</summary>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.saveCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel.SaveCommand"/>.</summary>
@@ -570,6 +596,52 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotListViewModel.DiscardLotCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.LotListViewModel.DiscardLot(MaintManager.MAUI.ViewModels.Inventory.LotItem)"/>.</summary>
+        </member>
+        <member name="T:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.MaterialName">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel._materialName"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.UnitOfMeasure">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel._unitOfMeasure"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.StockTotal">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel._stockTotal"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.StockMinimum">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel._stockMinimum"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.Lots">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel._lots"/>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.loadCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.LoadCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.LoadCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.Load"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.newLotCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.NewLotCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.NewLotCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.NewLot"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.editMaterialCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.EditMaterialCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.EditMaterialCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.EditMaterial"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.deleteMaterialCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.DeleteMaterialCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.DeleteMaterialCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Inventory.MaterialDetailViewModel.DeleteMaterial"/>.</summary>
         </member>
         <member name="T:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceDetailViewModel">
             <inheritdoc/>
@@ -1621,6 +1693,9 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Lots">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Lots" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.StockTotal">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "StockTotal" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MaintenanceDetail">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MaintenanceDetail" generated properties.</summary>
         </member>
@@ -2097,6 +2172,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Lots">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Lots" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.StockTotal">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "StockTotal" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MaintenanceDetail">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MaintenanceDetail" generated properties.</summary>

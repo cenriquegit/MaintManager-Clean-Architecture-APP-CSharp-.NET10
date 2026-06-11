@@ -1,17 +1,21 @@
-// MaintManager.MAUI/Views/Inventory/LotCreatePage.xaml.cs
 namespace MaintManager.MAUI.Views.Inventory;
 using MaintManager.MAUI.ViewModels.Inventory;
 
-public partial class LotCreatePage : ContentPage
+public partial class LotCreatePage : ContentPage, IQueryAttributable
 {
+    private readonly LotCreateViewModel _viewModel;
+
     public LotCreatePage(LotCreateViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = viewModel;
+        BindingContext = _viewModel = viewModel;
     }
 
+    public void ApplyQueryAttributes(IDictionary<string, object> query) =>
+        _viewModel.ApplyQueryAttributes(query);
+
     protected override void OnAppearing() =>
-        (BindingContext as LotCreateViewModel)?.LoadMaterialsCommand.Execute(null);
+        _viewModel.LoadMaterialsCommand.Execute(null);
 
     private async void OnCancelClicked(object sender, EventArgs e) =>
         await Shell.Current.GoToAsync("..");

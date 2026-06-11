@@ -50,7 +50,10 @@
                                TextColor="{StaticResource ColorError}" Margin="0,8,0,4"/>
                     </CollectionView.Header>
                     <CollectionView.EmptyView>
-                        <Label Text="No hay vehículos con KM vencido ✓" Style="{StaticResource CaptionText}" Margin="8,4" TextColor="{StaticResource Gray500}"/>
+                        <Border Padding="14" BackgroundColor="{StaticResource ColorSurface}"
+                                StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1" Margin="0,0,0,8">
+                            <Label Text="No hay vehículos con KM vencido ✓" Style="{StaticResource CaptionText}" TextColor="{StaticResource Gray500}" HorizontalOptions="Center"/>
+                        </Border>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -76,7 +79,10 @@
                                TextColor="{StaticResource ColorWarning}" Margin="0,4"/>
                     </CollectionView.Header>
                     <CollectionView.EmptyView>
-                        <Label Text="No hay vehículos en zona de alerta ✓" Style="{StaticResource CaptionText}" Margin="8,4" TextColor="{StaticResource Gray500}"/>
+                        <Border Padding="14" BackgroundColor="{StaticResource ColorSurface}"
+                                StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1" Margin="0,0,0,8">
+                            <Label Text="No hay vehículos en zona de alerta ✓" Style="{StaticResource CaptionText}" TextColor="{StaticResource Gray500}" HorizontalOptions="Center"/>
+                        </Border>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -102,7 +108,10 @@
                                TextColor="{StaticResource ColorSuccess}" Margin="0,4"/>
                     </CollectionView.Header>
                     <CollectionView.EmptyView>
-                        <Label Text="No hay vehículos en servicio actualmente" Style="{StaticResource CaptionText}" Margin="8,4" TextColor="{StaticResource Gray500}"/>
+                        <Border Padding="14" BackgroundColor="{StaticResource ColorSurface}"
+                                StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1" Margin="0,0,0,8">
+                            <Label Text="No hay vehículos en servicio actualmente" Style="{StaticResource CaptionText}" TextColor="{StaticResource Gray500}" HorizontalOptions="Center"/>
+                        </Border>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -128,12 +137,25 @@
                             <Label Text="{Binding Ok.Count, StringFormat='({0})'}" FontSize="11" TextColor="{StaticResource Gray500}" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                     </CollectionView.Header>
+                    <CollectionView.EmptyView>
+                        <Border Padding="14" BackgroundColor="{StaticResource ColorSurface}"
+                                StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1" Margin="0,0,0,8">
+                            <Label Text="Todos los vehículos requieren atención o están en servicio" Style="{StaticResource CaptionText}" HorizontalOptions="Center"/>
+                        </Border>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="8,4" ColumnDefinitions="*,Auto">
-                                <Label Text="{Binding Plate}" FontSize="14" TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
-                                <Label Grid.Column="1" Text="{Binding KmLine}" FontSize="12" TextColor="{StaticResource Gray500}" VerticalOptions="Center"/>
-                            </Grid>
+                            <Border Padding="14" Margin="0,0,0,8" BackgroundColor="{StaticResource ColorSurface}"
+                                    StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnItemTapped"/>
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="2">
+                                    <Label Text="{Binding Plate}" FontSize="15" FontAttributes="Bold" TextColor="{StaticResource ColorTextPrimary}"/>
+                                    <Label Text="{Binding VehicleName}" FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
+                                    <Label Text="{Binding KmLine}" FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
+                                </VerticalStackLayout>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
