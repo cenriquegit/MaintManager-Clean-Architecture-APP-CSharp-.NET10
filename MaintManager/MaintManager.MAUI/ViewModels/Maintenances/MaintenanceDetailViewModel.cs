@@ -11,13 +11,17 @@ namespace MaintManager.MAUI.ViewModels.Maintenances;
 public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributable
 {
     private readonly ApiService _apiService;
+    private readonly AuthService _authService;
     private int _mainid;
 
-    public MaintenanceDetailViewModel(ApiService apiService)
+    public MaintenanceDetailViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
+        _authService = authService;
         Title = "Detalle de Orden";
     }
+
+    public bool IsAdmin => _authService.IsAdmin();
 
     [ObservableProperty]
     private MaintenanceDetailResponse? _maintenanceDetail;
@@ -28,9 +32,6 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     }
 
     public bool IsReadOnly => MaintenanceDetail?.Status == "FI";
-
-    [ObservableProperty]
-    private ObservableCollection<ActionDetailItem> _actionDetails = new();
 
     [ObservableProperty]
     private DiagnosisResponse? _diagnosis;
@@ -66,50 +67,18 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     [ObservableProperty]
     private string _futureRecommendations = string.Empty;
 
-    // ── Action catalog for Add Action picker ────────────────────
-    [ObservableProperty]
-    private ObservableCollection<ActionCatalogOption> _actionCatalogItems = new();
+    // ═══════════════════════════════════════════════════════════════
+    // CHECKLISTS (reemplazan los Pickers + botón "+")
+    // ═══════════════════════════════════════════════════════════════
 
     [ObservableProperty]
-    private ActionCatalogOption? _selectedActionCatalog;
+    private ObservableCollection<ActionChecklistItem> _actionChecklist = new();
 
-    [RelayCommand]
-    private void AddAction()
-    {
-        if (SelectedActionCatalog is null) return;
-        ActionDetails.Add(new ActionDetailItem
-        {
-            ActionId = SelectedActionCatalog.Acatid,
-            Name = SelectedActionCatalog.Name,
-            Description = SelectedActionCatalog.Category ?? string.Empty,
-            IsCompleted = false,
-            IsPending = true
-        });
-        SelectedActionCatalog = null;
-    }
-
-    [RelayCommand]
-    private void RemoveAction(ActionDetailItem action)
-    {
-        ActionDetails.Remove(action);
-    }
-
-    // ── Consumed materials local list ─────────────────────────
     [ObservableProperty]
-    private ObservableCollection<ConsumedMaterialItem> _consumedMaterials = new();
+    private ObservableCollection<MaterialChecklistItem> _materialChecklist = new();
 
-    [RelayCommand]
-    private void RemoveConsumedMaterial(ConsumedMaterialItem item)
-    {
-        ConsumedMaterials.Remove(item);
-    }
-
-    // ── Remove component locally ──────────────────────────────
-    [RelayCommand]
-    private void RemoveComponentLocal(ComponentItem component)
-    {
-        Components.Remove(component);
-    }
+    [ObservableProperty]
+    private ObservableCollection<ComponentChecklistItem> _componentChecklist = new();
 
     [RelayCommand]
     private void ToggleOilInfo()
@@ -134,10 +103,6 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         await ExecuteAsync(async () =>
         {
-            // 1. Persist pending actions first
-            await PersistPendingActionsAsync();
-
-            // 2. Save diagnosis with all fields
             var request = new
             {
                 GeneralStatus = SelectedGeneralStatus,
@@ -154,48 +119,50 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         if (!HasError) await Load();
     }
 
-    private async Task PersistPendingActionsAsync()
+    private async Task PersistChecklistItemsAsync()
     {
-        var pending = ActionDetails.Where(a => a.IsPending).ToList();
-        foreach (var action in pending)
+        // Acciones marcadas como "Realizado"
+        foreach (var item in ActionChecklist.Where(a => a.IsDone && !a.WasAlreadyDone))
         {
             try
             {
-                var actionsEndpoint = ApiRoutes.Maintenances.CreateAction
-                    .Replace("{id}", _mainid.ToString());
-                await _apiService.PostAsync<object>(actionsEndpoint, new
-                {
-                    ActionCatalogId = action.ActionId
-                });
+                var endpoint = ApiRoutes.Maintenances.CreateAction.Replace("{id}", _mainid.ToString());
+                await _apiService.PostAsync<object>(endpoint, new { ActionCatalogId = item.Acatid });
             }
-            catch
-            {
-            }
+            catch { }
         }
 
-        // Persist pending ratings (materials consumed with local ratings)
-        foreach (var item in ConsumedMaterials.Where(c => c.Rating > 0))
+        // Materiales marcados como "Usado" con cantidad > 0
+        foreach (var item in MaterialChecklist.Where(m => m.IsDone && m.Quantity > 0))
         {
             try
             {
-                // Get the mateid from the current available materials
-                var material = AvailableMaterials.FirstOrDefault(m =>
-                    m.Name == item.MaterialName);
-                if (material is null) continue;
-
-                var rateEndpoint = ApiRoutes.Inventory.RateMaterial
-                    .Replace("{mateid}", material.Mateid.ToString());
-                await _apiService.PostAsync<object>(rateEndpoint, new
+                var endpoint = ApiRoutes.Maintenances.ConsumeMaterial.Replace("{id}", _mainid.ToString());
+                await _apiService.PostAsync<object>(endpoint, new
                 {
-                    Mateid = material.Mateid,
-                    Mainid = _mainid,
-                    Rating = (short)item.Rating,
-                    Observation = item.RatingObservation
+                    Mateid = item.Mateid,
+                    Quantity = item.Quantity,
+                    Origin = item.Origin
                 });
             }
-            catch
+            catch { }
+        }
+
+        // Componentes marcados como "Instalado"
+        foreach (var item in ComponentChecklist.Where(c => c.IsDone && !c.WasAlreadyInstalled))
+        {
+            try
             {
+                var endpoint = ApiRoutes.Maintenances.InstallComponent.Replace("{id}", _mainid.ToString());
+                await _apiService.PostAsync<object>(endpoint, new
+                {
+                    ActionCatalogId = item.Acatid,
+                    Quantity = item.Quantity > 0 ? item.Quantity : 1,
+                    LotId = (int?)null,
+                    UsefulLifeDays = (int?)null
+                });
             }
+            catch { }
         }
     }
 
@@ -220,14 +187,10 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             if (detail is not null)
             {
                 MaintenanceDetail = detail;
-                ActionDetails = new ObservableCollection<ActionDetailItem>(
-                    detail.Actions?.Select(a => { a.IsPending = false; return a; }) ?? new List<ActionDetailItem>());
                 Diagnosis = detail.Diagnosis;
                 DiagnosisSaved = detail.Diagnosis is not null;
                 CanClose = detail.Status == "AC" && DiagnosisSaved;
                 CanCancel = detail.Status == "AC";
-                Components = new ObservableCollection<ComponentItem>(
-                    detail.Components ?? new List<ComponentItem>());
                 IsEmpty = false;
             }
             else
@@ -235,13 +198,41 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                 throw new Exception("No se encontró la orden de mantenimiento.");
             }
 
-            await LoadMaterialsAsync();
+            await LoadActionChecklistAsync();
+            await LoadMaterialChecklistAsync();
+            await LoadComponentChecklistAsync();
             await LoadTechniciansAsync();
-            await LoadComponentActionsAsync();
         });
     }
 
-    private async Task LoadMaterialsAsync()
+    private async Task LoadActionChecklistAsync()
+    {
+        try
+        {
+            var allowedIds = new HashSet<int>(MaintenanceDetail?.AllowedActionIds ?? new List<int>());
+            var existingIds = new HashSet<int>(MaintenanceDetail?.Actions?.Select(a => a.ActionId) ?? new List<int>());
+            var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(ApiRoutes.Maintenances.ActionCatalog);
+            var all = raw?.Data ?? new List<ActionCatalogOption>();
+            var actionsOnly = all.Where(a => a.Category is not null && a.Category.Contains("Acción")).ToList();
+
+            if (allowedIds.Count > 0)
+                actionsOnly = actionsOnly.Where(a => allowedIds.Contains(a.Acatid)).ToList();
+
+            ActionChecklist = new ObservableCollection<ActionChecklistItem>(
+                actionsOnly.Select(a => new ActionChecklistItem
+                {
+                    Acatid = a.Acatid,
+                    GroupKey = $"action_{a.Acatid}",
+                    Name = a.Name,
+                    Detail = a.Category,
+                    IsDone = existingIds.Contains(a.Acatid),
+                    WasAlreadyDone = existingIds.Contains(a.Acatid)
+                }));
+        }
+        catch { }
+    }
+
+    private async Task LoadMaterialChecklistAsync()
     {
         try
         {
@@ -250,32 +241,49 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             var materials = raw?.Data ?? new List<MaterialItemDto>();
             if (allowedIds.Count > 0)
                 materials = materials.Where(m => allowedIds.Contains(m.Mateid)).ToList();
-            AvailableMaterials = new ObservableCollection<MaterialOption>(
-                materials.Select(m => new MaterialOption { Mateid = m.Mateid, Name = m.Name, UnitOfMeasure = m.UnitOfMeasure }));
+
+            MaterialChecklist = new ObservableCollection<MaterialChecklistItem>(
+                materials.Select(m => new MaterialChecklistItem
+                {
+                    Mateid = m.Mateid,
+                    GroupKey = $"mat_{m.Mateid}",
+                    Name = m.Name,
+                    Detail = m.UnitOfMeasure,
+                    StockAvailable = m.StockTotal,
+                    Quantity = 0
+                }));
         }
         catch { }
     }
 
-    private async Task LoadComponentActionsAsync()
+    private async Task LoadComponentChecklistAsync()
     {
         try
         {
-            var allowedActionIds = new HashSet<int>(MaintenanceDetail?.AllowedActionIds ?? new List<int>());
-            var allowedComponentIds = new HashSet<int>(MaintenanceDetail?.AllowedComponentIds ?? new List<int>());
+            var allowedIds = new HashSet<int>(MaintenanceDetail?.AllowedComponentIds ?? new List<int>());
+            var existingNames = new HashSet<string>(MaintenanceDetail?.Components?.Select(c => c.ComponentName) ?? new List<string>());
+
             var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(ApiRoutes.Maintenances.ActionCatalog);
             var all = raw?.Data ?? new List<ActionCatalogOption>();
-            if (allowedActionIds.Count > 0 || allowedComponentIds.Count > 0)
-            {
-                all = all.Where(a =>
+            var compsOnly = all.Where(a => a.Category is not null && a.Category.Contains("Componente")).ToList();
+
+            if (allowedIds.Count > 0)
+                compsOnly = compsOnly.Where(a => allowedIds.Contains(a.Acatid)).ToList();
+
+            ComponentChecklist = new ObservableCollection<ComponentChecklistItem>(
+                compsOnly.Select(a =>
                 {
-                    var isComp = a.Category is not null && a.Category.Contains("Componente");
-                    return isComp ? allowedComponentIds.Contains(a.Acatid) : allowedActionIds.Contains(a.Acatid);
-                }).ToList();
-            }
-            ComponentActions = new ObservableCollection<ActionCatalogOption>(
-                all.Where(a => a.Category is not null && a.Category.Contains("Componente")));
-            ActionCatalogItems = new ObservableCollection<ActionCatalogOption>(
-                all.Where(a => a.Category is not null && a.Category.Contains("Acción")));
+                    var alreadyInstalled = existingNames.Contains(a.Name);
+                    return new ComponentChecklistItem
+                    {
+                        Acatid = a.Acatid,
+                        GroupKey = $"comp_{a.Acatid}",
+                        Name = a.Name,
+                        Detail = a.Category,
+                        IsDone = alreadyInstalled,
+                        WasAlreadyInstalled = alreadyInstalled
+                    };
+                }));
         }
         catch { }
     }
@@ -311,170 +319,29 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         if (!HasError) await Load();
     }
 
-    public sealed class ApiResponse<T>
-    {
-        public bool Success { get; set; }
-        public T? Data { get; set; }
-    }
-
-    public sealed class MaterialOption
-    {
-        public int Mateid { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string UnitOfMeasure { get; set; } = string.Empty;
-        public override string ToString() => $"{Name} ({UnitOfMeasure})";
-    }
-
-    [RelayCommand]
-    private async Task CompleteAction(ActionDetailItem action)
-    {
-        await ExecuteAsync(async () =>
-        {
-            var endpoint = ApiRoutes.Maintenances.CompleteAction
-                .Replace("{id}", _mainid.ToString())
-                .Replace("{actionId}", action.ActionId.ToString());
-            await _apiService.PutAsync<object>(endpoint);
-            action.IsCompleted = true;
-        });
-    }
-
-    [ObservableProperty]
-    private ObservableCollection<MaterialOption> _availableMaterials = new();
-
-    [ObservableProperty]
-    private MaterialOption? _selectedMaterial;
-
-    partial void OnSelectedMaterialChanged(MaterialOption? value)
-    {
-        _ = LoadSelectedMaterialLotInfo(value);
-    }
-
-    [ObservableProperty]
-    private string _consumeQuantity = string.Empty;
-
-    // FIFO lot info for selected material
-    [ObservableProperty]
-    private bool _showLotInfo;
-
-    [ObservableProperty]
-    private string _lotNumberDisplay = string.Empty;
-
-    [ObservableProperty]
-    private string _lotExpiryDisplay = string.Empty;
-
-    [ObservableProperty]
-    private string _lotCostDisplay = string.Empty;
-
-    private async Task LoadSelectedMaterialLotInfo(MaterialOption? material)
-    {
-        if (material is null)
-        {
-            ShowLotInfo = false;
-            return;
-        }
-        try
-        {
-            var endpoint = ApiRoutes.Inventory.GetMaterialLots.Replace("{id}", material.Mateid.ToString());
-            var response = await _apiService.GetAsync<ApiResponse<List<LotInfo>>>(endpoint);
-            if (response?.Success == true && response.Data is not null && response.Data.Count > 0)
-            {
-                var firstLot = response.Data[0]; // FIFO: primero que vence
-                LotNumberDisplay = string.IsNullOrEmpty(firstLot.SupplierLotNumber) ? "S/N" : firstLot.SupplierLotNumber;
-                LotExpiryDisplay = firstLot.ExpirationDate ?? "Sin vencimiento";
-                LotCostDisplay = $"S/ {firstLot.UnitCost:N2}";
-                ShowLotInfo = true;
-            }
-            else
-            {
-                ShowLotInfo = false;
-            }
-        }
-        catch
-        {
-            ShowLotInfo = false;
-        }
-    }
-
-    [ObservableProperty]
-    private ObservableCollection<TechnicianOption> _technicians = new();
-
-    [ObservableProperty]
-    private TechnicianOption? _selectedTechnician;
-
-    [RelayCommand]
-    private async Task ConsumeMaterial()
-    {
-        if (SelectedMaterial is null || !decimal.TryParse(ConsumeQuantity, out var qty) || qty <= 0)
-        {
-            ErrorMessage = "Selecciona un material y una cantidad válida.";
-            HasError = true;
-            return;
-        }
-
-        var mateConsumed = SelectedMaterial.Mateid;
-        var nameConsumed = SelectedMaterial.Name;
-
-        await ExecuteAsync(async () =>
-        {
-            var request = new { Mateid = mateConsumed, Quantity = qty };
-            var endpoint = ApiRoutes.Maintenances.ConsumeMaterial.Replace("{id}", _mainid.ToString());
-            await _apiService.PostAsync<object>(endpoint, request);
-
-            ConsumedMaterials.Add(new ConsumedMaterialItem
-            {
-                MaterialName = nameConsumed,
-                LotNumber = LotNumberDisplay,
-                UnitCost = decimal.TryParse(LotCostDisplay.Replace("S/ ", ""), out var c) ? c : 0,
-                Quantity = qty
-            });
-
-            ConsumeQuantity = string.Empty;
-            SelectedMaterial = null;
-        });
-        if (!HasError) await Load();
-
-        // Preguntar si quiere calificar el material recién consumido
-        var rate = await Shell.Current.DisplayAlert("Calificar material",
-            $"¿Deseas calificar {nameConsumed}?", "Sí, calificar", "No, gracias");
-
-        if (rate)
-        {
-            var rating = await Shell.Current.DisplayActionSheet(
-                $"Califica {nameConsumed} (1-5 estrellas)", "Cancelar", null,
-                "⭐ 1 - Malo", "⭐⭐ 2 - Regular", "⭐⭐⭐ 3 - Bueno",
-                "⭐⭐⭐⭐ 4 - Muy bueno", "⭐⭐⭐⭐⭐ 5 - Excelente");
-
-            if (rating is not null && rating != "Cancelar")
-            {
-                var stars = rating.Count(c => c == '⭐');
-                if (stars > 0)
-                {
-                    var observation = await Shell.Current.DisplayPromptAsync(
-                        "Observación (opcional)",
-                        "Agrega un comentario sobre el material:",
-                        "Guardar", "Omitir",
-                        placeholder: "ej: Buen rendimiento, llegó en buen estado...");
-
-                    // Guardar rating LOCALMENTE
-                    var lastConsumed = ConsumedMaterials.LastOrDefault();
-                    if (lastConsumed is not null)
-                    {
-                        lastConsumed.Rating = stars;
-                        lastConsumed.RatingObservation = string.IsNullOrWhiteSpace(observation)
-                            ? null : observation;
-                    }
-                }
-            }
-        }
-    }
-
     [RelayCommand]
     private async Task CloseOrder()
     {
+        bool? isEmergencyComplete = null;
+
+        var isEmergency = MaintenanceDetail?.MaintenanceType == "Emergencia";
+        if (isEmergency)
+        {
+            var choice = await Shell.Current.DisplayActionSheet(
+                "¿La emergencia fue completa o parcial?",
+                "Cancelar", null,
+                "Completa (recalendariza próximo servicio)",
+                "Parcial (solo lo urgente, no recalendariza)");
+
+            if (choice is null || choice == "Cancelar") return;
+            isEmergencyComplete = choice.Contains("Completa");
+        }
+
         await ExecuteAsync(async () =>
         {
+            await PersistChecklistItemsAsync();
             var endpoint = ApiRoutes.Maintenances.Close.Replace("{id}", _mainid.ToString());
-            await _apiService.PutAsync<object>(endpoint, new { IsEmergencyComplete = false });
+            await _apiService.PutAsync<object>(endpoint, new { IsEmergencyComplete = isEmergencyComplete });
             await Shell.Current.GoToAsync("..");
         });
     }
@@ -492,49 +359,6 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             await _apiService.PutAsync<object>(endpoint);
             await Shell.Current.GoToAsync("..");
         });
-    }
-
-    // ── Installed Components ──────────────────────────────────────
-
-    [ObservableProperty]
-    private ObservableCollection<ComponentItem> _components = new();
-
-    // ── Install Component ──────────────────────────────────────
-
-    [ObservableProperty]
-    private ObservableCollection<ActionCatalogOption> _componentActions = new();
-
-    [ObservableProperty]
-    private ActionCatalogOption? _selectedComponent;
-
-    partial void OnSelectedComponentChanged(ActionCatalogOption? value)
-    {
-        OnPropertyChanged(nameof(ComponentHelpText));
-    }
-
-    public string? ComponentHelpText => SelectedComponent switch
-    {
-        { } c when c.Name is not null && c.Category is not null =>
-            $"📌 {c.Name} ({c.Category}). Al instalarlo se registrará su vida útil para generar alertas de caducidad.",
-        _ => null
-    };
-
-    [RelayCommand]
-    private async Task InstallComponent()
-    {
-        await ExecuteAsync(async () =>
-        {
-            if (SelectedComponent is null) return;
-            var endpoint = ApiRoutes.Maintenances.InstallComponent.Replace("{id}", _mainid.ToString());
-            await _apiService.PostAsync<object>(endpoint, new
-            {
-                ActionCatalogId = SelectedComponent.Acatid,
-                LotId = (int?)null,
-                UsefulLifeDays = (int?)null
-            });
-            SelectedComponent = null;
-        });
-        if (!HasError) await Load();
     }
 
     [RelayCommand]
@@ -562,6 +386,138 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             });
         });
     }
+
+    [ObservableProperty]
+    private ObservableCollection<TechnicianOption> _technicians = new();
+
+    [ObservableProperty]
+    private TechnicianOption? _selectedTechnician;
+
+    public sealed class ApiResponse<T>
+    {
+        public bool Success { get; set; }
+        public T? Data { get; set; }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // CHECKLIST ITEM CLASSES
+    // ═══════════════════════════════════════════════════════════════
+
+    public partial class ActionChecklistItem : ObservableObject
+    {
+        public int Acatid { get; set; }
+        public string GroupKey { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string? Detail { get; set; }
+
+        [ObservableProperty]
+        private bool _isDone;
+
+        [ObservableProperty]
+        private bool _isNotDone = true;
+
+        public string StatusIcon => IsDone ? "✅" : "—";
+
+        public bool WasAlreadyDone { get; set; }
+
+        public bool IsReadOnly { get; set; }
+    }
+
+    public partial class MaterialChecklistItem : ObservableObject
+    {
+        public int Mateid { get; set; }
+        public string GroupKey { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string? Detail { get; set; }
+
+        [ObservableProperty]
+        private bool _isDone;
+
+        [ObservableProperty]
+        private bool _isNotDone = true;
+
+        [ObservableProperty]
+        private decimal _quantity;
+
+        [ObservableProperty]
+        private string _origin = "Stock propio";
+
+        [ObservableProperty]
+        private decimal _stockAvailable;
+
+        [ObservableProperty]
+        private string _stockNote = string.Empty;
+
+        public List<string> OriginOptions { get; } = new() { "Stock propio", "Externo" };
+
+        public string StatusIcon => IsDone ? "✅" : "—";
+
+        public string StatusDetail => IsDone
+            ? (Quantity > 0 ? $"✅ {Quantity} {Detail ?? ""} ({Origin})" : "✅")
+            : "—";
+
+        partial void OnIsDoneChanged(bool value)
+        {
+            OnPropertyChanged(nameof(StatusDetail));
+            UpdateStockNote();
+        }
+
+        partial void OnOriginChanged(string value)
+        {
+            OnPropertyChanged(nameof(StatusDetail));
+            UpdateStockNote();
+        }
+
+        partial void OnQuantityChanged(decimal value) => OnPropertyChanged(nameof(StatusDetail));
+
+        private void UpdateStockNote()
+        {
+            if (IsDone && StockAvailable > 0)
+                StockNote = $"📦 Stock: {StockAvailable} {Detail ?? ""}";
+            else if (IsDone && StockAvailable <= 0 && Origin == "Stock propio")
+                StockNote = "⚠ Sin stock disponible";
+            else if (IsDone && Origin == "Externo")
+                StockNote = "📦 Material externo (no descuenta stock)";
+            else
+                StockNote = string.Empty;
+        }
+
+        public bool IsReadOnly { get; set; }
+    }
+
+    public partial class ComponentChecklistItem : ObservableObject
+    {
+        public int Acatid { get; set; }
+        public string GroupKey { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string? Detail { get; set; }
+
+        [ObservableProperty]
+        private bool _isDone;
+
+        [ObservableProperty]
+        private bool _isNotDone = true;
+
+        [ObservableProperty]
+        private decimal _quantity;
+
+        public string StatusIcon => IsDone ? "✅" : "—";
+
+        public string StatusDetail => IsDone
+            ? (Quantity > 0 ? $"✅ {Quantity} unid." : "✅")
+            : "—";
+
+        partial void OnIsDoneChanged(bool value) => OnPropertyChanged(nameof(StatusDetail));
+        partial void OnQuantityChanged(decimal value) => OnPropertyChanged(nameof(StatusDetail));
+
+        public bool WasAlreadyInstalled { get; set; }
+
+        public bool IsReadOnly { get; set; }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // DTOs / RESPONSE CLASSES
+    // ═══════════════════════════════════════════════════════════════
 
     public class MaintenanceDetailResponse
     {
@@ -647,52 +603,11 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         public string FullName { get; set; } = string.Empty;
     }
 
-    public sealed class LotInfo
-    {
-        public decimal UnitCost { get; set; }
-        public string? ExpirationDate { get; set; }
-        public string? SupplierLotNumber { get; set; }
-    }
-
     public class ActionCatalogOption
     {
         public int Acatid { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Category { get; set; }
         public override string ToString() => Name;
-    }
-
-    public class ConsumedMaterialItem
-    {
-        public string MaterialName { get; set; } = string.Empty;
-        public string LotNumber { get; set; } = string.Empty;
-        public decimal UnitCost { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal TotalCost => UnitCost * Quantity;
-        public int Rating { get; set; }
-        public string? RatingObservation { get; set; }
-        public override string ToString() => $"{MaterialName} ({LotNumber})";
-    }
-
-    public class VehicleConfigRaw
-    {
-        public int Prcoid { get; set; }
-        public List<ActionConfigRaw>? AllowedActions { get; set; }
-        public List<MaterialConfigRaw>? AllowedMaterials { get; set; }
-        public List<ActionConfigRaw>? AllowedComponents { get; set; }
-    }
-
-    public class ActionConfigRaw
-    {
-        public int Acatid { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string? Category { get; set; }
-    }
-
-    public class MaterialConfigRaw
-    {
-        public int Mateid { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string? UnitOfMeasure { get; set; }
     }
 }

@@ -13,7 +13,7 @@ public interface IInventoryService
     /// Si el consumo abarca más de un lote, genera múltiples registros de MaterialConsumption.
     /// </summary>
     Task<IReadOnlyList<int>> ConsumeStockFifoAsync(int mateid, decimal quantity,
-        int mainid, CancellationToken ct = default);
+        int mainid, string? origin = null, CancellationToken ct = default);
 
     Task DiscardLotAsync(int maloid, decimal quantity, string reason,
         int discardedBy, string? note, CancellationToken ct = default);

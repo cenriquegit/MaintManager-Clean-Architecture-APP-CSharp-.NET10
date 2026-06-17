@@ -63,7 +63,6 @@
                                Text="{Binding MaintenanceDetail.OrderNumber}"
                                FontSize="18" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
                         <Border Grid.Row="0" Grid.Column="1"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 99"
@@ -73,13 +72,11 @@
                                    FontSize="12" FontAttributes="Bold"
                                    TextColor="{StaticResource ColorInfo}"/>
                         </Border>
-
                         <Label Grid.Row="1" Grid.ColumnSpan="2"
                                Text="{Binding MaintenanceDetail.VehicleName}"
                                FontSize="16" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"
                                Margin="0,2,0,0"/>
-
                         <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="16"
                                                Margin="0,2,0,0">
                             <Label Text="{Binding MaintenanceDetail.LicensePlate, StringFormat='Placa: {0}'}"
@@ -89,8 +86,6 @@
                                    FontSize="13"
                                    TextColor="{StaticResource ColorTextSecondary}"/>
                         </HorizontalStackLayout>
-
-                        <!-- Oil info inline -->
                         <Label Grid.Row="3" Grid.ColumnSpan="2"
                                FontSize="11" Margin="0,1,0,0"
                                TextColor="{StaticResource ColorTextSecondary}">
@@ -122,7 +117,6 @@
                         <Label Text="Información General"
                                FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
                         <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
                               ColumnDefinitions="Auto,*"
                               RowSpacing="6" ColumnSpacing="10"
@@ -131,15 +125,12 @@
                             <Label Grid.Row="0" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.MaintenanceType}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-
                             <Label Grid.Row="1" Grid.Column="0" Text="Tipo de Mantenimiento:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="1" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.ServiceType}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-
                             <Label Grid.Row="2" Grid.Column="0" Text="Fecha:" Style="{StaticResource CaptionText}"/>
-                            <Label Grid.Row="2" Grid.Column="1"
-                                   TextColor="{StaticResource ColorTextPrimary}">
+                            <Label Grid.Row="2" Grid.Column="1" TextColor="{StaticResource ColorTextPrimary}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="{Binding MaintenanceDetail.MaintenanceDate, StringFormat='{0:dd/MM/yyyy}'}"/>
@@ -149,23 +140,19 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-
                             <Label Grid.Row="3" Grid.Column="0" Text="Kilometraje:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="3" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.Mileage, StringFormat='{0:N0} km'}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-
                             <Label Grid.Row="4" Grid.Column="0" Text="Técnico:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="4" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.AssignedToName}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-
                             <Label Grid.Row="5" Grid.Column="0" Text="Origen:" Style="{StaticResource CaptionText}"/>
                             <Label Grid.Row="5" Grid.Column="1"
                                    Text="{Binding MaintenanceDetail.OriginService}"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                         </Grid>
-
                         <Button Text="Ver historial completo del vehículo"
                                 Command="{Binding ViewVehicleHistoryCommand}"
                                 FontSize="12" HeightRequest="34" Padding="10,0"
@@ -175,7 +162,9 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Acciones Realizadas: Picker + add button + list -->
+                <!-- ═══════════════════════════════════════════════ -->
+                <!-- ACCIONES — Checklist -->
+                <!-- ═══════════════════════════════════════════════ -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
                         StrokeThickness="1" Padding="12"
@@ -184,281 +173,264 @@
                         <Label Text="Acciones Realizadas"
                                FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <!-- Input: visible solo en orden activa -->
-                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6"
-                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
-                            <Border StrokeShape="RoundRectangle 8"
-                                    Stroke="{StaticResource ColorBorder}"
-                                    StrokeThickness="1" Padding="4,0">
-                                <Picker ItemsSource="{Binding ActionCatalogItems}"
-                                        SelectedItem="{Binding SelectedActionCatalog}"
-                                        ItemDisplayBinding="{Binding .}"
-                                        Title="Seleccionar acción..."
-                                        Style="{StaticResource FormPicker}"
-                                        HorizontalOptions="FillAndExpand"/>
-                            </Border>
-                            <Button Grid.Column="1" Text="+"
-                                    Command="{Binding AddActionCommand}"
-                                    Style="{StaticResource AccentButton}"
-                                    FontSize="20" FontAttributes="Bold"
-                                    HeightRequest="44" WidthRequest="44"
-                                    CornerRadius="22" Padding="0"/>
-                        </Grid>
-
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
 
-                        <CollectionView ItemsSource="{Binding ActionDetails}">
+                        <CollectionView ItemsSource="{Binding ActionChecklist}">
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="vm:ActionDetailItem">
-                                    <Grid ColumnDefinitions="Auto,*,Auto" Padding="0,4">
-                                        <CheckBox IsChecked="{Binding IsCompleted}"
-                                                  IsEnabled="False"
-                                                  Color="{StaticResource ColorPrimary}"
-                                                  IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"/>
-                                        <VerticalStackLayout Grid.Column="1" Spacing="1" Margin="8,0,0,0">
+                                <DataTemplate x:DataType="vm:ActionChecklistItem">
+                                    <Grid ColumnDefinitions="36,*,36" Padding="0,3" ColumnSpacing="6">
+                                        <!-- Edit mode: RadioButton "Sí" -->
+                                        <RadioButton GroupName="{Binding GroupKey}"
+                                                     IsChecked="{Binding IsDone, Mode=TwoWay}"
+                                                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                     VerticalOptions="Center"/>
+                                        <!-- ReadOnly mode: Status icon -->
+                                        <Label Text="{Binding StatusIcon}" FontSize="14"
+                                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly}"
+                                               HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                                        <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
                                             <Label Text="{Binding Name}"
-                                                   FontSize="14" FontAttributes="Bold"
+                                                   FontSize="13" FontAttributes="Bold"
                                                    TextColor="{StaticResource ColorTextPrimary}"/>
-                                            <Label Text="{Binding Description}"
-                                                   Style="{StaticResource CaptionText}"
-                                                   LineBreakMode="WordWrap"/>
-                                        </VerticalStackLayout>
-                                        <Button Grid.Column="2"
-                                                Text="✕"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=RemoveActionCommand}"
-                                                CommandParameter="{Binding .}"
-                                                BackgroundColor="{StaticResource ColorErrorContainer}"
-                                                TextColor="{StaticResource ColorError}"
-                                                FontSize="12" FontAttributes="Bold"
-                                                HeightRequest="30" WidthRequest="30"
-                                                CornerRadius="15" Padding="0"
-                                                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                            <CollectionView.EmptyView>
-                                <Label Text=" No hay acciones registradas. Agrega una desde el selector."
-                                       Style="{StaticResource CaptionText}" Margin="0,8"/>
-                            </CollectionView.EmptyView>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </Border>
-
-                <!-- Consumir Material: picker + quantity + list -->
-                <Border StrokeShape="RoundRectangle 12"
-                        Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="12"
-                        BackgroundColor="{StaticResource ColorSurface}">
-                    <VerticalStackLayout Spacing="8">
-                        <Label Text="Consumir Material"
-                               FontSize="15" FontAttributes="Bold"
-                               TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <!-- Input: visible solo en orden activa -->
-                        <VerticalStackLayout Spacing="8"
-                                             IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
-                            <Border StrokeShape="RoundRectangle 8"
-                                    Stroke="{StaticResource ColorBorder}"
-                                    StrokeThickness="1" Padding="4,0">
-                                <Picker ItemsSource="{Binding AvailableMaterials}"
-                                        SelectedItem="{Binding SelectedMaterial}"
-                                        ItemDisplayBinding="{Binding .}"
-                                        Title="Seleccionar material..."
-                                        Style="{StaticResource FormPicker}"/>
-                            </Border>
-
-                            <!-- FIFO Lot info -->
-                            <Border IsVisible="{Binding ShowLotInfo}"
-                                    StrokeShape="RoundRectangle 8"
-                                    BackgroundColor="{StaticResource ColorInfoContainer}"
-                                    StrokeThickness="0" Padding="12,6">
-                                <HorizontalStackLayout Spacing="12">
-                                    <Label Text="{Binding LotNumberDisplay, StringFormat='Lote: {0}'}"
-                                           FontSize="12" FontAttributes="Bold"
-                                           TextColor="{StaticResource ColorTextPrimary}"/>
-                                    <Label Text="{Binding LotCostDisplay, StringFormat='Costo: {0}'}"
-                                           FontSize="12"
-                                           TextColor="{StaticResource ColorPrimary}"/>
-                                    <Label Text="{Binding LotExpiryDisplay, StringFormat='Vence: {0}'}"
-                                           FontSize="12"
-                                           TextColor="{StaticResource ColorTextSecondary}"/>
-                                </HorizontalStackLayout>
-                            </Border>
-
-                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
-                                <Border StrokeShape="RoundRectangle 8"
-                                        Stroke="{StaticResource ColorBorder}"
-                                        StrokeThickness="1" Padding="12,0"
-                                        HeightRequest="44">
-                                    <Entry Text="{Binding ConsumeQuantity}"
-                                           Keyboard="Numeric"
-                                           Placeholder="ej: 4.5"
-                                           TextColor="{StaticResource ColorTextPrimary}"
-                                           PlaceholderColor="{StaticResource Gray500}"/>
-                                </Border>
-                                <Button Grid.Column="1" Text="+"
-                                        Command="{Binding ConsumeMaterialCommand}"
-                                        Style="{StaticResource AccentButton}"
-                                        FontSize="20" FontAttributes="Bold"
-                                        HeightRequest="44" WidthRequest="44"
-                                        CornerRadius="22" Padding="0"
-                                        VerticalOptions="End"/>
-                            </Grid>
-                        </VerticalStackLayout>
-
-                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
-
-                        <CollectionView ItemsSource="{Binding ConsumedMaterials}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="vm:ConsumedMaterialItem">
-                                    <Grid ColumnDefinitions="*,Auto" Padding="0,4">
-                                        <VerticalStackLayout Spacing="1">
-                                            <Label Text="{Binding MaterialName}"
-                                                   FontSize="14" FontAttributes="Bold"
-                                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                                            <Label FontSize="12"
-                                                   TextColor="{StaticResource ColorTextSecondary}">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="{Binding LotNumber, StringFormat='Lote: {0}'}"/>
-                                                        <Span Text=" — "/>
-                                                        <Span Text="{Binding UnitCost, StringFormat='S/ {0:N2}'}"/>
-                                                        <Span Text=" × "/>
-                                                        <Span Text="{Binding Quantity}"/>
-                                                        <Span Text=" = "/>
-                                                        <Span Text="{Binding TotalCost, StringFormat='S/ {0:N2}'}" FontAttributes="Bold"/>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label Text="{Binding Rating, StringFormat='Calificación: {0} ⭐'}"
+                                            <Label Text="{Binding Detail}"
                                                    FontSize="11"
-                                                   TextColor="{StaticResource ColorPrimary}"
-                                                   IsVisible="{Binding Rating, Converter={StaticResource IntToBoolConverter}}"/>
+                                                   TextColor="{StaticResource ColorTextSecondary}"
+                                                   LineBreakMode="WordWrap"
+                                                   IsVisible="{Binding Detail, Converter={StaticResource IsNotNullConverter}}"/>
                                         </VerticalStackLayout>
-                                        <Button Grid.Column="1"
-                                                Text="✕"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=RemoveConsumedMaterialCommand}"
-                                                CommandParameter="{Binding .}"
-                                                BackgroundColor="{StaticResource ColorErrorContainer}"
-                                                TextColor="{StaticResource ColorError}"
-                                                FontSize="12" FontAttributes="Bold"
-                                                HeightRequest="30" WidthRequest="30"
-                                                CornerRadius="15" Padding="0"
-                                                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"/>
+
+                                        <!-- Edit mode: RadioButton "No" -->
+                                        <RadioButton Grid.Column="2"
+                                                     GroupName="{Binding GroupKey}"
+                                                     IsChecked="{Binding IsNotDone, Mode=TwoWay}"
+                                                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                     VerticalOptions="Center"/>
                                     </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                             <CollectionView.EmptyView>
-                                <Label Text=" No hay materiales consumidos en esta orden."
+                                <Label Text="No hay acciones configuradas para este vehículo."
                                        Style="{StaticResource CaptionText}" Margin="0,8"/>
                             </CollectionView.EmptyView>
                         </CollectionView>
+
+                        <!-- Column headers: solo en modo edición -->
+                        <Grid ColumnDefinitions="36,*,36" Padding="0,0,0,4"
+                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                            <Label Grid.Column="0" Text="Sí" FontSize="10"
+                                   TextColor="{StaticResource ColorTextSecondary}"
+                                   HorizontalOptions="Center"/>
+                            <Label Grid.Column="2" Text="No" FontSize="10"
+                                   TextColor="{StaticResource ColorTextSecondary}"
+                                   HorizontalOptions="Center"/>
+                        </Grid>
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Instalar Componente: picker + install + list -->
+                <!-- ═══════════════════════════════════════════════ -->
+                <!-- MATERIALES — Checklist -->
+                <!-- ═══════════════════════════════════════════════ -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
                         StrokeThickness="1" Padding="12"
                         BackgroundColor="{StaticResource ColorSurface}">
                     <VerticalStackLayout Spacing="6">
-                        <Label Text="Componentes Instalados"
+                        <Label Text="Materiales a Consumir"
                                FontSize="15" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
-                        <!-- Input: visible solo en orden activa -->
-                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6"
-                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
-                            <Border StrokeShape="RoundRectangle 8"
-                                    Stroke="{StaticResource ColorBorder}"
-                                    StrokeThickness="1" Padding="4,0">
-                                <Picker ItemsSource="{Binding ComponentActions}"
-                                        SelectedItem="{Binding SelectedComponent}"
-                                        ItemDisplayBinding="{Binding .}"
-                                        Title="Seleccionar componente..."
-                                        Style="{StaticResource FormPicker}"/>
-                            </Border>
-                            <Button Grid.Column="1" Text="+"
-                                    Command="{Binding InstallComponentCommand}"
-                                    Style="{StaticResource AccentButton}"
-                                    FontSize="20" FontAttributes="Bold"
-                                    HeightRequest="44" WidthRequest="44"
-                                    CornerRadius="22" Padding="0"/>
-                        </Grid>
-
-                        <Label Text="{Binding ComponentHelpText}"
-                               IsVisible="{Binding SelectedComponent, Converter={StaticResource IsNotNullConverter}}"
-                               FontSize="12"
-                               TextColor="{StaticResource ColorTextSecondary}"
-                               LineBreakMode="WordWrap"
-                               Margin="0,-4,0,0"/>
-
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
 
-                        <CollectionView ItemsSource="{Binding Components}">
+                        <CollectionView ItemsSource="{Binding MaterialChecklist}">
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="vm:ComponentItem">
-                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" Padding="0,4">
-                                        <Label Grid.Column="0" Text="✓"
-                                               FontSize="14" TextColor="{StaticResource ColorSuccess}"
-                                               VerticalOptions="Center"/>
-                                        <VerticalStackLayout Grid.Column="1" Spacing="1">
-                                            <Label Text="{Binding ComponentName}"
-                                                   FontSize="13" FontAttributes="Bold"
-                                                   TextColor="{StaticResource ColorTextPrimary}"/>
-                                            <Label Text="{Binding InstallationKm, StringFormat='Instalado en {0:N0} km'}"
-                                                   Style="{StaticResource CaptionText}"/>
-                                            <Label Text="{Binding ExpirationDate, StringFormat='Vence: {0:dd/MM/yyyy}'}"
-                                                   FontSize="11"
-                                                   TextColor="{StaticResource ColorTextSecondary}"
-                                                   IsVisible="{Binding ExpirationDate, Converter={StaticResource IsNotNullConverter}}"/>
-                                        </VerticalStackLayout>
-                                        <Button Grid.Column="2"
-                                                Text="✕"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=RemoveComponentLocalCommand}"
-                                                CommandParameter="{Binding .}"
-                                                BackgroundColor="{StaticResource ColorErrorContainer}"
-                                                TextColor="{StaticResource ColorError}"
-                                                FontSize="12" FontAttributes="Bold"
-                                                HeightRequest="30" WidthRequest="30"
-                                                CornerRadius="15" Padding="0"
-                                                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"/>
-                                    </Grid>
+                                <DataTemplate x:DataType="vm:MaterialChecklistItem">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Grid ColumnDefinitions="36,*,36" Padding="0,3" ColumnSpacing="6">
+                                            <!-- Edit mode: RadioButton "Sí" -->
+                                            <RadioButton GroupName="{Binding GroupKey}"
+                                                         IsChecked="{Binding IsDone, Mode=TwoWay}"
+                                                         IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                         VerticalOptions="Center"/>
+                                            <!-- ReadOnly mode: StatusDetail -->
+                                            <Label Text="{Binding StatusDetail}" FontSize="12"
+                                                   IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly}"
+                                                   HorizontalOptions="Center" VerticalOptions="Center"
+                                                   LineBreakMode="TailTruncation"/>
+
+                                            <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="13" FontAttributes="Bold"
+                                                       TextColor="{StaticResource ColorTextPrimary}"/>
+                                                <Label Text="{Binding Detail, StringFormat='Unidad: {0}'}"
+                                                       FontSize="11"
+                                                       TextColor="{StaticResource ColorTextSecondary}"/>
+                                            </VerticalStackLayout>
+
+                                            <!-- Edit mode: RadioButton "No" -->
+                                            <RadioButton Grid.Column="2"
+                                                         GroupName="{Binding GroupKey}"
+                                                         IsChecked="{Binding IsNotDone, Mode=TwoWay}"
+                                                         IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                         VerticalOptions="Center"/>
+                                        </Grid>
+                                        <!-- Quantity input: visible solo cuando "Usado" en modo edición -->
+                                        <Border IsVisible="{Binding IsDone}"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="{StaticResource ColorBorder}"
+                                                StrokeThickness="1" Padding="8,0"
+                                                Margin="36,0,36,4" HeightRequest="36"
+                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                                            <Entry Text="{Binding Quantity, Mode=TwoWay}"
+                                                   Keyboard="Numeric"
+                                                   Placeholder="Cantidad"
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource ColorTextPrimary}"
+                                                   PlaceholderColor="{StaticResource Gray500}"/>
+                                        </Border>
+                                        <!-- Stock note -->
+                                        <Label Text="{Binding StockNote}"
+                                               FontSize="11"
+                                               TextColor="{StaticResource ColorInfo}"
+                                               Margin="36,0,36,0"
+                                               IsVisible="{Binding StockNote, Converter={StaticResource IsNotNullConverter}}"/>
+                                        <!-- Origin picker -->
+                                        <Border IsVisible="{Binding IsDone}"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="{StaticResource ColorBorder}"
+                                                StrokeThickness="1" Padding="4,0"
+                                                Margin="36,0,36,4" HeightRequest="36"
+                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                                            <Picker ItemsSource="{Binding OriginOptions}"
+                                                    SelectedItem="{Binding Origin, Mode=TwoWay}"
+                                                    FontSize="12"
+                                                    TextColor="{StaticResource ColorTextPrimary}"
+                                                    Title="Origen"/>
+                                        </Border>
+                                    </VerticalStackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                             <CollectionView.EmptyView>
-                                <Label Text=" Sin componentes instalados en esta orden."
+                                <Label Text="No hay materiales configurados para este vehículo."
                                        Style="{StaticResource CaptionText}" Margin="0,8"/>
                             </CollectionView.EmptyView>
                         </CollectionView>
+
+                        <Grid ColumnDefinitions="36,*,36" Padding="0,0,0,4"
+                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                            <Label Grid.Column="0" Text="Sí" FontSize="10"
+                                   TextColor="{StaticResource ColorTextSecondary}"
+                                   HorizontalOptions="Center"/>
+                            <Label Grid.Column="2" Text="No" FontSize="10"
+                                   TextColor="{StaticResource ColorTextSecondary}"
+                                   HorizontalOptions="Center"/>
+                        </Grid>
                     </VerticalStackLayout>
                 </Border>
 
-                <!-- Reasignar Técnico (solo en orden activa) -->
-                <Border IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                <!-- ═══════════════════════════════════════════════ -->
+                <!-- COMPONENTES — Checklist -->
+                <!-- ═══════════════════════════════════════════════ -->
+                <Border StrokeShape="RoundRectangle 12"
+                        Stroke="{StaticResource ColorBorderLight}"
+                        StrokeThickness="1" Padding="12"
+                        BackgroundColor="{StaticResource ColorSurface}">
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Componentes a Instalar"
+                               FontSize="15" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
+                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
+
+                        <CollectionView ItemsSource="{Binding ComponentChecklist}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ComponentChecklistItem">
+                                    <VerticalStackLayout Spacing="4">
+                                        <Grid ColumnDefinitions="36,*,36" Padding="0,3" ColumnSpacing="6">
+                                            <!-- Edit mode: RadioButton "Sí" -->
+                                            <RadioButton GroupName="{Binding GroupKey}"
+                                                         IsChecked="{Binding IsDone, Mode=TwoWay}"
+                                                         IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                         VerticalOptions="Center"/>
+                                            <!-- ReadOnly mode: StatusDetail -->
+                                            <Label Text="{Binding StatusDetail}" FontSize="12"
+                                                   IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly}"
+                                                   HorizontalOptions="Center" VerticalOptions="Center"
+                                                   LineBreakMode="TailTruncation"/>
+
+                                            <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="13" FontAttributes="Bold"
+                                                       TextColor="{StaticResource ColorTextPrimary}"/>
+                                                <Label Text="{Binding Detail}"
+                                                       FontSize="11"
+                                                       TextColor="{StaticResource ColorTextSecondary}"
+                                                       LineBreakMode="WordWrap"
+                                                       IsVisible="{Binding Detail, Converter={StaticResource IsNotNullConverter}}"/>
+                                            </VerticalStackLayout>
+
+                                            <!-- Edit mode: RadioButton "No" -->
+                                            <RadioButton Grid.Column="2"
+                                                         GroupName="{Binding GroupKey}"
+                                                         IsChecked="{Binding IsNotDone, Mode=TwoWay}"
+                                                         IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                                                         VerticalOptions="Center"/>
+                                        </Grid>
+                                        <!-- Quantity input: visible cuando "Instalado" en modo edición -->
+                                        <Border IsVisible="{Binding IsDone}"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="{StaticResource ColorBorder}"
+                                                StrokeThickness="1" Padding="8,0"
+                                                Margin="36,0,36,4" HeightRequest="36"
+                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                                            <Entry Text="{Binding Quantity, Mode=TwoWay}"
+                                                   Keyboard="Numeric"
+                                                   Placeholder="Cantidad"
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource ColorTextPrimary}"
+                                                   PlaceholderColor="{StaticResource Gray500}"/>
+                                        </Border>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <CollectionView.EmptyView>
+                                <Label Text="No hay componentes configurados para este vehículo."
+                                       Style="{StaticResource CaptionText}" Margin="0,8"/>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+
+                        <Grid ColumnDefinitions="36,*,36" Padding="0,0,0,4"
+                              IsVisible="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                            <Label Grid.Column="0" Text="Sí" FontSize="10"
+                                   TextColor="{StaticResource ColorTextSecondary}"
+                                   HorizontalOptions="Center"/>
+                            <Label Grid.Column="2" Text="No" FontSize="10"
+                                   TextColor="{StaticResource ColorTextSecondary}"
+                                   HorizontalOptions="Center"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Reasignar Técnico (solo Admin, solo en orden activa) -->
+                <Border IsVisible="{Binding IsAdmin}"
+                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
                         StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
                         StrokeThickness="1" Padding="16"
                         BackgroundColor="{StaticResource ColorSurface}">
                     <VerticalStackLayout Spacing="8"
-                                         IsEnabled="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                                         IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
                         <Label Text="Reasignar Técnico"
                                FontSize="16" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
-
                         <Border StrokeShape="RoundRectangle 8"
                                 Stroke="{StaticResource ColorBorder}"
                                 StrokeThickness="1" Padding="4,0">
                             <Picker ItemsSource="{Binding Technicians}"
                                     SelectedItem="{Binding SelectedTechnician}"
-                                    ItemDisplayBinding="{Binding .}"
+                                    ItemDisplayBinding="{Binding FullName}"
                                     Title="Seleccionar técnico..."
                                     Style="{StaticResource FormPicker}"/>
                         </Border>
-
                         <Button Text="Asignar"
                                 Command="{Binding AssignTechnicianCommand}"
                                 Style="{StaticResource AccentButton}"
@@ -476,28 +448,23 @@
                         <Label Text="Diagnóstico"
                                FontSize="16" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
-
                         <Label Text="{Binding Diagnosis.GeneralStatus, StringFormat='Estado general: {0}'}"
                                TextColor="{StaticResource ColorTextPrimary}"/>
                         <Label Text="{Binding Diagnosis.VehicleOperative, StringFormat='Vehículo operativo: {0}'}"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
                         <Label Text="Observaciones:" Style="{StaticResource CaptionText}"
                                IsVisible="{Binding Diagnosis.Observations, Converter={StaticResource IsNotNullConverter}}"/>
                         <Label Text="{Binding Diagnosis.Observations}"
                                TextColor="{StaticResource ColorTextPrimary}"
                                LineBreakMode="WordWrap"
                                IsVisible="{Binding Diagnosis.Observations, Converter={StaticResource IsNotNullConverter}}"/>
-
                         <Label Text="Recomendaciones futuras:" Style="{StaticResource CaptionText}"
                                IsVisible="{Binding Diagnosis.FutureRecommendations, Converter={StaticResource IsNotNullConverter}}"/>
                         <Label Text="{Binding Diagnosis.FutureRecommendations}"
                                TextColor="{StaticResource ColorTextPrimary}"
                                LineBreakMode="WordWrap"
                                IsVisible="{Binding Diagnosis.FutureRecommendations, Converter={StaticResource IsNotNullConverter}}"/>
-
                         <Label Text="{Binding Diagnosis.CreatedAt, StringFormat='Diagnosticado el: {0:dd/MM/yyyy HH:mm}'}"
                                Style="{StaticResource CaptionText}" Margin="0,4,0,0"/>
                     </VerticalStackLayout>
@@ -505,7 +472,7 @@
 
                 <!-- Diagnosis form (when not yet saved and not read-only) -->
                 <Border IsVisible="{Binding DiagnosisSaved, Converter={StaticResource InvertedBoolConverter}}"
-                        IsEnabled="{Binding IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
+                        IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}"
                         StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
                         StrokeThickness="1" Padding="16"
@@ -514,9 +481,7 @@
                         <Label Text="Registrar Diagnóstico"
                                FontSize="16" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
-
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource ColorBorderLight}"/>
-
                         <Label Text="Estado general del vehículo:" Style="{StaticResource CaptionText}"/>
                         <Border StrokeShape="RoundRectangle 8"
                                 Stroke="{StaticResource ColorBorder}"
@@ -526,7 +491,6 @@
                                     Title="Seleccionar estado..."
                                     Style="{StaticResource FormPicker}"/>
                         </Border>
-
                         <Grid ColumnDefinitions="*,Auto" Padding="0,4">
                             <Label Text="Vehículo operativo:" VerticalOptions="Center"
                                    Style="{StaticResource CaptionText}"/>
@@ -534,7 +498,6 @@
                                     OnColor="{StaticResource ColorSuccess}"
                                     ThumbColor="{StaticResource ColorPrimary}"/>
                         </Grid>
-
                         <Label Text="Observaciones del mecánico:" Style="{StaticResource CaptionText}"/>
                         <Border StrokeShape="RoundRectangle 8"
                                 Stroke="{StaticResource ColorBorder}"
@@ -545,7 +508,6 @@
                                     TextColor="{StaticResource ColorTextPrimary}"
                                     PlaceholderColor="{StaticResource Gray500}"/>
                         </Border>
-
                         <Label Text="Recomendaciones para próximos servicios:" Style="{StaticResource CaptionText}"/>
                         <Border StrokeShape="RoundRectangle 8"
                                 Stroke="{StaticResource ColorBorder}"
@@ -556,7 +518,6 @@
                                     TextColor="{StaticResource ColorTextPrimary}"
                                     PlaceholderColor="{StaticResource Gray500}"/>
                         </Border>
-
                         <Button Text="Guardar Diagnóstico"
                                 Command="{Binding SaveDiagnosisCommand}"
                                 Style="{StaticResource PrimaryButton}"

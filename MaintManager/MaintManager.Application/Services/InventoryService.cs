@@ -42,7 +42,7 @@ public sealed class InventoryService : IInventoryService
     }
 
     public async Task<IReadOnlyList<int>> ConsumeStockFifoAsync(
-        int mateid, decimal quantity, int mainid, CancellationToken ct = default)
+        int mateid, decimal quantity, int mainid, string? origin = null, CancellationToken ct = default)
     {
         var material = await _inventoryRepo.GetMaterialByIdAsync(mateid, ct)
             ?? throw new KeyNotFoundException(ErrorMessages.Inventory.MaterialNotFound);
@@ -53,6 +53,7 @@ public sealed class InventoryService : IInventoryService
         var lots = await _inventoryRepo.GetFifoLotsAsync(mateid, ct);
         var consumedLotIds = new List<int>();
         var remaining = quantity;
+        var originLabel = string.IsNullOrWhiteSpace(origin) ? "Stock propio" : origin;
 
         foreach (var lot in lots)
         {
@@ -62,7 +63,7 @@ public sealed class InventoryService : IInventoryService
             lot.Consume(toConsume);
             _inventoryRepo.UpdateLot(lot);
 
-            var consumption = MaterialConsumption.Create(mainid, mateid, toConsume, "Stock propio", lot.Maloid);
+            var consumption = MaterialConsumption.Create(mainid, mateid, toConsume, originLabel, lot.Maloid);
             await _inventoryRepo.AddConsumptionAsync(consumption, ct);
             consumedLotIds.Add(lot.Maloid);
             remaining -= toConsume;

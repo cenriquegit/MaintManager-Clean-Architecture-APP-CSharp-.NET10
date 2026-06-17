@@ -243,7 +243,7 @@ public sealed class MaintenancesController : ControllerBase
         try
         {
             await _inventoryService.ConsumeStockFifoAsync(
-                request.Mateid, request.Quantity, id, ct);
+                request.Mateid, request.Quantity, id, request.Origin, ct);
             return Ok(ApiResponse<object>.Ok(new { message = "Material consumido correctamente." }));
         }
         catch (Exception ex)

@@ -7,16 +7,26 @@ using System.Collections.ObjectModel;
 
 namespace MaintManager.MAUI.ViewModels.Maintenances;
 
-public partial class MaintenanceWizardViewModel : BaseViewModel
+public partial class MaintenanceWizardViewModel : BaseViewModel, IQueryAttributable
 {
     private readonly ApiService _apiService;
     private readonly AuthService _authService;
+    private int _presetPrcoid;
+    private string? _presetType;
 
     public MaintenanceWizardViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
         _authService = authService;
         Title = "Nueva Orden de Mantenimiento";
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("prcoid", out var prcoidObj) && prcoidObj is string prcoidStr && int.TryParse(prcoidStr, out var prcoid))
+            _presetPrcoid = prcoid;
+        if (query.TryGetValue("type", out var typeObj) && typeObj is string typeStr)
+            _presetType = typeStr;
     }
 
     public const int MaxSteps = 4;
@@ -157,6 +167,17 @@ public partial class MaintenanceWizardViewModel : BaseViewModel
                         Name = v.VehicleName,
                         CurrentKm = v.CurrentKm,
                     }));
+
+                if (_presetPrcoid > 0)
+                {
+                    SelectedVehicle = Vehicles.FirstOrDefault(v => v.VehicleId == _presetPrcoid);
+                    if (SelectedVehicle is not null)
+                    {
+                        MileageText = SelectedVehicle.CurrentKm.ToString();
+                        if (_presetType == "scheduled")
+                            SelectedServiceType = "Servicio A";
+                    }
+                }
             }
             else
             {
