@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
     x:Class="MaintManager.MAUI.Views.Inventory.MaterialDetailPage"
     Title="{Binding Title}"
     BackgroundColor="{StaticResource ColorBackground}">
@@ -18,9 +19,9 @@
                     <Label Text="{Binding StockMinimum, StringFormat='Mínimo: {0:N2}'}" FontSize="13" TextColor="{StaticResource ColorTextSecondary}"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
-                    <Button Text="✏️ Editar" Command="{Binding EditMaterialCommand}" FontSize="12" HeightRequest="30"
+                    <Button Text="Editar" Command="{Binding EditMaterialCommand}" FontSize="12" HeightRequest="30"
                             BackgroundColor="{StaticResource ColorInfo}" TextColor="White" CornerRadius="6" Padding="8,0"/>
-                    <Button Text="🗑 Eliminar" Command="{Binding DeleteMaterialCommand}" FontSize="12" HeightRequest="30"
+                    <Button Text="Eliminar" Command="{Binding DeleteMaterialCommand}" FontSize="12" HeightRequest="30"
                             BackgroundColor="{StaticResource ColorError}" TextColor="White" CornerRadius="6" Padding="8,0"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
@@ -34,13 +35,42 @@
 
         <CollectionView Grid.Row="1" ItemsSource="{Binding Lots}" IsVisible="{Binding IsSuccess}" Margin="16,8,16,0">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="vm:MaterialDetailViewModel+LotItem">
                     <Border Padding="14" Margin="0,0,0,8" BackgroundColor="{StaticResource ColorSurface}"
                             StrokeShape="RoundRectangle 10" Stroke="{StaticResource ColorBorderLight}" StrokeThickness="1">
-                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
-                            <Label Text="{Binding LotNumber}" FontSize="14" FontAttributes="Bold" TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
-                            <Label Grid.Column="1" Text="{Binding Quantity, StringFormat='{0:N2}'}" FontSize="14" FontAttributes="Bold"
-                                   TextColor="{StaticResource ColorPrimary}" VerticalOptions="Center"/>
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                            <Label Grid.Row="0" Grid.Column="0"
+                                   Text="{Binding LotNumber, StringFormat='Lote: {0}'}"
+                                   FontSize="14" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorTextPrimary}" VerticalOptions="Center"/>
+                            <Border Grid.Row="0" Grid.Column="1"
+                                    StrokeThickness="0" StrokeShape="RoundRectangle 99"
+                                    Padding="6,2" BackgroundColor="{StaticResource ColorInfoContainer}">
+                                <Label Text="{Binding LotStatus}" FontSize="10" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorInfo}"/>
+                            </Border>
+                            <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" Spacing="16" Margin="0,4,0,0">
+                                <Label Text="{Binding Quantity, StringFormat='Cant: {0:N2}'}"
+                                       FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
+                                <Label Text="{Binding UnitCost, StringFormat='Costo: S/ {0:N2}'}"
+                                       FontSize="12" TextColor="{StaticResource ColorPrimary}"/>
+                            </HorizontalStackLayout>
+                            <Label Grid.Row="2" Grid.ColumnSpan="2"
+                                   Text="{Binding EntryDate, StringFormat='Ingreso: {0:dd/MM/yyyy}'}"
+                                   FontSize="11" TextColor="{StaticResource ColorTextSecondary}"/>
+                            <Label Grid.Row="3" Grid.ColumnSpan="2"
+                                   FontSize="11" TextColor="{StaticResource ColorWarning}"
+                                   IsVisible="{Binding DaysUntilExpiry, Converter={StaticResource IsNotNullConverter}}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Vence: "/>
+                                        <Span Text="{Binding ExpirationDate, StringFormat='{0:dd/MM/yyyy}'}"/>
+                                        <Span Text=" ("/>
+                                        <Span Text="{Binding DaysUntilExpiry, StringFormat='{0} días'}" FontAttributes="Bold"/>
+                                        <Span Text=")"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </Grid>
                     </Border>
                 </DataTemplate>

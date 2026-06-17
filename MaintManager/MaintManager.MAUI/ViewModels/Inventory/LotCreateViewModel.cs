@@ -44,6 +44,12 @@ public partial class LotCreateViewModel : BaseViewModel, IQueryAttributable
     private MaterialOption? _selectedMaterial;
 
     [ObservableProperty]
+    private bool _isMaterialPreset;
+
+    [ObservableProperty]
+    private string _presetMaterialName = string.Empty;
+
+    [ObservableProperty]
     private int _mateid;
 
     [ObservableProperty]
@@ -54,6 +60,9 @@ public partial class LotCreateViewModel : BaseViewModel, IQueryAttributable
 
     [ObservableProperty]
     private string _supplierLotNumber = "LOT-" + DateTime.Now.ToString("yyyy-MM-dd");
+
+    [ObservableProperty]
+    private string _supplierName = string.Empty;
 
     [ObservableProperty]
     private bool _hasExpiration;
@@ -83,6 +92,18 @@ public partial class LotCreateViewModel : BaseViewModel, IQueryAttributable
                 Materials.Clear();
                 foreach (var m in response.Data)
                     Materials.Add(new MaterialOption { Mateid = m.Mateid, Name = m.Name, UnitOfMeasure = m.UnitOfMeasure ?? "" });
+
+                if (_presetMateid > 0)
+                {
+                    var preset = Materials.FirstOrDefault(m => m.Mateid == _presetMateid);
+                    if (preset is not null)
+                    {
+                        SelectedMaterial = preset;
+                        IsMaterialPreset = true;
+                        PresetMaterialName = preset.Name;
+                    }
+                }
+
                 FormReady = true;
             }
             else
@@ -121,6 +142,7 @@ public partial class LotCreateViewModel : BaseViewModel, IQueryAttributable
                 ExpirationDate: HasExpiration ? DateOnly.FromDateTime(ExpirationDate) : null,
                 Provid: null,
                 SupplierLotNumber: SupplierLotNumber,
+                SupplierName: string.IsNullOrWhiteSpace(SupplierName) ? null : SupplierName,
                 Note: null
             );
             await _apiService.PostAsync<object>($"api/v1/inventory/materials/{SelectedMaterial.Mateid}/lots", request);

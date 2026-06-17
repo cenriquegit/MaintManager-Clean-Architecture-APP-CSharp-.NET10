@@ -313,21 +313,35 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     private void BuildComplianceChart(List<ComplianceDto> data)
     {
-        var topDeviations = data.OrderByDescending(d => d.KmDeviation).Take(10).ToList();
+        var topDeviations = data.OrderByDescending(d => Math.Abs(d.KmDeviation)).Take(10).ToList();
         var labels = topDeviations.Select(d => d.LicensePlate).ToArray();
-        var deviations = topDeviations.Select(d => d.KmDeviation).ToArray();
 
-        ComplianceSeries =
-        [
-            new ColumnSeries<int>
+        var seriesList = new List<ISeries>();
+        for (int i = 0; i < topDeviations.Count; i++)
+        {
+            var item = topDeviations[i];
+            var color = item.ComplianceStatus switch
             {
-                Values = deviations,
-                Name = "Desviación Km",
-                Stroke = new SolidColorPaint(Red),
-                Fill = new SolidColorPaint(Red),
+                "Puntual" => Green,
+                "Anticipado" => Orange,
+                "Tardio" => Red,
+                _ => Red
+            };
+
+            var values = new double[topDeviations.Count];
+            values[i] = item.KmDeviation;
+
+            seriesList.Add(new ColumnSeries<double>
+            {
+                Values = values,
+                Name = item.LicensePlate,
+                Stroke = new SolidColorPaint(color),
+                Fill = new SolidColorPaint(color),
                 MaxBarWidth = 24,
-            }
-        ];
+            });
+        }
+
+        ComplianceSeries = seriesList.ToArray();
 
         ComplianceXAxes =
         [
@@ -343,7 +357,7 @@ public partial class BiDashboardViewModel : BaseViewModel
         [
             new Axis
             {
-                Name = "Km de desviación",
+                Name = "Km de desviación (±)",
                 TextSize = 11,
             }
         ];

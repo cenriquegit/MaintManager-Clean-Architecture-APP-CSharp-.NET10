@@ -51,6 +51,22 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
                 StockMinimum = raw.Data.StockMinimum;
                 Title = raw.Data.Name;
             }
+
+            var lotsRaw = await _apiService.GetAsync<ApiResponse<List<LotDetailDto>>>($"api/v1/inventory/materials/{_mateid}/lots");
+            if (lotsRaw?.Success == true && lotsRaw.Data is not null)
+            {
+                Lots = new ObservableCollection<LotItem>(lotsRaw.Data.Select(l => new LotItem
+                {
+                    Maloid = l.Maloid,
+                    LotNumber = l.SupplierLotNumber ?? "Sin lote",
+                    Quantity = l.CurrentQuantity,
+                    UnitCost = l.UnitCost,
+                    EntryDate = l.EntryDate,
+                    ExpirationDate = l.ExpirationDate,
+                    DaysUntilExpiry = l.DaysUntilExpiry,
+                    LotStatus = l.LotStatus
+                }));
+            }
         });
     }
 
@@ -97,5 +113,22 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
         public int Maloid { get; set; }
         public string LotNumber { get; set; } = string.Empty;
         public decimal Quantity { get; set; }
+        public decimal UnitCost { get; set; }
+        public DateTime EntryDate { get; set; }
+        public DateOnly? ExpirationDate { get; set; }
+        public int? DaysUntilExpiry { get; set; }
+        public string LotStatus { get; set; } = string.Empty;
+    }
+
+    public class LotDetailDto
+    {
+        public int Maloid { get; set; }
+        public decimal CurrentQuantity { get; set; }
+        public decimal UnitCost { get; set; }
+        public DateTime EntryDate { get; set; }
+        public DateOnly? ExpirationDate { get; set; }
+        public int? DaysUntilExpiry { get; set; }
+        public string? SupplierLotNumber { get; set; }
+        public string LotStatus { get; set; } = string.Empty;
     }
 }

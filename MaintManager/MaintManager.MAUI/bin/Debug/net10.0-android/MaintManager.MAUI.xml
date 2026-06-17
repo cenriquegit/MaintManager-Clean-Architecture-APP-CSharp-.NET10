@@ -374,6 +374,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.Vehicles">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel._vehicles"/>
@@ -425,6 +426,12 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.NavigateToBiDashboardCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.NavigateToBiDashboard"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.navigateToVehicleHistoryCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.NavigateToVehicleHistoryCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.NavigateToVehicleHistoryCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.NavigateToVehicleHistory(MaintManager.MAUI.ViewModels.Dashboard.HomeViewModel.VehicleCard)"/>.</summary>
         </member>
         <member name="T:MaintManager.MAUI.ViewModels.Inventory.CreateMaterialViewModel">
             <inheritdoc/>
@@ -541,6 +548,12 @@
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.SelectedMaterial">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._selectedMaterial"/>
         </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.IsMaterialPreset">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._isMaterialPreset"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.PresetMaterialName">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._presetMaterialName"/>
+        </member>
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.Mateid">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._mateid"/>
         </member>
@@ -552,6 +565,9 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.SupplierLotNumber">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._supplierLotNumber"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.SupplierName">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._supplierName"/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel.HasExpiration">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Inventory.LotCreateViewModel._hasExpiration"/>
@@ -852,6 +868,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.Maintenances">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel._maintenances"/>
@@ -861,6 +878,12 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.SelectedFilter">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel._selectedFilter"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.HasMorePages">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel._hasMorePages"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.IsLoadingMore">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel._isLoadingMore"/>
         </member>
         <member name="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.OnSearchTextChanged(System.String)">
             <summary>Executes the logic for when <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.SearchText"/> just changed.</summary>
@@ -877,6 +900,12 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.LoadCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.Load"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.loadMoreCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.LoadMoreCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.LoadMoreCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.LoadMore"/>.</summary>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.viewDetailCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.Maintenances.MaintenanceListViewModel.ViewDetailCommand"/>.</summary>
@@ -1669,6 +1698,12 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedMaterial">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedMaterial" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsMaterialPreset">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsMaterialPreset" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.PresetMaterialName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "PresetMaterialName" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Mateid">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Mateid" generated properties.</summary>
         </member>
@@ -1680,6 +1715,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SupplierLotNumber">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SupplierLotNumber" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SupplierName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SupplierName" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.HasExpiration">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "HasExpiration" generated properties.</summary>
@@ -1773,6 +1811,12 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedComponent">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedComponent" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.HasMorePages">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "HasMorePages" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsLoadingMore">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsLoadingMore" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentStep">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentStep" generated properties.</summary>
@@ -2149,6 +2193,12 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedMaterial">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedMaterial" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsMaterialPreset">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsMaterialPreset" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.PresetMaterialName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "PresetMaterialName" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Mateid">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Mateid" generated properties.</summary>
         </member>
@@ -2160,6 +2210,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SupplierLotNumber">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SupplierLotNumber" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SupplierName">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SupplierName" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.HasExpiration">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "HasExpiration" generated properties.</summary>
@@ -2253,6 +2306,12 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedComponent">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedComponent" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.HasMorePages">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "HasMorePages" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsLoadingMore">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsLoadingMore" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentStep">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentStep" generated properties.</summary>

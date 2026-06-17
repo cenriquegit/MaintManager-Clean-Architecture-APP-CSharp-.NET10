@@ -39,14 +39,32 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<CostPerKmRaw>(@"
-                SELECT prcoid AS ""Prcoid"",
-                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
-                       COALESCE(vehicle_name, '') AS ""VehicleName"",
-                       total_services AS ""TotalServices"",
-                       COALESCE(total_material_cost, 0) AS ""TotalMaterialCost"",
-                       COALESCE(current_km, 0) AS ""CurrentKm"",
-                       COALESCE(cost_per_km, 0) AS ""CostPerKm""
-                FROM maintenance.vw_cost_per_km ORDER BY cost_per_km DESC")
+                SELECT vk.prcoid AS ""Prcoid"",
+                       COALESCE(vk.license_plate_number, '') AS ""LicensePlate"",
+                       COALESCE(vk.vehicle_name, '') AS ""VehicleName"",
+                       COALESCE(mc.total_services, 0) AS ""TotalServices"",
+                       COALESCE(mc.total_material_cost, 0) AS ""TotalMaterialCost"",
+                       COALESCE(vk.current_km, 0) AS ""CurrentKm"",
+                       CASE
+                           WHEN vk.current_km > 0 THEN round(COALESCE(mc.total_material_cost, 0) / vk.current_km, 4)
+                           ELSE 0
+                       END AS ""CostPerKm""
+                FROM maintenance.vw_vehicle_current_km vk
+                LEFT JOIN LATERAL (
+                    SELECT m.prcoid,
+                           count(m.mainid) AS total_services,
+                           COALESCE(sum(mc_cost.cost_total), 0) AS total_material_cost
+                    FROM maintenance.maintenance m
+                    LEFT JOIN LATERAL (
+                        SELECT sum(mc.quantity * COALESCE(ml.unit_cost, 0)) AS cost_total
+                        FROM maintenance.material_consumption mc
+                        LEFT JOIN maintenance.material_lot ml ON mc.maloid = ml.maloid
+                        WHERE mc.mainid = m.mainid AND mc.origin = 'Stock propio'
+                    ) mc_cost ON true
+                    WHERE m.prcoid = vk.prcoid AND m.statid = 'FI'
+                    GROUP BY m.prcoid
+                ) mc ON true
+                ORDER BY cost_per_km DESC")
             .ToListAsync(ct);
 
         return data.Select(r => new CostPerKmResponse(
@@ -59,14 +77,22 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<EmergencyRateRaw>(@"
-                SELECT prcoid AS ""Prcoid"",
-                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
-                       COALESCE(vehicle_name, '') AS ""VehicleName"",
-                       scheduled_count AS ""ScheduledCount"",
-                       emergency_count AS ""EmergencyCount"",
-                       total_count AS ""TotalCount"",
-                       COALESCE(emergency_rate_percent, 0) AS ""EmergencyRatePercent""
-                FROM maintenance.vw_emergency_rate ORDER BY emergency_rate_percent DESC")
+                SELECT m.prcoid AS ""Prcoid"",
+                       COALESCE(vk.license_plate_number, '') AS ""LicensePlate"",
+                       COALESCE(vk.vehicle_name, '') AS ""VehicleName"",
+                       count(*) FILTER (WHERE mt.name = 'Calendarizado') AS ""ScheduledCount"",
+                       count(*) FILTER (WHERE mt.name = 'Emergencia') AS ""EmergencyCount"",
+                       count(*) AS ""TotalCount"",
+                       CASE
+                           WHEN count(*) > 0 THEN round((count(*) FILTER (WHERE mt.name = 'Emergencia')::numeric / count(*)::numeric) * 100, 2)
+                           ELSE 0
+                       END AS ""EmergencyRatePercent""
+                FROM maintenance.maintenance m
+                JOIN maintenance.maintenance_type mt ON m.matyid = mt.matyid
+                LEFT JOIN maintenance.vw_vehicle_current_km vk ON m.prcoid = vk.prcoid
+                WHERE m.statid = 'FI'
+                GROUP BY m.prcoid, vk.license_plate_number, vk.vehicle_name
+                ORDER BY emergency_rate_percent DESC")
             .ToListAsync(ct);
 
         return data.Select(r => new EmergencyRateResponse(
@@ -98,17 +124,25 @@ public sealed class BiReportService : IBiReportService
     {
         var data = await _context.Database
             .SqlQueryRaw<CalendarComplianceRaw>(@"
-                SELECT prcoid AS ""Prcoid"",
-                       COALESCE(license_plate_number, '') AS ""LicensePlate"",
-                       COALESCE(vehicle_name, '') AS ""VehicleName"",
-                       mainid AS ""Mainid"",
-                       maintenance_date AS ""MaintenanceDate"",
-                       service_km AS ""ServiceKm"",
-                       COALESCE(scheduled_km, 0) AS ""ScheduledKm"",
-                       COALESCE(km_deviation, 0) AS ""KmDeviation"",
-                       COALESCE(compliance_status, '') AS ""ComplianceStatus""
-                FROM maintenance.vw_calendar_compliance
-                ORDER BY maintenance_date DESC LIMIT 50")
+                SELECT m.prcoid AS ""Prcoid"",
+                       COALESCE(vk.license_plate_number, '') AS ""LicensePlate"",
+                       COALESCE(vk.vehicle_name, '') AS ""VehicleName"",
+                       m.mainid AS ""Mainid"",
+                       m.maintenance_date AS ""MaintenanceDate"",
+                       m.mileage AS ""ServiceKm"",
+                       COALESCE(vs.next_km - vs.interval_km, 0) AS ""ScheduledKm"",
+                       COALESCE(m.mileage - (vs.next_km - vs.interval_km), 0) AS ""KmDeviation"",
+                       CASE
+                           WHEN abs(m.mileage - (vs.next_km - vs.interval_km)) <= 500 THEN 'Puntual'
+                           WHEN m.mileage < (vs.next_km - vs.interval_km) - 500 THEN 'Anticipado'
+                           ELSE 'Tardio'
+                       END AS ""ComplianceStatus""
+                FROM maintenance.maintenance m
+                JOIN maintenance.maintenance_type mt ON m.matyid = mt.matyid
+                JOIN maintenance.vehicle_schedule vs ON m.prcoid = vs.prcoid
+                LEFT JOIN maintenance.vw_vehicle_current_km vk ON m.prcoid = vk.prcoid
+                WHERE m.statid = 'FI' AND mt.name = 'Calendarizado'
+                ORDER BY m.maintenance_date DESC LIMIT 50")
             .ToListAsync(ct);
 
         return data.Select(r => new CalendarComplianceResponse(

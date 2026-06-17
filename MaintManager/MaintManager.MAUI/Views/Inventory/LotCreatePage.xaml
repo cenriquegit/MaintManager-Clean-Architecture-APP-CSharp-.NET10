@@ -54,7 +54,9 @@
                 <!-- Material -->
                 <VerticalStackLayout Spacing="4">
                     <Label Text="Material *" Style="{StaticResource CaptionText}"/>
-                    <Border StrokeShape="RoundRectangle 8"
+                    <!-- Picker normal (sin preselección desde MaterialDetail) -->
+                    <Border IsVisible="{Binding IsMaterialPreset, Converter={StaticResource InvertedBoolConverter}}"
+                            StrokeShape="RoundRectangle 8"
                             Stroke="{StaticResource ColorBorder}"
                             StrokeThickness="1" Padding="4,0">
                         <Picker ItemsSource="{Binding Materials}"
@@ -62,6 +64,15 @@
                                 Style="{StaticResource FormPicker}"
                                 ItemDisplayBinding="{Binding Name}"
                                 Title="Seleccionar material"/>
+                    </Border>
+                    <!-- Label fijo cuando viene desde MaterialDetail -->
+                    <Border IsVisible="{Binding IsMaterialPreset}"
+                            StrokeShape="RoundRectangle 8"
+                            BackgroundColor="{StaticResource ColorInfoContainer}"
+                            StrokeThickness="0" Padding="12,8">
+                        <Label Text="{Binding PresetMaterialName}"
+                               FontSize="14" FontAttributes="Bold"
+                               TextColor="{StaticResource ColorTextPrimary}"/>
                     </Border>
                     <!-- Unidad de medida del material seleccionado -->
                     <Label IsVisible="{Binding SelectedMaterial, Converter={StaticResource IsNotNullConverter}}"
@@ -112,6 +123,20 @@
                         <Entry Text="{Binding SupplierLotNumber}"
                                Style="{StaticResource FormEntry}"
                                Placeholder="ej: LOT-2026-001"
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               PlaceholderColor="{StaticResource Gray500}"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Nombre del proveedor -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Nombre del proveedor (opcional)" Style="{StaticResource CaptionText}"/>
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="{StaticResource ColorBorder}"
+                            StrokeThickness="1" Padding="12,0">
+                        <Entry Text="{Binding SupplierName}"
+                               Style="{StaticResource FormEntry}"
+                               Placeholder="ej: Lubricantes del Sur S.A."
                                TextColor="{StaticResource ColorTextPrimary}"
                                PlaceholderColor="{StaticResource Gray500}"/>
                     </Border>

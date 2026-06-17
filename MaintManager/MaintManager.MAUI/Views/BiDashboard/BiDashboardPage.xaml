@@ -206,6 +206,21 @@
                                 HeightRequest="220"
                                 ZoomMode="None"
                                 TooltipPosition="Top"/>
+                            <!-- Legend -->
+                            <HorizontalStackLayout Spacing="16" HorizontalOptions="Center" Margin="0,4,0,0">
+                                <HorizontalStackLayout Spacing="4">
+                                    <BoxView WidthRequest="14" HeightRequest="14" Color="#2E7D32" CornerRadius="3"/>
+                                    <Label Text="Puntual (±500km)" FontSize="11" TextColor="{StaticResource ColorTextSecondary}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="4">
+                                    <BoxView WidthRequest="14" HeightRequest="14" Color="#F57C00" CornerRadius="3"/>
+                                    <Label Text="Anticipado" FontSize="11" TextColor="{StaticResource ColorTextSecondary}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="4">
+                                    <BoxView WidthRequest="14" HeightRequest="14" Color="#C62828" CornerRadius="3"/>
+                                    <Label Text="Tardío" FontSize="11" TextColor="{StaticResource ColorTextSecondary}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </Border>
 

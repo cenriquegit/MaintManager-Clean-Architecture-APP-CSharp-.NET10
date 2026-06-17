@@ -33,11 +33,23 @@ public partial class MaintenanceListViewModel : BaseViewModel
     [ObservableProperty]
     private string _selectedFilter = string.Empty;
 
+    [ObservableProperty]
+    private bool _hasMorePages;
+
+    [ObservableProperty]
+    private bool _isLoadingMore;
+
     public List<string> FilterOptions { get; } = new() { "Todas", "Activas", "Finalizadas", "Canceladas" };
+
+    private int _currentPage = 1;
+    private int _totalCount;
+
+    private const int PageSize = 30;
 
     [RelayCommand]
     private async Task Load()
     {
+        _currentPage = 1;
         await ExecuteAsync(async () =>
         {
             var statusFilter = SelectedFilter switch
@@ -47,9 +59,10 @@ public partial class MaintenanceListViewModel : BaseViewModel
                 "Canceladas" => "CA",
                 _ => ""
             };
-            var url = $"{ApiRoutes.Maintenances.GetAll}?page=1&pageSize=50&status={statusFilter}";
+            var url = $"{ApiRoutes.Maintenances.GetAll}?page={_currentPage}&pageSize={PageSize}&status={statusFilter}";
             var response = await _apiService.GetAsync<ApiResponse<PagedResult<MaintenanceListItemDto>>>(url);
             var items = response?.Data?.Items?.ToList() ?? new List<MaintenanceListItemDto>();
+            _totalCount = response?.Data?.TotalCount ?? 0;
 
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
@@ -72,8 +85,50 @@ public partial class MaintenanceListViewModel : BaseViewModel
                     Status = i.Status
                 }));
 
+            HasMorePages = Maintenances.Count < _totalCount;
             IsEmpty = Maintenances.Count == 0;
         });
+    }
+
+    [RelayCommand]
+    private async Task LoadMore()
+    {
+        if (IsLoadingMore || !HasMorePages) return;
+        _currentPage++;
+        IsLoadingMore = true;
+        try
+        {
+            var statusFilter = SelectedFilter switch
+            {
+                "Activas" => "AC",
+                "Finalizadas" => "FI",
+                "Canceladas" => "CA",
+                _ => ""
+            };
+            var url = $"{ApiRoutes.Maintenances.GetAll}?page={_currentPage}&pageSize={PageSize}&status={statusFilter}";
+            var response = await _apiService.GetAsync<ApiResponse<PagedResult<MaintenanceListItemDto>>>(url);
+            var items = response?.Data?.Items?.ToList() ?? new List<MaintenanceListItemDto>();
+
+            foreach (var i in items)
+                Maintenances.Add(new MaintenanceItem
+                {
+                    Mainid = i.Mainid,
+                    LicensePlate = i.LicensePlate ?? string.Empty,
+                    VehicleName = i.VehicleName,
+                    MaintenanceType = i.MaintenanceType,
+                    ServiceType = i.ServiceType ?? string.Empty,
+                    MaintenanceDate = i.MaintenanceDate,
+                    Mileage = i.Mileage,
+                    AssignedToName = i.AssignedToName,
+                    Status = i.Status
+                });
+
+            HasMorePages = Maintenances.Count < _totalCount;
+        }
+        finally
+        {
+            IsLoadingMore = false;
+        }
     }
 
     partial void OnSearchTextChanged(string value) => LoadCommand.Execute(null);

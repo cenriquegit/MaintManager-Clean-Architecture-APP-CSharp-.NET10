@@ -168,6 +168,24 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
 
+                    <CollectionView.Footer>
+                        <VerticalStackLayout Padding="0,8,0,16">
+                            <!-- Load more button -->
+                            <Button Text="Cargar más..."
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceListViewModel}}, Path=LoadMoreCommand}"
+                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceListViewModel}}, Path=HasMorePages}"
+                                    BackgroundColor="{StaticResource ColorInfoContainer}"
+                                    TextColor="{StaticResource ColorPrimary}"
+                                    FontSize="13" HeightRequest="38" CornerRadius="8"
+                                    HorizontalOptions="Center" Padding="20,0"/>
+                            <!-- Loading indicator when fetching more -->
+                            <ActivityIndicator IsRunning="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceListViewModel}}, Path=IsLoadingMore}"
+                                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceListViewModel}}, Path=IsLoadingMore}"
+                                               Color="{StaticResource ColorPrimary}"
+                                               HorizontalOptions="Center" Margin="0,8,0,0"/>
+                        </VerticalStackLayout>
+                    </CollectionView.Footer>
+
                 </CollectionView>
 
             </Grid>

@@ -51,9 +51,9 @@
                        TextColor="{StaticResource ColorTextPrimary}"
                        Margin="0,8,0,0"/>
 
-                <!-- KPI Cards Row (2 columns) - Compact -->
+                <!-- KPI Cards Row (2 columns, 3 rows) -->
                 <Grid ColumnDefinitions="*,*"
-                      RowDefinitions="Auto,Auto"
+                      RowDefinitions="Auto,Auto,Auto"
                       ColumnSpacing="12" RowSpacing="12">
                     <Border Grid.Row="0" Grid.Column="0"
                             Style="{StaticResource Card}"
@@ -119,6 +119,22 @@
                                    Style="{StaticResource CaptionText}"/>
                         </VerticalStackLayout>
                     </Border>
+                    <Border Grid.Row="2" Grid.Column="0"
+                            Style="{StaticResource Card}"
+                            Padding="12,10">
+                        <VerticalStackLayout Spacing="2">
+                            <HorizontalStackLayout Spacing="6">
+                                <Label Text="{Binding KpiItems[4].Value}"
+                                       FontSize="26" FontAttributes="Bold"
+                                       TextColor="{StaticResource ColorWarning}"
+                                       VerticalOptions="Center"/>
+                                <Label Text="{Binding KpiItems[4].Icon}"
+                                       FontSize="22" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding KpiItems[4].Label}"
+                                   Style="{StaticResource CaptionText}"/>
+                        </VerticalStackLayout>
+                    </Border>
                 </Grid>
 
                 <!-- Fleet Section -->
@@ -130,12 +146,17 @@
                 <CollectionView ItemsSource="{Binding Vehicles}"
                                 SelectionMode="None">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="vm:HomeViewModel+VehicleCard">
                             <Border Padding="14" Margin="0,0,0,8"
                                     BackgroundColor="{StaticResource ColorSurface}"
                                     StrokeShape="RoundRectangle 10"
                                     Stroke="{StaticResource ColorBorderLight}"
                                     StrokeThickness="1">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=NavigateToVehicleHistoryCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
                                 <Grid RowDefinitions="Auto,Auto,Auto"
                                       ColumnDefinitions="*,Auto">
                                     <Label Grid.Row="0" Grid.Column="0"

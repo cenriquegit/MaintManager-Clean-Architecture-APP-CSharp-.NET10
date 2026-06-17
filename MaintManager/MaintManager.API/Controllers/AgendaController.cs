@@ -88,11 +88,20 @@ public sealed class AgendaController : ControllerBase
         return Ok(ApiResponse<AgendaResponse>.Ok(response));
     }
 
-    private int? GetCurrentKm(int prcoid) =>
-        _context.Vehicles.AsNoTracking()
+    private int? GetCurrentKm(int prcoid)
+    {
+        var vehicleKm = _context.Vehicles.AsNoTracking()
             .Where(pv => pv.Prcoid == prcoid)
             .Select(pv => pv.Mileage)
             .FirstOrDefault();
+
+        var lastMaintKm = _context.Maintenances.AsNoTracking()
+            .Where(m => m.Prcoid == prcoid && m.Statid == "FI")
+            .Max(m => (int?)m.Mileage);
+
+        if (!vehicleKm.HasValue && !lastMaintKm.HasValue) return null;
+        return Math.Max(vehicleKm ?? 0, lastMaintKm ?? 0);
+    }
 }
 
 public sealed record AgendaResponse(

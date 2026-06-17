@@ -68,6 +68,7 @@ public partial class HomeViewModel : BaseViewModel
                     new KpiItem("Servicios del Mes", data.ServicesThisMonth.ToString(), "🔧"),
                     new KpiItem("Stock Bajo", data.LowStockMaterials.ToString(), "📦"),
                     new KpiItem("Alertas", data.UnresolvedAlerts.ToString(), "⚠️"),
+                    new KpiItem("Lotes por Vencer", data.ExpiringLots.ToString(), "⏰"),
                 ];
             }
             else
@@ -99,6 +100,7 @@ public partial class HomeViewModel : BaseViewModel
                         .Where(v => v.Source == "legacy")
                         .Select(v => new VehicleCard
                         {
+                            Prcoid = v.Prcoid ?? 0,
                             LicensePlate = v.LicensePlate,
                             VehicleName = v.VehicleName,
                             Brand = v.Brand ?? "-",
@@ -148,8 +150,16 @@ public partial class HomeViewModel : BaseViewModel
         await Shell.Current.GoToAsync("//BiDashboard");
     }
 
+    [RelayCommand]
+    private async Task NavigateToVehicleHistory(VehicleCard card)
+    {
+        if (card.Prcoid > 0)
+            await Shell.Current.GoToAsync($"///Maintenances/VehicleHistory?prcoid={card.Prcoid}");
+    }
+
     public partial class VehicleCard
     {
+        public int Prcoid { get; set; }
         public string LicensePlate { get; set; } = string.Empty;
         public string VehicleName { get; set; } = string.Empty;
         public string Brand { get; set; } = string.Empty;

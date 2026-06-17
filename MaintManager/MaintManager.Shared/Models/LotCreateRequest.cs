@@ -7,5 +7,6 @@ public sealed record LotCreateRequest(
     DateOnly? ExpirationDate,
     int? Provid,
     string? SupplierLotNumber,
+    string? SupplierName,
     string? Note
 );

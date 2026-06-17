@@ -30,7 +30,7 @@ public sealed class VehicleRepository : IVehicleRepository
 
         if (vehicle is null) return 0;
 
-        var lastKm = await _context.RentExecutes.AsNoTracking()
+        var lastRentalKm = await _context.RentExecutes.AsNoTracking()
             .Where(re =>
                 re.RentRequest != null &&
                 re.RentRequest.Prodid == vehicle.Prodid &&
@@ -40,6 +40,12 @@ public sealed class VehicleRepository : IVehicleRepository
             .Select(re => re.KilometerEnd)
             .FirstOrDefaultAsync(ct);
 
-        return lastKm ?? vehicle.Mileage ?? 0;
+        var lastMaintKm = await _context.Maintenances.AsNoTracking()
+            .Where(m => m.Prcoid == prcoid && m.Statid == "FI")
+            .MaxAsync(m => (int?)m.Mileage, ct);
+
+        var baseKm = vehicle.Mileage ?? 0;
+        var km = new[] { baseKm, lastRentalKm ?? 0, lastMaintKm ?? 0 }.Max();
+        return km;
     }
 }

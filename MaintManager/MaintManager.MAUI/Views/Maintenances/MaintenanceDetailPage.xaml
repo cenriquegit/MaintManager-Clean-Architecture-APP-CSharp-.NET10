@@ -7,6 +7,27 @@
     Title="{Binding Title}"
     BackgroundColor="{StaticResource ColorBackground}">
 
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*,Auto" Padding="0,0,8,0">
+            <Label Grid.Column="0"
+                   Text="{Binding Title}"
+                   FontSize="18" FontAttributes="Bold"
+                   TextColor="White"
+                   VerticalOptions="Center"/>
+            <Button Grid.Column="1"
+                    Text="✕ Cancelar"
+                    Command="{Binding CancelOrderCommand}"
+                    IsVisible="{Binding CanCancel}"
+                    BackgroundColor="#C62828"
+                    TextColor="White"
+                    FontSize="12" FontAttributes="Bold"
+                    HeightRequest="32"
+                    CornerRadius="6"
+                    Padding="10,0"
+                    VerticalOptions="Center"/>
+        </Grid>
+    </Shell.TitleView>
+
     <Grid RowDefinitions="*,Auto">
 
         <!-- LOADING -->
@@ -35,45 +56,43 @@
                 <!-- Header: order number, vehicle, plate, status -->
                 <Border StrokeShape="RoundRectangle 12"
                         Stroke="{StaticResource ColorBorderLight}"
-                        StrokeThickness="1" Padding="12"
+                        StrokeThickness="1" Padding="14"
                         BackgroundColor="{StaticResource ColorSurface}">
-                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="1">
-
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="4">
                         <Label Grid.Row="0" Grid.Column="0"
                                Text="{Binding MaintenanceDetail.OrderNumber}"
                                FontSize="18" FontAttributes="Bold"
                                TextColor="{StaticResource ColorTextPrimary}"/>
 
-                        <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="6">
-                            <Button Text="✕ Cancelar"
-                                    Command="{Binding CancelOrderCommand}"
-                                    IsVisible="{Binding CanCancel}"
-                                    BackgroundColor="{StaticResource ColorError}"
-                                    TextColor="White" FontSize="12" FontAttributes="Bold"
-                                    HeightRequest="30" CornerRadius="6" Padding="8,0"/>
-                            <Border StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 99"
-                                    Padding="8,3"
-                                    BackgroundColor="{StaticResource ColorInfoContainer}">
-                                <Label Text="{Binding MaintenanceDetail.StatusName}"
-                                       FontSize="11" FontAttributes="Bold"
-                                       TextColor="{StaticResource ColorInfo}"/>
-                            </Border>
-                        </HorizontalStackLayout>
+                        <Border Grid.Row="0" Grid.Column="1"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 99"
+                                Padding="10,4"
+                                BackgroundColor="{StaticResource ColorInfoContainer}">
+                            <Label Text="{Binding MaintenanceDetail.StatusName}"
+                                   FontSize="12" FontAttributes="Bold"
+                                   TextColor="{StaticResource ColorInfo}"/>
+                        </Border>
 
                         <Label Grid.Row="1" Grid.ColumnSpan="2"
                                Text="{Binding MaintenanceDetail.VehicleName}"
                                FontSize="16" FontAttributes="Bold"
-                               TextColor="{StaticResource ColorTextPrimary}"/>
+                               TextColor="{StaticResource ColorTextPrimary}"
+                               Margin="0,2,0,0"/>
 
-                        <Label Grid.Row="2" Grid.ColumnSpan="2"
-                               Text="{Binding MaintenanceDetail.LicensePlate, StringFormat='Placa: {0}'}"
-                               FontSize="13"
-                               TextColor="{StaticResource ColorTextSecondary}"/>
+                        <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="16"
+                                               Margin="0,2,0,0">
+                            <Label Text="{Binding MaintenanceDetail.LicensePlate, StringFormat='Placa: {0}'}"
+                                   FontSize="13"
+                                   TextColor="{StaticResource ColorTextSecondary}"/>
+                            <Label Text="{Binding MaintenanceDetail.Mileage, StringFormat='Km: {0:N0}'}"
+                                   FontSize="13"
+                                   TextColor="{StaticResource ColorTextSecondary}"/>
+                        </HorizontalStackLayout>
 
                         <!-- Oil info inline -->
                         <Label Grid.Row="3" Grid.ColumnSpan="2"
-                               FontSize="11" Margin="0,2,0,0"
+                               FontSize="11" Margin="0,1,0,0"
                                TextColor="{StaticResource ColorTextSecondary}">
                             <Label.FormattedText>
                                 <FormattedString>
@@ -317,17 +336,7 @@
                                                    TextColor="{StaticResource ColorPrimary}"
                                                    IsVisible="{Binding Rating, Converter={StaticResource IntToBoolConverter}}"/>
                                         </VerticalStackLayout>
-            <Button Grid.Column="0"
-                    Text="Cancelar Orden"
-                    Command="{Binding CancelOrderCommand}"
-                                                    IsVisible="{Binding CanCancel}"
-                    BackgroundColor="{StaticResource ColorError}"
-                    TextColor="White"
-                    HeightRequest="50"
-                    CornerRadius="12"
-                    HorizontalOptions="Fill"/>
-
-            <Button Grid.Column="1"
+                                        <Button Grid.Column="1"
                                                 Text="✕"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=RemoveConsumedMaterialCommand}"
                                                 CommandParameter="{Binding .}"
@@ -564,18 +573,11 @@
             <Button Grid.Column="0"
                     Text="Cerrar Orden"
                     Command="{Binding CloseOrderCommand}"
-                                                    IsVisible="{Binding CanClose}"
+                    IsVisible="{Binding CanClose}"
                     Style="{StaticResource PrimaryButton}"
                     HorizontalOptions="Fill"/>
 
             <Button Grid.Column="1"
-                    Text="Cerrar Orden"
-                    Command="{Binding CloseOrderCommand}"
-                                                    IsVisible="{Binding CanClose}"
-                    Style="{StaticResource PrimaryButton}"
-                    HorizontalOptions="Fill"/>
-
-            <Button Grid.Column="2"
                     Text=" Exportar PDF"
                     Command="{Binding ExportPdfCommand}"
                     IsVisible="{Binding IsReadOnly}"

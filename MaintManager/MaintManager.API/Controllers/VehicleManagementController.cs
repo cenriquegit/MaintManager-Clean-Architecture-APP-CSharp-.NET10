@@ -38,6 +38,12 @@ public sealed class VehicleManagementController : ControllerBase
             .Where(pv => prcoids.Contains(pv.Prcoid))
             .ToDictionaryAsync(pv => pv.Prcoid, pv => pv.Mileage, ct);
 
+        var lastMaintenanceMileages = await _context.Maintenances.AsNoTracking()
+            .Where(m => m.Statid == "FI" && prcoids.Contains(m.Prcoid))
+            .GroupBy(m => m.Prcoid)
+            .Select(g => new { Prcoid = g.Key, Mileage = g.Max(m => m.Mileage) })
+            .ToDictionaryAsync(x => x.Prcoid, x => x.Mileage, ct);
+
         var schedules = await _context.VehicleSchedules.AsNoTracking()
             .Where(s => prcoids.Contains(s.Prcoid) && s.Status)
             .ToDictionaryAsync(s => s.Prcoid, s => s.NextKm, ct);
@@ -49,7 +55,11 @@ public sealed class VehicleManagementController : ControllerBase
         var dtos = vehicles.Select(v =>
         {
             var prcoid = v.Prcoid ?? 0;
-            int? currentKm = prcoid > 0 && mileages.TryGetValue(prcoid, out var mk) ? mk : null;
+            int? vehicleKm = prcoid > 0 && mileages.TryGetValue(prcoid, out var mk) ? mk : null;
+            int? lastMaintKm = prcoid > 0 && lastMaintenanceMileages.TryGetValue(prcoid, out var lmk) ? lmk : null;
+            int? currentKm = vehicleKm.HasValue || lastMaintKm.HasValue
+                ? Math.Max(vehicleKm ?? 0, lastMaintKm ?? 0)
+                : null;
             int? nextKm = prcoid > 0 && schedules.TryGetValue(prcoid, out var sk) ? sk : null;
             bool hasActive = prcoid > 0 && activePrcoids.Contains(prcoid);
             return new ManagedVehicleDto(v.MvId, v.Prcoid, v.LicensePlate, v.VehicleName,
