@@ -10,10 +10,56 @@
     Title="Inventario"
     BackgroundColor="{StaticResource ColorBackground}">
 
-    <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+        <!-- Tabs Materiales / Componentes -->
+        <HorizontalStackLayout Grid.Row="0" Margin="16,8,16,0" Spacing="6">
+            <Border StrokeShape="RoundRectangle 8"
+                    StrokeThickness="0"
+                    Padding="14,6"
+                    BackgroundColor="{StaticResource ColorPrimary}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding SelectedTab}" Value="Componentes">
+                        <Setter Property="BackgroundColor" Value="{StaticResource ColorSurface}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SwitchToMaterialsCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="Materiales" FontSize="13" FontAttributes="Bold"
+                       TextColor="White">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding SelectedTab}" Value="Componentes">
+                            <Setter Property="TextColor" Value="{StaticResource ColorTextPrimary}"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Border>
+            <Border StrokeShape="RoundRectangle 8"
+                    StrokeThickness="0"
+                    Padding="14,6"
+                    BackgroundColor="{StaticResource ColorSurface}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding SelectedTab}" Value="Componentes">
+                        <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SwitchToComponentsCommand}"/>
+                </Border.GestureRecognizers>
+                <Label Text="Componentes" FontSize="13" FontAttributes="Bold"
+                       TextColor="{StaticResource ColorTextPrimary}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding SelectedTab}" Value="Componentes">
+                            <Setter Property="TextColor" Value="White"/>
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Border>
+        </HorizontalStackLayout>
 
         <!-- Buscador -->
-        <Border Grid.Row="0"
+        <Border Grid.Row="1"
                 Margin="16,8,16,0"
                 StrokeShape="RoundRectangle 8"
                 Stroke="{StaticResource ColorBorderLight}"
@@ -30,7 +76,7 @@
         </Border>
 
         <!-- Filtros -->
-        <HorizontalStackLayout Grid.Row="1" Margin="16,8" Spacing="12">
+        <HorizontalStackLayout Grid.Row="2" Margin="16,8" Spacing="12">
             <CheckBox IsChecked="{Binding ShowOnlyLowStock}" Color="{StaticResource ColorError}"/>
             <Label Text="Solo stock bajo mínimo"
                    Style="{StaticResource BodyText}"
@@ -51,7 +97,7 @@
         </HorizontalStackLayout>
 
         <!-- Lista principal -->
-        <RefreshView Grid.Row="2"
+        <RefreshView Grid.Row="3"
                      Command="{Binding LoadCommand}"
                      IsRefreshing="{Binding IsLoading}">
             <Grid>
@@ -82,7 +128,13 @@
                     <Label Text="📦" FontSize="48" HorizontalOptions="Center"/>
                     <Label Text="No hay materiales en inventario."
                            Style="{StaticResource BodyText}"
-                           HorizontalOptions="Center"/>
+                           HorizontalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding SelectedTab}" Value="Componentes">
+                                <Setter Property="Text" Value="No hay componentes en inventario."/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                     <Button Text="Ingresar primer lote"
                             Command="{Binding AddLotCommand}"
                             Style="{StaticResource PrimaryButton}"
@@ -167,8 +219,9 @@
         </RefreshView>
 
         <!-- Bottom sticky bar -->
-        <Border Grid.Row="3" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
-            <Button Text="Nuevo material" Command="{Binding CreateMaterialCommand}"
+        <Border Grid.Row="4" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+            <Button Text="{Binding SelectedTab, StringFormat='Nuevo {0}'}"
+                    Command="{Binding CreateMaterialCommand}"
                     BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"
                     HeightRequest="46" CornerRadius="10" HorizontalOptions="Fill"/>
         </Border>

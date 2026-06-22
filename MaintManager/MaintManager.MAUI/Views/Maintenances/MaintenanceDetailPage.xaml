@@ -306,6 +306,32 @@
                                                     TextColor="{StaticResource ColorTextPrimary}"
                                                     Title="Origen"/>
                                         </Border>
+                                        <!-- Rating picker -->
+                                        <Border IsVisible="{Binding IsDone}"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="{StaticResource ColorBorder}"
+                                                StrokeThickness="1" Padding="4,0"
+                                                Margin="36,0,36,4" HeightRequest="36"
+                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                                            <Picker ItemsSource="{Binding RatingOptions}"
+                                                    SelectedIndex="{Binding Rating, Mode=TwoWay}"
+                                                    FontSize="12"
+                                                    TextColor="{StaticResource ColorTextPrimary}"
+                                                    Title="Calificación"/>
+                                        </Border>
+                                        <!-- Rating comment -->
+                                        <Border IsVisible="{Binding Rating, Converter={StaticResource IntToBoolConverter}}"
+                                                StrokeShape="RoundRectangle 6"
+                                                Stroke="{StaticResource ColorBorder}"
+                                                StrokeThickness="1" Padding="8,0"
+                                                Margin="36,0,36,4" HeightRequest="36"
+                                                IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type vm:MaintenanceDetailViewModel}}, Path=IsReadOnly, Converter={StaticResource InvertedBoolConverter}}">
+                                            <Entry Text="{Binding RatingComment, Mode=TwoWay}"
+                                                   Placeholder="Comentario (opcional)"
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource ColorTextPrimary}"
+                                                   PlaceholderColor="{StaticResource Gray500}"/>
+                                        </Border>
                                     </VerticalStackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

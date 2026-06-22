@@ -56,7 +56,7 @@
                                                 BackgroundColor="{Binding LevelColor}" VerticalOptions="Center">
                                             <Label Text="{Binding LevelLabel}" FontSize="9" TextColor="White" FontAttributes="Bold"/>
                                         </Border>
-                                        <Label Text="{Binding Title}" FontSize="15" FontAttributes="Bold"
+                                        <Label Text="{Binding ShortTitle}" FontSize="15" FontAttributes="Bold"
                                                TextColor="{StaticResource ColorTextPrimary}" LineBreakMode="TailTruncation"/>
                                     </HorizontalStackLayout>
                                     <Label Text="{Binding Message}" Style="{StaticResource CaptionText}" LineBreakMode="WordWrap" MaxLines="3"/>

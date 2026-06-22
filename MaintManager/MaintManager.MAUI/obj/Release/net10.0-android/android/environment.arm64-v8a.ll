@@ -7875,7 +7875,7 @@ target triple = "aarch64-unknown-linux-android21"
 @.env.var.3 = private unnamed_addr constant [42 x i8] c"Xamarin.Android.Net.AndroidMessageHandler\00", align 1
 
 ;ApplicationConfig
-@.ApplicationConfig.0_android_package_name = private unnamed_addr constant [34 x i8] c"com.companyname.maintmanager.maui\00", align 1
+@.ApplicationConfig.0_android_package_name = private unnamed_addr constant [15 x i8] c"com.neocar.app\00", align 1
 
 ;DSOCacheEntry
 @.DSOCacheEntry.0_name = private unnamed_addr constant [34 x i8] c"libSystem.Globalization.Native.so\00", align 1

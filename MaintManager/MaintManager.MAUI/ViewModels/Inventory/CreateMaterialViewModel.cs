@@ -19,10 +19,16 @@ public partial class CreateMaterialViewModel : BaseViewModel, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        if (query.TryGetValue("type", out var typeObj) && typeObj is string typeStr && typeStr == "Componente")
+        {
+            SelectedType = "Componente";
+            Title = "Nuevo Componente";
+        }
+
         if (query.TryGetValue("mateid", out var id) && id is string idStr && int.TryParse(idStr, out var mateid))
         {
             _editMateid = mateid;
-            Title = "Editar Material";
+            Title = SelectedType == "Componente" ? "Editar Componente" : "Editar Material";
             LoadMaterialCommand.Execute(mateid);
         }
     }
@@ -44,6 +50,11 @@ public partial class CreateMaterialViewModel : BaseViewModel, IQueryAttributable
 
     [ObservableProperty]
     private string _description = string.Empty;
+
+    [ObservableProperty]
+    private string _selectedType = "Material";
+
+    public List<string> TypeOptions { get; } = new() { "Material", "Componente" };
 
     [RelayCommand]
     private async Task LoadCategories()
@@ -69,6 +80,7 @@ public partial class CreateMaterialViewModel : BaseViewModel, IQueryAttributable
             StockMinimum = raw.Data.StockMinimum.ToString();
             Description = raw.Data.Description ?? string.Empty;
             SelectedCategory = Categories.FirstOrDefault(c => c.Macaid == raw.Data.Macaid);
+            SelectedType = raw.Data.Type;
         }
     }
 
@@ -102,7 +114,8 @@ public partial class CreateMaterialViewModel : BaseViewModel, IQueryAttributable
                 Name = MaterialName.Trim(),
                 UnitOfMeasure = string.IsNullOrWhiteSpace(UnitOfMeasure) ? "Unidad" : UnitOfMeasure.Trim(),
                 StockMinimum = (decimal)min,
-                Description = string.IsNullOrWhiteSpace(Description) ? null : Description.Trim()
+                Description = string.IsNullOrWhiteSpace(Description) ? null : Description.Trim(),
+                Type = SelectedType
             };
 
             if (_editMateid.HasValue)
@@ -131,6 +144,7 @@ public partial class CreateMaterialViewModel : BaseViewModel, IQueryAttributable
         public string UnitOfMeasure { get; set; } = string.Empty;
         public decimal StockMinimum { get; set; }
         public string? Description { get; set; }
+        public string Type { get; set; } = "Material";
     }
 
     public class CategoryOption

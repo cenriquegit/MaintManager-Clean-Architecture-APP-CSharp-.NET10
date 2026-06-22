@@ -5,7 +5,8 @@ public sealed record MaterialCreateRequest(
     string Name,
     string UnitOfMeasure,
     decimal StockMinimum,
-    string? Description
+    string? Description,
+    string? Type = "Material"
 );
 
 /// <summary>Material en respuesta.</summary>

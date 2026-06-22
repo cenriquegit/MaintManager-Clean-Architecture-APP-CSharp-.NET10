@@ -18,6 +18,7 @@ public sealed class Material
     public DateTime UpdatedAt { get; private set; }
     public int CreatedBy { get; private set; }
     public bool Status { get; private set; } = true;
+    public string Type { get; private set; } = "Material";
 
     // Navegación
     public MaterialCategory? Category { get; private set; }
@@ -27,7 +28,7 @@ public sealed class Material
     private Material() { }
 
     public static Material Create(short macaid, string name, string unitOfMeasure,
-        decimal stockMinimum, int createdBy, string? description = null)
+        decimal stockMinimum, int createdBy, string? description = null, string type = "Material")
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("El nombre del material es obligatorio.", nameof(name));
@@ -43,6 +44,7 @@ public sealed class Material
             UnitOfMeasure = unitOfMeasure,
             StockMinimum = stockMinimum,
             Description = description,
+            Type = type,
             CreatedBy = createdBy,
             StockTotal = 0,
             CreatedAt = DateTime.UtcNow,

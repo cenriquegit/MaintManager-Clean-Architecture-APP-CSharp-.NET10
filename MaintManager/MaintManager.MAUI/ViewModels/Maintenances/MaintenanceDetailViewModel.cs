@@ -116,7 +116,6 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             DiagnosisSaved = true;
             CanClose = true;
         });
-        if (!HasError) await Load();
     }
 
     private async Task PersistChecklistItemsAsync()
@@ -146,6 +145,23 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
                 });
             }
             catch { }
+
+            if (item.Rating > 0)
+            {
+                try
+                {
+                    var rateEndpoint = ApiRoutes.Inventory.RateMaterial
+                        .Replace("{mateid}", item.Mateid.ToString());
+                    await _apiService.PostAsync<object>(rateEndpoint, new
+                    {
+                        Mateid = item.Mateid,
+                        Mainid = _mainid,
+                        Rating = (short)item.Rating,
+                        Observation = string.IsNullOrWhiteSpace(item.RatingComment) ? null : item.RatingComment
+                    });
+                }
+                catch { }
+            }
         }
 
         // Componentes marcados como "Instalado"
@@ -260,26 +276,27 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
     {
         try
         {
+            var vehicleId = MaintenanceDetail?.Prcoid ?? 0;
+            var url = $"{ApiRoutes.Inventory.GetMaterials}?type=Componente{(vehicleId > 0 ? $"&vehicleId={vehicleId}" : "")}";
+            var raw = await _apiService.GetAsync<ApiResponse<List<MaterialItemDto>>>(url);
+            var comps = raw?.Data ?? new List<MaterialItemDto>();
+
             var allowedIds = new HashSet<int>(MaintenanceDetail?.AllowedComponentIds ?? new List<int>());
+            if (allowedIds.Count > 0)
+                comps = comps.Where(c => allowedIds.Contains(c.Mateid)).ToList();
+
             var existingNames = new HashSet<string>(MaintenanceDetail?.Components?.Select(c => c.ComponentName) ?? new List<string>());
 
-            var raw = await _apiService.GetAsync<ApiResponse<List<ActionCatalogOption>>>(ApiRoutes.Maintenances.ActionCatalog);
-            var all = raw?.Data ?? new List<ActionCatalogOption>();
-            var compsOnly = all.Where(a => a.Category is not null && a.Category.Contains("Componente")).ToList();
-
-            if (allowedIds.Count > 0)
-                compsOnly = compsOnly.Where(a => allowedIds.Contains(a.Acatid)).ToList();
-
             ComponentChecklist = new ObservableCollection<ComponentChecklistItem>(
-                compsOnly.Select(a =>
+                comps.Select(c =>
                 {
-                    var alreadyInstalled = existingNames.Contains(a.Name);
+                    var alreadyInstalled = existingNames.Contains(c.Name);
                     return new ComponentChecklistItem
                     {
-                        Acatid = a.Acatid,
-                        GroupKey = $"comp_{a.Acatid}",
-                        Name = a.Name,
-                        Detail = a.Category,
+                        Acatid = c.Mateid,
+                        GroupKey = $"comp_{c.Mateid}",
+                        Name = c.Name,
+                        Detail = c.UnitOfMeasure,
                         IsDone = alreadyInstalled,
                         WasAlreadyInstalled = alreadyInstalled
                     };
@@ -316,7 +333,6 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
             var endpoint = ApiRoutes.Maintenances.AssignTechnician.Replace("{id}", _mainid.ToString());
             await _apiService.PutAsync<object>(endpoint, request);
         });
-        if (!HasError) await Load();
     }
 
     [RelayCommand]
@@ -448,12 +464,19 @@ public partial class MaintenanceDetailViewModel : BaseViewModel, IQueryAttributa
         [ObservableProperty]
         private string _stockNote = string.Empty;
 
+        [ObservableProperty]
+        private int _rating;
+
+        [ObservableProperty]
+        private string _ratingComment = string.Empty;
+
         public List<string> OriginOptions { get; } = new() { "Stock propio", "Externo" };
+        public List<string> RatingOptions { get; } = new() { "Sin calificar", "1 ⭐", "2 ⭐⭐", "3 ⭐⭐⭐", "4 ⭐⭐⭐⭐", "5 ⭐⭐⭐⭐⭐" };
 
         public string StatusIcon => IsDone ? "✅" : "—";
 
         public string StatusDetail => IsDone
-            ? (Quantity > 0 ? $"✅ {Quantity} {Detail ?? ""} ({Origin})" : "✅")
+            ? $"✅ {Quantity} {Detail ?? ""} ({Origin}){(Rating > 0 ? $" ⭐{Rating}" : "")}"
             : "—";
 
         partial void OnIsDoneChanged(bool value)

@@ -220,7 +220,7 @@ dotnet run --urls "http://0.0.0.0:5056"
 ```bash
 cd MaintManager.MAUI
 dotnet publish -f net10.0-android -c Release -p:AndroidPackageFormats=apk
-adb install -r bin/Release/net10.0-android/publish/com.companyname.maintmanager.maui-Signed.apk
+adb install -r bin/Release/net10.0-android/publish/com.neocar.app-Signed.apk
 ```
 
 ### 4. App MAUI (Windows)
@@ -242,7 +242,7 @@ dotnet build MaintManager.API/MaintManager.API.csproj -c Release
 dotnet publish MaintManager.MAUI/MaintManager.MAUI.csproj -f net10.0-android -c Release -p:AndroidPackageFormats=apk
 
 # 3. Instalar APK (el emulador debe estar corriendo)
-adb install -r MaintManager.MAUI/bin/Release/net10.0-android/publish/com.companyname.maintmanager.maui-Signed.apk
+adb install -r MaintManager.MAUI/bin/Release/net10.0-android/publish/com.neocar.app-Signed.apk
 
 # 4. Iniciar API
 dotnet run --project MaintManager.API/MaintManager.API.csproj --urls "http://0.0.0.0:5056"
@@ -289,10 +289,10 @@ Con el teléfono conectado por USB (o el APK transferido):
 ```bash
 cd MaintManager.MAUI
 dotnet publish -f net10.0-android -c Release -p:AndroidPackageFormats=apk
-adb install -r bin/Release/net10.0-android/publish/*-Signed.apk
+adb install -r bin/Release/net10.0-android/publish/com.neocar.app-Signed.apk
 ```
 
-> Si no usas ADB, transfiere el archivo `*-Signed.apk` al teléfono e instálalo manualmente.
+> Si no usas ADB, transfiere el archivo `com.neocar.app-Signed.apk` al teléfono e instálalo manualmente.
 
 #### 6.4 Iniciar la API
 
@@ -303,14 +303,14 @@ dotnet run --urls "http://0.0.0.0:5056"
 
 > ⚠️ El flag **debe ser `--urls`** con doble guion. Si usas `-urls` (un guion), se ignora y se usa el puerto de `launchSettings.json`. El flag `0.0.0.0` es **obligatorio** para que la API acepte conexiones desde otros dispositivos en la red.
 
-#### 6.5 Configurar la URL en la app
+#### 6.5 Detección automática del servidor
+
+La app detecta automáticamente el servidor en la red local al iniciar. Escanea los IPs `{subnet}.1`, `{subnet}.33` y `{subnet}.100` en el puerto 5056.
 
 1. Abre la app en el teléfono.
-2. Ve a la pantalla de **Configuración** (menú lateral).
-3. En el campo **URL de la API**, ingresa: `http://<IP-DE-TU-PC>:5056`
-   - Ejemplo: `http://192.168.1.100:5056`
-4. Presiona **Guardar**.
-5. Regresa al Login e ingresa tus credenciales.
+2. La app detectará el servidor automáticamente en el primer inicio.
+3. Si no lo detecta, ve a **Configuración** > **Buscar servidor** para re-intentar la detección.
+4. En emuladores Android se usa automáticamente `http://10.0.2.2:5056`.
 
 #### 6.6 Verificar conectividad
 

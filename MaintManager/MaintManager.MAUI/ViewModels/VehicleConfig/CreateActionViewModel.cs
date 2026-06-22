@@ -22,7 +22,7 @@ public partial class CreateActionViewModel : BaseViewModel, IQueryAttributable
     [ObservableProperty]
     private string _selectedCategory = "Acción";
 
-    public List<string> CategoryOptions { get; } = ["Acción", "Componente"];
+    public List<string> CategoryOptions { get; } = ["Acción"];
 
     [ObservableProperty]
     private string _description = string.Empty;

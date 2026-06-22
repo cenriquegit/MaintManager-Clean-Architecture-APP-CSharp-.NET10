@@ -31,6 +31,11 @@ public partial class InventoryListViewModel : BaseViewModel
     [ObservableProperty]
     private int? _lowStockCount;
 
+    [ObservableProperty]
+    private string _selectedTab = "Materiales";
+
+    public List<string> TabOptions { get; } = new() { "Materiales", "Componentes" };
+
     public bool IsAdmin => _authService?.IsAdmin() ?? false;
 
     [RelayCommand]
@@ -38,7 +43,10 @@ public partial class InventoryListViewModel : BaseViewModel
     {
         await ExecuteAsync(async () =>
         {
-            var endpoint = ShowOnlyLowStock ? ApiRoutes.Inventory.GetLowStock : ApiRoutes.Inventory.GetMaterials;
+            var baseEndpoint = ShowOnlyLowStock ? ApiRoutes.Inventory.GetLowStock : ApiRoutes.Inventory.GetMaterials;
+            var typeFilter = SelectedTab == "Componentes" ? "Componente" : "Material";
+            var separator = baseEndpoint.Contains('?') ? "&" : "?";
+            var endpoint = $"{baseEndpoint}{separator}type={typeFilter}";
             var response = await _apiService.GetAsync<ApiResponse<List<MaterialItem>>>(endpoint);
             if (response?.Success == true)
             {
@@ -62,13 +70,27 @@ public partial class InventoryListViewModel : BaseViewModel
 
     partial void OnShowOnlyLowStockChanged(bool value) => LoadCommand.Execute(null);
     partial void OnSearchTextChanged(string value) => LoadCommand.Execute(null);
+    partial void OnSelectedTabChanged(string value) => LoadCommand.Execute(null);
+
+    [RelayCommand]
+    private void SwitchToMaterials()
+    {
+        if (SelectedTab != "Materiales")
+            SelectedTab = "Materiales";
+    }
+
+    [RelayCommand]
+    private void SwitchToComponents()
+    {
+        if (SelectedTab != "Componentes")
+            SelectedTab = "Componentes";
+    }
 
     [RelayCommand]
     private async Task AddLot()
     {
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
-
         await Shell.Current.GoToAsync("///Inventory/CreateLot");
     }
 
@@ -77,7 +99,6 @@ public partial class InventoryListViewModel : BaseViewModel
     {
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
-
         await Shell.Current.GoToAsync("///Inventory/CreateMaterial");
     }
 

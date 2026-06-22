@@ -15,14 +15,38 @@ public sealed class BiReportService : IBiReportService
     {
         var summary = await _context.Database
             .SqlQueryRaw<DashboardSummaryRaw>(@"
-                SELECT total_vehicles AS ""TotalVehicles"",
-                       services_this_month AS ""ServicesThisMonth"",
-                       COALESCE(global_emergency_rate_percent, 0) AS ""GlobalEmergencyRatePercent"",
-                       low_stock_materials AS ""LowStockMaterials"",
-                       unresolved_alerts AS ""UnresolvedAlerts"",
-                       expiring_lots AS ""ExpiringLots"",
-                       COALESCE(fleet_avg_cost_per_km, 0) AS ""FleetAvgCostPerKm""
-                FROM maintenance.vw_bi_dashboard_summary")
+                SELECT
+                    (SELECT count(*) FROM product.vehicle WHERE status = true) AS ""TotalVehicles"",
+                    (SELECT count(*) FROM maintenance.maintenance
+                     WHERE statid = 'FI' AND maintenance_date >= date_trunc('month', CURRENT_DATE)) AS ""ServicesThisMonth"",
+                    (SELECT round(((count(*) FILTER (WHERE mt.name = 'Emergencia'))::numeric
+                        / NULLIF(count(*), 0)::numeric) * 100, 2)
+                     FROM maintenance.maintenance m
+                     JOIN maintenance.maintenance_type mt ON m.matyid = mt.matyid
+                     WHERE m.statid = 'FI') AS ""GlobalEmergencyRatePercent"",
+                    (SELECT count(*) FROM maintenance.vw_low_stock) AS ""LowStockMaterials"",
+                    (SELECT count(*) FROM maintenance.alert_log WHERE resolved = false) AS ""UnresolvedAlerts"",
+                    (SELECT count(*) FROM maintenance.vw_expiring_lots) AS ""ExpiringLots"",
+                    (SELECT round(COALESCE(avg(cost_per_km), 0), 4)
+                     FROM (
+                         SELECT CASE WHEN vk.current_km > 0
+                             THEN round(COALESCE(mc.total_material_cost, 0) / vk.current_km, 4)
+                             ELSE 0 END AS cost_per_km
+                         FROM maintenance.vw_vehicle_current_km vk
+                         LEFT JOIN LATERAL (
+                             SELECT m.prcoid, COALESCE(sum(mc_cost.cost_total), 0) AS total_material_cost
+                             FROM maintenance.maintenance m
+                             LEFT JOIN LATERAL (
+                                 SELECT sum(mc.quantity * COALESCE(ml.unit_cost, 0)) AS cost_total
+                                 FROM maintenance.material_consumption mc
+                                 LEFT JOIN maintenance.material_lot ml ON mc.maloid = ml.maloid
+                                 WHERE mc.mainid = m.mainid AND mc.origin = 'Stock propio'
+                             ) mc_cost ON true
+                             WHERE m.prcoid = vk.prcoid AND m.statid = 'FI'
+                             GROUP BY m.prcoid
+                         ) mc ON true
+                     ) sub WHERE cost_per_km > 0) AS ""FleetAvgCostPerKm""
+                ")
             .FirstOrDefaultAsync(ct);
 
         if (summary is null)
@@ -64,7 +88,7 @@ public sealed class BiReportService : IBiReportService
                     WHERE m.prcoid = vk.prcoid AND m.statid = 'FI'
                     GROUP BY m.prcoid
                 ) mc ON true
-                ORDER BY cost_per_km DESC")
+                ORDER BY ""CostPerKm"" DESC")
             .ToListAsync(ct);
 
         return data.Select(r => new CostPerKmResponse(
@@ -92,7 +116,7 @@ public sealed class BiReportService : IBiReportService
                 LEFT JOIN maintenance.vw_vehicle_current_km vk ON m.prcoid = vk.prcoid
                 WHERE m.statid = 'FI'
                 GROUP BY m.prcoid, vk.license_plate_number, vk.vehicle_name
-                ORDER BY emergency_rate_percent DESC")
+                ORDER BY ""EmergencyRatePercent"" DESC")
             .ToListAsync(ct);
 
         return data.Select(r => new EmergencyRateResponse(

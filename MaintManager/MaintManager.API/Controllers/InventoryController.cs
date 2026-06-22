@@ -49,7 +49,7 @@ public sealed class InventoryController : ControllerBase
     /// <summary>Obtener todos los materiales del inventario. Opcionalmente filtrado por vehículo.</summary>
     [HttpGet("materials")]
     [ProducesResponseType(typeof(ApiResponse<IReadOnlyList<MaterialListItem>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetMaterials([FromQuery] int? vehicleId = null, CancellationToken ct = default)
+    public async Task<IActionResult> GetMaterials([FromQuery] int? vehicleId = null, [FromQuery] string? type = null, CancellationToken ct = default)
     {
         IReadOnlyList<Material> materials;
 
@@ -59,24 +59,33 @@ public sealed class InventoryController : ControllerBase
             if (allowed.Count > 0)
             {
                 var allowedIds = allowed.Select(m => m.Mateid).ToHashSet();
-                materials = await _context.Materials.AsNoTracking()
-                    .Where(m => m.Status && allowedIds.Contains(m.Mateid))
-                    .Include(m => m.Category)
-                    .OrderBy(m => m.Category!.Name).ThenBy(m => m.Name)
-                    .ToListAsync(ct);
+                IQueryable<Material> query = _context.Materials.AsNoTracking()
+                    .Where(m => m.Status && allowedIds.Contains(m.Mateid));
+                if (!string.IsNullOrWhiteSpace(type))
+                    query = query.Where(m => m.Type == type);
+                materials = await query.Include(m => m.Category)
+                    .OrderBy(m => m.Category!.Name).ThenBy(m => m.Name).ToListAsync(ct);
             }
             else
             {
-                materials = await _inventoryRepo.GetMaterialsAsync(ct);
+                materials = await GetMaterialsFilteredAsync(type, ct);
             }
         }
         else
         {
-            materials = await _inventoryRepo.GetMaterialsAsync(ct);
+            materials = await GetMaterialsFilteredAsync(type, ct);
         }
 
         return Ok(ApiResponse<IReadOnlyList<MaterialListItem>>.Ok(
             materials.Select(m => m.ToListItem()).ToList()));
+    }
+
+    private async Task<IReadOnlyList<Material>> GetMaterialsFilteredAsync(string? type, CancellationToken ct)
+    {
+        var query = _context.Materials.AsNoTracking().Where(m => m.Status);
+        if (!string.IsNullOrWhiteSpace(type))
+            query = query.Where(m => m.Type == type);
+        return await query.Include(m => m.Category).OrderBy(m => m.Category!.Name).ThenBy(m => m.Name).ToListAsync(ct);
     }
 
     /// <summary>Obtener categorías de materiales.</summary>
@@ -120,7 +129,7 @@ public sealed class InventoryController : ControllerBase
         var createdBy = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         await _inventoryService.CreateMaterialAsync(
             request.Macaid, request.Name, request.UnitOfMeasure,
-            request.StockMinimum, createdBy, ct);
+            request.StockMinimum, createdBy, request.Type, ct);
 
         return StatusCode(StatusCodes.Status201Created,
             ApiResponse<object>.Ok(new { message = "Material creado correctamente." }));

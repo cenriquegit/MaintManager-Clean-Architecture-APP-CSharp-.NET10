@@ -9,7 +9,15 @@ public sealed record MaterialResponse(
     decimal StockMinimum,
     bool IsBelowMinimum,
     string? Description,
-    IReadOnlyList<LotResponse> ActiveLots
+    IReadOnlyList<LotResponse> ActiveLots,
+    MaterialRatingInfo? LastRating,
+    string Type = "Material"
+);
+
+public sealed record MaterialRatingInfo(
+    short Rating,
+    string? Observation,
+    DateTime RatedAt
 );
 
 /// <summary>Elemento simplificado para listados.</summary>

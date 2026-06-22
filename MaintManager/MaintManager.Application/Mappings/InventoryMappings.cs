@@ -14,7 +14,8 @@ public static class InventoryMappings
             UnitOfMeasure: m.UnitOfMeasure,
             StockTotal: m.StockTotal,
             StockMinimum: m.StockMinimum,
-            IsBelowMinimum: m.IsBelowMinimum()
+            IsBelowMinimum: m.IsBelowMinimum(),
+            Type: m.Type
         );
 
     public static MaterialResponse ToResponse(this Material m) =>
@@ -30,7 +31,12 @@ public static class InventoryMappings
             ActiveLots: m.Lots
                 .Where(l => l.LotStatus == "activo")
                 .Select(l => l.ToResponse())
-                .ToList()
+                .ToList(),
+            LastRating: m.Ratings
+                .OrderByDescending(r => r.RatedAt)
+                .Select(r => new MaterialRatingInfo(r.Rating, r.Observation, r.RatedAt))
+                .FirstOrDefault(),
+            Type: m.Type
         );
 
     public static LotResponse ToResponse(this MaterialLot l)

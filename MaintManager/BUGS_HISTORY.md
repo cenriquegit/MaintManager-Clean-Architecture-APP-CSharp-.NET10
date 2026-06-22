@@ -1,7 +1,8 @@
 # Historial de Bugs — MaintManager
 
-> Archivo generado el 2026-05-14. Documenta todos los bugs encontrados y corregidos
-> durante el desarrollo, desde la primera ejecución hasta la versión estable.
+> Archivo generado el 2026-05-14. Última actualización: 2026-06-21.
+> Documenta todos los bugs encontrados y corregidos durante el desarrollo.
+> Total bugs documentados: 102 resueltos.
 
 ---
 
@@ -1890,12 +1891,25 @@ No es urgente porque EF Core NO detecta `RatedBy` como FK por convención (no co
 | 89 | Editar vehículo muestra campos vacíos | CRÍTICO | ✅ Resuelto | Shell llama `IQueryAttributable.ApplyQueryAttributes` en la PÁGINA, no en el ViewModel. `CreateVehiclePage` y `VehicleConfigPage` no implementaban la interfaz. | Ambas pages ahora implementan `IQueryAttributable` y delegan al ViewModel. |
 | 90 | Filtros de source/search en VehicleManagement no funcionan | MEDIO | ✅ Resuelto | `OnSelectedSourceChanged` no estaba definido. Cambiar el Picker no disparaba recarga. | Agregado `partial void OnSelectedSourceChanged` → `LoadVehiclesCommand.Execute()` |
 | 91 | Cards de vehículos con diseño deficiente (badge padding, poca info) | BAJO | ✅ Resuelto | Badge con `Padding="6,2"` creaba mucho espacio. Solo 3 líneas de info. | Reducido padding a `5,1`, agregada línea extra con marca/modelo, nombre en bold, botones 28x28 |
+| 92 | KM actual incorrecto (no considera último mantenimiento cerrado) | ALTO | ✅ Resuelto (21/06) | `VehicleManagementController.GetAll` y `AgendaController.GetCurrentKm` solo leían `Vehicles.Mileage`, ignorando el km de mantenimientos finalizados. | `GetAll`: query adicional a `Maintenances` (statid='FI'), `Math.Max(vehicleKm, lastMaintKm)`. `AgendaController.GetCurrentKm`: mismo fix. |
+| 93 | Tipo de servicio A/B siempre sugiere el mismo | ALTO | ✅ Resuelto (21/06) | `CreateScheduleAsync` siempre arrancaba con "A". `Reschedule` alternaba pero no consideraba historial. | `DetermineInitialServiceTypeAsync`: consulta último mantenimiento del vehículo, si fue A → B, si B → A, si no hay → A. |
+| 94 | SaveDiagnosis borra checklists (marcas + cantidades) | CRÍTICO | ✅ Resuelto (21/06) | `SaveDiagnosis` y `AssignTechnician` hacían `await Load()` al final, recargando todo desde API y perdiendo estado local. | Eliminado `await Load()` de ambos. Solo se actualiza estado local (DiagnosisSaved, CanClose). |
+| 95 | Ítems mal clasificados (materiales aparecen como componentes) | ALTO | ✅ Resuelto (21/06) | `CreateActionViewModel.CategoryOptions` incluía "Componente", permitiendo crear componentes desde la página de Acciones. | `CategoryOptions` limitado a `["Acción"]`. API ya forzaba "Componente" en `CreateComponentAndAdd`. |
+| 96 | BiDashboard KPIs todos en cero (vw_bi_dashboard_summary usa statid='AC') | CRÍTICO | ✅ Resuelto (21/06) | `GetDashboardSummaryAsync` usaba `vw_bi_dashboard_summary` que filtra emergencias/servicios con `statid='AC'` (solo activas). 114 finalizadas pero 0 activas → 0%. | Reescribí query SQL directa en `BiReportService.cs` con `statid='FI'`. Tasa emergencia real: 14.04% (16/114). |
+| 97 | Gráficos BiDashboard vacíos (CostPerKm, EmergencyRate) | CRÍTICO | ✅ Resuelto (21/06) | `ORDER BY cost_per_km` y `ORDER BY emergency_rate_percent` en minúscula no coincidían con alias `"CostPerKm"` y `"EmergencyRatePercent"` (PascalCase con comillas). PostgreSQL: error "no existe la columna". | Cambiado a `ORDER BY "CostPerKm" DESC` y `ORDER BY "EmergencyRatePercent" DESC`. |
+| 98 | Gráfico "Lotes Próximos a Vencer" vacío (pie chart) | ALTO | ✅ Resuelto (21/06) | `DaysUntilExpiry` es `int?`. Lotes sin fecha de vencimiento tienen `null`. Comparaciones `null <= 7` y `null > 30` retornan `false` en C#, excluyendo esos lotes de todas las categorías. | Agregado `l.DaysUntilExpiry.HasValue &&` a condiciones de crítico/advertencia. Sin fecha → Normal (`!l.DaysUntilExpiry.HasValue`). |
+| 99 | InventoryListPage rota tras agregar tabs | CRÍTICO | ✅ Resuelto (21/06) | Agregué Row 0 (tabs) sin actualizar los `Grid.Row` de filtros (1→2), lista (2→3) y footer (3→4). Elementos superpuestos invisibles. | Corregidos los 3 `Grid.Row`: filtros=2, lista=3, footer=4. RowDefinitions="Auto,Auto,Auto,*,Auto". |
+| 100 | InventoryListViewModel corrupto (ViewLots dentro de Load) | CRÍTICO | ✅ Resuelto (21/06) | Al insertar `SwitchToMaterials`/`SwitchToComponents`, el método `ViewLots` perdió su firma y su cuerpo quedó dentro del método `Load`. | Archivo reescrito completo desde cero con estructura correcta. |
+| 101 | CreateMaterialPage siempre muestra "Nuevo Material" (no "Componente") | MEDIO | ✅ Resuelto (21/06) | `ApplyQueryAttributes` no leía parámetro `type`. | Agregado `type=Componente` → `Title = "Nuevo Componente"`, `SelectedType = "Componente"`. Labels genéricos en XAML. |
+| 102 | Reasignar Técnico visible para técnicos (debe ser solo Admin) | ALTO | ✅ Resuelto (21/06) | `MaintenanceDetailViewModel` no exponía `IsAdmin`. | Inyectado `AuthService`, agregado `IsAdmin`. XAML: `IsVisible="{Binding IsAdmin}"`. |
 
 ### Bugs NO resueltos (pendientes)
 
 | # | Bug | Descripción | Intentos fallidos |
 |---|-----|-------------|-------------------|
-| 92 | Filtro en detalle de mantenimiento no funciona | Los selects de acciones/materiales/componentes en MaintenanceDetailPage muestran TODOS los items, no solo los configurados para el vehículo. | 7 intentos: (1) API-side IQueryable.Where, (2) Console.WriteLine debugging, (3) API-side LINQ en memoria, (4) MAUI-side Debug.WriteLine, (5) Cliente-side fetch config + filter local. Ninguno funcionó. El flujo de datos parece no ejecutarse correctamente. |
+| N/A | Ninguno pendiente | Todos los bugs de esta sesión fueron resueltos. | — |
+
+### Gestión de Archivos — Cierre de Sesión 2026-06-21
 
 ### Planes implementados
 

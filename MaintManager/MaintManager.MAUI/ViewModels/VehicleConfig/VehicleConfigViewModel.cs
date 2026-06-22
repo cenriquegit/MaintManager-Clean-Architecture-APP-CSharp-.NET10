@@ -124,11 +124,13 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
             var configTask = _apiService.GetAsync<ApiResponse<VehicleConfigData>>(configUrl);
             var actionsTask = _apiService.GetAsync<ApiResponse<List<ActionOption>>>(ApiRoutes.Maintenances.ActionCatalog);
             var materialsTask = _apiService.GetAsync<ApiResponse<List<MaterialOptionItem>>>(ApiRoutes.Inventory.GetMaterials);
+            var compMaterialsTask = _apiService.GetAsync<ApiResponse<List<MaterialOptionItem>>>($"{ApiRoutes.Inventory.GetMaterials}?type=Componente");
 
-            await Task.WhenAll(configTask, actionsTask, materialsTask);
+            await Task.WhenAll(configTask, actionsTask, materialsTask, compMaterialsTask);
             var config = await configTask;
             var allActions = await actionsTask;
             var allMaterials = await materialsTask;
+            var allCompMaterials = await compMaterialsTask;
 
             var allowedActionIds = new HashSet<int>();
             var allowedMaterialIds = new HashSet<int>();
@@ -138,10 +140,15 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
             {
                 AllowedActions = new ObservableCollection<ActionOption>(config.Data.AllowedActions ?? new List<ActionOption>());
                 AllowedMaterials = new ObservableCollection<MaterialOptionItem>(config.Data.AllowedMaterials ?? new List<MaterialOptionItem>());
-                AllowedComponents = new ObservableCollection<ActionOption>(config.Data.AllowedComponents ?? new List<ActionOption>());
                 allowedActionIds = config.Data.AllowedActions?.Select(a => a.Acatid).ToHashSet() ?? new();
                 allowedMaterialIds = config.Data.AllowedMaterials?.Select(m => m.Mateid).ToHashSet() ?? new();
-                allowedComponentIds = config.Data.AllowedComponents?.Select(c => c.Acatid).ToHashSet() ?? new();
+
+                // Componentes permitidos: desde allowed materials con type='Componente'
+                AllowedComponents = new ObservableCollection<ActionOption>(
+                    (config.Data.AllowedMaterials ?? new List<MaterialOptionItem>())
+                        .Where(m => !string.IsNullOrEmpty(m.Type) && m.Type == "Componente")
+                        .Select(m => new ActionOption { Acatid = m.Mateid, Name = m.Name, Category = "Componente" })
+                        .Concat(config.Data.AllowedComponents ?? new List<ActionOption>()));
             }
             else if (config?.Success == false)
             {
@@ -154,14 +161,22 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
             {
                 AvailableActions = new ObservableCollection<ActionOption>(
                     allActions.Data.Where(a => (a.Category == null || !a.Category.Contains("Componente")) && !allowedActionIds.Contains(a.Acatid)));
-                AvailableComponents = new ObservableCollection<ActionOption>(
-                    allActions.Data.Where(a => a.Category is not null && a.Category.Contains("Componente") && !allowedComponentIds.Contains(a.Acatid)));
             }
+
+            // Componentes disponibles: desde materiales con type='Componente' + action_catalog legacy
+            var compAllowedIds = new HashSet<int>(
+                AllowedComponents.Select(c => c.Acatid));
+            var matComps = (allCompMaterials?.Data ?? new List<MaterialOptionItem>())
+                .Where(m => !allowedMaterialIds.Contains(m.Mateid))
+                .Select(m => new ActionOption { Acatid = m.Mateid, Name = m.Name, Category = "Componente" });
+            var oldComps = (allActions?.Data ?? new List<ActionOption>())
+                .Where(a => a.Category is not null && a.Category.Contains("Componente") && !compAllowedIds.Contains(a.Acatid));
+            AvailableComponents = new ObservableCollection<ActionOption>(matComps.Concat(oldComps));
 
             if (allMaterials?.Success == true && allMaterials.Data is not null)
             {
                 AvailableMaterials = new ObservableCollection<MaterialOptionItem>(
-                    allMaterials.Data.Where(m => !allowedMaterialIds.Contains(m.Mateid)));
+                    allMaterials.Data.Where(m => !allowedMaterialIds.Contains(m.Mateid) && m.Type != "Componente"));
             }
 
             IsEmpty = false;
@@ -225,7 +240,12 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
     {
         if (SelectedVehicle is null || SelectedComponent is null) return;
         if (IsBusy) return;
-        try { IsBusy = true; await _apiService.PostAsync<object>(ConfigUrl("/components"), new { acatid = SelectedComponent.Acatid }); }
+        try
+        {
+            IsBusy = true;
+            // Componente desde material: usa /materials con mateid
+            await _apiService.PostAsync<object>(ConfigUrl("/materials"), new { mateid = SelectedComponent.Acatid });
+        }
         catch (Exception ex) { HasError = true; ErrorMessage = ex.Message; }
         finally { IsBusy = false; await LoadConfig(); }
     }
@@ -235,7 +255,12 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
     {
         if (SelectedVehicle is null || component is null) return;
         if (IsBusy) return;
-        try { IsBusy = true; await _apiService.DeleteAsync(ConfigUrl($"/components/{component.Acatid}")); }
+        try
+        {
+            IsBusy = true;
+            // Componente desde material: usa /materials/{mateid}
+            await _apiService.DeleteAsync(ConfigUrl($"/materials/{component.Acatid}"));
+        }
         catch (Exception ex) { HasError = true; ErrorMessage = ex.Message; }
         finally { IsBusy = false; await LoadConfig(); }
     }
@@ -267,7 +292,7 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
     private async Task CreateComponent()
     {
         if (SelectedVehicle is null) return;
-        try { await Shell.Current.GoToAsync($"///ConfigVehicle/CreateComponent?prcoid={SelectedVehicle.Prcoid}&mvId={SelectedVehicle.MvId}"); }
+        try { await Shell.Current.GoToAsync($"///Inventory/CreateMaterial?type=Componente"); }
         catch (Exception ex) { HasError = true; ErrorMessage = $"Error: {ex.Message}"; }
     }
 
@@ -311,6 +336,7 @@ public partial class VehicleConfigViewModel : BaseViewModel, IQueryAttributable
         public int Mateid { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? UnitOfMeasure { get; set; }
+        public string Type { get; set; } = "Material";
         public override string ToString() => $"{Name} ({UnitOfMeasure})";
     }
 

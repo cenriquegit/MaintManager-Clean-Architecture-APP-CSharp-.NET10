@@ -37,6 +37,12 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
     [ObservableProperty]
     private ObservableCollection<LotItem> _lots = new();
 
+    [ObservableProperty]
+    private string _lastRatingDisplay = string.Empty;
+
+    [ObservableProperty]
+    private bool _hasRating;
+
     [RelayCommand]
     private async Task Load()
     {
@@ -50,6 +56,20 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
                 StockTotal = raw.Data.StockTotal;
                 StockMinimum = raw.Data.StockMinimum;
                 Title = raw.Data.Name;
+
+                if (raw.Data.LastRating is not null)
+                {
+                    HasRating = true;
+                    var rating = raw.Data.LastRating;
+                    var stars = new string('⭐', rating.Rating);
+                    var obs = string.IsNullOrWhiteSpace(rating.Observation) ? "" : $" — {rating.Observation}";
+                    LastRatingDisplay = $"{stars} {rating.Rating}/5{obs}";
+                }
+                else
+                {
+                    HasRating = false;
+                    LastRatingDisplay = "Sin calificaciones";
+                }
             }
 
             var lotsRaw = await _apiService.GetAsync<ApiResponse<List<LotDetailDto>>>($"api/v1/inventory/materials/{_mateid}/lots");
@@ -106,6 +126,14 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
         public string UnitOfMeasure { get; set; } = string.Empty;
         public decimal StockTotal { get; set; }
         public decimal StockMinimum { get; set; }
+        public MaterialRatingInfo? LastRating { get; set; }
+    }
+
+    public class MaterialRatingInfo
+    {
+        public short Rating { get; set; }
+        public string? Observation { get; set; }
+        public DateTime RatedAt { get; set; }
     }
 
     public class LotItem

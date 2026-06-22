@@ -2,7 +2,7 @@
 
 > **Proyecto:** MaintManager — Sistema de Gestión de Mantenimiento Vehicular con Business Intelligence
 > **Fecha del análisis:** 2026-05-13
-> **Última actualización:** 2026-06-05 (dashboard fix + reports directo)
+> **Última actualización:** 2026-06-21 (correcciones integrales + NeoCar)
 > **Analista:** Kilo (asistente IA)
 
 ---
@@ -577,3 +577,43 @@ FASE 10 — Dashboard restore + Reports directo     [✅ COMPLETADA]
 - **Alertas históricas:** Switch "Mostrar resueltas" en UI, carga `GET /api/v1/alerts/history`.
 - **Serilog:** Configurado en appsettings.Development.json pero no en Program.cs. Bug de configuración.
 - **Secuencias BD:** Reseteadas todas las secuencias del esquema `maintenance` tras seed data explícita.
+
+FASE 11 — Correcciones Integrales + Checklist + Unificación + NeoCar  [✅ COMPLETADA 2026-06-21]
+├── 11.1  Header card MaintenanceDetail rediseñado (Cancel→TitleView, spacing) ✅
+├── 11.2  Checklists reemplazan Pickers (RadioButton Sí/No, cantidad, origen, rating) ✅
+├── 11.3  KM inconsistencia corregida (VehicleRepository + MAX maintenance) ✅
+├── 11.4  Alternar servicio A/B desde historial (DetermineInitialServiceTypeAsync) ✅
+├── 11.5  SaveDiagnosis/AssignTechnician sin reload (checklists intactos) ✅
+├── 11.6  Dashboard summary SQL statid='FI' (tasa emergencia real 14.04%) ✅
+├── 11.7  BiReportService ORDER BY alias fix (CostPerKm, EmergencyRate) ✅
+├── 11.8  Compliance chart colores (Puntual/Anticipado/Tardío) ✅
+├── 11.9  Expiring lots nullable fix (DaysUntilExpiry.HasValue) ✅
+├── 11.10 KPI "Lotes por Vencer" en Home dashboard (5° KPI, grid 2x3) ✅
+├── 11.11 Paginación MaintenanceList (LoadMore, HasMorePages) ✅
+├── 11.12 VehicleHistory navegación desde Dashboard (TapGestureRecognizer) ✅
+├── 11.13 MaterialDetail lots display (GET /lots, LotItem fields) ✅
+├── 11.14 SupplierName en LotCreate ✅
+├── 11.15 Auto-fill material en LotCreate desde MaterialDetail ✅
+├── 11.16 CreateAction forzar categoría "Acción" ✅
+├── 11.17 Reasignar Técnico solo Admin (AuthService.IsAdmin) ✅
+├── 11.18 Emergencia Completa vs Parcial (DisplayActionSheet) ✅
+├── 11.19 Stock propio vs Externo (ConsumeRequest.Origin, picker) ✅
+├── 11.20 Agenda → Wizard pre-select vehicle (IQueryAttributable) ✅
+├── 11.21 Inventory tabs Materiales/Componentes ✅
+├── 11.22 CreateMaterial type selector (Material/Componente) ✅
+├── 11.23 VehicleConfig componentes desde materials API ✅
+├── 11.24 Material rating en checklist (⭐1-5 + comentario) ✅
+├── 11.25 MaterialDetail muestra última calificación ✅
+├── 11.26 Alertas títulos cortos informativos (AlertItem.ShortTitle) ✅
+├── 11.27 NeoCar rebranding (nombre, icono auto+agua, App ID) ✅
+├── 11.28 DB: type column en material (09_material_type.sql) ✅
+├── 11.29 DB: seed lotes expiring (10_seed_expiring_lots.sql) ✅
+└── 11.30 Documentación .md actualizada ✅
+
+### Bugs corregidos esta sesión: #92 al #102 (11 bugs)
+
+### Pendiente futuro
+- Diseño responsive dashboard (mobile screen optimization)
+- VehicleConfig componentes desde materials (parcial, usa hybrid)
+- Tema oscuro (RadioButtons placeholder)
+- Validación wizard pasos requeridos

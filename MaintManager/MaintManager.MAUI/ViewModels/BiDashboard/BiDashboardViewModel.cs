@@ -99,6 +99,9 @@ public partial class BiDashboardViewModel : BaseViewModel
     {
         await ExecuteAsync(async () =>
         {
+            var hasData = false;
+
+            // Dashboard summary
             try
             {
                 var summary = await _apiService.GetAsync<ApiResponse<DashboardSummaryDto>>(ApiRoutes.Reports.Dashboard);
@@ -113,49 +116,92 @@ public partial class BiDashboardViewModel : BaseViewModel
                     EmergencyRatePercent = $"{s.GlobalEmergencyRatePercent:F1}%";
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BiDashboard] Dashboard summary error: {ex.Message}");
+            }
 
+            // Cost per km
             try
             {
                 var cost = await _apiService.GetAsync<ApiResponse<List<CostPerKmDto>>>(ApiRoutes.Reports.CostPerKm);
-                if (cost?.Success == true && cost.Data is not null)
+                if (cost?.Success == true && cost.Data is { Count: > 0 })
+                {
                     BuildCostPerKmChart(cost.Data);
+                    hasData = true;
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BiDashboard] Cost per km error: {ex.Message}");
+            }
 
+            // Emergency rate
             try
             {
                 var emergency = await _apiService.GetAsync<ApiResponse<List<EmergencyRateDto>>>(ApiRoutes.Reports.EmergencyRate);
-                if (emergency?.Success == true && emergency.Data is not null)
+                if (emergency?.Success == true && emergency.Data is { Count: > 0 })
+                {
                     BuildEmergencyRateChart(emergency.Data);
+                    hasData = true;
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BiDashboard] Emergency rate error: {ex.Message}");
+            }
 
+            // Monthly cost
             try
             {
                 var monthly = await _apiService.GetAsync<ApiResponse<List<MonthlyCostDto>>>(ApiRoutes.Reports.MonthlyCost + "?months=6");
-                if (monthly?.Success == true && monthly.Data is not null)
+                if (monthly?.Success == true && monthly.Data is { Count: > 0 })
+                {
                     BuildMonthlyCostChart(monthly.Data);
+                    hasData = true;
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BiDashboard] Monthly cost error: {ex.Message}");
+            }
 
+            // Expiring lots
             try
             {
                 var lots = await _apiService.GetAsync<ApiResponse<List<ExpiringLotDto>>>(ApiRoutes.Inventory.GetExpiringLots + "?days=60");
-                if (lots?.Success == true && lots.Data is not null)
+                if (lots?.Success == true && lots.Data is { Count: > 0 })
+                {
                     BuildExpiringLotsChart(lots.Data);
+                    hasData = true;
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BiDashboard] Expiring lots error: {ex.Message}");
+            }
 
+            // Calendar compliance
             try
             {
                 var compliance = await _apiService.GetAsync<ApiResponse<List<ComplianceDto>>>(ApiRoutes.Reports.CalendarCompliance);
-                if (compliance?.Success == true && compliance.Data is not null)
+                if (compliance?.Success == true && compliance.Data is { Count: > 0 })
+                {
                     BuildComplianceChart(compliance.Data);
+                    hasData = true;
+                }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BiDashboard] Calendar compliance error: {ex.Message}");
+            }
 
-            IsEmpty = (CostPerKmSeries?.Length ?? 0) == 0 && (MonthlyCostSeries?.Length ?? 0) == 0;
+            IsEmpty = !hasData;
+            if (IsEmpty)
+            {
+                ErrorMessage = "No se encontraron datos para los gráficos. Verifica que haya mantenimientos finalizados.";
+                HasError = true;
+            }
         });
     }
 
@@ -278,9 +324,9 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     private void BuildExpiringLotsChart(List<ExpiringLotDto> data)
     {
-        var critical = data.Where(l => l.DaysUntilExpiry <= 7).Sum(l => (double)l.CurrentQuantity);
-        var warning = data.Where(l => l.DaysUntilExpiry > 7 && l.DaysUntilExpiry <= 30).Sum(l => (double)l.CurrentQuantity);
-        var normal = data.Where(l => l.DaysUntilExpiry > 30).Sum(l => (double)l.CurrentQuantity);
+        var critical = data.Where(l => l.DaysUntilExpiry.HasValue && l.DaysUntilExpiry <= 7).Sum(l => (double)l.CurrentQuantity);
+        var warning = data.Where(l => l.DaysUntilExpiry.HasValue && l.DaysUntilExpiry > 7 && l.DaysUntilExpiry <= 30).Sum(l => (double)l.CurrentQuantity);
+        var normal = data.Where(l => !l.DaysUntilExpiry.HasValue || l.DaysUntilExpiry > 30).Sum(l => (double)l.CurrentQuantity);
 
         ExpiringLotsSeries =
         [

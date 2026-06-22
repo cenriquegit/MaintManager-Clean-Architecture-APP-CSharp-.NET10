@@ -16,4 +16,9 @@ public partial class AlertItem
     public string LevelLabel => IsResolved ? "Resuelta" : IsRead ? "Leída" : "Nueva";
     public string LevelColor => IsResolved ? "#4CAF50" : IsRead ? "#2196F3" : "#FF9800";
     public string CreatedAtFormatted => $"Creada: {AlertDate:dd/MM/yyyy HH:mm}" + (ReadAt.HasValue ? $" · Leída: {ReadAt:dd/MM/yyyy HH:mm}" : "");
+
+    public string ShortTitle =>
+        !string.IsNullOrWhiteSpace(LicensePlate) ? $"{AlertType} — {LicensePlate}"
+        : !string.IsNullOrWhiteSpace(MaterialName) ? $"{AlertType} — {MaterialName}"
+        : AlertType;
 }

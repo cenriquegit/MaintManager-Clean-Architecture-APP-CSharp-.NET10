@@ -4,7 +4,8 @@ namespace MaintManager.Domain.Interfaces.Services;
 /// <summary>Contrato del servicio de gestión de inventario.</summary>
 public interface IInventoryService
 {
-    Task CreateMaterialAsync(short macaid, string name, string unit, decimal stockMin, int createdBy, CancellationToken ct = default);
+    Task CreateMaterialAsync(short macaid, string name, string unit, decimal stockMin, int createdBy,
+        string? type = "Material", CancellationToken ct = default);
     Task RegisterLotAsync(int mateid, decimal quantity, decimal unitCost, int createdBy,
         DateOnly? expirationDate, int? provid, string? supplierLot, CancellationToken ct = default);
 

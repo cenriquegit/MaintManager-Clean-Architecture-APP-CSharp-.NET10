@@ -1,6 +1,6 @@
 # Contexto de Sesión — MaintManager
 
-> Última actualización: 2026-06-07
+> Última actualización: 2026-06-21
 > Cargar este archivo al iniciar una nueva sesión de Kilo para restaurar el contexto completo.
 
 ---
@@ -56,7 +56,7 @@ MaintManager.sln
 | EF Core | 10.x | Con PostgreSQL (Npgsql) |
 | PostgreSQL | 16+ | BD en localhost:5432, DB: neoplus_maintenance |
 
-## 3. Bugs Corregidos (78 total)
+## 3. Bugs Corregidos (102 total)
 
 Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 
@@ -93,6 +93,17 @@ Ver `BUGS_HISTORY.md` para detalle completo. Resumen de los más críticos:
 | F7 | Endpoints DELETE items | 3 endpoints para acciones, materiales, componentes |
 | F8 | Diagnóstico campos completos | Picker GeneralStatus, Switch operative, Editor recommendations |
 | SD | Seed data componentes + materiales | action_catalog + material + lots nuevos |
+| 92 | KM actual incorrecto | VehicleManagementController + AgendaController + VehicleRepository |
+| 93 | Tipo servicio A/B siempre igual | SchedulingService + DetermineInitialServiceTypeAsync |
+| 94 | SaveDiagnosis borra checklists | MaintenanceDetailViewModel (sin await Load) |
+| 95 | Items mal clasificados (Acción/Componente) | CreateActionViewModel (Category solo "Acción") |
+| 96 | Dashboard summary KPI en cero | BiReportService (statid='FI' SQL directo) |
+| 97 | Gráficos BiDashboard vacíos | BiReportService (ORDER BY alias match) |
+| 98 | Gráfico expiring lots vacío | BiDashboardViewModel (DaysUntilExpiry.HasValue) |
+| 99 | InventoryListPage rota (Grid.Row) | InventoryListPage.xaml (Grid.Row fix) |
+| 100 | InventoryListViewModel corrupto | InventoryListViewModel.cs (reescrito) |
+| 101 | CreateMaterial siempre "Nuevo Material" | CreateMaterialViewModel (ApplyQueryAttributes type) |
+| 102 | Reasignar Técnico visible no-admin | MaintenanceDetailViewModel (AuthService.IsAdmin) |
 
 ## 4. Estado Actual del Proyecto
 
@@ -382,3 +393,105 @@ App: VehicleConfigService (mod), VehicleConfigResponse
 API: VehicleConfigController, VehicleManagementController, Program.cs (mod), MaintenancesController (mod), InventoryController (mod)
 MAUI: VehicleConfigPage/VM, VehicleManagementPage/VM, CreateVehiclePage/VM, CreateActionPage/VM, CreateComponentPage/VM, AppShell (mod), MauiProgram (mod)
 DB: 07_vehicle_config.sql, 08_managed_vehicle.sql
+
+## 12. Sesión 2026-06-21 — Correcciones Integrales + Checklist Redesign + Unificación Material/Componente + NeoCar Rebrand
+
+### Plan aplicado: `.kilo/plans/correcciones-integrales.md` (14 errores en 6 fases)
+
+### FASE 1 — Regresiones críticas
+| Error | Descripción | Fix |
+|-------|------------|-----|
+| 1-2 | Botón Cancelar duplicado y mal posicionado en MaintenanceDetailPage | Eliminado "Cancelar Orden" de DataTemplate, movido a `Shell.TitleView`. Botón "Cerrar Orden" duplicado eliminado. Grid bottom fix (2 cols). |
+
+### FASE 2 — Datos incorrectos
+| Error | Descripción | Fix |
+|-------|------------|-----|
+| 3 (Bug #92) | KM actual no considera mantenimientos cerrados | `VehicleManagementController.GetAll`: query adicional a Maintenances (statid='FI'), `Math.Max`. `AgendaController.GetCurrentKm`: mismo fix. `VehicleRepository.GetCurrentKmAsync`: `MAX(mileage, rentalKm, maintKm)`. |
+| 4 (Bug #93) | Tipo servicio A/B siempre sugiere el mismo | `SchedulingService.CreateScheduleAsync`: `DetermineInitialServiceTypeAsync` consulta último mantenimiento. |
+
+### FASE 3 — Funcionalidad faltante
+| Error | Descripción | Fix |
+|-------|------------|-----|
+| 5 | VehicleHistory sin acceso desde Dashboard | `HomeViewModel.VehicleCard` + `Prcoid`. `NavigateToVehicleHistoryCommand`. TapGestureRecognizer en HomePage. |
+| 6 | MaterialDetail no muestra lotes | `MaterialDetailViewModel.Load`: fetch `GET /inventory/materials/{id}/lots`. `LotItem` con Quantity, UnitCost, EntryDate, ExpirationDate. |
+| 7 | SupplierName ausente en LotCreate | `LotCreateRequest` + `Supername`. `LotCreateViewModel` + property. XAML + Entry. |
+| 8 | Auto-fill material al crear lote desde MaterialDetail | `LoadMaterials`: auto-select `_presetMateid`. `IsMaterialPreset` + `PresetMaterialName`. XAML: picker vs label fijo. |
+
+### FASE 4 — BI Dashboard fixes
+| Error | Descripción | Fix |
+|-------|------------|-----|
+| 9 (Bug #96) | Dashboard summary KPI en cero | `GetDashboardSummaryAsync`: SQL directo con statid='FI' (no vw_bi_dashboard_summary). |
+| 10 (Bug #97) | Gráficos CostPerKm y EmergencyRate vacíos | `ORDER BY` cambiado a `"CostPerKm"` y `"EmergencyRatePercent"` (matching alias). |
+| 11 | Compliance sin colores condicionales | `BuildComplianceChart`: color por barra (Puntual=verde, Anticipado=naranja, Tardío=rojo). Leyenda en XAML. |
+| 12 | KPI "Lotes por Vencer" no visible en Home | `HomeViewModel`: 5° KPI. `HomePage.xaml`: grid 2×3. |
+
+### FASE 5 — Rendimiento
+| Error | Descripción | Fix |
+|-------|------------|-----|
+| 13 | MaintenanceList sin paginación (siempre 50 items) | `MaintenanceListViewModel`: `LoadMoreCommand`, `HasMorePages`, `CurrentPage`, `IsLoadingMore`. XAML: botón "Cargar más..." en CollectionView.Footer. PageSize=30. |
+
+### FASE 6 — Build verification
+- API: 0 errores. MAUI: timeout normal en build.
+
+### Checklist Redesign (sustituye Pickers + botón "+")
+- **ViewModel**: `ActionChecklistItem`, `MaterialChecklistItem`, `ComponentChecklistItem` con `IsDone`/`IsNotDone` + `GroupKey` para RadioButtons mutuamente excluyentes. `PersistChecklistItemsAsync`: POST batch al cerrar orden.
+- **XAML**: 3 secciones con RadioButton "Sí"/"No". Materiales: campo cantidad + origen (Stock propio/Externo) + rating (⭐1-5) + comentario. Componentes: campo cantidad. ReadOnly mode: oculta RadioButtons, muestra ✅/— o ✅ 4.5 Litros.
+- Default: `IsNotDone = true`.
+
+### Emergencia Completa vs Parcial
+- `CloseOrder`: si es emergencia, `DisplayActionSheet` pregunta "¿Completa o Parcial?". Completa → recalendariza. Parcial → no.
+
+### Stock propio vs Externo
+- `ConsumeRequest` + `Origin`. `ConsumeStockFifoAsync` acepta `origin`. XAML: mini-picker "Stock propio"/"Externo".
+
+### Unificación Material/Componente (Opción B)
+- **DB**: `09_material_type.sql` → columna `type` en `maintenance.material` ('Material'/'Componente').
+- **Domain**: `Material.Type`, `Material.Create(type:)`.
+- **EF**: `InventoryConfiguration.cs` mapea `Type`.
+- **DTOs**: `MaterialListItem`, `MaterialResponse`, `MaterialItemDto`, `MaterialCreateRequest` + `Type`.
+- **API**: `InventoryController.GetMaterials` acepta `?type=`. `CreateMaterial` pasa `Type`.
+- **MAUI**: `InventoryListViewModel` + tabs `SelectedTab`. `CreateMaterialViewModel` + `SelectedType`. `VehicleConfigViewModel.LoadConfig`: componentes desde `?type=Componente`. `MaintenanceDetailViewModel.LoadComponentChecklistAsync`: carga desde materials API.
+- **Seed**: `10_seed_expiring_lots.sql` → 14 lotes con fechas variadas para visualizar gráfico.
+
+### Rating de materiales
+- `MaterialResponse` + `MaterialRatingInfo`. `InventoryMappings.ToResponse`: última calificación.
+- `MaterialChecklistItem` + `Rating`, `RatingComment`, `RatingOptions`. Picker ⭐1-5 + Entry comentario.
+- `PersistChecklistItemsAsync`: POST `/ratings` si Rating>0.
+- `MaterialDetailPage`: muestra `⭐⭐⭐ 3/5 — Buen rendimiento` o "Sin calificaciones".
+
+### Alertas — títulos informativos
+- `AlertItem.ShortTitle`: compone `"Stock Bajo — Aceite Motor 5W-30"` o `"Componente Próximo — VDG-361"`.
+
+### NeoCar Rebranding
+- **Nombre**: `ApplicationTitle` → NeoCar, `ApplicationId` → com.neocar.app.
+- **Icono**: Auto blanco con gotas de agua, fondo azul degradado, ruedas, faros.
+- **Splash**: Mismo auto.
+- **APK**: `adb install -r com.neocar.app-Signed.apk`.
+
+### Archivos nuevos/modificados clave esta sesión
+| Archivo | Cambio |
+|---------|--------|
+| `MaintenanceDetailPage.xaml` | Shell.TitleView Cancel button, checklist reemplaza pickers, header rediseño |
+| `MaintenanceDetailViewModel.cs` | Checklist items, rating, origin, PersistChecklistItemsAsync, AuthService |
+| `BiReportService.cs` | SQL directo statid='FI', ORDER BY fix |
+| `BiDashboardViewModel.cs` | Compliance colors, Debug.WriteLine, nullable fix |
+| `BiDashboardPage.xaml` | Compliance legend |
+| `InventoryListViewModel.cs` | Tabs, SwitchToMaterials/SwitchToComponents |
+| `InventoryListPage.xaml` | Tabs UI, Grid.Row fix, empty text dinámico |
+| `CreateMaterialViewModel.cs` | SelectedType, Title adaptativo, MaterialDetail.Type |
+| `CreateMaterialPage.xaml` | Type picker, labels genéricos |
+| `VehicleConfigViewModel.cs` | Componentes desde materials, Add/Remove usa /materials |
+| `MaintenanceWizardViewModel.cs` | IQueryAttributable, auto-select vehicle from Agenda |
+| `Material.cs` | Type field, Create(type:) |
+| `MaterialResponse.cs` | Type, MaterialRatingInfo |
+| `MaterialCreateRequest.cs` | Type |
+| `ConsumeRequest.cs` | Origin |
+| `IInventoryService.cs` / `InventoryService.cs` | CreateMaterialAsync(type:), ConsumeStockFifoAsync(origin:) |
+| `InventoryController.cs` | GetMaterials(?type=), CreateMaterial(Type) |
+| `AlertItem.cs` | ShortTitle |
+| `AlertListPage.xaml` | ShortTitle binding |
+| `MaterialItem.cs` (Model) | Type |
+| `09_material_type.sql` | ALTER TABLE material ADD type |
+| `10_seed_expiring_lots.sql` | Lotes con fechas variadas |
+| `.csproj` | NeoCar, com.neocar.app |
+| `appicon.svg`, `appiconfg.svg`, `splash.svg`, `icon.svg` | NeoCar icon |

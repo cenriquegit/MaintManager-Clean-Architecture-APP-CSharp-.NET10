@@ -7,7 +7,8 @@ public sealed record MaterialListItem(
     string UnitOfMeasure,
     decimal StockTotal,
     decimal StockMinimum,
-    bool IsBelowMinimum
+    bool IsBelowMinimum,
+    string Type = "Material"
 );
 
 /// <summary>Ingresar un nuevo lote de material.</summary>

@@ -17,9 +17,9 @@ public sealed class InventoryService : IInventoryService
 
     public async Task CreateMaterialAsync(
         short macaid, string name, string unit, decimal stockMin,
-        int createdBy, CancellationToken ct = default)
+        int createdBy, string? type = "Material", CancellationToken ct = default)
     {
-        var material = Material.Create(macaid, name, unit, stockMin, createdBy);
+        var material = Material.Create(macaid, name, unit, stockMin, createdBy, type: type ?? "Material");
         await _inventoryRepo.AddMaterialAsync(material, ct);
         await _inventoryRepo.SaveChangesAsync(ct);
     }

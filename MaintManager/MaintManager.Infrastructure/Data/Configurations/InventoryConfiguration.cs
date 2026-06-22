@@ -43,6 +43,7 @@ internal sealed class MaterialConfiguration : IEntityTypeConfiguration<Material>
 
         builder.Property(m => m.CreatedBy).HasColumnName("created_by").IsRequired();
         builder.Property(m => m.Status).HasColumnName("status").HasDefaultValue(true);
+        builder.Property(m => m.Type).HasColumnName("type").HasMaxLength(20).HasDefaultValue("Material").IsRequired();
         builder.HasOne(m => m.Category).WithMany(c => c.Materials).HasForeignKey(m => m.Macaid);
         builder.HasMany(m => m.Lots).WithOne(l => l.Material).HasForeignKey(l => l.Mateid);
         builder.HasIndex(m => m.Macaid).HasDatabaseName("idx_material_macaid");

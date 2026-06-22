@@ -9,4 +9,5 @@ public partial class MaterialItem
     public decimal StockMinimum { get; set; }
     public string UnitOfMeasure { get; set; } = string.Empty;
     public bool IsBelowMinimum { get; set; }
+    public string Type { get; set; } = "Material";
 }

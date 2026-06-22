@@ -2,7 +2,7 @@
 
 > **Propósito:** Todo el contexto necesario para retomar el proyecto exactamente donde se quedó.
 > **Leer:** 1) Este archivo → 2) KILO_SESSION_CONTEXT.md → 3) BUGS_HISTORY.md → 4) PROXIMOS_PASOS.md
-> **Fecha:** 2026-06-05
+> **Fecha:** 2026-06-21
 
 ---
 
@@ -71,4 +71,22 @@ REGLAS: No tocar LabelsRotation/LabelsPaint/DataLabels del dashboard.
 Siempre usar /// en Shell.GoToAsync.
 CloseOrder: new { IsEmergencyComplete = false }.
 Mega seed en database/ (04-08).
+```
+
+## Sesión 2026-06-21 — Resumen
+
+### Cambios principales
+- **Checklist Redesign**: Pickers + "+" reemplazados por RadioButtons Sí/No con cantidad, origen y rating.
+- **Unificación Material/Componente**: BD `type` column, inventory tabs, CreateMaterial type selector.
+- **BI Dashboard fix**: SQL queries statid='FI', ORDER BY alias match, nullable fix.
+- **NeoCar Rebrand**: Nombre, icono auto+agua, App ID.
+- **11 nuevos bugs corregidos** (#92-#102).
+
+### DB Migrations nuevas
+- `09_material_type.sql` → ALTER TABLE material ADD type
+- `10_seed_expiring_lots.sql` → Lotes con fechas variadas
+
+### APK
+```bash
+adb install -r bin/Release/net10.0-android/publish/com.neocar.app-Signed.apk
 ```

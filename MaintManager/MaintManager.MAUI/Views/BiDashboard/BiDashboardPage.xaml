@@ -122,7 +122,7 @@
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                             <Label Text="Top 10 vehículos con mayor costo operativo por km"
                                    FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
-                            <lvc:CartesianChart
+                             <lvc:CartesianChart
                                 Series="{Binding CostPerKmSeries}"
                                 XAxes="{Binding CostPerKmXAxes}"
                                 YAxes="{Binding CostPerKmYAxes}"

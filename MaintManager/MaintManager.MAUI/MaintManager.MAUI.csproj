@@ -18,10 +18,10 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>MaintManager.MAUI</ApplicationTitle>
+		<ApplicationTitle>NeoCar</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.maintmanager.maui</ApplicationId>
+		<ApplicationId>com.neocar.app</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>

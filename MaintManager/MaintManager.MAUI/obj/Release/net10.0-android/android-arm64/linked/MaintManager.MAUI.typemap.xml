@@ -1,5 +1,5 @@
-<api type="release" assembly-name="MaintManager.MAUI" mvid="720e7486938b42628cde4a2587b27de3">
-  <module assembly-name="MaintManager.MAUI" mvid="720e7486938b42628cde4a2587b27de3" mvid-bytes="hnQOcouTYkKM3kolh7J94w==">
+<api type="release" assembly-name="MaintManager.MAUI" mvid="e68833db79b34a2689dbb8bace39d910">
+  <module assembly-name="MaintManager.MAUI" mvid="e68833db79b34a2689dbb8bace39d910" mvid-bytes="2zOI5rN5JkqJ27i6zjnZEA==">
     <types-scratch>
       <entry key="crc64204ed1a538c1176e/MainActivity" java-name="crc64204ed1a538c1176e/MainActivity" managed-type-name="MaintManager.MAUI.MainActivity" token="33554469" />
       <entry key="crc64204ed1a538c1176e/MainApplication" java-name="crc64204ed1a538c1176e/MainApplication" managed-type-name="MaintManager.MAUI.MainApplication" token="33554470" />
