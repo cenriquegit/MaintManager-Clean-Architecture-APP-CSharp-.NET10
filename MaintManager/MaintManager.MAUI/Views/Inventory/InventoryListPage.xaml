@@ -172,6 +172,16 @@
                                                TextColor="{StaticResource ColorError}"/>
                                     </Border>
 
+                                    <!-- Badge lotes por vencer -->
+                                    <Border Grid.Row="0" Grid.Column="1"
+                                            IsVisible="{Binding HasExpiringLots}"
+                                            Style="{StaticResource BadgeWarning}"
+                                            Margin="0,24,0,0">
+                                        <Label Text="{Binding ExpiringLotsCount, StringFormat='{0} por vencer'}"
+                                               FontSize="10" FontAttributes="Bold"
+                                               TextColor="{StaticResource ColorWarning}"/>
+                                    </Border>
+
                                     <!-- Categoría -->
                                     <Label Grid.Row="1" Grid.ColumnSpan="2"
                                            Text="{Binding Category}"
@@ -219,7 +229,8 @@
         </RefreshView>
 
         <!-- Bottom sticky bar -->
-        <Border Grid.Row="4" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+        <Border Grid.Row="4" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10"
+                IsVisible="{Binding IsAdmin}">
             <Button Text="{Binding SelectedTab, StringFormat='Nuevo {0}'}"
                     Command="{Binding CreateMaterialCommand}"
                     BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"

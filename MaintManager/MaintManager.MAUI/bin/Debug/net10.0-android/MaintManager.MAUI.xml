@@ -1470,6 +1470,7 @@
             <inheritdoc/>
             <inheritdoc/>
             <inheritdoc/>
+            <inheritdoc/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.Vehicles">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel._vehicles"/>
@@ -1520,6 +1521,12 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.EditVehicleCommand">
             <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.EditVehicle(MaintManager.MAUI.ViewModels.VehicleManagement.ManagedVehicleItem)"/>.</summary>
+        </member>
+        <member name="F:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.navigateToHistoryCommand">
+            <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.NavigateToHistoryCommand"/>.</summary>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.NavigateToHistoryCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand`1"/> instance wrapping <see cref="M:MaintManager.MAUI.ViewModels.VehicleManagement.VehicleManagementViewModel.NavigateToHistory(MaintManager.MAUI.ViewModels.VehicleManagement.ManagedVehicleItem)"/>.</summary>
         </member>
         <member name="T:MaintManager.MAUI.Resource">
             <summary>

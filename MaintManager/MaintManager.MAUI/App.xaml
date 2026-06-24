@@ -125,6 +125,13 @@
                 <Setter Property="BackgroundColor" Value="{StaticResource ColorSuccessContainer}" />
             </Style>
 
+            <Style x:Key="BadgeWarning" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="0" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 99" />
+                <Setter Property="Padding" Value="8,3" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorWarningContainer}" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

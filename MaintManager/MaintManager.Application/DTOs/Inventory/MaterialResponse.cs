@@ -15,9 +15,8 @@ public sealed record MaterialResponse(
 );
 
 public sealed record MaterialRatingInfo(
-    short Rating,
-    string? Observation,
-    DateTime RatedAt
+    double? AverageRating,
+    int TotalRatings
 );
 
 /// <summary>Elemento simplificado para listados.</summary>

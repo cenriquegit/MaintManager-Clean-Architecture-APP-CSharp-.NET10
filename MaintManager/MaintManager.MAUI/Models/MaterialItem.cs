@@ -9,5 +9,7 @@ public partial class MaterialItem
     public decimal StockMinimum { get; set; }
     public string UnitOfMeasure { get; set; } = string.Empty;
     public bool IsBelowMinimum { get; set; }
+    public int ExpiringLotsCount { get; set; }
+    public bool HasExpiringLots => ExpiringLotsCount > 0;
     public string Type { get; set; } = "Material";
 }

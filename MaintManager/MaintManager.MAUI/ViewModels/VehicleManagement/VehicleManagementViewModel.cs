@@ -88,6 +88,18 @@ public partial class VehicleManagementViewModel : BaseViewModel
         catch (Exception ex) { HasError = true; ErrorMessage = $"Error al navegar: {ex.Message}"; }
     }
 
+    [RelayCommand]
+    private async Task NavigateToHistory(ManagedVehicleItem? vehicle)
+    {
+        if (vehicle is null) return;
+        try
+        {
+            var id = vehicle.Prcoid ?? vehicle.MvId;
+            await Shell.Current.GoToAsync($"///Maintenances/VehicleHistory?vehicleId={id}&vehicleName={Uri.EscapeDataString(vehicle.Display)}");
+        }
+        catch (Exception ex) { HasError = true; ErrorMessage = $"Error al navegar: {ex.Message}"; }
+    }
+
     public void OnAppearing()
     {
         LoadVehiclesCommand.Execute(null);

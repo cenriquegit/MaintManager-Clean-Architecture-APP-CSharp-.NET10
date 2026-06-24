@@ -9,10 +9,12 @@ namespace MaintManager.MAUI.ViewModels.Reports;
 public partial class ReportsViewModel : BaseViewModel
 {
     private readonly ApiService _apiService;
+    private readonly AuthService _authService;
 
-    public ReportsViewModel(ApiService apiService)
+    public ReportsViewModel(ApiService apiService, AuthService authService)
     {
         _apiService = apiService;
+        _authService = authService;
         Title = "Reportes";
 
         AvailableReports = new ObservableCollection<ReportItem>
@@ -66,6 +68,12 @@ public partial class ReportsViewModel : BaseViewModel
 
         if (reportType == "cost-per-km")
         {
+            if (!_authService.IsAdmin())
+            {
+                await Shell.Current.DisplayAlert("Acceso restringido", "Solo el administrador o jefe de mantenimiento puede generar este reporte.", "Aceptar");
+                return;
+            }
+
             await ExecuteAsync(async () =>
             {
                 var excelBytes = await _apiService.GetByteArrayAsync("api/v1/reports/cost-excel");

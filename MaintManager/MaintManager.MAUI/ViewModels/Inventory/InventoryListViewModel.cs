@@ -99,7 +99,8 @@ public partial class InventoryListViewModel : BaseViewModel
     {
         Shell.Current.FlyoutIsPresented = false;
         await Task.Delay(200);
-        await Shell.Current.GoToAsync("///Inventory/CreateMaterial");
+        var type = SelectedTab == "Componentes" ? "Componente" : "Material";
+        await Shell.Current.GoToAsync($"///Inventory/CreateMaterial?type={type}");
     }
 
     [RelayCommand]

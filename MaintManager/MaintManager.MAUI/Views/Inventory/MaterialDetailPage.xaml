@@ -22,7 +22,8 @@
                        FontSize="13"
                        TextColor="{StaticResource ColorTextSecondary}"
                        Margin="0,2,0,0"/>
-                <HorizontalStackLayout Spacing="8" Margin="0,4,0,0">
+                <HorizontalStackLayout Spacing="8" Margin="0,4,0,0"
+                                      IsVisible="{Binding IsAdmin}">
                     <Button Text="Editar" Command="{Binding EditMaterialCommand}" FontSize="12" HeightRequest="30"
                             BackgroundColor="{StaticResource ColorInfo}" TextColor="White" CornerRadius="6" Padding="8,0"/>
                     <Button Text="Eliminar" Command="{Binding DeleteMaterialCommand}" FontSize="12" HeightRequest="30"
@@ -84,7 +85,8 @@
             </CollectionView.EmptyView>
         </CollectionView>
 
-        <Border Grid.Row="2" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10">
+        <Border Grid.Row="2" BackgroundColor="#1A1A2E" StrokeThickness="0" Padding="16,10"
+                IsVisible="{Binding IsAdmin}">
             <Button Text="Nuevo lote" Command="{Binding NewLotCommand}"
                     BackgroundColor="#1565C0" TextColor="White" FontAttributes="Bold"
                     HeightRequest="46" CornerRadius="10" HorizontalOptions="Fill"/>

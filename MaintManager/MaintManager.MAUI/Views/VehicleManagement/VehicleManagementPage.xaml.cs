@@ -29,4 +29,10 @@ public partial class VehicleManagementPage : ContentPage
         if (sender is BindableObject bo && bo.BindingContext is ManagedVehicleItem item)
             _viewModel.ConfigVehicleCommand.Execute(item);
     }
+
+    private void OnHistoryTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is BindableObject bo && bo.BindingContext is ManagedVehicleItem item)
+            _viewModel.NavigateToHistoryCommand.Execute(item);
+    }
 }

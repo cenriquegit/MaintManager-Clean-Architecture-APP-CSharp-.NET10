@@ -5,13 +5,13 @@
     xmlns:vm="clr-namespace:MaintManager.MAUI.ViewModels.Inventory"
     x:Class="MaintManager.MAUI.Views.Inventory.CreateMaterialPage"
     x:DataType="vm:CreateMaterialViewModel"
-    Title="Nuevo Material"
+    Title="{Binding Title}"
     BackgroundColor="{StaticResource ColorBackground}">
 
     <ScrollView>
         <VerticalStackLayout Spacing="16" Padding="16">
 
-            <Label Text="Crear nuevo material"
+            <Label Text="{Binding SelectedType, StringFormat='Crear nuevo {0}'}"
                    FontSize="22" FontAttributes="Bold"
                    TextColor="{StaticResource ColorTextPrimary}"/>
 

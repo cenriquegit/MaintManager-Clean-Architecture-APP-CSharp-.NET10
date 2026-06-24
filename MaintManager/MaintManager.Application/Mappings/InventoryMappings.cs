@@ -15,6 +15,9 @@ public static class InventoryMappings
             StockTotal: m.StockTotal,
             StockMinimum: m.StockMinimum,
             IsBelowMinimum: m.IsBelowMinimum(),
+            ExpiringLotsCount: m.Lots.Count(l => l.LotStatus == "activo"
+                && l.ExpirationDate.HasValue
+                && l.ExpirationDate.Value <= DateOnly.FromDateTime(DateTime.UtcNow.AddDays(60))),
             Type: m.Type
         );
 
@@ -32,10 +35,11 @@ public static class InventoryMappings
                 .Where(l => l.LotStatus == "activo")
                 .Select(l => l.ToResponse())
                 .ToList(),
-            LastRating: m.Ratings
-                .OrderByDescending(r => r.RatedAt)
-                .Select(r => new MaterialRatingInfo(r.Rating, r.Observation, r.RatedAt))
-                .FirstOrDefault(),
+            LastRating: m.Ratings.Count > 0
+                ? new MaterialRatingInfo(
+                    AverageRating: Math.Round(m.Ratings.Average(r => (double)r.Rating), 1),
+                    TotalRatings: m.Ratings.Count)
+                : null,
             Type: m.Type
         );
 
@@ -70,6 +74,7 @@ public static class InventoryMappings
             IsRead: al.Read,
             IsResolved: al.Resolved,
             ReadAt: al.ReadAt,
+            ResolvedAt: al.ResolvedAt,
             Title: al.Message.Length > 60 ? al.Message[..57] + "..." : al.Message
         );
 }

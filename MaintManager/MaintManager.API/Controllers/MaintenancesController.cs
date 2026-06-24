@@ -53,7 +53,11 @@ public sealed class MaintenancesController : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<PagedResponse<MaintenanceListItem>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] PagedRequest paged, CancellationToken ct, [FromQuery] string? status = null)
     {
-        var pagedResult = await _maintenanceRepo.GetPagedListItemsAsync(paged.Page, paged.PageSize, status, ct);
+        var isAdmin = User.IsInRole(RoleNames.Admin);
+        var workid = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var assignedFilter = isAdmin ? (int?)null : workid;
+
+        var pagedResult = await _maintenanceRepo.GetPagedListItemsAsync(paged.Page, paged.PageSize, status, assignedFilter, ct);
     
         var response = new PagedResponse<MaintenanceListItem>
         {

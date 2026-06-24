@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MaintManager.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99546fe5dacc87bed3273ffee0cb4c03b306aca9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c080aa5dd001bcfc963d854dc0bf66cc4921501")]
 [assembly: System.Reflection.AssemblyProductAttribute("MaintManager.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MaintManager.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

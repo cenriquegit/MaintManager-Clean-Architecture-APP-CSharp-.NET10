@@ -63,7 +63,7 @@ public sealed class InventoryController : ControllerBase
                     .Where(m => m.Status && allowedIds.Contains(m.Mateid));
                 if (!string.IsNullOrWhiteSpace(type))
                     query = query.Where(m => m.Type == type);
-                materials = await query.Include(m => m.Category)
+                materials = await query.Include(m => m.Category).Include(m => m.Lots)
                     .OrderBy(m => m.Category!.Name).ThenBy(m => m.Name).ToListAsync(ct);
             }
             else
@@ -85,7 +85,7 @@ public sealed class InventoryController : ControllerBase
         var query = _context.Materials.AsNoTracking().Where(m => m.Status);
         if (!string.IsNullOrWhiteSpace(type))
             query = query.Where(m => m.Type == type);
-        return await query.Include(m => m.Category).OrderBy(m => m.Category!.Name).ThenBy(m => m.Name).ToListAsync(ct);
+        return await query.Include(m => m.Category).Include(m => m.Lots).OrderBy(m => m.Category!.Name).ThenBy(m => m.Name).ToListAsync(ct);
     }
 
     /// <summary>Obtener categorías de materiales.</summary>

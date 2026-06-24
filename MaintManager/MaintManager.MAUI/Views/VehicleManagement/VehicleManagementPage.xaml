@@ -60,6 +60,10 @@
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Column="1" Spacing="6">
+                                <Border StrokeShape="RoundRectangle 14" HeightRequest="28" WidthRequest="28" StrokeThickness="0" BackgroundColor="{StaticResource ColorSuccessContainer}">
+                                    <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnHistoryTapped"/></Border.GestureRecognizers>
+                                    <Label Text="📋" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ColorSuccess}"/>
+                                </Border>
                                 <Border StrokeShape="RoundRectangle 14" HeightRequest="28" WidthRequest="28" StrokeThickness="0" BackgroundColor="{StaticResource ColorInfoContainer}">
                                     <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnEditTapped"/></Border.GestureRecognizers>
                                     <Label Text="✏️" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource ColorInfo}"/>

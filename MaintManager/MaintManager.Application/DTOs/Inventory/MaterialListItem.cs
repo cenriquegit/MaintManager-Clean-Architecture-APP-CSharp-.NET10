@@ -8,6 +8,7 @@ public sealed record MaterialListItem(
     decimal StockTotal,
     decimal StockMinimum,
     bool IsBelowMinimum,
+    int ExpiringLotsCount,
     string Type = "Material"
 );
 

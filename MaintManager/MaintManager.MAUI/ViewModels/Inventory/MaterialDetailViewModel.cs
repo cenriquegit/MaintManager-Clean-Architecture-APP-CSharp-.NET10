@@ -57,13 +57,12 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
                 StockMinimum = raw.Data.StockMinimum;
                 Title = raw.Data.Name;
 
-                if (raw.Data.LastRating is not null)
+                if (raw.Data.LastRating is not null && raw.Data.LastRating.TotalRatings > 0)
                 {
                     HasRating = true;
                     var rating = raw.Data.LastRating;
-                    var stars = new string('⭐', rating.Rating);
-                    var obs = string.IsNullOrWhiteSpace(rating.Observation) ? "" : $" — {rating.Observation}";
-                    LastRatingDisplay = $"{stars} {rating.Rating}/5{obs}";
+                    var stars = new string('⭐', (int)Math.Round(rating.AverageRating ?? 0));
+                    LastRatingDisplay = $"{stars} {rating.AverageRating:F1}/5 ({rating.TotalRatings} calificaciones)";
                 }
                 else
                 {
@@ -131,9 +130,8 @@ public partial class MaterialDetailViewModel : BaseViewModel, IQueryAttributable
 
     public class MaterialRatingInfo
     {
-        public short Rating { get; set; }
-        public string? Observation { get; set; }
-        public DateTime RatedAt { get; set; }
+        public double? AverageRating { get; set; }
+        public int TotalRatings { get; set; }
     }
 
     public class LotItem

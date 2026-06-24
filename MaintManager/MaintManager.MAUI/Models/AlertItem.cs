@@ -8,6 +8,7 @@ public partial class AlertItem
     public string Message { get; set; } = string.Empty;
     public DateTime AlertDate { get; set; }
     public DateTime? ReadAt { get; set; }
+    public DateTime? ResolvedAt { get; set; }
     public string? LicensePlate { get; set; }
     public string? MaterialName { get; set; }
     public bool IsRead { get; set; }
@@ -15,7 +16,10 @@ public partial class AlertItem
 
     public string LevelLabel => IsResolved ? "Resuelta" : IsRead ? "Leída" : "Nueva";
     public string LevelColor => IsResolved ? "#4CAF50" : IsRead ? "#2196F3" : "#FF9800";
-    public string CreatedAtFormatted => $"Creada: {AlertDate:dd/MM/yyyy HH:mm}" + (ReadAt.HasValue ? $" · Leída: {ReadAt:dd/MM/yyyy HH:mm}" : "");
+    public string CreatedAtFormatted =>
+        $"Creada: {AlertDate:dd/MM/yyyy HH:mm}"
+        + (ReadAt.HasValue ? $" · Leída: {ReadAt:dd/MM/yyyy HH:mm}" : "")
+        + (ResolvedAt.HasValue ? $" · Resuelta: {ResolvedAt:dd/MM/yyyy HH:mm}" : "");
 
     public string ShortTitle =>
         !string.IsNullOrWhiteSpace(LicensePlate) ? $"{AlertType} — {LicensePlate}"

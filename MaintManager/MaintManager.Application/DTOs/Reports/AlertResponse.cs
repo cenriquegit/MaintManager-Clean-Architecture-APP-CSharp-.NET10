@@ -10,5 +10,6 @@ public sealed record AlertResponse(
     bool IsRead,
     bool IsResolved,
     DateTime? ReadAt,
+    DateTime? ResolvedAt,
     string? Title
 );
