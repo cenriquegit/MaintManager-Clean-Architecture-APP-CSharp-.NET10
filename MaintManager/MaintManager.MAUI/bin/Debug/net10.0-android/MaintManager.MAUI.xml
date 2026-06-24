@@ -283,6 +283,9 @@
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.CostPerKmYAxes">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._costPerKmYAxes"/>
         </member>
+        <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.CostPerKmHeight">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._costPerKmHeight"/>
+        </member>
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.EmergencyRateSeries">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._emergencyRateSeries"/>
         </member>
@@ -292,6 +295,9 @@
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.EmergencyRateYAxes">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._emergencyRateYAxes"/>
         </member>
+        <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.EmergencyRateHeight">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._emergencyRateHeight"/>
+        </member>
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.MonthlyCostSeries">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._monthlyCostSeries"/>
         </member>
@@ -300,6 +306,9 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.MonthlyCostYAxes">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._monthlyCostYAxes"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.MonthlyCostHeight">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._monthlyCostHeight"/>
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.ExpiringLotsSeries">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._expiringLotsSeries"/>
@@ -312,6 +321,9 @@
         </member>
         <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.ComplianceYAxes">
             <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._complianceYAxes"/>
+        </member>
+        <member name="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.ComplianceHeight">
+            <inheritdoc cref="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel._complianceHeight"/>
         </member>
         <member name="F:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.loadCommand">
             <summary>The backing field for <see cref="P:MaintManager.MAUI.ViewModels.BiDashboard.BiDashboardViewModel.LoadCommand"/>.</summary>
@@ -1605,6 +1617,9 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CostPerKmYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CostPerKmYAxes" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CostPerKmHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CostPerKmHeight" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EmergencyRateSeries">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "EmergencyRateSeries" generated properties.</summary>
         </member>
@@ -1614,6 +1629,9 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EmergencyRateYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "EmergencyRateYAxes" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EmergencyRateHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "EmergencyRateHeight" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MonthlyCostSeries">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MonthlyCostSeries" generated properties.</summary>
         </member>
@@ -1622,6 +1640,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MonthlyCostYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MonthlyCostYAxes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MonthlyCostHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "MonthlyCostHeight" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ExpiringLotsSeries">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ExpiringLotsSeries" generated properties.</summary>
@@ -1634,6 +1655,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ComplianceYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ComplianceYAxes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ComplianceHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ComplianceHeight" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Maintenances">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Maintenances" generated properties.</summary>
@@ -2109,6 +2133,9 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CostPerKmYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CostPerKmYAxes" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CostPerKmHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CostPerKmHeight" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EmergencyRateSeries">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "EmergencyRateSeries" generated properties.</summary>
         </member>
@@ -2118,6 +2145,9 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EmergencyRateYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "EmergencyRateYAxes" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EmergencyRateHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "EmergencyRateHeight" generated properties.</summary>
+        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MonthlyCostSeries">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MonthlyCostSeries" generated properties.</summary>
         </member>
@@ -2126,6 +2156,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MonthlyCostYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MonthlyCostYAxes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MonthlyCostHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "MonthlyCostHeight" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ExpiringLotsSeries">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ExpiringLotsSeries" generated properties.</summary>
@@ -2138,6 +2171,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ComplianceYAxes">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ComplianceYAxes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ComplianceHeight">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ComplianceHeight" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Maintenances">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Maintenances" generated properties.</summary>

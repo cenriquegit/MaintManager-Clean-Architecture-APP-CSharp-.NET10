@@ -126,7 +126,7 @@
                                 Series="{Binding CostPerKmSeries}"
                                 XAxes="{Binding CostPerKmXAxes}"
                                 YAxes="{Binding CostPerKmYAxes}"
-                                HeightRequest="220"
+                                HeightRequest="{Binding CostPerKmHeight}"
                                 ZoomMode="None"
                                 TooltipPosition="Top"/>
                         </VerticalStackLayout>
@@ -142,11 +142,11 @@
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                             <Label Text="Porcentaje de servicios de emergencia sobre el total"
                                    FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
-                            <lvc:CartesianChart
+                             <lvc:CartesianChart
                                 Series="{Binding EmergencyRateSeries}"
                                 XAxes="{Binding EmergencyRateXAxes}"
                                 YAxes="{Binding EmergencyRateYAxes}"
-                                HeightRequest="200"
+                                HeightRequest="{Binding EmergencyRateHeight}"
                                 ZoomMode="None"
                                 TooltipPosition="Top"/>
                         </VerticalStackLayout>
@@ -162,11 +162,11 @@
                                    TextColor="{StaticResource ColorTextPrimary}"/>
                             <Label Text="Últimos 6 meses"
                                    FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
-                            <lvc:CartesianChart
+                             <lvc:CartesianChart
                                 Series="{Binding MonthlyCostSeries}"
                                 XAxes="{Binding MonthlyCostXAxes}"
                                 YAxes="{Binding MonthlyCostYAxes}"
-                                HeightRequest="220"
+                                HeightRequest="300"
                                 ZoomMode="None"
                                 TooltipPosition="Top"/>
                         </VerticalStackLayout>
@@ -197,9 +197,9 @@
                             <Label Text="Desviación de Mantenimiento Programado"
                                    FontSize="16" FontAttributes="Bold"
                                    TextColor="{StaticResource ColorTextPrimary}"/>
-                            <Label Text="Top 10 vehículos con mayor desviación de km respecto al cronograma"
+                             <Label Text="Top 5 vehículos con mayor desviación de km respecto al cronograma"
                                    FontSize="12" TextColor="{StaticResource ColorTextSecondary}"/>
-                            <lvc:CartesianChart
+                             <lvc:CartesianChart
                                 Series="{Binding ComplianceSeries}"
                                 XAxes="{Binding ComplianceXAxes}"
                                 YAxes="{Binding ComplianceYAxes}"

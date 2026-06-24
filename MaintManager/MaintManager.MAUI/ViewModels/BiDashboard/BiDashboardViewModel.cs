@@ -51,6 +51,9 @@ public partial class BiDashboardViewModel : BaseViewModel
     [ObservableProperty]
     private Axis[]? _costPerKmYAxes;
 
+    [ObservableProperty]
+    private double _costPerKmHeight = 220;
+
     // Emergency rate chart
     [ObservableProperty]
     private ISeries[]? _emergencyRateSeries;
@@ -61,6 +64,9 @@ public partial class BiDashboardViewModel : BaseViewModel
     [ObservableProperty]
     private Axis[]? _emergencyRateYAxes;
 
+    [ObservableProperty]
+    private double _emergencyRateHeight = 200;
+
     // Monthly cost chart
     [ObservableProperty]
     private ISeries[]? _monthlyCostSeries;
@@ -70,6 +76,9 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     [ObservableProperty]
     private Axis[]? _monthlyCostYAxes;
+
+    [ObservableProperty]
+    private double _monthlyCostHeight = 220;
 
     // Expiring lots chart
     [ObservableProperty]
@@ -84,6 +93,9 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     [ObservableProperty]
     private Axis[]? _complianceYAxes;
+
+    [ObservableProperty]
+    private double _complianceHeight = 220;
 
     private static readonly SKColor Blue = SKColor.Parse("#1565C0");
     private static readonly SKColor Green = SKColor.Parse("#2E7D32");
@@ -209,17 +221,17 @@ public partial class BiDashboardViewModel : BaseViewModel
     {
         var ordered = data.OrderByDescending(d => d.CostPerKm).Take(10).ToList();
         var labels = ordered.Select(d => d.LicensePlate).ToArray();
-        var values = ordered.Select(d => (double)(d.CostPerKm * 1000m)).ToArray();
+        var values = ordered.Select(d => (double)d.CostPerKm).ToArray();
 
         CostPerKmSeries =
         [
-            new ColumnSeries<double>
+            new RowSeries<double>
             {
                 Values = values,
                 Name = "Costo por Km",
                 Stroke = new SolidColorPaint(Blue),
                 Fill = new SolidColorPaint(Blue),
-                MaxBarWidth = 24,
+                MaxBarWidth = 28,
             }
         ];
 
@@ -227,9 +239,9 @@ public partial class BiDashboardViewModel : BaseViewModel
         [
             new Axis
             {
-                Labels = labels,
-                LabelsRotation = -20,
-                TextSize = 10,
+                Name = "$/km",
+                TextSize = 12,
+                Labeler = v => $"${v:F3}",
             }
         ];
 
@@ -237,11 +249,14 @@ public partial class BiDashboardViewModel : BaseViewModel
         [
             new Axis
             {
-                Name = "$/1000km",
-                TextSize = 11,
-                Labeler = v => $"${v:F2}",
+                Labels = labels,
+                TextSize = 12,
+                MinStep = 1,
+                ForceStepToMin = true,
             }
         ];
+
+        CostPerKmHeight = 40 * values.Length;
     }
 
     private void BuildEmergencyRateChart(List<EmergencyRateDto> data)
@@ -258,7 +273,7 @@ public partial class BiDashboardViewModel : BaseViewModel
                 Name = "Tasa de Emergencia",
                 Stroke = new SolidColorPaint(Orange),
                 Fill = new SolidColorPaint(Orange),
-                MaxBarWidth = 20,
+                MaxBarWidth = 24,
             }
         ];
 
@@ -267,8 +282,8 @@ public partial class BiDashboardViewModel : BaseViewModel
             new Axis
             {
                 Name = "%",
-                TextSize = 10,
-                Labeler = v => $"{v:F0}%",
+                TextSize = 12,
+                Labeler = v => $"{v:F1}%",
             }
         ];
 
@@ -277,16 +292,29 @@ public partial class BiDashboardViewModel : BaseViewModel
             new Axis
             {
                 Labels = labels,
-                TextSize = 10,
+                TextSize = 12,
+                MinStep = 1,
+                ForceStepToMin = true,
             }
         ];
+
+        EmergencyRateHeight = 40 * values.Length;
     }
 
     private void BuildMonthlyCostChart(List<MonthlyCostDto> data)
     {
-        var ordered = data.OrderBy(d => d.Month).ToList();
-        var labels = ordered.Select(d => d.Month.ToString("MMM yy")).ToArray();
-        var values = ordered.Select(d => (double)d.MonthlyCost).ToArray();
+        var now = DateTime.Now;
+        var allMonths = Enumerable.Range(0, 6)
+            .Select(i => new DateTime(now.Year, now.Month, 1).AddMonths(-i))
+            .OrderBy(m => m)
+            .ToList();
+
+        var grouped = data
+            .GroupBy(d => new DateTime(d.Month.Year, d.Month.Month, 1))
+            .ToDictionary(g => g.Key, g => g.Sum(d => d.MonthlyCost));
+
+        var labels = allMonths.Select(m => m.ToString("MMM yy")).ToArray();
+        var values = allMonths.Select(m => (double)(grouped.TryGetValue(m, out var cost) ? cost : 0m)).ToArray();
 
         MonthlyCostSeries =
         [
@@ -306,8 +334,8 @@ public partial class BiDashboardViewModel : BaseViewModel
             new Axis
             {
                 Labels = labels,
-                LabelsRotation = -15,
-                TextSize = 11,
+                LabelsRotation = -30,
+                TextSize = 10,
             }
         ];
 
@@ -316,24 +344,26 @@ public partial class BiDashboardViewModel : BaseViewModel
             new Axis
             {
                 Name = "Costo ($)",
-                TextSize = 11,
+                TextSize = 12,
                 Labeler = v => $"${v:N0}",
             }
         ];
+
+        MonthlyCostHeight = Math.Max(300, 40 * values.Length);
     }
 
     private void BuildExpiringLotsChart(List<ExpiringLotDto> data)
     {
-        var critical = data.Where(l => l.DaysUntilExpiry.HasValue && l.DaysUntilExpiry <= 7).Sum(l => (double)l.CurrentQuantity);
-        var warning = data.Where(l => l.DaysUntilExpiry.HasValue && l.DaysUntilExpiry > 7 && l.DaysUntilExpiry <= 30).Sum(l => (double)l.CurrentQuantity);
-        var normal = data.Where(l => !l.DaysUntilExpiry.HasValue || l.DaysUntilExpiry > 30).Sum(l => (double)l.CurrentQuantity);
+        var critical = Math.Round(data.Where(l => l.DaysUntilExpiry.HasValue && l.DaysUntilExpiry <= 7).Sum(l => (double)l.CurrentQuantity));
+        var warning = Math.Round(data.Where(l => l.DaysUntilExpiry.HasValue && l.DaysUntilExpiry > 7 && l.DaysUntilExpiry <= 30).Sum(l => (double)l.CurrentQuantity));
+        var normal = Math.Round(data.Where(l => !l.DaysUntilExpiry.HasValue || l.DaysUntilExpiry > 30).Sum(l => (double)l.CurrentQuantity));
 
         ExpiringLotsSeries =
         [
             new PieSeries<double>
             {
                 Values = [critical],
-                Name = $"Crítico (=7d) — {critical:F0}",
+                Name = "Crítico (≤7d)",
                 Stroke = new SolidColorPaint(Red),
                 Fill = new SolidColorPaint(Red),
                 HoverPushout = 4,
@@ -341,7 +371,7 @@ public partial class BiDashboardViewModel : BaseViewModel
             new PieSeries<double>
             {
                 Values = [warning],
-                Name = $"Próximo (=30d) — {warning:F0}",
+                Name = "Próximo (≤30d)",
                 Stroke = new SolidColorPaint(Orange),
                 Fill = new SolidColorPaint(Orange),
                 HoverPushout = 4,
@@ -349,7 +379,7 @@ public partial class BiDashboardViewModel : BaseViewModel
             new PieSeries<double>
             {
                 Values = [normal],
-                Name = $"Normal (>30d) — {normal:F0}",
+                Name = "Normal (>30d)",
                 Stroke = new SolidColorPaint(Green),
                 Fill = new SolidColorPaint(Green),
                 HoverPushout = 4,
@@ -359,7 +389,7 @@ public partial class BiDashboardViewModel : BaseViewModel
 
     private void BuildComplianceChart(List<ComplianceDto> data)
     {
-        var topDeviations = data.OrderByDescending(d => Math.Abs(d.KmDeviation)).Take(10).ToList();
+        var topDeviations = data.OrderByDescending(d => Math.Abs(d.KmDeviation)).Take(5).ToList();
         var labels = topDeviations.Select(d => d.LicensePlate).ToArray();
 
         var seriesList = new List<ISeries>();
@@ -407,6 +437,8 @@ public partial class BiDashboardViewModel : BaseViewModel
                 TextSize = 11,
             }
         ];
+
+        ComplianceHeight = 40 * topDeviations.Count;
     }
 
     [RelayCommand]
